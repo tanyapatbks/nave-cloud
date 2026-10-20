@@ -77,7 +77,8 @@
     #f11-pay{position:absolute;left:0;top:600px;width:1920px;display:flex;justify-content:center;align-items:flex-start}
     .f11-col{flex:none;display:flex;flex-direction:column;align-items:center}
     .f11-word{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:58px;line-height:1.45;letter-spacing:0;color:#111111}
-    .f11-chip{display:block;margin-top:4px;padding:3px 22px 4px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;letter-spacing:0;white-space:nowrap}
+    /* round 6: chip text 32px, chip 50px tall (1.6 + 46.4 line box + 2), still centred under its word by the column */
+    .f11-chip{display:block;margin-top:4px;height:50px;box-sizing:border-box;padding:1.6px 22px 2px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;letter-spacing:0;white-space:nowrap}
     /* dots centred on the words' cap-height midpoint (y ~634); 17px side margins keep the row >= 60px off the columns */
     .f11-dot{flex:none;display:block;width:12px;height:12px;margin:40px 20px 0;border-radius:50%;background:#1e2bfa}
   </style>
@@ -191,36 +192,41 @@
       function untidyX(i) { return sgn(i, 3) * (2 + 5 * hash(i, 4)); }
       function untidyY(i) { return sgn(i, 5) * (2 + 5 * hash(i, 6)); }
 
-      // Scene 1 (0.0-2.2s): the archive wall fades in place, untidy and untagged, inside the 10->11
-      // blur-crossfade (local 0 = global 105.0 s); the scope outline self-draws around it.
+      // Scene 1 (0.0-2.4s): the archive wall fades in place, untidy and untagged, inside the 10->11
+      // blur-crossfade (local 0 = global 107.5 s); the scope outline self-draws around it.
       tl.fromTo("#f11-grid", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
       tl.fromTo("#f11-scope-reveal", { strokeDashoffset: 4160 }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 0.95);
       // Line 1 per phrase from 0.4s ("Digital Navy" in cobalt).
       tl.fromTo("#f11-l1 .f11-ph", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.3 }, 0.4);
 
-      // Scene 2 (2.2-4.4s): line 2 per phrase; "AI RAG EMBEDDING" de-emphasised grey, never struck through.
-      tl.fromTo("#f11-l2 .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.35 }, 2.0);
+      // Scene 2 (2.4-4.4s): line 2 per phrase; "AI RAG EMBEDDING" de-emphasised grey, never struck through.
+      tl.fromTo("#f11-l2 .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.35 }, 2.4);
 
-      // Scene 3 (4.4-7.0s): line 3 per phrase across its three authored lines.
-      tl.fromTo("#f11-l3a .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.25 }, 3.6);
-      tl.fromTo("#f11-l3b .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.3 }, 4.6);
-      tl.fromTo("#f11-l3c .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.3 }, 5.6);
+      // Scene 3 (4.4-7.6s): line 3 per phrase across its three authored lines (rows at 4.4 / 5.6 / 6.8s).
+      tl.fromTo("#f11-l3a .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.25 }, 4.4);
+      tl.fromTo("#f11-l3b .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.3 }, 5.6);
+      tl.fromTo("#f11-l3c .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.3 }, 6.8);
 
-      // Scene 4 (7.0-8.6s): the payoff words slide up one by one, cobalt dots between, Thai chips at 8.2s.
-      tl.fromTo("#f11-w1", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 8.0);
-      tl.fromTo("#f11-d1", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 8.25);
-      tl.fromTo("#f11-w2", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 8.4);
-      tl.fromTo("#f11-d2", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 8.65);
-      tl.fromTo("#f11-w3", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 8.8);
-      tl.fromTo("#f11-pay .f11-chip", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out", stagger: 0.05 }, 9.2);
+      // Scene 4 (9.6-11.1s): the payoff words slide up one by one, cobalt dots between, Thai chips at 10.8s.
+      tl.fromTo("#f11-w1", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 9.6);
+      tl.fromTo("#f11-d1", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 9.85);
+      tl.fromTo("#f11-w2", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 10.0);
+      tl.fromTo("#f11-d2", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 10.25);
+      tl.fromTo("#f11-w3", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 10.4);
+      tl.fromTo("#f11-pay .f11-chip", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out", stagger: 0.05 }, 10.8);
 
-      // As the first payoff word lands (7.0-7.8s) the wall settles, behind the plate, into the aligned grid
-      // (one smooth move, rippling out from the centre) and every tile gains its 4-dot tag badge. No text moves.
-      tl.fromTo("#f11-grid .f11-tile", { rotation: untidyRot, x: untidyX, y: untidyY }, { rotation: 0, x: 0, y: 0, duration: 0.6, ease: "power3.inOut", stagger: { amount: 0.2, grid: [4, 10], from: "center" } }, 8.0);
-      tl.fromTo("#f11-grid .f11-badge", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out", stagger: { amount: 0.2, grid: [4, 10], from: "center" } }, 8.2);
+      // As "Reliable" lands (9.6-10.4s) the wall settles, behind the veil, into the aligned grid
+      // (one smooth move, rippling out from the centre) and the tiles gain their 4-dot tag badges. No text moves.
+      // Round 6: the payoff band (x 340-1580, y 600-760) stays clear of tile marks: the row-3 badges (screen
+      // y ~681-688, between the payoff baseline and the chip tops) stay hidden, and from 9.6s the tile borders of
+      // rows 3-4 and the row-4 top kind bands (y ~719-722) drop to 5% of their opacity, to the end.
+      tl.fromTo("#f11-grid .f11-tile", { rotation: untidyRot, x: untidyX, y: untidyY }, { rotation: 0, x: 0, y: 0, duration: 0.6, ease: "power3.inOut", stagger: { amount: 0.2, grid: [4, 10], from: "center" } }, 9.6);
+      tl.fromTo("#f11-grid .f11-badge", { opacity: 0 }, { opacity: function (i) { return i >= 20 && i < 30 ? 0 : 1; }, duration: 0.4, ease: "power2.out", stagger: { amount: 0.2, grid: [4, 10], from: "center" } }, 9.8);
+      tl.fromTo("#f11-grid .f11-tile:nth-child(n+21)", { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,0.01)", duration: 0.6, ease: "power2.out" }, 9.6);
+      tl.fromTo("#f11-grid .f11-tile:nth-child(n+31) .f11-band", { opacity: 1 }, { opacity: 0.05, duration: 0.6, ease: "power2.out" }, 9.6);
 
-      // Scene 5 (8.6-14.0s): still hold; the film ends on this card (no fade-out).
-      tl.set({}, {}, 14);
+      // Scene 5 (11.1-17.0s): still hold; the film ends on this card (no fade-out).
+      tl.set({}, {}, 17);
 
       window.__timelines["11-close"] = tl;
     })();
