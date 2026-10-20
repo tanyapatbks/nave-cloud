@@ -397,6 +397,7 @@
             }
           } else if (mode !== "b") {
             mode = "b"; lastStep = -1;
+            o.gly.textContent = "";
             o.gly.style.opacity = "0"; o.bar.style.opacity = "1";
           }
           o.slot.style.transform = "rotateX(" + (90 - p * 90).toFixed(2) + "deg)";
