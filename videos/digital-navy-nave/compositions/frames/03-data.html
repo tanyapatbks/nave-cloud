@@ -1,0 +1,18 @@
+<template>
+  <style>
+    #root{position:absolute;inset:0;overflow:hidden}
+    #f03-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+  </style>
+  <div id="root" data-composition-id="03-data" data-width="1920" data-height="1080" data-duration="14">
+    <div id="f03-ground" class="clip" data-start="0" data-duration="14" data-track-index="0"></div>
+  </div>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      tl.set({}, {}, 13.5);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["03-data"] = tl;
+    })();
+  </script>
+</template>
