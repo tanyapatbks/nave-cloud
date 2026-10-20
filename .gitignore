@@ -9,3 +9,6 @@ videos/*/.hyperframes/artifacts/
 videos/*/renders/*.tmp*
 videos/*/renders/
 qa/review-*/
+videos/*/.hyperframes/history-id
+videos/*/.hyperframes/render-outputs.json
+videos/*/.hyperframes/video-state.json
