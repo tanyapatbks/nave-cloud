@@ -41,7 +41,7 @@
     #f01-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center;z-index:4;}
     #f01-hdr .f01-track{display:flex;gap:12px;}
     #f01-hdr .f01-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap;}
-    #f01-hdr .f01-cnum{display:inline-block;box-sizing:border-box;width:26px;height:26px;border-radius:50%;border:1.5px solid currentColor;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:15px;line-height:23px;text-align:center;vertical-align:-4px;}
+    #f01-hdr .f01-cnum{display:inline-block;box-sizing:border-box;width:26px;height:26px;border-radius:50%;border:1.5px solid currentColor;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:15px;line-height:23px;text-align:center;vertical-align:1px;}
   </style>
 
   <div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080" data-duration="9">
@@ -69,7 +69,7 @@
     (function () {
       var $ = function (id) { return document.getElementById(id); };
 
-      /* deterministic integer hash -> [0,1) (no Math.random) */
+      /* deterministic integer hash of (index, salt) -> [0,1) */
       function rnd(i, k) {
         var h = Math.imul(i + 1, 0x9e3779b1) ^ Math.imul(k + 7, 0x85ebca77);
         h = Math.imul(h ^ (h >>> 15), 0x2c1b3c6d);
@@ -237,8 +237,10 @@
       tl.fromTo("#f01-t" + HERO, { scale: 1 }, { scale: 1.05, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 4.6);
 
       /* eyebrow row: "120+" at 60px (scale 0.2727) + label at 32px (scale 0.615), shared baseline y=268 */
-      tl.fromTo("#f01-num", { x: 0, y: 0, scale: 1 }, { x: 0, y: -4.45, scale: 0.2727, duration: 0.75, ease: "expo.out" }, 4.6);
-      tl.fromTo("#f01-label", { x: 0, y: 0, scale: 1, color: "#111111" }, { x: 160, y: -216.5, scale: 0.615, color: "#6b6b6b", duration: 0.75, ease: "expo.out" }, 4.6);
+      /* the label's x leads and its rise lags a beat, so it slides in beside the numeral only once the numeral has shrunk out of that slot */
+      tl.fromTo("#f01-num", { x: 0, y: 0, scale: 1 }, { x: 0, y: -4.45, scale: 0.2727, duration: 0.6, ease: "expo.out" }, 4.6);
+      tl.fromTo("#f01-label", { x: 0 }, { x: 160, duration: 0.45, ease: "expo.out" }, 4.6);
+      tl.fromTo("#f01-label", { y: 0, scale: 1, color: "#111111" }, { y: -216.5, scale: 0.615, color: "#6b6b6b", duration: 0.75, ease: "expo.out" }, 4.68);
 
       var qEls = gsap.utils.toArray("#f01-q .f01-qp");
       var qTexts = qEls.map(function (e) { return e.id === "f01-rag" ? "RAG" : e.textContent; });

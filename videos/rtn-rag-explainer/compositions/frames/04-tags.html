@@ -178,8 +178,9 @@
       // svg-path-draw: dasharray = measured length, dashoffset length -> 0
       var draw = function (p, at, dur) {
         var len = measure(p);
-        p.style.strokeDasharray = len + " " + len;
-        tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: dur, ease: "power2.out" }, at);
+        // gap longer than the dash and start offset past it: no sub-pixel speck before the draw begins
+        p.style.strokeDasharray = len + " " + (len + 8);
+        tl.fromTo(p, { strokeDashoffset: len + 4 }, { strokeDashoffset: 0, duration: dur, ease: "power2.out" }, at);
       };
 
       // stamp: the mini badge presses into its slot (short smooth settle, no overshoot)

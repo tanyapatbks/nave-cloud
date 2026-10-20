@@ -1,0 +1,452 @@
+<template>
+  <style>
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+  </style>
+  <style>
+    #f02-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
+    #f02-hdr .f02-track{display:flex;gap:12px}
+    #f02-hdr .f02-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+    #f02-hdr .f02-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
+    #f02-hdr .f02-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
+    #f02-hdr .f02-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    #f02-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+    #f02-h2 .f02-line{display:block;white-space:nowrap}
+  </style>
+  <style>
+    #root{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"IBM Plex Sans Thai";color:#111111}
+    #f02-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+    .f02-ph{display:inline-block}
+
+    /* lanes: full-width strips, centres at y 390 / 560 / 730 */
+    .f02-lane{position:absolute;left:96px;width:1728px;height:152px}
+    #f02-lane1{top:314px}
+    #f02-lane2{top:484px}
+    #f02-lane3{top:654px}
+    .f02-frame{position:absolute;left:0;top:0;width:1728px;height:152px;border-radius:14px}
+    .f02-frame-off{border:1.5px solid rgba(30,43,250,0.12)}
+    .f02-frame-on{border:1.5px solid rgba(30,43,250,0.2)}
+    .f02-rule{position:absolute;left:22px;top:30px;width:4px;height:92px;border-radius:2px;background:#1e2bfa}
+
+    .f02-label{position:absolute;left:52px;top:0;height:152px;display:flex;align-items:center}
+    .f02-label .f02-line{display:block;white-space:nowrap;font-weight:600;font-size:36px;line-height:1.45;color:#111111}
+    .f02-res{position:absolute;left:1202px;top:0;height:152px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:8px}
+    .f02-res .f02-line{display:block;white-space:nowrap;font-weight:600;font-size:34px;line-height:1.45;color:#111111}
+    .f02-plus{color:#1e2bfa}
+    .f02-chip{display:block;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:6px 20px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;letter-spacing:0.02em}
+
+    .f02-abs{position:absolute;display:block}
+    .f02-abs > svg{display:block;overflow:visible}
+    .f02-tbg{fill:#f4f2e8;stroke:rgba(30,43,250,0.2);stroke-width:1.5}
+
+    .f02-arrow{position:absolute;left:688px;top:0;width:150px;height:152px;overflow:visible;z-index:3}
+    .f02-arrow path{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+    /* output cards (card-tinted, opaque equivalent of 4% cobalt on cream) */
+    .f02-card{position:absolute;left:0;top:0;width:300px;height:128px;border-radius:10px;background:#f4f2e8;border:1.5px solid rgba(30,43,250,0.2);transform-origin:50% 50%}
+    .f02-card > svg{position:absolute;left:0;top:0;display:block}
+    #f02-swap{left:854px;top:12px;width:300px;height:128px}
+    #f02-raw{z-index:1}
+    #f02-outline{z-index:2}
+    #f02-tree{fill:none;stroke:#1e2bfa;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+    /* lane 2: the read-out card */
+    #f02-read{left:854px;top:12px}
+    .f02-tline{position:absolute;left:14px;height:26px;display:flex;gap:12px;perspective:600px}
+    .f02-slot{position:relative;display:inline-block;height:26px;transform-origin:50% 100%;transform-style:preserve-3d}
+    .f02-gly{position:absolute;left:1px;top:0;height:26px;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:22px;line-height:26px;color:#6b6b6b;white-space:nowrap}
+    .f02-wbar{position:absolute;left:2px;right:4px;top:9px;height:9px;border-radius:3px;background:rgba(17,17,17,0.82)}
+    #f02-capimg{position:absolute;left:12px;top:100px;width:22px;height:20px}
+    #f02-cappill{position:absolute;left:42px;top:100px;width:204px;height:20px;border-radius:10px;background:rgba(30,43,250,0.08);transform-origin:0 50%}
+    #f02-capbar{position:absolute;left:10px;top:7px;width:150px;height:6px;border-radius:3px;background:#1e2bfa;opacity:0.75;transform-origin:0 50%}
+
+    /* lane 3: the clean table */
+    #f02-tbl{left:854px;top:12px;width:300px;height:128px;transform-origin:50% 50%}
+    .f02-val{position:absolute;left:124px;height:30px;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:22px;line-height:30px;color:#1e2bfa;white-space:nowrap}
+    #f02-links{position:absolute;left:0;top:0;overflow:visible}
+    #f02-links path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round}
+    .f02-fly{position:absolute;width:14px;border-radius:2px;background:#1e2bfa;z-index:6}
+  </style>
+
+  <div id="root" data-composition-id="02-ingest" data-start="0" data-duration="11" data-width="1920" data-height="1080">
+    <div id="f02-ground" class="clip" data-start="0" data-duration="11" data-track-index="0"></div>
+
+    <div id="f02-hdr">
+      <div class="f02-track"><span class="f02-pill is-current">① อ่านได้</span><span class="f02-pill">② ค้นเจอ</span><span class="f02-pill">③ ตามสิทธิ์</span></div>
+      <span class="f02-term">Ingestion Pipeline</span>
+    </div>
+
+    <div id="f02-h2"><span class="f02-line"><span class="f02-ph">ขั้นแรก:</span> <span class="f02-ph">ทำให้ AI</span> <span class="f02-ph">อ่านเอกสารได้</span></span></div>
+
+    <!-- ===== Lane 1 — PDF → structured outline ===== -->
+    <div class="f02-lane" id="f02-lane1">
+      <div class="f02-frame f02-frame-off"></div>
+      <div class="f02-frame f02-frame-on" id="f02-on1"></div>
+      <div class="f02-rule" id="f02-rule1"></div>
+      <div class="f02-label"><span class="f02-line"><span class="f02-ph" id="f02-l1a">เอกสาร PDF</span></span></div>
+
+      <div class="f02-abs" id="f02-pdfb" style="left:554px;top:6px;width:100px;height:128px">
+        <svg width="100" height="128" viewBox="0 0 100 128" aria-hidden="true">
+          <defs><clipPath id="f02-cp-pdfb"><rect x=".75" y=".75" width="98.5" height="126.5" rx="10"/></clipPath></defs>
+          <rect class="f02-tbg" x=".75" y=".75" width="98.5" height="126.5" rx="10"/>
+          <rect x="0" y="0" width="100" height="4.75" fill="#111111" clip-path="url(#f02-cp-pdfb)"/>
+          <rect x="10" y="20" width="40" height="5" rx="2" fill="#9a9a9a" opacity=".6"/>
+          <rect x="10" y="30" width="60" height="5" rx="2" fill="#9a9a9a" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="f02-abs" id="f02-pdf" style="left:572px;top:16px;width:100px;height:128px">
+        <svg width="100" height="128" viewBox="0 0 100 128" aria-hidden="true">
+          <defs><clipPath id="f02-cp-pdf"><rect x=".75" y=".75" width="98.5" height="126.5" rx="10"/></clipPath></defs>
+          <rect class="f02-tbg" x=".75" y=".75" width="98.5" height="126.5" rx="10"/>
+          <rect x="0" y="0" width="100" height="4.75" fill="#111111" clip-path="url(#f02-cp-pdf)"/>
+          <g fill="none" stroke="#111111" stroke-width="1.3" stroke-linejoin="round"><path d="M10 11H17L21 15V25H10Z"/><path d="M17 11V15H21"/></g>
+          <rect x="10" y="34" width="54" height="7" rx="2" fill="#111111" opacity=".72"/>
+          <rect x="10" y="47" width="78" height="5" rx="2" fill="#9a9a9a"/>
+          <rect x="10" y="56" width="72" height="5" rx="2" fill="#9a9a9a"/>
+          <rect x="10" y="65" width="58" height="5" rx="2" fill="#9a9a9a"/>
+          <rect x="10" y="78" width="44" height="7" rx="2" fill="#111111" opacity=".72"/>
+          <rect x="10" y="91" width="78" height="5" rx="2" fill="#9a9a9a"/>
+          <rect x="10" y="100" width="66" height="5" rx="2" fill="#9a9a9a"/>
+          <rect x="10" y="109" width="50" height="5" rx="2" fill="#9a9a9a"/>
+        </svg>
+      </div>
+
+      <svg class="f02-arrow" viewBox="0 0 150 152" aria-hidden="true"><path class="f02-draw" id="f02-ar1" d="M4 76H136"/><path class="f02-draw" id="f02-ah1" d="M126 66L138 76L126 86"/></svg>
+
+      <div class="f02-abs" id="f02-swap">
+        <div class="f02-card" id="f02-raw" data-layout-ignore>
+          <svg width="297" height="125" viewBox="0 0 297 125" aria-hidden="true">
+            <g fill="#9a9a9a">
+              <rect x="14" y="14" width="262" height="5" rx="2"/>
+              <rect x="14" y="28.5" width="236" height="5" rx="2"/>
+              <rect x="14" y="43" width="254" height="5" rx="2"/>
+              <rect x="14" y="57.5" width="224" height="5" rx="2"/>
+              <rect x="14" y="72" width="248" height="5" rx="2"/>
+              <rect x="14" y="86.5" width="198" height="5" rx="2"/>
+              <rect x="14" y="101" width="240" height="5" rx="2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="f02-card" id="f02-outline">
+          <svg width="297" height="125" viewBox="0 0 297 125" aria-hidden="true">
+            <path class="f02-draw" id="f02-tree" d="M20 17V97M20 17H32M20 57H32M20 97H32"/>
+            <g fill="#111111" opacity=".82">
+              <rect x="38" y="13" width="128" height="8" rx="2"/>
+              <rect x="38" y="53" width="108" height="8" rx="2"/>
+              <rect x="38" y="93" width="120" height="8" rx="2"/>
+            </g>
+            <g fill="#9a9a9a">
+              <rect x="56" y="29" width="170" height="5" rx="2"/>
+              <rect x="56" y="38" width="138" height="5" rx="2"/>
+              <rect x="56" y="69" width="176" height="5" rx="2"/>
+              <rect x="56" y="78" width="120" height="5" rx="2"/>
+              <rect x="56" y="109" width="150" height="5" rx="2"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="f02-res"><span class="f02-line"><span class="f02-ph" id="f02-r1a">ดึงข้อความ</span> <span class="f02-ph" id="f02-r1b"><span class="f02-plus">+</span> โครงสร้าง</span></span></div>
+    </div>
+
+    <!-- ===== Lane 2 — scans / images → machine reading ===== -->
+    <div class="f02-lane" id="f02-lane2">
+      <div class="f02-frame f02-frame-off"></div>
+      <div class="f02-frame f02-frame-on" id="f02-on2"></div>
+      <div class="f02-rule" id="f02-rule2"></div>
+      <div class="f02-label"><span class="f02-line"><span class="f02-ph" id="f02-l2a">ภาพสแกน</span> <span class="f02-ph" id="f02-l2b">/ รูปภาพ</span></span></div>
+
+      <div class="f02-abs" id="f02-scan" style="left:432px;top:12px;width:100px;height:128px">
+        <div style="transform:rotate(-4deg) skewX(-1.5deg);transform-origin:50% 50%">
+          <svg width="100" height="128" viewBox="0 0 100 128" aria-hidden="true">
+            <defs><clipPath id="f02-cp-scan"><rect x=".75" y=".75" width="98.5" height="126.5" rx="10"/></clipPath></defs>
+            <rect class="f02-tbg" x=".75" y=".75" width="98.5" height="126.5" rx="10"/>
+            <g clip-path="url(#f02-cp-scan)">
+              <rect x="0" y="0" width="100" height="128" fill="#9a9a9a" opacity=".07"/>
+              <rect x="0" y="0" width="10" height="128" fill="#6b6b6b" opacity=".1"/>
+              <rect x="0" y="0" width="100" height="4.75" fill="#6b6b6b"/>
+              <g id="f02-scan-noise"></g>
+            </g>
+            <path d="M10 15V11H14M18 11H22V15M22 19V23H18M14 23H10V19" fill="none" stroke="#6b6b6b" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="f02-abs" id="f02-photo" style="left:558px;top:34px;width:112px;height:84px">
+        <svg width="112" height="84" viewBox="0 0 112 84" aria-hidden="true">
+          <defs>
+            <clipPath id="f02-cp-photo"><rect x=".75" y=".75" width="110.5" height="82.5" rx="10"/></clipPath>
+            <clipPath id="f02-cp-pic"><rect x="8" y="12" width="96" height="64" rx="4"/></clipPath>
+          </defs>
+          <rect class="f02-tbg" x=".75" y=".75" width="110.5" height="82.5" rx="10"/>
+          <rect x="0" y="0" width="112" height="4.75" fill="rgba(30,43,250,0.4)" clip-path="url(#f02-cp-photo)"/>
+          <g clip-path="url(#f02-cp-pic)">
+            <rect x="8" y="12" width="96" height="64" fill="rgba(30,43,250,0.06)"/>
+            <circle cx="84" cy="30" r="7" fill="rgba(30,43,250,0.4)"/>
+            <path d="M8 76L38 42L58 62L72 50L104 76Z" fill="rgba(30,43,250,0.22)"/>
+            <path d="M8 76L28 60L50 76Z" fill="#9a9a9a" opacity=".45"/>
+          </g>
+        </svg>
+      </div>
+
+      <svg class="f02-arrow" viewBox="0 0 150 152" aria-hidden="true"><path class="f02-draw" id="f02-ar2" d="M4 76H136"/><path class="f02-draw" id="f02-ah2" d="M126 66L138 76L126 86"/></svg>
+
+      <div class="f02-abs f02-card" id="f02-read">
+        <div class="f02-tline" id="f02-tl1" style="top:10px"></div>
+        <div class="f02-tline" id="f02-tl2" style="top:39px"></div>
+        <div class="f02-tline" id="f02-tl3" style="top:68px"></div>
+        <svg id="f02-capimg" viewBox="0 0 22 20" aria-hidden="true"><rect x="1" y="2" width="20" height="16" rx="3" fill="none" stroke="#1e2bfa" stroke-width="1.5"/><path d="M3 16L9 9L13 13L16 11L19 16Z" fill="#1e2bfa" opacity=".55"/></svg>
+        <div id="f02-cappill"><div id="f02-capbar"></div></div>
+      </div>
+
+      <div class="f02-res">
+        <span class="f02-line"><span class="f02-ph" id="f02-r2a">อ่านตัวอักษร</span> <span class="f02-ph" id="f02-r2b"><span class="f02-plus">+</span> เข้าใจภาพ</span></span>
+        <span class="f02-chip" id="f02-chip2">OCR + Vision Models</span>
+      </div>
+    </div>
+
+    <!-- ===== Lane 3 — charts / tables → real numbers + relationships ===== -->
+    <div class="f02-lane" id="f02-lane3">
+      <div class="f02-frame f02-frame-off"></div>
+      <div class="f02-frame f02-frame-on" id="f02-on3"></div>
+      <div class="f02-rule" id="f02-rule3"></div>
+      <div class="f02-label"><span class="f02-line"><span class="f02-ph" id="f02-l3a">แผนภูมิ</span> <span class="f02-ph" id="f02-l3b">/ ตาราง</span></span></div>
+
+      <div class="f02-abs" id="f02-chart" style="left:412px;top:12px;width:124px;height:128px">
+        <svg width="124" height="128" viewBox="0 0 124 128" aria-hidden="true">
+          <defs><clipPath id="f02-cp-chart"><rect x=".75" y=".75" width="122.5" height="126.5" rx="10"/></clipPath></defs>
+          <rect class="f02-tbg" x=".75" y=".75" width="122.5" height="126.5" rx="10"/>
+          <rect x="0" y="0" width="124" height="4.75" fill="rgba(30,43,250,0.4)" clip-path="url(#f02-cp-chart)"/>
+          <g fill="rgba(30,43,250,0.55)"><rect x="10" y="19" width="3" height="6" rx="1"/><rect x="15" y="14" width="3" height="11" rx="1"/><rect x="20" y="17" width="3" height="8" rx="1"/></g>
+          <g stroke="rgba(30,43,250,0.12)" stroke-width="1"><path d="M16 72H110"/><path d="M16 92H110"/></g>
+          <path d="M16 40V112H110" fill="none" stroke="#9a9a9a" stroke-width="1.3"/>
+          <g fill="rgba(30,43,250,0.4)">
+            <rect x="24" y="72" width="14" height="40" rx="2"/>
+            <rect x="52" y="46" width="14" height="66" rx="2"/>
+            <rect x="80" y="62" width="14" height="50" rx="2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="f02-abs" id="f02-grid" style="left:552px;top:28px;width:116px;height:96px">
+        <svg width="116" height="96" viewBox="0 0 116 96" aria-hidden="true">
+          <defs><clipPath id="f02-cp-grid"><rect x=".75" y=".75" width="114.5" height="94.5" rx="10"/></clipPath></defs>
+          <rect class="f02-tbg" x=".75" y=".75" width="114.5" height="94.5" rx="10"/>
+          <rect x="0" y="0" width="116" height="4.75" fill="rgba(30,43,250,0.4)" clip-path="url(#f02-cp-grid)"/>
+          <g fill="none" stroke="rgba(30,43,250,0.55)" stroke-width="1.2"><rect x="10" y="11" width="12" height="10" rx="1.5"/><path d="M10 15H22M16 11V21"/></g>
+          <rect x="10" y="28" width="96" height="14" fill="rgba(30,43,250,0.08)"/>
+          <g fill="none" stroke="rgba(30,43,250,0.25)" stroke-width="1"><rect x="10" y="28" width="96" height="58" rx="2"/><path d="M10 42H106M10 56H106M10 70H106M42 28V86M74 28V86"/></g>
+          <g fill="#9a9a9a"><rect x="15" y="47" width="20" height="4" rx="1.5"/><rect x="47" y="47" width="18" height="4" rx="1.5"/><rect x="79" y="47" width="16" height="4" rx="1.5"/><rect x="15" y="61" width="16" height="4" rx="1.5"/><rect x="47" y="61" width="20" height="4" rx="1.5"/><rect x="79" y="61" width="18" height="4" rx="1.5"/><rect x="15" y="75" width="22" height="4" rx="1.5"/><rect x="47" y="75" width="14" height="4" rx="1.5"/><rect x="79" y="75" width="20" height="4" rx="1.5"/></g>
+        </svg>
+      </div>
+
+      <svg class="f02-arrow" viewBox="0 0 150 152" aria-hidden="true"><path class="f02-draw" id="f02-ar3" d="M4 76H136"/><path class="f02-draw" id="f02-ah3" d="M126 66L138 76L126 86"/></svg>
+
+      <div class="f02-abs" id="f02-tbl">
+        <svg width="300" height="128" viewBox="0 0 300 128" aria-hidden="true">
+          <defs><clipPath id="f02-cp-tbl"><rect x=".75" y=".75" width="298.5" height="126.5" rx="10"/></clipPath></defs>
+          <rect class="f02-tbg" x=".75" y=".75" width="298.5" height="126.5" rx="10"/>
+          <g clip-path="url(#f02-cp-tbl)">
+            <rect x="0" y="0" width="300" height="34" fill="rgba(30,43,250,0.08)"/>
+            <rect id="f02-rowhl" x="0" y="64.5" width="300" height="29.5" fill="rgba(30,43,250,0.08)"/>
+          </g>
+          <g stroke="rgba(30,43,250,0.15)" stroke-width="1"><path d="M0 34H300M0 64H300M0 94H300M110 0V128"/></g>
+          <g fill="#111111" opacity=".75"><rect x="16" y="13" width="46" height="8" rx="2"/><rect x="124" y="13" width="64" height="8" rx="2"/></g>
+          <rect id="f02-rl1" x="16" y="46" width="58" height="6" rx="2" fill="#9a9a9a"/>
+          <rect id="f02-rl2" x="16" y="76" width="70" height="6" rx="2" fill="#9a9a9a"/>
+          <rect id="f02-rl3" x="16" y="106" width="48" height="6" rx="2" fill="#9a9a9a"/>
+        </svg>
+        <span class="f02-val" id="f02-v1" style="top:34px">— figure —</span>
+        <span class="f02-val" id="f02-v2" style="top:64px">— figure —</span>
+        <span class="f02-val" id="f02-v3" style="top:94px">— figure —</span>
+        <svg id="f02-links" width="300" height="128" viewBox="0 0 300 128" aria-hidden="true">
+          <path class="f02-draw" id="f02-lkA" d="M96 79V17"/>
+          <path class="f02-draw" id="f02-lkB" d="M282 79V17"/>
+          <g fill="#1e2bfa"><circle id="f02-dA0" cx="96" cy="79" r="3.5"/><circle id="f02-dA1" cx="96" cy="17" r="3.5"/><circle id="f02-dB0" cx="282" cy="79" r="3.5"/><circle id="f02-dB1" cx="282" cy="17" r="3.5"/></g>
+        </svg>
+      </div>
+
+      <!-- the chart's bars, lifted off and carried into the table rows -->
+      <div class="f02-fly" id="f02-fly1" data-layout-ignore style="left:436px;top:84px;height:40px"></div>
+      <div class="f02-fly" id="f02-fly2" data-layout-ignore style="left:464px;top:58px;height:66px"></div>
+      <div class="f02-fly" id="f02-fly3" data-layout-ignore style="left:492px;top:74px;height:50px"></div>
+
+      <div class="f02-res"><span class="f02-line"><span class="f02-ph" id="f02-r3a">ดึงตัวเลขจริง</span> <span class="f02-ph" id="f02-r3b"><span class="f02-plus">+</span> ความสัมพันธ์</span></span></div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- deterministic scan noise (seeded, fixed) ----------
+      function f02Rand(a) {
+        return function () {
+          a |= 0; a = (a + 0x6d2b79f5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      (function buildScan() {
+        const rnd = f02Rand(2569);
+        let s = "";
+        for (let i = 0; i < 7; i++) {
+          const y = 34 + i * 11.5;
+          const end = i === 6 ? 62 : 88;
+          let x = 10 + rnd() * 2;
+          while (x < end - 8) {
+            const w = Math.min(end - x, 12 + rnd() * 24);
+            const dy = (rnd() - 0.5) * 2.4;
+            s += '<rect x="' + x.toFixed(1) + '" y="' + (y + dy).toFixed(1) + '" width="' + w.toFixed(1) +
+              '" height="' + (4 + rnd() * 1.8).toFixed(1) + '" rx="1.6" fill="#9a9a9a" opacity="' + (0.5 + rnd() * 0.4).toFixed(2) + '"/>';
+            x += w + 3 + rnd() * 4;
+          }
+        }
+        for (let i = 0; i < 95; i++) {
+          s += '<circle cx="' + (4 + rnd() * 92).toFixed(1) + '" cy="' + (8 + rnd() * 116).toFixed(1) + '" r="' +
+            (0.4 + rnd() * 1.1).toFixed(2) + '" fill="#6b6b6b" opacity="' + (0.22 + rnd() * 0.45).toFixed(2) + '"/>';
+        }
+        $("f02-scan-noise").innerHTML = s;
+      })();
+
+      // ---------- svg-path-draw prep: measured lengths ----------
+      document.querySelectorAll(".f02-draw").forEach((p) => {
+        let len = 0;
+        try { len = p.getTotalLength(); } catch (e) { len = 0; }
+        if (!(len > 0)) len = 140;
+        p.__f02len = len;
+        p.style.strokeDasharray = len + " " + (len + 20);
+        p.style.strokeDashoffset = String(len + 10);
+      });
+      const draw = (id, at, dur) => {
+        const p = $(id);
+        tl.fromTo(p, { strokeDashoffset: p.__f02len + 10 }, { strokeDashoffset: 0, duration: dur, ease: "power2.out" }, at);
+      };
+      const phrases = (sel, at) =>
+        tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.12 }, at);
+      const tileIn = (sel, at) =>
+        tl.fromTo(sel, { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, at);
+      const activate = (n, at) => {
+        tl.fromTo("#f02-on" + n, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, at);
+        tl.fromTo("#f02-rule" + n, { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power3.out" }, at);
+      };
+      const arrow = (n, at) => { draw("f02-ar" + n, at, 0.45); draw("f02-ah" + n, at + 0.33, 0.2); };
+
+      // ---------- Scene 1 (0.0–1.4): empty lanes + headline ----------
+      tl.fromTo(".f02-frame-off", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power1.out", stagger: 0.08 }, 0.05);
+      tl.fromTo("#f02-h2 .f02-ph", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.3);
+
+      // ---------- Scene 2 (1.4–4.2): lane 1, PDF → outline (scale-swap) ----------
+      activate(1, 1.4);
+      phrases("#f02-l1a", 1.45);
+      tileIn("#f02-pdfb", 1.65);
+      tileIn("#f02-pdf", 1.78);
+      arrow(1, 2.15);
+      // the page's content slides out of the page (outgoing state lands first)
+      tl.fromTo("#f02-raw", { opacity: 0, x: -40, scale: 0.92 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 2.45);
+      // swap: outgoing rushes away, incoming arrives with weight (OVERLAP 0.15)
+      tl.fromTo("#f02-raw", { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.72, duration: 0.35, ease: "power2.in", immediateRender: false }, 3.15);
+      tl.fromTo("#f02-outline", { opacity: 0, scale: 0.72 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 3.35);
+      draw("f02-tree", 3.75, 0.45);
+      phrases("#f02-r1a, #f02-r1b", 3.62);
+
+      // ---------- Scene 3 (4.2–7.0): lane 2, scan/photo → read (hacker-flip per word) ----------
+      activate(2, 4.2);
+      phrases("#f02-l2a, #f02-l2b", 4.25);
+      tileIn("#f02-scan", 4.45);
+      tileIn("#f02-photo", 4.6);
+      arrow(2, 4.95);
+      tl.fromTo("#f02-read", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, 5.2);
+
+      const GLYPHS = "#%&@*+=?<>/~$XKQZW";
+      const pseudoGlyph = (seed) => GLYPHS[Math.floor((((seed * 9301 + 49297) % 233280) / 233280) * GLYPHS.length)];
+      const WORDS = [[5, 7, 4], [6, 4, 6], [7, 5]]; // glyph counts per word, three lines
+      const slots = [];
+      WORDS.forEach((line, li) => {
+        const row = $("f02-tl" + (li + 1));
+        line.forEach((n) => {
+          const slot = document.createElement("span");
+          slot.className = "f02-slot";
+          slot.style.width = (n * 13.2 + 2).toFixed(1) + "px";
+          const bar = document.createElement("span"); // the clean word: target + width-reserving ghost
+          bar.className = "f02-wbar";
+          const gly = document.createElement("span");
+          gly.className = "f02-gly";
+          slot.appendChild(bar);
+          slot.appendChild(gly);
+          row.appendChild(slot);
+          slots.push({ slot: slot, bar: bar, gly: gly, n: n });
+        });
+      });
+      const FLIP = 0.8, STAG = 0.07, TH = 0.66, DEC_AT = 5.3;
+      slots.forEach((o, i) => {
+        let mode = "";
+        let lastStep = -1;
+        const paint = (p, lin) => {
+          if (p < TH) {
+            const step = Math.floor((lin * FLIP * 30) / 3); // one glyph swap every ~3 frames @30fps
+            if (mode !== "g") { mode = "g"; o.gly.style.opacity = "1"; o.bar.style.opacity = "0"; }
+            if (step !== lastStep) {
+              lastStep = step;
+              let txt = "";
+              for (let j = 0; j < o.n; j++) txt += pseudoGlyph((i * 16 + j) * 1000 + step * 7);
+              o.gly.textContent = txt;
+            }
+          } else if (mode !== "b") {
+            mode = "b"; lastStep = -1;
+            o.gly.style.opacity = "0"; o.bar.style.opacity = "1";
+          }
+          o.slot.style.transform = "rotateX(" + (90 - p * 90).toFixed(2) + "deg)";
+          o.slot.style.opacity = Math.min(1, p * 2).toFixed(3);
+        };
+        paint(0, 0);
+        const st = { p: 0 };
+        tl.fromTo(st, { p: 0 }, {
+          p: 1, duration: FLIP, ease: "power3.out",
+          onUpdate: function () { paint(st.p, this.progress()); },
+        }, DEC_AT + i * STAG);
+      });
+      tl.fromTo("#f02-capimg", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 6.15);
+      tl.fromTo("#f02-cappill", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 6.2);
+      tl.fromTo("#f02-capbar", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, 6.35);
+      phrases("#f02-r2a, #f02-r2b", 6.3);
+      tl.fromTo("#f02-chip2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 6.55);
+
+      // ---------- Scene 4 (7.0–9.6): lane 3, chart/table → clean table + relationships ----------
+      activate(3, 7.0);
+      phrases("#f02-l3a, #f02-l3b", 7.05);
+      tileIn("#f02-chart", 7.22);
+      tileIn("#f02-grid", 7.34);
+      arrow(3, 7.55);
+      tl.fromTo("#f02-tbl", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }, 7.8);
+      // bars light up, lift off the chart, rotate flat and land as table rows
+      const FLY = [{ dx: 601, dy: -43 }, { dx: 573, dy: 0 }, { dx: 545, dy: 22 }];
+      FLY.forEach((f, i) => {
+        const id = "#f02-fly" + (i + 1);
+        const lit = 7.85 + i * 0.08;
+        const go = 7.97 + i * 0.08;
+        const land = go + 0.7;
+        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, lit);
+        tl.fromTo(id, { x: 0, y: 0, rotation: 0 }, { x: f.dx, y: f.dy, rotation: 90, duration: 0.7, ease: "power2.inOut" }, go);
+        tl.fromTo(id, { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.out", immediateRender: false }, land);
+        tl.fromTo("#f02-rl" + (i + 1), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, land - 0.05);
+        tl.fromTo("#f02-v" + (i + 1), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, land - 0.05);
+      });
+      // relationships: row 2 linked to both column headers
+      tl.fromTo("#f02-rowhl", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 8.95);
+      tl.fromTo(["#f02-dA0", "#f02-dB0"], { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out", stagger: 0.08 }, 9.0);
+      draw("f02-lkA", 9.02, 0.35);
+      draw("f02-lkB", 9.1, 0.35);
+      tl.fromTo(["#f02-dA1", "#f02-dB1"], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out", stagger: 0.08 }, 9.33);
+      phrases("#f02-r3a, #f02-r3b", 8.9);
+
+      // ---------- Scene 5 (9.6–11.0): held read — nothing moves ----------
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["02-ingest"] = tl;
+    })();
+  </script>
+</template>

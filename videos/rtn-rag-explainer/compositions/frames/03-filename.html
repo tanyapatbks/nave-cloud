@@ -233,6 +233,7 @@
       var outline = $("#f03-doc-outline");
       var olen = measure(outline, 280);
       outline.style.strokeDasharray = olen + " " + olen;
+      tl.fromTo(outline, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none" }, SCENE3);
       tl.fromTo(outline, { strokeDashoffset: olen }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, SCENE3);
       tl.fromTo($$("#f03-doc .f03-doc-in"),
         { opacity: 0 },
