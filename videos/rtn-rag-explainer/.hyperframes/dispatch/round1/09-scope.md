@@ -16,3 +16,4 @@ Evidence (draft 1, old timing — global times there were pre-retime): still-09:
 
 - Also, per the global note, the 4-dot mini badges on your four object cards must match frame 04's badge exactly (open compositions/frames/04-tags.html AFTER its fixer may have changed it — if its badge markup differs from yours, copy its size, dot spacing and colour).
 - Type floor: English chips ('Identity', 'ACL', 'Docs', 'Chunks', 'Tree Nodes', 'Agent Tools') ≥ 28px.
+- Frame 04's fixer has finished. The canonical 4-dot badge (now defined in frame 04) is: pill 100×32px, radius 100px, box-sizing border-box; border 1.5px solid rgba(30,43,250,0.2); fill rgba(30,43,250,0.08); four solid #1e2bfa dots, 12px diameter, 8px gap (20px centre to centre), centred with flex (dots span 72px). Your `.f09-badge` (9px dots, 6px gap, 8px 12px padding) must change to this spec, and its `back.out` entrance ease must become expo.out/power3.out.
