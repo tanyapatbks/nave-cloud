@@ -318,16 +318,16 @@
       var S = 56 / 132;
       [
         ["#f06-g-k1", 1260, 341, 1672, 446, 8.40],
-        ["#f06-g-v1", 1260, 511, 1672, 446, 8.46],
-        ["#f06-g-k2", 1332, 341, 1664, 502, 8.52],
-        ["#f06-g-v4", 1476, 511, 1656, 558, 8.58]
+        ["#f06-g-k2", 1332, 341, 1664, 502, 8.40],
+        ["#f06-g-v1", 1260, 511, 1672, 446, 8.44],
+        ["#f06-g-v4", 1476, 511, 1656, 558, 8.44]
       ].forEach(function (g) {
         var el = $(g[0]);
-        tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.55, ease: P3 }, g[5]);
+        tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.5, ease: "expo.out" }, g[5]);
         tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: P2 }, g[5]);
       });
       /* doc 1 was found by both lanes: once both copies have landed it carries both markers */
-      tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: P3 }, 8.85);
+      tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: P3 }, 8.7);
 
       /* 9.9: the example document settles on top (continuity with frame 07); table and scan shift back one slot */
       tl.fromTo($("#f06-g-k2"), { x: 0, y: 0 }, { x: 8, y: -56, duration: 0.45, ease: IO3, immediateRender: false }, 9.9);

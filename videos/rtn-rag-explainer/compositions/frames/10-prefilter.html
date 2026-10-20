@@ -24,19 +24,20 @@
     #f10-h2 .f10-ph{display:inline-block}
 
     /* split stage: two equal tinted panels, flat (no tilt), no shadow */
-    /* no filter / blur anywhere on the panels: they stay sharp; Scene 4 scales them about the top edge */
+    /* no filter / blur anywhere on the panels: they stay sharp. They sit at their FINAL layout from 0s
+       (GSAP: scale 0.92 about the top edge + y -24 -> x 128-868 / 1052-1792, y 272-688); nothing resizes later */
     .f10-panel{position:absolute;top:296px;width:804px;height:452px;box-sizing:border-box;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04);transform-origin:50% 0%}
     #f10-L-panel{left:96px}
     #f10-R-panel{left:1020px}
     .f10-body{position:absolute;inset:0}
-    #f10-divider{position:absolute;left:959px;top:326px;width:2px;height:392px;border-radius:1px;background:rgba(30,43,250,0.2);transform-origin:50% 0%}
+    #f10-divider{position:absolute;left:959px;top:300px;width:2px;height:360px;border-radius:1px;background:rgba(30,43,250,0.2);transform-origin:50% 0%}
 
     /* inner-edge deny / allow labels (badge pop); marks drawn as inline SVG (35px so they stay >= 32px at 0.92) */
     .f10-label{position:absolute;top:-34px;display:flex;align-items:center;gap:10px;padding:8px 26px 8px 20px;border-radius:100px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:35px;line-height:1.45;white-space:nowrap;z-index:10}
     .f10-label span{display:block;white-space:nowrap}
     .f10-label svg{width:28px;height:28px;flex:none;fill:none;stroke:currentColor;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
     .f10-label-neg{right:28px;color:#b42318;background:#fde7e3;transform-origin:100% 50%}
-    .f10-label-pos{left:28px;color:#059669;background:linear-gradient(rgba(5,150,105,0.10),rgba(5,150,105,0.10)),#fdfae7;transform-origin:0% 50%}
+    .f10-label-pos{left:28px;color:#08573A;background:linear-gradient(rgba(5,150,105,0.10),rgba(5,150,105,0.10)),#fdfae7;transform-origin:0% 50%}
 
     /* document tiles (component 3, scaled to fit a 4x3 grid) */
     .f10-tile{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;overflow:hidden;z-index:1}
@@ -46,7 +47,7 @@
     .f10-band-img{background:rgba(30,43,250,0.4)}
     .f10-kind{position:absolute;left:8px;top:10px;width:14px;height:14px}
     .f10-ln{position:absolute;left:10px;height:6px;border-radius:3px;background:rgba(154,154,154,0.5)}
-    /* restricted lock: 32px solid #b42318 (same glyph at 16px on the residue chips) */
+    /* restricted lock: 32px solid #b42318 (closed; the residue chips carry an OPEN padlock instead) */
     .f10-lock{position:absolute;left:24px;top:60px;width:32px;height:32px}
     .f10-lk{display:block;width:32px;height:32px;overflow:visible}
     .f10-lk-sh{fill:none;stroke:#b42318;stroke-width:3;stroke-linecap:round}
@@ -54,21 +55,27 @@
     .f10-lk-k{fill:#fdfae7}
     .f10-hit{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid rgba(30,43,250,0.85);background:rgba(30,43,250,0.10);opacity:0}
     .f10-alarm{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid #b42318;opacity:0}
-    .f10-ghost{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:2px dashed #b42318;z-index:5;opacity:0;pointer-events:none}
-    .f10-ghost .f10-lock{left:23.5px;top:59.5px}
+    /* ghost of the filtered-out doc: a small dashed locked tile pinned over the box's top-right corner (48x61 local = 44x56 on screen) */
+    .f10-ghost{position:absolute;left:636px;top:114px;width:48px;height:61px;box-sizing:border-box;border-radius:8px;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;z-index:5;opacity:0;pointer-events:none}
+    .f10-ghost-ink{position:absolute;inset:0;box-sizing:border-box;border-radius:8px;border:2px dashed #b42318;opacity:0.55}
+    .f10-ghost .f10-lk{position:absolute;left:11px;top:17.5px;width:26px;height:26px;opacity:0.55}
+    /* residue trails: 2px red dots, self-drawn through masks (ghost -> each chip, then along the arrow into the AI node) */
+    .f10-trails{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:4;pointer-events:none}
+    .f10-trail{fill:none;stroke:#b42318;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0 6.5}
+    .f10-trail-mp{fill:none;stroke:#ffffff;stroke-width:10;stroke-dasharray:100;stroke-dashoffset:100}
     .f10-strike{position:absolute;left:0;top:0;width:100%;height:100%}
     .f10-strike path{fill:none;stroke:#b42318;stroke-width:4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
     .f10-slot{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px dashed rgba(30,43,250,0.25);z-index:0;opacity:0}
     #f10-L-t4,#f10-R-t7{z-index:6}
 
     /* candidates -> AI zone (wordless: tray, arrow, AI node) */
-    .f10-tray{position:absolute;left:444px;top:150px;width:192px;height:184px;box-sizing:border-box;border-radius:12px;border:1.5px dashed rgba(30,43,250,0.28);background:rgba(30,43,250,0.03);z-index:2}
+    .f10-tray{position:absolute;left:432px;top:138px;width:234px;height:208px;box-sizing:border-box;border-radius:12px;border:1.5px dashed rgba(30,43,250,0.28);background:rgba(30,43,250,0.03);z-index:2}
     .f10-tray-lit{position:absolute;inset:-1.5px;border-radius:12px;border:1.5px solid rgba(30,43,250,0.55);background:rgba(30,43,250,0.06);opacity:0}
     .f10-tray-lit.f10-tray-neg{border:2px solid #b42318;background:rgba(180,35,24,0.04)}
     .f10-flow{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:2;pointer-events:none}
     .f10-flow-ghost{fill:none;stroke:rgba(30,43,250,0.25);stroke-width:2;stroke-dasharray:4 6}
     .f10-flow-lit{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
-    .f10-ai{position:absolute;left:694px;top:212px;width:60px;height:60px;box-sizing:border-box;border-radius:50%;border:1.5px solid rgba(30,43,250,0.25);display:flex;align-items:center;justify-content:center;z-index:3}
+    .f10-ai{position:absolute;left:718px;top:212px;width:60px;height:60px;box-sizing:border-box;border-radius:50%;border:1.5px solid rgba(30,43,250,0.25);display:flex;align-items:center;justify-content:center;z-index:3}
     .f10-ai svg{width:28px;height:28px;fill:#9a9a9a}
     .f10-ai-lit{background:#1e2bfa;border-color:#1e2bfa;opacity:0}
     .f10-ai-lit svg{fill:#fdfae7}
@@ -80,10 +87,12 @@
     .f10-beam{position:absolute;left:0;top:0;width:70px;height:100%;background:linear-gradient(90deg,rgba(30,43,250,0) 0%,rgba(30,43,250,0.10) 55%,rgba(30,43,250,0.28) 95%,#1e2bfa 95%,#1e2bfa 100%);opacity:0}
 
     /* post-filter: filter bar + residue chips (negative, chip-sized only) */
-    #f10-filterbar{position:absolute;left:436px;top:143px;width:208px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
-    #f10-residue{position:absolute;left:444px;top:150px;width:192px;height:184px;box-sizing:border-box;padding-left:8px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-evenly;z-index:7;pointer-events:none}
-    .f10-res{display:flex;align-items:center;gap:5px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 11px 2px 9px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap}
-    .f10-res .f10-lk{width:16px;height:16px;flex:none}
+    #f10-filterbar{position:absolute;left:424px;top:131px;width:250px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
+    /* 18px local padding = 16px on screen between the chips and the red border */
+    #f10-residue{position:absolute;left:432px;top:138px;width:234px;height:208px;box-sizing:border-box;padding:18px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;z-index:7;pointer-events:none}
+    .f10-res{display:flex;align-items:center;gap:5px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 12px 2px 8px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap;transform-origin:100% 50%}
+    /* OPEN padlock (shackle raised and offset): the trace got out */
+    .f10-res .f10-lk-open{display:block;width:24px;height:24px;flex:none;overflow:visible}
 
     /* permission scope (component 4): dashed cobalt outline, self-drawn through a mask */
     .f10-scope{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:5;pointer-events:none}
@@ -124,17 +133,29 @@
           <div class="f10-tile f10-tile-L" id="f10-L-t11" data-col="3" style="left:326px;top:308px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:52px"></i><i class="f10-ln" style="top:50px;width:43px"></i><i class="f10-ln" style="top:64px;width:34px"></i><i class="f10-ln" style="top:78px;width:51px"></i><i class="f10-hit"></i></div>
           <div class="f10-tray" id="f10-L-tray"><i class="f10-tray-lit f10-tray-neg" id="f10-L-traylit"></i></div>
           <svg class="f10-flow" viewBox="0 0 804 460">
-            <path class="f10-flow-ghost" d="M646 242 H684"/>
-            <path class="f10-flow-lit" id="f10-L-arrow" d="M646 242 H684" pathLength="100"/>
-            <path class="f10-flow-lit" id="f10-L-head" d="M675 233 L685 242 L675 251" pathLength="100"/>
+            <path class="f10-flow-ghost" d="M674 242 H708"/>
+            <path class="f10-flow-lit" id="f10-L-arrow" d="M674 242 H708" pathLength="100"/>
+            <path class="f10-flow-lit" id="f10-L-head" d="M699 233 L709 242 L699 251" pathLength="100"/>
           </svg>
           <div class="f10-ai" id="f10-L-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
           <div class="f10-ai f10-ai-lit" id="f10-L-ailit"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
           <div class="f10-beamwrap" id="f10-L-beamwrap"><i class="f10-beam" id="f10-L-beam"></i></div>
           <i id="f10-filterbar"></i>
         </div>
-          <div class="f10-ghost" id="f10-L-ghost" style="left:550px;top:224px"><span class="f10-lock"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></span></div>
-          <div id="f10-residue"><span class="f10-res" id="f10-res-0"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/></svg><span>log</span></span><span class="f10-res" id="f10-res-1"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/></svg><span>จำนวนผล</span></span><span class="f10-res" id="f10-res-2"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/></svg><span>สรุป</span></span></div>
+          <svg class="f10-trails" viewBox="0 0 804 460" aria-hidden="true">
+            <defs>
+              <mask id="f10-trail-m0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d0" d="M652 168 C616 168 590 180.5 532 180.5" pathLength="100"/></mask>
+              <mask id="f10-trail-m1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d1" d="M646 160 V234 Q646 242 638 242 H614" pathLength="100"/></mask>
+              <mask id="f10-trail-m2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d2" d="M646 238 V295.6 Q646 303.6 638 303.6 H542" pathLength="100"/></mask>
+              <mask id="f10-trail-m3" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d3" d="M646 264 H731" pathLength="100"/></mask>
+            </defs>
+            <path class="f10-trail" d="M652 168 C616 168 590 180.5 532 180.5" mask="url(#f10-trail-m0)"/>
+            <path class="f10-trail" d="M646 160 V234 Q646 242 638 242 H614" mask="url(#f10-trail-m1)"/>
+            <path class="f10-trail" d="M646 238 V295.6 Q646 303.6 638 303.6 H542" mask="url(#f10-trail-m2)"/>
+            <path class="f10-trail" d="M646 264 H727" mask="url(#f10-trail-m3)"/>
+          </svg>
+          <div class="f10-ghost" id="f10-L-ghost"><i class="f10-ghost-ink"></i><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></div>
+          <div id="f10-residue"><span class="f10-res" id="f10-res-0"><svg class="f10-lk-open" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>log</span></span><span class="f10-res" id="f10-res-1"><svg class="f10-lk-open" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>จำนวนผล</span></span><span class="f10-res" id="f10-res-2"><svg class="f10-lk-open" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>สรุป</span></span></div>
         <div class="f10-label f10-label-neg" id="f10-L-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5"/></svg><span>ค้นทั้งคลัง แล้วค่อยกรอง</span></div>
       </div>
 
@@ -155,9 +176,9 @@
           <div class="f10-tile f10-tile-R" id="f10-R-t11" data-col="3" style="left:326px;top:308px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:52px"></i><i class="f10-ln" style="top:50px;width:43px"></i><i class="f10-ln" style="top:64px;width:34px"></i><i class="f10-ln" style="top:78px;width:51px"></i><i class="f10-hit"></i></div>
           <div class="f10-tray" id="f10-R-tray"><i class="f10-tray-lit" id="f10-R-traylit"></i></div>
           <svg class="f10-flow" viewBox="0 0 804 460">
-            <path class="f10-flow-ghost" d="M646 242 H684"/>
-            <path class="f10-flow-lit" id="f10-R-arrow" d="M646 242 H684" pathLength="100"/>
-            <path class="f10-flow-lit" id="f10-R-head" d="M675 233 L685 242 L675 251" pathLength="100"/>
+            <path class="f10-flow-ghost" d="M674 242 H708"/>
+            <path class="f10-flow-lit" id="f10-R-arrow" d="M674 242 H708" pathLength="100"/>
+            <path class="f10-flow-lit" id="f10-R-head" d="M699 233 L709 242 L699 251" pathLength="100"/>
           </svg>
           <div class="f10-ai" id="f10-R-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
           <div class="f10-ai f10-ai-lit" id="f10-R-ailit"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>

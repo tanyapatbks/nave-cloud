@@ -142,6 +142,10 @@
 
       // geometry (px, 1920x1080)
       var PITCH = 68, GAP = 48;            // GAP: rows 4-8 open a gap centred on the cut line (y 522)
+      var PILE = 4;                        // pile layer offset (px), back layers step up-right like the 06 stack
+      var LIFT_X = 18;                     // lifted rows step right while they travel (lift, not at rest)
+      var SH_UP = "0px 6px 16px 0px rgba(17,17,17,0.18)";
+      var SH_REST = "0px 0px 0px 0px rgba(17,17,17,0)";
 
       var rows = all(".f07-row");
       var scores = rows.map(function (r) { return Number(r.getAttribute("data-score")); });
@@ -151,43 +155,72 @@
       });
       var rank = [];
       order.forEach(function (idx, k) { rank[idx] = k; });
-      rows.forEach(function (r, i) { r.style.zIndex = String(20 - rank[i]); });
       var sortedY = function (i) { return (rank[i] - i) * PITCH; };
+      var winners = order.slice(0, 3);
+      var others = order.slice(3);
+
+      // stacking = pile layer order (0 = front): winners on top in rank order, then the other five.
+      // Winners therefore stay above every other row while they are lifted and travel.
+      var layer = [];
+      winners.concat(others).forEach(function (idx, k) { layer[idx] = k; });
+      rows.forEach(function (r, i) { r.style.zIndex = String(20 - layer[i]); });   // 20..13, under the cut line (25)
 
       var tl = gsap.timeline({ paused: true });
 
-      // ---- Scene 1 (0.0-1.0): rows arrive unsorted; headline per phrase; example row marked from 0.8 ----
-      tl.fromTo(rows, { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out", stagger: 0.06 }, 0.1);
+      // ---- Scene 1 (0.0-1.0): the merged results arrive as ONE pile at row 1's slot (x 96-776, y 300-356),
+      //      then are dealt down to their slots 0.4-1.0 (0.07 s stagger, farthest slot first so no two cross) ----
+      rows.forEach(function (r, i) {
+        var k = layer[i];
+        var at = 0.4 + (rows.length - 1 - i) * 0.07;
+        tl.fromTo(r, { x: PILE * k, y: -i * PITCH - PILE * k }, { x: 0, y: 0, duration: 0.34, ease: "power3.out" }, at);
+      });
       tl.fromTo(all("#f07-h2 .f07-ph"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 0.3);
       tl.fromTo(".f07-exrow .f07-hl", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.8);
 
-      // ---- Scene 2 (1.0-2.2): relevance fills (stat-bars-and-fills), then one 1.0s re-sort ----
+      // ---- Scene 2 (1.0-3.0): relevance fills (stat-bars-and-fills), then the re-sort:
+      //      the three winners first, one at a time (0.15 s stagger), each lifted (step right + shadow,
+      //      above all rows) while it travels; then the other five settle below. Shadow only during the move. ----
       rows.forEach(function (r, i) {
         tl.fromTo(r.querySelector(".f07-fill"), { scaleX: 0 }, { scaleX: scores[i], duration: 0.35, ease: "power2.out" }, 1.0 + i * 0.015);
       });
-      rows.forEach(function (r, i) {
-        tl.fromTo(r, { y: 0 }, { y: sortedY(i), duration: 1.0, ease: "power3.inOut", immediateRender: false }, 1.2);
+      var MOVE = 0.85;
+      winners.forEach(function (idx, k) {
+        var r = rows[idx], at = 1.35 + k * 0.15;
+        tl.fromTo(r, { x: 0, boxShadow: SH_REST }, { x: LIFT_X, boxShadow: SH_UP, duration: 0.2, ease: "power2.out", immediateRender: false }, at);
+        tl.fromTo(r, { y: 0 }, { y: sortedY(idx), duration: MOVE, ease: "power3.inOut", immediateRender: false }, at);
+        tl.fromTo(r, { x: LIFT_X, boxShadow: SH_UP }, { x: 0, boxShadow: SH_REST, duration: 0.25, ease: "power2.inOut", immediateRender: false }, at + MOVE);
+      });
+      others.forEach(function (idx) {
+        tl.fromTo(rows[idx], { y: 0 }, { y: sortedY(idx), duration: MOVE, ease: "power3.inOut", immediateRender: false }, 1.65);
       });
 
-      // ---- Scene 3 (2.2-3.0): rows 4-8 open a gap, the cut line draws into it, "Top 3" pops, rows 4-8 dim (no blur) ----
-      rows.forEach(function (r, i) {
-        if (rank[i] < 3) return;
-        tl.fromTo(r, { y: sortedY(i) }, { y: sortedY(i) + GAP, duration: 0.25, ease: "power2.inOut", immediateRender: false }, 2.2);
-        tl.fromTo(r, { opacity: 1 }, { opacity: 0.35, duration: 0.5, ease: "power2.inOut", immediateRender: false }, 2.5);
+      // ---- Scene 3 (2.85-3.8): rows 4-8 open a gap, the cut line draws into it with "Top 3" (3.2), rows 4-8 dim (no blur) ----
+      others.forEach(function (idx) {
+        var r = rows[idx];
+        tl.fromTo(r, { y: sortedY(idx) }, { y: sortedY(idx) + GAP, duration: 0.25, ease: "power2.inOut", immediateRender: false }, 2.85);
+        tl.fromTo(r, { opacity: 1 }, { opacity: 0.35, duration: 0.5, ease: "power2.inOut", immediateRender: false }, 3.3);
       });
-      tl.fromTo("#f07-cutline", { strokeDashoffset: 692 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 2.42);
-      tl.fromTo("#f07-top3", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 2.6);
+      tl.fromTo("#f07-cutline", { strokeDashoffset: 692 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 3.2);
+      tl.fromTo("#f07-top3", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 3.2);
 
-      // ---- Scene 4 (3.0-8.0): top three stay filled in place; arrow -> card -> LLM chip -> answer -> citation ----
-      tl.fromTo("#f07-arrline", { strokeDashoffset: 35 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 3.0);
-      tl.fromTo("#f07-arrhead", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 3.14);
-      tl.fromTo("#f07-card", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 3.2);
-      tl.fromTo("#f07-llm", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 3.4);
-      tl.fromTo("#f07-card .f07-spark", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.8);
-      tl.fromTo(all("#f07-card .f07-aph"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.12 }, 3.8);
-      tl.fromTo(all("#f07-card .f07-sk"), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out", stagger: 0.1 }, 4.0);
-      tl.fromTo("#f07-cite", { opacity: 0, y: 10, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out" }, 4.3);
-      // hold still from 4.6s to the end of the 8.5s slot
+      // ---- Scene 4 (3.6-8.0): top three stay filled in place; arrow -> card -> LLM chip (4.0) -> answer (4.4) -> citation (4.9) ----
+      tl.fromTo("#f07-arrline", { strokeDashoffset: 35 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 3.6);
+      tl.fromTo("#f07-arrhead", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 3.74);
+      tl.fromTo("#f07-card", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 3.75);
+      tl.fromTo("#f07-llm", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 4.0);
+      tl.fromTo("#f07-card .f07-spark", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 4.4);
+      tl.fromTo(all("#f07-card .f07-aph"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.12 }, 4.4);
+      tl.fromTo(all("#f07-card .f07-sk"), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out", stagger: 0.1 }, 4.6);
+      tl.fromTo("#f07-cite", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 4.9);
+
+      // citation lands (4.9-5.4): row 1's outline pulses 2 -> 4 -> 2 px (inset ring over its 2px border)
+      // together with the citation chip scaling 1.0 -> 1.05 -> 1.0, tying the cited document to the winning row
+      var RING0 = "inset 0px 0px 0px 0px rgba(30,43,250,1)", RING2 = "inset 0px 0px 0px 2px rgba(30,43,250,1)";
+      tl.fromTo(".f07-exrow .f07-hl", { boxShadow: RING0 }, { boxShadow: RING2, duration: 0.25, ease: "power2.out", immediateRender: false }, 4.9);
+      tl.fromTo(".f07-exrow .f07-hl", { boxShadow: RING2 }, { boxShadow: RING0, duration: 0.25, ease: "power2.inOut", immediateRender: false }, 5.15);
+      tl.fromTo("#f07-cite", { scale: 1 }, { scale: 1.05, duration: 0.25, ease: "power2.out", immediateRender: false }, 4.9);
+      tl.fromTo("#f07-cite", { scale: 1.05 }, { scale: 1, duration: 0.25, ease: "power2.inOut", immediateRender: false }, 5.15);
+      // hold still from 5.4s to the end of the 8.5s slot
       tl.set({}, {}, 8.5);
 
       window.__timelines = window.__timelines || {};
