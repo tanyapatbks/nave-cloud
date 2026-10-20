@@ -1,0 +1,255 @@
+<template>
+  <style>
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-SemiBold.ttf") format("truetype");}
+  </style>
+  <style>
+    #f03-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
+    #f03-hdr .f03-track{display:flex;gap:12px}
+    #f03-hdr .f03-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+    #f03-hdr .f03-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
+    #f03-hdr .f03-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
+    #f03-hdr .f03-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    #f03-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+    #f03-h2 .f03-line{display:block;white-space:nowrap}
+  </style>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"IBM Plex Sans Thai";}
+    #f03-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
+    #f03-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
+
+    #f03-h2 .f03-ph{display:inline-block;}
+
+    /* filename strip — every slot is laid out from t=0, so no token ever pushes another */
+    #f03-strip{position:absolute;left:0;top:438px;width:1920px;display:flex;justify-content:center;align-items:flex-start;}
+    #f03-doc{flex:none;width:64px;height:84px;margin-right:28px;}
+    #f03-doc svg{display:block;width:64px;height:84px;overflow:visible;}
+    .f03-col{flex:none;display:flex;flex-direction:column;align-items:center;}
+    .f03-slot{position:relative;}
+    .f03-ghost{position:absolute;left:0;top:0;right:0;bottom:0;box-sizing:border-box;border-radius:100px;border:1.5px dashed rgba(30,43,250,0.35);}
+    .f03-tok{position:relative;box-sizing:border-box;height:84px;padding:0 18px;display:flex;align-items:center;justify-content:center;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.15);color:#1e2bfa;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:46px;line-height:1.45;white-space:nowrap;}
+    .f03-dg{display:inline-block;}
+    .f03-sep{flex:none;width:44px;height:84px;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono";font-weight:500;font-size:46px;line-height:1.45;color:#6b6b6b;}
+    .f03-gap{flex:none;width:8px;height:84px;}
+    .f03-tick{display:block;width:4px;height:40px;overflow:visible;}
+    .f03-tick path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:butt;}
+    .f03-l1{display:block;white-space:nowrap;text-align:center;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:30px;line-height:1.45;color:#111111;}
+    .f03-l2{display:block;white-space:nowrap;text-align:center;font-family:"IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#6b6b6b;}
+
+    /* example-document glyph (mini of frame 01's hero tile) */
+    #f03-doc-outline{fill:none;stroke:#1e2bfa;stroke-width:2.5;stroke-linejoin:round;}
+    .f03-doc-line{fill:#9a9a9a;}
+    #f03-doc-kind{fill:none;stroke:#6b6b6b;stroke-width:1.5;stroke-linejoin:round;}
+
+    /* bridge line — split-highlight */
+    #f03-bridge{position:absolute;left:0;top:744px;width:1920px;display:flex;justify-content:center;}
+    #f03-hl{box-sizing:border-box;padding:20px 36px 20px 32px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);font-family:"IBM Plex Sans Thai Looped";font-size:36px;line-height:1.45;white-space:nowrap;}
+    #f03-b1{display:inline-block;font-weight:500;color:#111111;}
+    #f03-b2{display:inline-block;font-weight:600;color:#1e2bfa;}
+  </style>
+
+  <div id="root" data-composition-id="03-filename" data-width="1920" data-height="1080" data-start="0" data-duration="12">
+    <div id="f03-bg" class="clip" data-start="0" data-duration="12" data-track-index="0"></div>
+
+    <div id="f03-stage">
+      <div id="f03-hdr">
+        <div class="f03-track"><span class="f03-pill is-current">① อ่านได้</span><span class="f03-pill">② ค้นเจอ</span><span class="f03-pill">③ ตามสิทธิ์</span></div>
+        <span class="f03-term">Metadata</span>
+      </div>
+
+      <div id="f03-h2"><span class="f03-line"><span class="f03-ph">ตั้งชื่อไฟล์</span><span class="f03-ph">แบบเดียวกัน</span><span class="f03-ph">ทุกไฟล์</span></span></div>
+
+      <div id="f03-strip">
+        <div id="f03-doc">
+          <svg viewBox="0 0 64 84" width="64" height="84">
+            <defs>
+              <clipPath id="f03-doc-clip"><path d="M9.25 1.25 H54.75 A8 8 0 0 1 62.75 9.25 V74.75 A8 8 0 0 1 54.75 82.75 H9.25 A8 8 0 0 1 1.25 74.75 V9.25 A8 8 0 0 1 9.25 1.25 Z"/></clipPath>
+            </defs>
+            <g clip-path="url(#f03-doc-clip)">
+              <rect class="f03-doc-in" x="0" y="0" width="64" height="84" fill="rgba(30,43,250,0.04)"/>
+              <rect class="f03-doc-in" x="0" y="0" width="64" height="7" fill="#111111"/>
+            </g>
+            <path id="f03-doc-kind" class="f03-doc-in" d="M10 14 H16.5 L20.5 18 V26 H10 Z"/>
+            <rect class="f03-doc-in f03-doc-line" x="10" y="35" width="44" height="4" rx="2"/>
+            <rect class="f03-doc-in f03-doc-line" x="10" y="45" width="40" height="4" rx="2"/>
+            <rect class="f03-doc-in f03-doc-line" x="10" y="55" width="44" height="4" rx="2"/>
+            <rect class="f03-doc-in f03-doc-line" x="10" y="65" width="28" height="4" rx="2"/>
+            <path id="f03-doc-outline" d="M9.25 1.25 H54.75 A8 8 0 0 1 62.75 9.25 V74.75 A8 8 0 0 1 54.75 82.75 H9.25 A8 8 0 0 1 1.25 74.75 V9.25 A8 8 0 0 1 9.25 1.25 Z"/>
+          </svg>
+        </div>
+
+        <div class="f03-col" id="f03-c1">
+          <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">ศซบ</div></div>
+          <svg class="f03-tick" viewBox="0 0 4 40" width="4" height="40"><path d="M2 0 V40"/></svg>
+          <span class="f03-l1">หน่วย</span>
+          <span class="f03-l2">กอง/แผนก</span>
+        </div>
+
+        <div class="f03-sep" id="f03-s2">_</div>
+        <div class="f03-col" id="f03-c2">
+          <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">สสท</div></div>
+          <svg class="f03-tick" viewBox="0 0 4 40" width="4" height="40"><path d="M2 0 V40"/></svg>
+          <span class="f03-l1">เจ้าของ</span>
+          <span class="f03-l2">หน่วยขึ้นตรง</span>
+        </div>
+
+        <div class="f03-sep" id="f03-s3">_</div>
+        <div class="f03-col" id="f03-c3">
+          <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok"><span class="f03-dg">2</span><span class="f03-dg">6</span><span class="f03-dg">0</span><span class="f03-dg">0</span><span class="f03-dg">0</span><span class="f03-dg">0</span><span class="f03-dg">0</span><span class="f03-dg">0</span><span class="f03-dg">0</span><span class="f03-dg">1</span></div></div>
+          <svg class="f03-tick" viewBox="0 0 4 40" width="4" height="40"><path d="M2 0 V40"/></svg>
+          <span class="f03-l1">ผู้นำเข้า</span>
+          <span class="f03-l2">เลข 10 หลัก</span>
+        </div>
+
+        <div class="f03-sep" id="f03-s4">_</div>
+        <div class="f03-col" id="f03-c4">
+          <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">v02</div></div>
+          <svg class="f03-tick" viewBox="0 0 4 40" width="4" height="40"><path d="M2 0 V40"/></svg>
+          <span class="f03-l1">เวอร์ชัน</span>
+        </div>
+
+        <div class="f03-sep" id="f03-s5">_</div>
+        <div class="f03-col" id="f03-c5">
+          <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">2569</div></div>
+          <svg class="f03-tick" viewBox="0 0 4 40" width="4" height="40"><path d="M2 0 V40"/></svg>
+          <span class="f03-l1">ปี พ.ศ.</span>
+        </div>
+
+        <div class="f03-sep" id="f03-s6">_</div>
+        <div class="f03-col" id="f03-c6">
+          <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">นโยบาย69</div></div>
+          <svg class="f03-tick" viewBox="0 0 4 40" width="4" height="40"><path d="M2 0 V40"/></svg>
+          <span class="f03-l1">ชื่อเอกสาร</span>
+        </div>
+
+        <div class="f03-gap"></div>
+        <div class="f03-col" id="f03-c7">
+          <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">.pdf</div></div>
+        </div>
+      </div>
+
+      <div id="f03-bridge">
+        <div id="f03-hl"><span id="f03-b1">สิทธิ์จริง</span> <span id="f03-b2">อยู่ในทะเบียนเอกสาร</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var COMP = "03-filename";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]');
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
+      var measure = function (p, fallback) {
+        var len = 0;
+        try { len = p.getTotalLength(); } catch (e) { len = 0; }
+        return len > 0 ? len : fallback;
+      };
+
+      var INK = "#111111";
+      var PILL_REST = "rgba(30,43,250,0.04)";
+
+      var tl = gsap.timeline({ paused: true });
+
+      // ── Scene 1 (0.0–1.4s): header static; headline per phrase; empty filename slots appear ──
+      tl.fromTo($$("#f03-h2 .f03-ph"),
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.18 }, 0.3);
+      tl.fromTo($$("#f03-strip .f03-ghost"),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: "power1.out", stagger: 0.05 }, 0.35);
+      tl.fromTo($$("#f03-strip .f03-sep"),
+        { opacity: 0 },
+        { opacity: 0.3, duration: 0.5, ease: "power1.out", stagger: 0.05 }, 0.4);
+
+      // ── Scene 2 (1.4–7.4s): tokens snap into their slots on cue (dynamic-content-sequencing) ──
+      // Content array → flat TIMELINE of absolute windows, computed once at build.
+      var SCENE3 = 7.4;
+      var CONTENT = [
+        { n: 1, at: 1.4, move: "drop" },
+        { n: 2, at: 2.4, move: "slide" },
+        { n: 3, at: 3.4, move: "type" },
+        { n: 4, at: 4.4, move: "pop" },
+        { n: 5, at: 5.2, move: "rise" },
+        { n: 6, at: 6.0, move: "wipe" },
+        { n: 7, at: 6.8, move: "snap" }
+      ];
+      var TIMELINE = CONTENT.map(function (e, i) {
+        return { n: e.n, move: e.move, start: e.at, end: i < CONTENT.length - 1 ? CONTENT[i + 1].at : SCENE3 };
+      });
+
+      TIMELINE.forEach(function (e) {
+        var col = $("#f03-c" + e.n);
+        var tok = col.querySelector(".f03-tok");
+        var ghost = col.querySelector(".f03-ghost");
+        var sep = $("#f03-s" + e.n);
+        var t = e.start;
+
+        if (sep) tl.to(sep, { opacity: 1, duration: 0.25, ease: "power1.out" }, t - 0.05);
+        tl.to(ghost, { opacity: 0, duration: 0.3, ease: "power1.out" }, t + 0.1);
+
+        // each beat its own move (kinetic-type-beats, in-place line build)
+        if (e.move === "drop") {
+          tl.fromTo(tok, { opacity: 0, y: -36 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, t);
+        } else if (e.move === "slide") {
+          tl.fromTo(tok, { opacity: 0, x: 48 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, t);
+        } else if (e.move === "type") {
+          tl.fromTo(tok, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, t);
+          tl.fromTo(tok.querySelectorAll(".f03-dg"), { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none", stagger: 0.035 }, t + 0.06);
+        } else if (e.move === "pop") {
+          tl.fromTo(tok, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)" }, t);
+        } else if (e.move === "rise") {
+          tl.fromTo(tok, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, t);
+        } else if (e.move === "wipe") {
+          tl.fromTo(tok,
+            { clipPath: "inset(0% 100% 0% 0% round 100px)" },
+            { clipPath: "inset(0% 0% 0% 0% round 100px)", duration: 0.5, ease: "power2.inOut" }, t);
+        } else if (e.move === "snap") {
+          tl.fromTo(tok, { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(2.2)" }, t);
+        }
+
+        // the arriving token is the active (cobalt) one; it relaxes to ink when its window ends
+        tl.to(tok, { backgroundColor: PILL_REST, color: INK, duration: 0.35, ease: "power1.out" }, e.end);
+
+        // tick draws down to the label (svg-path-draw), then the two label lines rise in
+        var tick = col.querySelector(".f03-tick path");
+        if (tick) {
+          var len = measure(tick, 40);
+          tick.style.strokeDasharray = len + " " + len;
+          tl.fromTo(tick, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out" }, t + 0.2);
+          tl.fromTo(col.querySelectorAll(".f03-l1, .f03-l2"),
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.32, ease: "power3.out", stagger: 0.12 }, t + 0.36);
+        }
+      });
+
+      // ── Scene 3 (7.4–8.6s): the example-document glyph draws at the strip's left end; hold ──
+      var outline = $("#f03-doc-outline");
+      var olen = measure(outline, 280);
+      outline.style.strokeDasharray = olen + " " + olen;
+      tl.fromTo(outline, { strokeDashoffset: olen }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, SCENE3);
+      tl.fromTo($$("#f03-doc .f03-doc-in"),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.35, ease: "power1.out", stagger: 0.06 }, SCENE3 + 0.35);
+
+      // ── Scene 4 (8.6–12.0s): bridge line per phrase inside the split-highlight; hold still ──
+      var B = 8.6;
+      tl.fromTo($("#f03-hl"),
+        { clipPath: "inset(0% 100% 0% 0% round 12px)" },
+        { clipPath: "inset(0% 0% 0% 0% round 12px)", duration: 0.5, ease: "power3.out" }, B);
+      tl.fromTo($("#f03-b1"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, B + 0.15);
+      tl.fromTo($("#f03-b2"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B + 0.7);
+
+      tl.set({}, {}, 12);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[COMP] = tl;
+    })();
+  </script>
+</template>

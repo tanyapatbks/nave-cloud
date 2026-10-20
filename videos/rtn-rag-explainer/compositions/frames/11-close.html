@@ -1,0 +1,209 @@
+<template>
+  <style>
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-SemiBold.ttf") format("truetype");}
+
+    #root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden}
+
+    /* ---- layers (full-duration clips) ---- */
+    #f11-ground{position:absolute;inset:0;background:#fdfae7}
+    #f11-lattice{position:absolute;inset:0;opacity:0.4}
+    #f11-clearing{position:absolute;inset:0;background:radial-gradient(ellipse 760px 330px at 960px 505px,rgba(253,250,231,0.8) 0%,rgba(253,250,231,0.62) 52%,rgba(253,250,231,0) 100%)}
+    #f11-rings{position:absolute;inset:0}
+    #f11-rings svg{position:absolute;left:0;top:0;width:1920px;height:1080px}
+    #f11-stage{position:absolute;inset:0}
+
+    /* ---- archive lattice (callback to frame 01) ---- */
+    #f11-drift{position:absolute;inset:0;transform-origin:960px 480px}
+    #f11-scope{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+    #f11-scope-key{position:absolute;left:190px;top:50px;width:68px;height:44px;border-radius:100px;background:#1e2bfa;display:flex;align-items:center;justify-content:center}
+    #f11-scope-key svg{width:24px;height:24px;fill:none;stroke:#fdfae7;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .f11-tile{position:absolute;width:132px;height:172px;box-sizing:border-box;border-radius:10px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);overflow:hidden}
+    .f11-tile.f11-ex{border:2.5px solid #1e2bfa}
+    .f11-band{position:absolute;left:0;right:0;top:0;height:4px}
+    .f11-glyph{position:absolute;left:12px;top:14px;width:20px;height:20px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .f11-ln{position:absolute;left:14px;height:6px;border-radius:3px;background:#9a9a9a}
+    .f11-pic{position:absolute;left:14px;top:44px;width:104px;height:52px;border-radius:4px;background:rgba(30,43,250,0.12)}
+    .f11-bar{position:absolute;bottom:72px;width:22px;border-radius:3px 3px 0 0;background:rgba(30,43,250,0.4)}
+    .f11-tbl{position:absolute;left:14px;top:44px;width:104px;height:56px;box-sizing:border-box;border-radius:4px;border:1.5px solid rgba(30,43,250,0.3);background-image:linear-gradient(to bottom,transparent 0 17px,rgba(30,43,250,0.3) 17px 18.5px,transparent 18.5px 35px,rgba(30,43,250,0.3) 35px 36.5px,transparent 36.5px),linear-gradient(to right,transparent 0 34px,rgba(30,43,250,0.3) 34px 35.5px,transparent 35.5px)}
+    .f11-k-pdf .f11-band{background:#111111}
+    .f11-k-pdf .f11-glyph{stroke:#111111}
+    .f11-k-scan .f11-band{background:#6b6b6b}
+    .f11-k-scan .f11-glyph{stroke:#6b6b6b}
+    .f11-k-image .f11-band,.f11-k-chart .f11-band,.f11-k-table .f11-band{background:rgba(30,43,250,0.4)}
+    .f11-k-image .f11-glyph,.f11-k-chart .f11-glyph,.f11-k-table .f11-glyph{stroke:#1e2bfa}
+    .f11-badge{position:absolute;left:14px;bottom:12px;display:flex;gap:4px;transform-origin:left center}
+    .f11-badge i{display:block;width:8px;height:8px;border-radius:50%;background:#1e2bfa}
+
+    /* ---- title copy ---- */
+    .f11-line{position:absolute;left:0;right:0;display:block;white-space:nowrap;text-align:center}
+    .f11-ph{display:inline-block;white-space:nowrap}
+    #f11-l1{top:262px;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111}
+    #f11-emb{position:relative;color:#9a9a9a}
+    #f11-strike{position:absolute;left:-6px;right:-6px;top:calc(0.755em - 1.5px);height:3px;border-radius:2px;background:#6b6b6b;transform-origin:left center}
+    #f11-l2a,#f11-l2b{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-size:44px;line-height:1.45;color:#6b6b6b}
+    #f11-l2a{top:388px}
+    #f11-l2b{top:452px}
+    #f11-num{font-weight:600;color:#1e2bfa}
+
+    #f11-pay{position:absolute;left:0;right:0;top:568px;display:flex;justify-content:center;align-items:flex-start}
+    .f11-col{display:flex;flex-direction:column;align-items:center}
+    .f11-word{display:block;white-space:nowrap;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:72px;line-height:1.45;color:#111111}
+    .f11-dot{display:block;flex:none;width:14px;height:14px;margin:47px 44px 0;border-radius:50%;background:#1e2bfa}
+    .f11-chip{display:block;margin-top:14px;padding:8px 22px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono";font-weight:500;font-size:24px;line-height:1.45;letter-spacing:0.02em;white-space:nowrap}
+  </style>
+
+  <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080">
+    <!-- track 0: cream ground -->
+    <div id="f11-ground" class="clip" data-start="0" data-duration="10" data-track-index="0"></div>
+
+    <!-- track 1: archive lattice, dimmed ~40% (background callback) -->
+    <div id="f11-lattice" class="clip" data-start="0" data-duration="10" data-track-index="1">
+      <div id="f11-drift">
+        <svg id="f11-scope" viewBox="0 0 1920 1080" aria-hidden="true">
+          <defs>
+            <mask id="f11-scope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+              <path id="f11-scope-reveal" d="M174 72H1746A28 28 0 0 1 1774 100V860A28 28 0 0 1 1746 888H174A28 28 0 0 1 146 860V100A28 28 0 0 1 174 72Z" fill="none" stroke="#ffffff" stroke-width="12" stroke-dasharray="4842 4842" stroke-dashoffset="4842"/>
+            </mask>
+          </defs>
+          <path id="f11-scope-line" d="M174 72H1746A28 28 0 0 1 1774 100V860A28 28 0 0 1 1746 888H174A28 28 0 0 1 146 860V100A28 28 0 0 1 174 72Z" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f11-scope-mask)"/>
+        </svg>
+        <div id="f11-grid">
+          <div class="f11-tile f11-k-pdf" style="left:174px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:73px"></span><span class="f11-ln" style="top:62px;width:57px"></span><span class="f11-ln" style="top:78px;width:59px"></span><span class="f11-ln" style="top:94px;width:78px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-pdf" style="left:334px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:60px"></span><span class="f11-ln" style="top:62px;width:97px"></span><span class="f11-ln" style="top:78px;width:63px"></span><span class="f11-ln" style="top:94px;width:87px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:494px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:80px"></span><span class="f11-ln" style="top:62px;width:47px"></span><span class="f11-ln" style="top:78px;width:94px"></span><span class="f11-ln" style="top:94px;width:54px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:654px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:93px"></span><span class="f11-ln" style="top:62px;width:79px"></span><span class="f11-ln" style="top:78px;width:97px"></span><span class="f11-ln" style="top:94px;width:90px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:814px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:82px"></span><span class="f11-ln" style="top:122px;width:68px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:974px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:65px"></span><span class="f11-ln" style="top:122px;width:81px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1134px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:33px"></span><span class="f11-bar" style="left:44px;height:35px"></span><span class="f11-bar" style="left:74px;height:23px"></span><span class="f11-ln" style="top:108px;width:81px"></span><span class="f11-ln" style="top:124px;width:84px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1294px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:22px"></span><span class="f11-bar" style="left:44px;height:32px"></span><span class="f11-bar" style="left:74px;height:47px"></span><span class="f11-ln" style="top:108px;width:85px"></span><span class="f11-ln" style="top:124px;width:55px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1454px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:75px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1614px;top:100px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:83px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-pdf" style="left:174px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:101px"></span><span class="f11-ln" style="top:62px;width:70px"></span><span class="f11-ln" style="top:78px;width:86px"></span><span class="f11-ln" style="top:94px;width:83px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-pdf f11-ex" style="left:334px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:87px"></span><span class="f11-ln" style="top:62px;width:99px"></span><span class="f11-ln" style="top:78px;width:63px"></span><span class="f11-ln" style="top:94px;width:69px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:494px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:77px"></span><span class="f11-ln" style="top:62px;width:85px"></span><span class="f11-ln" style="top:78px;width:94px"></span><span class="f11-ln" style="top:94px;width:96px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:654px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:54px"></span><span class="f11-ln" style="top:62px;width:103px"></span><span class="f11-ln" style="top:78px;width:101px"></span><span class="f11-ln" style="top:94px;width:81px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:814px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:98px"></span><span class="f11-ln" style="top:122px;width:73px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:974px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:81px"></span><span class="f11-ln" style="top:122px;width:54px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1134px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:37px"></span><span class="f11-bar" style="left:44px;height:32px"></span><span class="f11-bar" style="left:74px;height:50px"></span><span class="f11-ln" style="top:108px;width:53px"></span><span class="f11-ln" style="top:124px;width:50px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1294px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:46px"></span><span class="f11-bar" style="left:44px;height:33px"></span><span class="f11-bar" style="left:74px;height:38px"></span><span class="f11-ln" style="top:108px;width:94px"></span><span class="f11-ln" style="top:124px;width:100px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1454px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:91px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1614px;top:296px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:95px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-pdf" style="left:174px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:85px"></span><span class="f11-ln" style="top:62px;width:93px"></span><span class="f11-ln" style="top:78px;width:60px"></span><span class="f11-ln" style="top:94px;width:78px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-pdf" style="left:334px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:56px"></span><span class="f11-ln" style="top:62px;width:98px"></span><span class="f11-ln" style="top:78px;width:95px"></span><span class="f11-ln" style="top:94px;width:79px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:494px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:64px"></span><span class="f11-ln" style="top:62px;width:70px"></span><span class="f11-ln" style="top:78px;width:77px"></span><span class="f11-ln" style="top:94px;width:91px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:654px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:54px"></span><span class="f11-ln" style="top:62px;width:66px"></span><span class="f11-ln" style="top:78px;width:54px"></span><span class="f11-ln" style="top:94px;width:88px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:814px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:71px"></span><span class="f11-ln" style="top:122px;width:61px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:974px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:61px"></span><span class="f11-ln" style="top:122px;width:65px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1134px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:51px"></span><span class="f11-bar" style="left:44px;height:19px"></span><span class="f11-bar" style="left:74px;height:41px"></span><span class="f11-ln" style="top:108px;width:68px"></span><span class="f11-ln" style="top:124px;width:78px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1294px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:19px"></span><span class="f11-bar" style="left:44px;height:48px"></span><span class="f11-bar" style="left:74px;height:40px"></span><span class="f11-ln" style="top:108px;width:62px"></span><span class="f11-ln" style="top:124px;width:65px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1454px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:59px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1614px;top:492px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:76px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-pdf" style="left:174px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:54px"></span><span class="f11-ln" style="top:62px;width:89px"></span><span class="f11-ln" style="top:78px;width:59px"></span><span class="f11-ln" style="top:94px;width:49px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-pdf" style="left:334px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4"/></svg><span class="f11-ln" style="top:46px;width:47px"></span><span class="f11-ln" style="top:62px;width:52px"></span><span class="f11-ln" style="top:78px;width:61px"></span><span class="f11-ln" style="top:94px;width:49px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:494px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:48px"></span><span class="f11-ln" style="top:62px;width:58px"></span><span class="f11-ln" style="top:78px;width:56px"></span><span class="f11-ln" style="top:94px;width:89px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-scan" style="left:654px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4"/><path d="M13 3h4v4"/><path d="M17 13v4h-4"/><path d="M7 17H3v-4"/><path d="M5 10h10"/></svg><span class="f11-ln" style="top:46px;width:74px"></span><span class="f11-ln" style="top:62px;width:53px"></span><span class="f11-ln" style="top:78px;width:67px"></span><span class="f11-ln" style="top:94px;width:94px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:814px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:52px"></span><span class="f11-ln" style="top:122px;width:69px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-image" style="left:974px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M4 14l4-4 3 3 2-2 3 3"/><circle cx="13.5" cy="7.5" r="1.3"/></svg><span class="f11-pic"></span><span class="f11-ln" style="top:106px;width:79px"></span><span class="f11-ln" style="top:122px;width:76px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1134px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:40px"></span><span class="f11-bar" style="left:44px;height:24px"></span><span class="f11-bar" style="left:74px;height:19px"></span><span class="f11-ln" style="top:108px;width:102px"></span><span class="f11-ln" style="top:124px;width:99px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-chart" style="left:1294px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 17h14"/><path d="M5.5 14v-4"/><path d="M10 14V6"/><path d="M14.5 14V8"/></svg><span class="f11-bar" style="left:14px;height:34px"></span><span class="f11-bar" style="left:44px;height:34px"></span><span class="f11-bar" style="left:74px;height:51px"></span><span class="f11-ln" style="top:108px;width:84px"></span><span class="f11-ln" style="top:124px;width:75px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1454px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:62px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+          <div class="f11-tile f11-k-table" style="left:1614px;top:688px"><span class="f11-band"></span><svg class="f11-glyph" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1.5"/><path d="M2.5 8h15"/><path d="M2.5 12.5h15"/><path d="M8 3.5v13"/></svg><span class="f11-tbl"></span><span class="f11-ln" style="top:112px;width:92px"></span><span class="f11-badge"><i></i><i></i><i></i><i></i></span></div>
+        </div>
+        <div id="f11-scope-key">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.2-2.9 7.7-7 9-4.1-1.3-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.3-4.4"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- track 2: legibility clearing behind the title block -->
+    <div id="f11-clearing" class="clip" data-start="0" data-duration="10" data-track-index="2"></div>
+
+    <!-- track 3: faint concentric closing rings (atmosphere) -->
+    <div id="f11-rings" class="clip" data-start="0" data-duration="10" data-track-index="3">
+      <svg viewBox="0 0 1920 1080" aria-hidden="true">
+        <circle cx="960" cy="490" r="150" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.11"/>
+        <circle cx="960" cy="490" r="230" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.09"/>
+        <circle cx="960" cy="490" r="310" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.07"/>
+        <circle cx="960" cy="490" r="388" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.05"/>
+      </svg>
+    </div>
+
+    <!-- track 4: the closing title -->
+    <div id="f11-stage" class="clip" data-start="0" data-duration="10" data-track-index="4">
+      <div id="f11-l1" class="f11-line"><span class="f11-ph">ส่วนที่ยากที่สุด</span> <span class="f11-ph">ไม่ใช่การสร้าง</span> <span class="f11-ph" id="f11-emb">Embedding<span id="f11-strike"></span></span></div>
+      <div id="f11-l2a" class="f11-line"><span class="f11-ph">แต่คือ</span><span class="f11-ph">การเปลี่ยนข้อมูล</span><span class="f11-ph">กว่า <span id="f11-num">120</span> ปี</span></div>
+      <div id="f11-l2b" class="f11-line"><span class="f11-ph">ให้เป็น</span><span class="f11-ph">ความรู้ที่</span></div>
+      <div id="f11-pay">
+        <div class="f11-col" id="f11-c1"><span class="f11-word" id="f11-w1">เชื่อถือได้</span><span class="f11-chip">Reliable</span></div>
+        <span class="f11-dot" id="f11-d1"></span>
+        <div class="f11-col" id="f11-c2"><span class="f11-word" id="f11-w2">ค้นหาได้</span><span class="f11-chip">Searchable</span></div>
+        <span class="f11-dot" id="f11-d2"></span>
+        <div class="f11-col" id="f11-c3"><span class="f11-word" id="f11-w3">รู้สิทธิ์</span><span class="f11-chip">Permission-aware</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // Fixed seeded noise: a deterministic function of the tile index.
+      function f11Rand(i, s) {
+        var x = Math.sin((i + 1) * 127.1 + s * 311.7) * 43758.5453;
+        return x - Math.floor(x);
+      }
+
+      // Scene 1 (0.0-2.4s): the jumbled archive wall drifts into the ordered lattice
+      // (one smooth power3 move, every tile landed by ~2.35s).
+      var tiles = document.querySelectorAll("#f11-grid .f11-tile");
+      for (var i = 0; i < tiles.length; i++) {
+        // keep the jumbled start above the 896px keep-out (tile bottom + rotation/scale slack)
+        var maxDy = 872 - (parseFloat(tiles[i].style.top) + 172);
+        tl.fromTo(
+          tiles[i],
+          {
+            x: (f11Rand(i, 1) - 0.5) * 380,
+            y: Math.min((f11Rand(i, 2) - 0.5) * 210, maxDy),
+            rotation: (f11Rand(i, 3) - 0.5) * 22,
+            scale: 0.92 + f11Rand(i, 4) * 0.12
+          },
+          { x: 0, y: 0, rotation: 0, scale: 1, duration: 2.0, ease: "power3.inOut" },
+          0.15 + f11Rand(i, 5) * 0.2
+        );
+      }
+      // Permission scope outline self-draws around the settling lattice.
+      tl.fromTo("#f11-scope-reveal", { strokeDashoffset: 4842 }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 0.95);
+      tl.fromTo("#f11-scope-key", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, 2.0);
+      // Each tile gains its metadata badge as it lands (the lattice becomes labelled).
+      tl.fromTo("#f11-grid .f11-badge", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out", stagger: 0.006 }, 1.85);
+
+      // Line 1 per phrase from 0.4s; "Embedding" gets a self-drawing strike line.
+      tl.fromTo("#f11-l1 .f11-ph", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.35 }, 0.4);
+      tl.fromTo("#f11-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, 1.6);
+
+      // Scene 2 (2.8-4.6s): line 2 per phrase, two authored lines.
+      tl.fromTo("#f11-l2a .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.28 }, 2.8);
+      tl.fromTo("#f11-l2b .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.25 }, 3.72);
+
+      // Scene 3 (4.6-6.2s): the three payoff words slide up one by one; cobalt dots; mono chips.
+      tl.fromTo("#f11-w1", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 4.6);
+      tl.fromTo("#f11-d1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 4.92);
+      tl.fromTo("#f11-w2", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 5.0);
+      tl.fromTo("#f11-d2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 5.32);
+      tl.fromTo("#f11-w3", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 5.4);
+      tl.fromTo("#f11-pay .f11-chip", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power3.out", stagger: 0.05 }, 5.8);
+
+      // Scene 4 (6.2-10.0s): held card. Only the dimmed lattice keeps a barely-perceptible
+      // settle drift underneath (starts as the ordering move ends); the title stays still.
+      tl.fromTo("#f11-drift", { scale: 1 }, { scale: 1.012, duration: 7.6, ease: "sine.inOut" }, 2.4);
+
+      window.__timelines["11-close"] = tl;
+    })();
+  </script>
+</template>

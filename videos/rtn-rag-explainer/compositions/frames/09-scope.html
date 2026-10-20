@@ -1,0 +1,291 @@
+<template id="f09-template">
+<style>
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+
+  #root{position:relative;width:1920px;height:1080px;overflow:hidden}
+  #f09-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+</style>
+<style>
+  #f09-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
+  #f09-hdr .f09-track{display:flex;gap:12px}
+  #f09-hdr .f09-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+  #f09-hdr .f09-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
+  #f09-hdr .f09-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
+  #f09-hdr .f09-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+  #f09-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+  #f09-h2 .f09-line{display:block;white-space:nowrap}
+</style>
+<style>
+  /* headline phrases */
+  #f09-h2 .f09-ph{display:inline-block}
+  #f09-h2 .f09-em{color:#1e2bfa}
+
+  /* shared card + chip atoms */
+  .f09-card{position:absolute;box-sizing:border-box;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);border-radius:14px}
+  .f09-chip{display:inline-block;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;letter-spacing:0.02em;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+
+  /* identity badge card */
+  #f09-id{left:96px;top:356px;width:600px;height:170px;padding:0 28px;display:flex;align-items:center;gap:28px}
+  #f09-avatar{flex:none;width:112px;height:112px;border-radius:50%;overflow:hidden;box-sizing:border-box;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2)}
+  #f09-avatar svg{display:block;width:109px;height:109px}
+  .f09-idbars{display:flex;flex-direction:column;gap:14px}
+  .f09-idbar{display:block;height:14px;border-radius:6px;background:rgba(154,154,154,0.5);transform-origin:0 50%}
+  .f09-idbar.f09-strong{height:18px;background:rgba(107,107,107,0.45)}
+  #f09-chip-id{position:absolute;top:20px;right:20px}
+
+  /* registry ledger card */
+  #f09-ledger{left:96px;top:560px;width:600px;height:300px;padding:22px 24px}
+  .f09-led-head{display:flex;align-items:center;gap:14px;height:51px}
+  .f09-led-ico{flex:none;width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .f09-led-title{display:block;width:150px;height:14px;border-radius:6px;background:rgba(107,107,107,0.45)}
+  #f09-chip-acl{margin-left:auto}
+  .f09-table{margin-top:12px;box-sizing:border-box;border:1px solid rgba(154,154,154,0.45);border-radius:8px;overflow:hidden}
+  .f09-row{position:relative;display:flex;box-sizing:border-box;height:38px;border-bottom:1px solid rgba(154,154,154,0.35)}
+  .f09-row:last-child{border-bottom:none}
+  .f09-row.f09-row-h{height:36px;border-bottom:1.5px solid rgba(107,107,107,0.45)}
+  .f09-cell{display:flex;align-items:center;gap:12px;padding:0 14px;box-sizing:border-box}
+  .f09-cell.f09-a{width:300px;border-right:1px solid rgba(154,154,154,0.35)}
+  .f09-cell.f09-b{flex:1}
+  .f09-vbar{display:block;height:10px;border-radius:6px;background:rgba(154,154,154,0.5)}
+  .f09-vbar.f09-dark{height:12px;background:rgba(107,107,107,0.5)}
+  .f09-mdoc{flex:none;display:block;width:14px;height:18px;box-sizing:border-box;border:2px solid rgba(154,154,154,0.8);border-radius:3px}
+  #f09-hi-ring{position:absolute;left:0;top:0;right:0;bottom:0;border:2px solid #1e2bfa;border-radius:4px}
+
+  /* connectors + permission scope (one canvas-space svg) */
+  #f09-svg{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+  .f09-link{fill:none;stroke:#1e2bfa;stroke-width:2.5;stroke-linecap:round}
+  .f09-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
+
+  /* scope label pill (component 4) */
+  #f09-scope-pill{position:absolute;left:1028px;top:305px;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
+
+  /* four object cards inside the scope */
+  .f09-obj{position:absolute;width:370px;height:216px;box-sizing:border-box;padding:22px 24px;border-radius:14px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);display:flex;flex-direction:column;align-items:flex-start}
+  .f09-obj-top{display:flex;justify-content:space-between;align-items:flex-start;width:100%;margin-bottom:10px}
+  .f09-ico{flex:none;width:56px;height:56px;border-radius:12px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center}
+  .f09-ico svg{width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .f09-obj-th{display:block;white-space:nowrap;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111}
+  .f09-obj .f09-chip{margin-top:4px;padding:6px 16px}
+  .f09-badge{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:100px;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2)}
+  .f09-badge span{display:block;width:9px;height:9px;border-radius:50%;background:#1e2bfa}
+</style>
+
+<div id="root" data-composition-id="09-scope" data-width="1920" data-height="1080" data-duration="10">
+
+  <!-- full-bleed ground (lowest track) -->
+  <div id="f09-ground" class="clip" data-start="0" data-duration="10" data-track-index="0"></div>
+
+  <!-- shared header: ①② done, ③ current (static) -->
+  <div id="f09-hdr">
+    <div class="f09-track"><span class="f09-pill is-done">① อ่านได้</span><span class="f09-pill is-done">② ค้นเจอ</span><span class="f09-pill is-current">③ ตามสิทธิ์</span></div>
+    <span class="f09-term">Identity + ACL</span>
+  </div>
+
+  <!-- headline, revealed per phrase -->
+  <div id="f09-h2">
+    <span class="f09-line"><span class="f09-ph">สิทธิ์จริง</span><span class="f09-ph">มาจาก</span></span>
+    <span class="f09-line"><span class="f09-ph f09-em">ตัวตน</span> <span class="f09-ph">+</span> <span class="f09-ph f09-em">ทะเบียนเอกสาร</span></span>
+  </div>
+
+  <!-- identity badge card -->
+  <div id="f09-id" class="f09-card">
+    <div id="f09-avatar">
+      <svg viewBox="0 0 109 109" aria-hidden="true">
+        <circle cx="54.5" cy="45" r="19" fill="#1e2bfa"/>
+        <path d="M17 116 C 19 86, 37 73, 54.5 73 C 72 73, 90 86, 92 116 Z" fill="#1e2bfa"/>
+      </svg>
+    </div>
+    <div class="f09-idbars">
+      <span class="f09-idbar f09-strong" style="width:210px"></span>
+      <span class="f09-idbar" style="width:160px"></span>
+      <span class="f09-idbar" style="width:188px"></span>
+      <span class="f09-idbar" style="width:132px"></span>
+    </div>
+    <span id="f09-chip-id" class="f09-chip">Identity</span>
+  </div>
+
+  <!-- document registry ledger card -->
+  <div id="f09-ledger" class="f09-card">
+    <div class="f09-led-head">
+      <svg class="f09-led-ico" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        <path d="M9 7h7M9 11h5"/>
+      </svg>
+      <span class="f09-led-title"></span>
+      <span id="f09-chip-acl" class="f09-chip">ACL</span>
+    </div>
+    <div class="f09-table">
+      <div class="f09-row f09-row-h">
+        <div class="f09-cell f09-a"><span class="f09-vbar f09-dark" style="width:110px"></span></div>
+        <div class="f09-cell f09-b"><span class="f09-vbar f09-dark" style="width:84px"></span></div>
+      </div>
+      <div class="f09-row">
+        <div class="f09-cell f09-a"><span class="f09-mdoc"></span><span class="f09-vbar" style="width:168px"></span></div>
+        <div class="f09-cell f09-b"><span class="f09-vbar" style="width:72px"></span><span class="f09-vbar" style="width:48px"></span></div>
+      </div>
+      <div class="f09-row" id="f09-row-hi">
+        <div class="f09-cell f09-a"><span class="f09-mdoc" id="f09-hi-doc"></span><span class="f09-vbar f09-hi-bar" style="width:196px"></span></div>
+        <div class="f09-cell f09-b"><span class="f09-vbar f09-hi-bar" style="width:64px"></span><span class="f09-vbar f09-hi-bar" style="width:88px"></span></div>
+        <div id="f09-hi-ring"></div>
+      </div>
+      <div class="f09-row">
+        <div class="f09-cell f09-a"><span class="f09-mdoc"></span><span class="f09-vbar" style="width:142px"></span></div>
+        <div class="f09-cell f09-b"><span class="f09-vbar" style="width:80px"></span></div>
+      </div>
+      <div class="f09-row">
+        <div class="f09-cell f09-a"><span class="f09-mdoc"></span><span class="f09-vbar" style="width:180px"></span></div>
+        <div class="f09-cell f09-b"><span class="f09-vbar" style="width:56px"></span><span class="f09-vbar" style="width:64px"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- connectors + permission scope boundary -->
+  <svg id="f09-svg" viewBox="0 0 1920 1080" aria-hidden="true">
+    <defs>
+      <mask id="f09-scope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+        <path id="f09-mtop" class="f09-mask-path" d="M 980 595 L 980 358 A 28 28 0 0 1 1008 330 L 1796 330 A 28 28 0 0 1 1824 358 L 1824 595"/>
+        <path id="f09-mbot" class="f09-mask-path" d="M 980 595 L 980 832 A 28 28 0 0 0 1008 860 L 1796 860 A 28 28 0 0 0 1824 832 L 1824 595"/>
+      </mask>
+    </defs>
+    <rect id="f09-scope-fill" x="980" y="330" width="844" height="530" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
+    <rect id="f09-scope-dash" x="980" y="330" width="844" height="530" rx="28" ry="28" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f09-scope-mask)"/>
+    <path id="f09-link-id" class="f09-link" d="M 696 441 C 846 441, 846 595, 980 595"/>
+    <path id="f09-link-acl" class="f09-link" d="M 696 740 C 846 740, 846 595, 980 595"/>
+    <circle id="f09-dot-id" cx="696" cy="441" r="5" fill="#1e2bfa"/>
+    <circle id="f09-dot-acl" cx="696" cy="740" r="5" fill="#1e2bfa"/>
+    <circle id="f09-node" cx="980" cy="595" r="8" fill="#1e2bfa" stroke="#fdfae7" stroke-width="3"/>
+  </svg>
+
+  <!-- the four governed objects (2x2 inside the scope) -->
+  <div class="f09-obj" id="f09-obj-1" style="left:1020px;top:382px">
+    <div class="f09-obj-top">
+      <div class="f09-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/></svg></div>
+      <div class="f09-badge"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <span class="f09-obj-th">เอกสาร</span>
+    <span class="f09-chip">Docs</span>
+  </div>
+
+  <div class="f09-obj" id="f09-obj-2" style="left:1414px;top:382px">
+    <div class="f09-obj-top">
+      <div class="f09-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="15" height="5" rx="1.5"/><rect x="6" y="10" width="15" height="5" rx="1.5"/><rect x="3" y="17" width="15" height="5" rx="1.5"/></svg></div>
+      <div class="f09-badge"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <span class="f09-obj-th">ชิ้นข้อมูล</span>
+    <span class="f09-chip">Chunks</span>
+  </div>
+
+  <div class="f09-obj" id="f09-obj-3" style="left:1020px;top:620px">
+    <div class="f09-obj-top">
+      <div class="f09-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2.5"/><circle cx="5" cy="19.5" r="2.5"/><circle cx="19" cy="19.5" r="2.5"/><path d="M12 7v5M5 17v-5h14v5"/></svg></div>
+      <div class="f09-badge"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <span class="f09-obj-th">สารบัญ</span>
+    <span class="f09-chip">Tree Nodes</span>
+  </div>
+
+  <div class="f09-obj" id="f09-obj-4" style="left:1414px;top:620px">
+    <div class="f09-obj-top">
+      <div class="f09-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/><path d="M5 2.5v4M3 4.5h4"/></svg></div>
+      <div class="f09-badge"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <span class="f09-obj-th">เครื่องมือ AI</span>
+    <span class="f09-chip">Agent Tools</span>
+  </div>
+
+  <!-- scope label pill on the boundary's top edge -->
+  <div id="f09-scope-pill">ขอบเขตสิทธิ์เดียวกัน</div>
+
+</div>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script>
+(function () {
+  var COMP = "09-scope";
+
+  // ---- measured stroke setup (svg-path-draw) ----
+  // Cubic-bezier length by fixed 96-step sampling: deterministic fallback if getTotalLength is unavailable.
+  function bezLen(a, b, c, d) {
+    var n = 96, len = 0, px = a[0], py = a[1];
+    for (var i = 1; i <= n; i++) {
+      var t = i / n, u = 1 - t;
+      var x = u*u*u*a[0] + 3*u*u*t*b[0] + 3*u*t*t*c[0] + t*t*t*d[0];
+      var y = u*u*u*a[1] + 3*u*u*t*b[1] + 3*u*t*t*c[1] + t*t*t*d[1];
+      len += Math.sqrt((x-px)*(x-px) + (y-py)*(y-py)); px = x; py = y;
+    }
+    return len;
+  }
+  function prep(id, fallback) {
+    var p = document.getElementById(id), len = 0;
+    try { len = p.getTotalLength(); } catch (e) { len = 0; }
+    if (!(len > 0)) len = fallback;
+    len = Math.ceil(len);
+    // one dash the length of the path, gap a little longer; offset len+2 hides it fully (caps included)
+    p.style.strokeDasharray = len + " " + (len + 4);
+    p.style.strokeDashoffset = String(len + 2);
+    return len;
+  }
+  var HALF = 2 * 237 + 788 + Math.PI * 28;                       // straight runs + two quarter arcs
+  var L_ID  = prep("f09-link-id",  bezLen([696,441],[846,441],[846,595],[980,595]));
+  var L_ACL = prep("f09-link-acl", bezLen([696,740],[846,740],[846,595],[980,595]));
+  var L_TOP = prep("f09-mtop", HALF);
+  var L_BOT = prep("f09-mbot", HALF);
+
+  // svg circles scale about their own centre (set once, before any transform is applied)
+  gsap.set(["#f09-dot-id", "#f09-dot-acl", "#f09-node"], { transformOrigin: "50% 50%" });
+
+  var tl = gsap.timeline({ paused: true });
+
+  // ---- Scene 1 (0.0–3.0): headline phrases, identity badge, registry ledger ----
+  var ph = document.querySelectorAll("#f09-h2 .f09-ph");
+  var phT = [0.30, 0.40, 0.58, 0.68, 0.76];
+  for (var i = 0; i < ph.length; i++) {
+    tl.fromTo(ph[i], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, phT[i]);
+  }
+
+  tl.fromTo("#f09-id", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.15);
+  tl.fromTo("#f09-avatar", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.25);
+  tl.fromTo(".f09-idbar", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out", stagger: 0.07 }, 1.32);
+  tl.fromTo("#f09-chip-id", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 1.40);
+
+  tl.fromTo("#f09-ledger", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.95);
+  tl.fromTo("#f09-ledger .f09-row", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 2.05);
+  tl.fromTo("#f09-chip-acl", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 2.20);
+  // the example document's row lights up cobalt
+  tl.fromTo("#f09-row-hi", { backgroundColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", duration: 0.35, ease: "power1.out" }, 2.55);
+  tl.fromTo(".f09-hi-bar", { backgroundColor: "rgba(154,154,154,0.5)" }, { backgroundColor: "rgba(30,43,250,1)", duration: 0.35, ease: "power1.out" }, 2.55);
+  tl.fromTo("#f09-hi-doc", { borderColor: "rgba(154,154,154,0.8)" }, { borderColor: "rgba(30,43,250,1)", duration: 0.35, ease: "power1.out" }, 2.55);
+  tl.fromTo("#f09-hi-ring", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 2.55);
+
+  // ---- Scene 2 (3.0–4.8): two cobalt lines converge at x=980, scope self-draws, label pill ----
+  tl.fromTo(["#f09-dot-id", "#f09-dot-acl"], { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", stagger: 0.1 }, 3.00);
+  tl.fromTo("#f09-link-id",  { strokeDashoffset: L_ID + 2 },  { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 3.00);
+  tl.fromTo("#f09-link-acl", { strokeDashoffset: L_ACL + 2 }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 3.10);
+  tl.fromTo("#f09-node", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 3.55);
+  // boundary draws both ways from the junction and closes on the far edge
+  tl.fromTo("#f09-mtop", { strokeDashoffset: L_TOP + 2 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 3.62);
+  tl.fromTo("#f09-mbot", { strokeDashoffset: L_BOT + 2 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 3.62);
+  tl.fromTo("#f09-scope-pill", { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 3.80);
+  tl.fromTo("#f09-scope-fill", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 4.40);
+
+  // ---- Scene 3 (4.8–7.4): four governed objects assemble into the 2x2 grid on their cues ----
+  var cues = [4.8, 5.4, 6.0, 6.6];
+  for (var k = 0; k < 4; k++) {
+    var card = "#f09-obj-" + (k + 1), t = cues[k];
+    tl.fromTo(card, { opacity: 0, y: 22, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, t);
+    tl.fromTo(card + " .f09-chip", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, t + 0.12);
+    tl.fromTo(card + " .f09-badge", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, t + 0.22);
+  }
+
+  // ---- Scene 4 (7.4–10.0): held read — no motion; pad the timeline to the frame length ----
+  tl.set({}, {}, 10);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines[COMP] = tl;
+})();
+</script>
+</template>
