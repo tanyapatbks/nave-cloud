@@ -61,16 +61,16 @@
     #f11-num{font-weight:600;color:#1e2bfa}
 
     /* round 2: payoff on fixed column centres x 560 / 960 / 1360 (each .f11-col is a zero-width anchor at
-       its centre); word and chip are centred on the anchor; chips share one fixed 330px width (gaps 70px) */
+       its centre); word and chip are centred on the anchor; each chip is content-width, centred on its column anchor */
     #f11-pay{position:absolute;left:0;top:568px;width:1920px;height:170px}
     .f11-col{position:absolute;top:0;width:0;height:0}
     #f11-c1{left:560px}
     #f11-c2{left:960px}
     #f11-c3{left:1360px}
     .f11-word{position:absolute;left:-200px;top:0;width:400px;text-align:center;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:72px;line-height:1.45;color:#111111}
-    .f11-chipwrap{position:absolute;left:-165px;top:116px;width:330px}
+    .f11-chipwrap{position:absolute;left:-165px;top:116px;width:330px;display:flex;justify-content:center}
     /* mono chip token: 28px, 48px pill, padding 12px 16px */
-    .f11-chip{display:block;box-sizing:border-box;width:330px;height:48px;padding:12px 16px;text-align:center;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;letter-spacing:0.02em;white-space:nowrap}
+    .f11-chip{display:block;box-sizing:border-box;width:auto;height:48px;padding:12px 20px;text-align:center;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;letter-spacing:0.02em;white-space:nowrap}
     /* cobalt dots at the midpoints of the gaps between neighbouring words: centres x 765 and x 1180 */
     .f11-dot{position:absolute;top:47px;display:block;width:14px;height:14px;border-radius:50%;background:#1e2bfa}
     #f11-d1{left:758px}
