@@ -151,12 +151,13 @@
           <i id="f10-filterbar"></i>
         </div>
           <svg class="f10-trails" viewBox="0 0 804 460" aria-hidden="true">
-            <!-- comb (local px; collector x 681 = screen ~754). The collector starts 1.5px under the lock box's bottom
+            <!-- comb (local px; collector x 681 = screen ~754). Each tooth starts 0.4px inside its pill's right end (pill
+                 ends measured at screen x 635 / 711 / 644). The collector starts 1.5px under the lock box's bottom
                  edge (118.5) and ends 1.63px (half a stroke) below the arrow's axis so the corner closes square -->
             <path class="f10-trail" id="f10-trail-c" d="M681 117 V243.63"/>
-            <path class="f10-trail" id="f10-trail-0" d="M558.51 181.5 H681"/>
-            <path class="f10-trail" id="f10-trail-1" d="M634.6 242 H681"/>
-            <path class="f10-trail" id="f10-trail-2" d="M564.66 302.5 H681 V242"/>
+            <path class="f10-trail" id="f10-trail-0" d="M550.5 181.5 H681"/>
+            <path class="f10-trail" id="f10-trail-1" d="M633.1 242 H681"/>
+            <path class="f10-trail" id="f10-trail-2" d="M560.3 302.5 H681 V242"/>
             <!-- arrow: shaft to the head's vertex; head legs start 13.04 local (12 screen px) clear of the collector's
                  ink, vertex ink (round join) ends at x 711 = the ring's outer edge (centre 748, radius 37) -->
             <path class="f10-trail" id="f10-trail-a" d="M681 242 H709.37"/>
@@ -301,20 +302,22 @@
       // [id, fallback length, reveal start, reveal duration, reveal ease]
       [["#f10-trail-a", 28.37, 2.5, 0.14, "power2.out"],
        ["#f10-trail-c", 126.63, 3.5, 0.3, "power2.out"],
-       ["#f10-trail-0", 122.49, 3.9, 0.3, "power2.out"],
-       ["#f10-trail-1", 46.4, 4.3, 0.2, "power2.out"],
-       ["#f10-trail-2", 176.84, 4.62, 0.2, "power2.out"]].forEach(function (r) {
+       ["#f10-trail-0", 130.5, 3.9, 0.3, "power2.out"],
+       ["#f10-trail-1", 47.9, 4.3, 0.2, "power2.out"],
+       ["#f10-trail-2", 181.2, 4.62, 0.2, "power2.out"]].forEach(function (r) {
         var el = q(r[0])[0], L = trailPattern(el, r[1]);
         // hidden start sits 2 units inside the long gap (offset exactly L leaves a 1px sliver at the path start)
         tl.fromTo(el, { strokeDashoffset: L + 2 }, { strokeDashoffset: 0, duration: r[3], ease: r[4], autoRound: false }, r[2]);
       });
 
       // 4.7-5.2: ONE leak event. A 12px dot slides out from under the lock box (centre local 681,112), down the
-      // collector (130 local px, power2.in) and turns into the AI node (41 px, power2.out; the speeds match at the
-      // corner), fading as it passes under the red ring
+      // collector (130 local px) and turns into the AI node (41 px). Constant speed on both legs (~315 screen px/s,
+      // ~10px per frame, under the dot's own width, so it reads as one continuous trip; an eased leg peaks at ~3x
+      // and strobes). Its start is hidden under the lock box and its end under the node, so no visible hard stop;
+      // it fades as it passes under the red ring
       tl.fromTo("#f10-L-leakdot", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power2.out" }, 4.7);
-      tl.fromTo("#f10-L-leakdot", { y: 0 }, { y: 130, duration: 0.38, ease: "power2.in", autoRound: false }, 4.7);
-      tl.fromTo("#f10-L-leakdot", { x: 0 }, { x: 41, duration: 0.12, ease: "power2.out", autoRound: false, immediateRender: false }, 5.08);
+      tl.fromTo("#f10-L-leakdot", { y: 0 }, { y: 130, duration: 0.38, ease: "none", autoRound: false }, 4.7);
+      tl.fromTo("#f10-L-leakdot", { x: 0 }, { x: 41, duration: 0.12, ease: "none", autoRound: false, immediateRender: false }, 5.08);
       tl.fromTo("#f10-L-leakdot", { opacity: 1 }, { opacity: 0, duration: 0.06, ease: "power2.in", immediateRender: false }, 5.14);
 
       // ===== Scene 3 (5.3-7.4): RIGHT - scope first, then search inside it (residue holds alone 3.8-5.3) =====

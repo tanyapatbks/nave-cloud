@@ -120,6 +120,8 @@
       <div class="f05-lab" id="f05-lab-5" style="left:1545.5px"><span class="f05-lab-th">ทำดัชนี</span><span class="f05-lab-en">Index</span></div>
 
       <div id="f05-token"></div>
+      <!-- Embed: copies of the four chunk cards shrink into dots and fly into the Embed box (above the Chunk originals) -->
+      <div id="f05-flyers"></div>
       <!-- station badges sit above the token, so a passing token never covers a check -->
       <div id="f05-oks"></div>
     </div>
@@ -132,7 +134,6 @@
   <script>
     (function () {
       var $ = function (id) { return document.getElementById(id); };
-      var world = $("f05-world");
       var token = $("f05-token");
       var focus = $("f05-focus");
       var ghostsHost = $("f05-ghosts");
