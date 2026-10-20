@@ -17,7 +17,7 @@ music: none
 - **Reading budget (harness-enforced).** ≤ 17 Thai chars/s hard ceiling; plan ~8–12; ≤ 35 base chars per line; ≤ 2 lines per block; every text block stays on screen until its frame ends (no text is removed mid-frame except where a Scene says so); final card holds ≥ 3 s; every frame's payoff holds ≥ 2.5 s fully legible.
 - **Type floor (projection).** English term labels and chips ≥ 28px (cap height ≥ 20px); Thai labels and sublines ≥ 32px wherever the layout allows and never below 28px; headlines ~60px.
 - **Motion grammar.** Smooth long-tail settles (`power3` default, `expo.out` for fast arrivals); **no bounce / back / elastic**. Reveal each piece on its cue across the shot, especially the back half; never front-load. Entrances are `fromTo`. Thai text reveals per word/phrase, never per character. The only aliveness during holds is subtle jitter on at most one element; prefer stillness. One camera move per frame at most; no slow back-half pans or pushes. Within-frame seams follow `cut-catalog.md`.
-- **Rhythm / stillness allocation.** Held beats: end of 04 (labels read), 07 (the cut line), 10 (the rule — the film's core sentence, held still ~3.5 s; `PLANNED_HOLDS=103-108` for `harness/qa-mp4.sh`), 11 (final card ≥ 3 s; the settled close holds ~6 s to the last frame by design, `END_CARD=6.5` for `harness/qa-mp4.sh`). Busiest frames: 02, 05, 06, 10 — keep their elements few and large.
+- **Rhythm / stillness allocation.** Held beats: end of 04 (labels read), 07 (the cut line), 10 (the rule — the film's core sentence, held still ~3.5 s; `PLANNED_HOLDS=105-109` for `harness/qa-mp4.sh`), 11 (final card ≥ 3 s; the settled close holds ~5 s to the last frame by design, `END_CARD=6.5` for `harness/qa-mp4.sh`). Busiest frames: 02, 05, 06, 10 — keep their elements few and large.
 - **Continuity.** The document tile (frame.md component 3) is the recurring object; the example document is the cobalt-outlined tile in every frame it appears. The permission scope (component 4: dashed cobalt outline + shield pill) first appears in 06 as the boundary that every search lane runs inside (drawn before any lane searches), is shown being built from identity + ACL in 09, and frames the whole archive in 11. The 4-dot mini badge is defined in 04 (one dot per tag row) and reused unchanged on every doc, chunk and tile in 09 and 11.
 - **Negative list.** No ships, anchors, waves, naval insignia, the RTN emblem, flags, uniforms or people photos. No stock "AI" purple-blue gradients, no bokeh, no glows. No invented numbers, page counts, or document contents (example values are illustrative and marked `ตัวอย่าง`). No genuine-looking classified stamps. Both motion failure modes are banned: slideshow (dump then freeze) and screensaver (many things floating). No `Math.random`, no CSS transitions/keyframes, no `repeat`/`yoyo`.
 - **Transitions.** Three types only: `crossfade` (chapter changes), `push-slide LEFT` (consecutive steps inside a chapter), `blur-crossfade` (into the close).
@@ -187,7 +187,7 @@ Round-6 revisions (final): the five gaps widen so the Index card's right edge la
 
 - scene: One question runs through three searches at once; each catches different pieces; their results merge
 - voiceover:
-- duration: 13s
+- duration: 15.5s
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/06-hybrid.html
@@ -198,7 +198,7 @@ Round-6 revisions (final): the five gaps widen so the Index card's right edge la
 - term: Hybrid Search
 - focal: the question card, then the merge
 - roles: question card = foreground subject · permission scope boundary = foreground subject (Scene 1) · three lanes = foreground subject · result markers (squares / circles / filter chips) = supporting · merge bracket + stack = foreground subject (Scene 5)
-- onscreen: headline "ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (10.4s)
+- onscreen: headline "ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (5.4s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (8.0s) · merge label "รวมผล" (13.0s)
 
 narrativeRole: Explains why vector search alone is not enough: exact names/IDs, meaning, and filters each catch what the others miss.
 keyMessage: Hybrid search combines keyword, vector and metadata filters; together they find what one method alone misses.
@@ -219,11 +219,13 @@ Requester copy revision (after round 4): headline "ค้นหาแบบ Hybr
 
 Round-6 revisions (final): frame is 13s; everything below the headline moves down 48px; the other-unit strike is a 6px #5A564A diagonal on both column-3 tiles (35% opacity) fed by a 3px #5A564A connector from 'หน่วย สสท./ศซบ.' (neutral grey: this exclusion is a metadata filter, not a permission denial — never red or a lock); retime: strike 7.4s, hits 8.1 / 8.4s, keyword-only table + its missed slot 8.9s, vector-only scan + its missed slot 9.5s, card flight 10.0s, รวมผล 10.4s, settled by 10.9s; corner badges 24px with a 2px cream outline, chip glyphs 20px; the highlight band behind 'แนวทางปฏิบัติ' fully covers 'ติ' (right edge just before 'ปี', radius ≤ 12px).
 
+Round-7 revisions (verification follow-up; wins over all earlier notes): frame is 15.5s. Cues: headline 0.3s, question 1.0s, scope 1.6s, Keyword lane 2.8s (unchanged); Vector lane 5.4s; Metadata lane 8.0s; both grey other-unit strikes draw together 9.4–9.8s (same 6px #5A564A diagonal on 35% tiles, same 3px #5A564A connector from 'หน่วย สสท./ศซบ.'); Keyword hits 10.2s; Vector hits 10.6s; vector-lane missed slot 11.2s; keyword-lane missed slot 11.6s; merge flight 12.6s; 'รวมผล' 13.0s; settled by 13.5s, then hold still to the end. Missed slots carry NO × glyph: a dashed outline at 40% with a 25%-opacity ghost of the icon that lane missed inside it (the table-grid icon in the vector lane's slot, the scan-frame icon in the keyword lane's slot), so the thick grey slash is the only crossed-out mark in the frame. At the merge each รวมผล card flies from the lane tile that found it (the keyword lane's table → top card; the column-1 doc hits of both lanes → the middle stack; the vector lane's scan → bottom card) and the matching ghost slot's outline flashes to 100% for 0.3s as its card leaves. The question card moves down to centre on the Vector lane, and the bracket from its right edge to the three lanes redraws symmetric. The 'แนวทางปฏิบัติ' highlight gets 8px left padding (right edge still just before 'ปี'), 4px top/bottom, radius 8px. The scope pill gets 4px more top padding (pill centre unchanged) so the upper marks of 'สิทธิ์' clear its top edge by ≥ 8px.
+
 ## Frame 7 — คัดตัวจริง ก่อนส่งให้ AI ตอบ
 
 - scene: A scoreboard of candidates is re-ranked; a cut line keeps the top three; only they reach the AI, which answers with a citation
 - voiceover:
-- duration: 8s
+- duration: 7.5s
 - transition_in: push-slide LEFT
 - status: outline
 - src: compositions/frames/07-rerank.html
@@ -252,11 +254,13 @@ Round-4 revisions: rows and bars fully drawn by 0.5s and held completely still t
 
 Round-6 revisions (final): the scored list holds still to 1.6s; the right→up→left re-sort runs 1.6–3.0s inside x 790–1500; all three rows above the cut share one fill (#E6E6F7) and a 2px cobalt border; rank 1 keeps its dark-top-bar doc icon as the cited document.
 
+Round-7 revisions: frame is 7.5s (end hold trimmed by 0.5s; every cue unchanged).
+
 ## Frame 8 — คำถามเดียวกัน คำตอบตามสิทธิ์
 
 - scene: Two personnel ask the identical question; one gets the document, the other gets nothing — not even a trace
 - voiceover:
-- duration: 9s
+- duration: 8.5s
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/08-two-people.html
@@ -285,6 +289,8 @@ Round-3 revisions: the denied result is a neutral pill the height of the green b
 Round-4 revisions: all four pills 6px taller with text 3px lower (stacked Thai marks clear the top border); the green badge and the neutral pill stay equal height.
 
 Requester copy revision (after round 4): headline "คำถามเดียวกัน — สิทธิการเข้าถึงไม่เท่ากัน"; the two people are "น.อ.aaaaa" (left, has access) and "จ.ต.bbbbb" (right, no access) — render these strings exactly.
+
+Round-7 revisions: frame is 8.5s (end hold trimmed by 0.5s; every cue unchanged).
 
 ## Frame 9 — สิทธิ์จริงมาจากตัวตน + ทะเบียนเอกสาร
 
@@ -319,11 +325,13 @@ Requester copy revision (after round 4): headline line 2 "ตัวตนผู�
 
 Round-6 revisions (final): everything below the headline moves down 32px (content ends ≤ y 892); the ACL ledger's highlighted row shows the frame-03 padlock glyph at its left (instead of the doc glyph) and a 4px cobalt left border, matching frame 03's bridge chip.
 
+Round-7 revisions: the scope pill gets 4px more top padding with its centre unchanged, so the upper marks of 'สิทธิ์' clear the pill's top edge by ≥ 8px (same component as frame 06); nothing else moves.
+
 ## Frame 10 — กำหนดขอบเขตก่อน แล้วค่อยค้น
 
 - scene: Split screen — searching everything then filtering leaves residue; scoping first never touches what is off-limits
 - voiceover:
-- duration: 12s
+- duration: 11.5s
 - transition_in: push-slide LEFT
 - status: outline
 - src: compositions/frames/10-prefilter.html
@@ -355,11 +363,13 @@ Requester copy revision (after round 4): in both rule lines, "ไม่ได้
 
 Round-6 revisions (final): panels and labels move down 24px and the rule 16px (line 2 ends ≤ y 850); residue chips at 3.8 / 4.2 / 4.6s, then one 12px #9B2D27 dot travels from the locked source down the collector into the AI node over 4.7–5.2s (one leak event) before the right label at 5.3s; the leak route is a 3px dashed line (10 on / 6 off) in #9B2D27 with the arrowhead offset 12px from the collector and its tip touching the AI ring.
 
+Round-7 revisions: frame is 11.5s (end hold trimmed by 0.5s; the rule still holds still from ~8.6s to the end). The residue chips come out of the struck document: as it leaves the red box for the lock box (~3.5s) the three chips spawn at its last centre and travel to their slots scaling 0.6→1, landing at 3.8 / 4.2 / 4.6s, their dashed leads then joining the single route (leak dot 4.7–5.2s unchanged). The right panel (grid, locks, empty result slot, AI node) holds at 35% opacity from 0.5s to 5.3s and rises to 100% over 5.3–5.6s with the '✓ ขอบเขตก่อน แล้วค่อยค้น' label, before its scope box draws. The transient filter bar that sweeps the red box is red (the box outline's red), 4px thick and clipped to the box interior — never near-black.
+
 ## Frame 11 — สู่ Digital Navy
 
 - scene: The closing thesis; the untidy archive wall settles into an ordered, labelled lattice inside the permission scope as the payoff lands
 - voiceover:
-- duration: 17s
+- duration: 16s
 - transition_in: blur-crossfade
 - status: outline
 - src: compositions/frames/11-close.html
@@ -382,3 +392,6 @@ Scene 4 (8.0–9.6s): the payoff English words, big and near-black (Chulabhorn L
 Scene 5 (9.6–14.0s): hold still. The film ends on this card (no fade-out): a briefing presenter can pause on it.
 
 Round-6 revisions (final): frame is 17s; line 2 at 2.4s, line 3 rows at 4.4 / 5.6 / 6.8s, payoff 9.6 / 10.0 / 10.4s, Thai chips 10.8s (chip text 32px, chips 50px tall, centred under their words), background settle 9.6–10.4s; the cream veil is one uniform layer over the dashed frame's whole interior (no internal edge, no tile split), and from 9.6s tile borders and ●●●● pills inside the payoff band (x 340–1580, y 600–760) drop to ≤ 5% opacity; hold to the end.
+
+Round-7 revisions: frame is 16s (end hold trimmed to ~5s; every cue unchanged). Line 1 'การจะเปลี่ยนผ่านไปสู่ Digital Navy' drops to 44px and the payoff 'Reliable · Searchable · Permission-aware' rises to 64px (≈1330px wide, inside the card interior), Thai chips re-centred under their words (chip size and colour unchanged); the whole text stack and the concentric rings move down 52px so the block centres in the dashed card. The card, veil and tile lattice do not change.
+

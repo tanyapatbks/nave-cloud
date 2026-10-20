@@ -29,32 +29,32 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 - on-screen copy (local cue times): headline "จากไฟล์ สู่ดัชนีที่ค้นได้" (0.3s) · stations in order, each Thai + English: "รับเข้า · Ingest" (1.0s) "แยกส่วน · Parse" (1.8s) "ทำความสะอาด · Clean" (2.6s) with micro "๒๕๖๙ → 2569" (2.9s) "ตัดเป็นชิ้น · Chunk" (3.6s) "แปลงเป็นความหมาย · Embed" (4.4s) "ทำดัชนี · Index" (5.6s)
 - must teach: Ingest → Parse → Clean → Chunk → Embed → Index turns a file into indexes that can be searched.
 
-## Frame 06 — ค้นหา 3 ทางพร้อมกัน  ·  55.5–68.5 s
+## Frame 06 — ค้นหา 3 ทางพร้อมกัน  ·  55.5–71.0 s
 - term chip: Hybrid Search
-- on-screen copy (local cue times): headline "ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (10.4s)
+- on-screen copy (local cue times): headline "ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (5.4s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (8.0s) · merge label "รวมผล" (13.0s)
 - must teach: Hybrid search combines keyword, vector and metadata filters; together they find what one method alone misses.
 
-## Frame 07 — คัดตัวจริง ก่อนส่งให้ AI ตอบ  ·  68.5–76.5 s
+## Frame 07 — คัดตัวจริง ก่อนส่งให้ AI ตอบ  ·  71.0–78.5 s
 - term chip: Reranker
 - on-screen copy (local cue times): headline "คัดตัวจริง ก่อนส่งให้ AI ตอบ" (0.3s) · cut-line label "Top 3" (3.2s) · chip "LLM / ระบบอื่น" (4.0s) · answer card "คำตอบ พร้อมแหล่งอ้างอิง" (4.4s) · citation chip "อ้างอิง: นโยบาย69 · v02" (4.9s)
 - must teach: A reranker picks the most relevant results before the LLM (or another system) uses them.
 
-## Frame 08 — คำถามเดียวกัน คำตอบตามสิทธิ์  ·  76.5–85.5 s
+## Frame 08 — คำถามเดียวกัน คำตอบตามสิทธิ์  ·  78.5–87.0 s
 - term chip: Access Control
 - on-screen copy (local cue times): headline "คำถามเดียวกัน — สิทธิการเข้าถึงไม่เท่ากัน" (0.3s) · badge left "น.อ.aaaaa" + chip "มีสิทธิ์" (1.2s) · badge right "จ.ต.bbbbb" + chip "ไม่มีสิทธิ์" (1.6s) · question card (small, centred) "แนวทางปฏิบัติปี 69 ของ ศซบ." (2.4s) · left result "✓ พบ: นโยบาย69" (4.0s) · right result "ไม่พบเอกสารในสิทธิ์ของท่าน" (5.0s)
 - must teach: If someone may not open a document, the AI must not find it for them either.
 
-## Frame 09 — สิทธิ์จริงมาจากตัวตน + ทะเบียนเอกสาร  ·  85.5–95.5 s
+## Frame 09 — สิทธิ์จริงมาจากตัวตน + ทะเบียนเอกสาร  ·  87.0–97.0 s
 - term chip: Identity + ACL
 - on-screen copy (local cue times): headline "สิทธิ์จริงมาจาก" + "ตัวตนผู้ใช้ + สิทธิการเข้าถึงเอกสาร" (0.3s) · badge chip "Identity" (1.4s) · ledger chip "Access Control List (ACL)" (2.2s) · scope pill "ขอบเขตสิทธิ์เดียวกัน" (3.8s) · four items inside in order "เอกสาร · Docs" (4.8s) "ชิ้นข้อมูล · Chunks" (5.4s) "สารบัญ · Tree Nodes" (6.0s) "เครื่องมือ AI · Agent Tools" (6.6s)
 - must teach: Identity + the ACL in the document registry define one permission scope shared by docs, chunks, tree nodes and agent tools.
 
-## Frame 10 — กำหนดขอบเขตก่อน แล้วค่อยค้น  ·  95.5–107.5 s
+## Frame 10 — กำหนดขอบเขตก่อน แล้วค่อยค้น  ·  97.0–108.5 s
 - term chip: Pre-filter
 - on-screen copy (local cue times): headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.8s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (5.3s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" (7.6s) + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (8.1s)
 - must teach: Never search the whole archive and filter afterwards; apply the permission scope first.
 
-## Frame 11 — สู่ Digital Navy  ·  107.5–124.5 s
+## Frame 11 — สู่ Digital Navy  ·  108.5–124.5 s
 - on-screen copy (local cue times): line 1 "การจะเปลี่ยนผ่านไปสู่ Digital Navy" (0.4s) · line 2 "ส่วนที่ยากที่สุดไม่ใช่ AI RAG EMBEDDING" (2.4s) · line 3 "แต่คือการ เชื่อมโยง และ จัดการ" (4.4s) + "ข้อมูลของทร.ทั้งหมด อย่างเป็นระบบ" (5.6s) + "ให้กลายเป็นชุดข้อมูลที่" (6.8s) · payoff "Reliable" (9.6s) "Searchable" (10.0s) "Permission-aware" (10.4s) · chips under them "เชื่อถือได้" "ค้นหาได้" "แบ่งตามสิทธิการเข้าถึงข้อมูลได้" (10.8s)
 - must teach: To become a Digital Navy, the hardest part is not AI/RAG/embeddings but connecting and managing all RTN data systematically into a reliable, searchable, permission-aware dataset.
 
