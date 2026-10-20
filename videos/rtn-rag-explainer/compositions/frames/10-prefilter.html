@@ -36,7 +36,8 @@
     .f10-label{position:absolute;top:-34px;display:flex;align-items:center;gap:10px;padding:8px 26px 8px 20px;border-radius:100px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:35px;line-height:1.45;white-space:nowrap;z-index:10}
     .f10-label span{display:block;white-space:nowrap}
     .f10-label svg{width:28px;height:28px;flex:none;fill:none;stroke:currentColor;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
-    .f10-label-neg{right:28px;color:#b42318;background:#fde7e3;transform-origin:100% 50%}
+    /* both labels share the same 28px inset from their panel's left edge (screen x ~154 / ~1078) */
+    .f10-label-neg{left:28px;color:#b42318;background:#fde7e3;transform-origin:0% 50%}
     .f10-label-pos{left:28px;color:#08573A;background:linear-gradient(rgba(5,150,105,0.10),rgba(5,150,105,0.10)),#fdfae7;transform-origin:0% 50%}
 
     /* document tiles (component 3, scaled to fit a 4x3 grid) */
@@ -55,16 +56,18 @@
     .f10-lk-k{fill:#fdfae7}
     .f10-hit{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid rgba(30,43,250,0.85);background:rgba(30,43,250,0.10);opacity:0}
     .f10-alarm{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid #b42318;opacity:0}
-    /* ghost of the filtered-out doc = the locked source of the leak: a dashed locked tile pinned over the box's
-       top-right corner, centre (660,144.5) local; 70x88 local = ~64x81 on screen, padlock 30.5 local = 28px on screen */
-    .f10-ghost{position:absolute;left:625px;top:100.5px;width:70px;height:88px;box-sizing:border-box;border-radius:9px;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;z-index:5;opacity:0;pointer-events:none}
+    /* ghost of the filtered-out doc = the locked source of the leak: a dashed locked tile sitting fully ABOVE the
+       residue box (screen x 703-768, y 318-381; box top y~399), centre (660,84.25) local; padlock 30.5 local = 28px */
+    .f10-ghost{position:absolute;left:625px;top:50px;width:70px;height:68.5px;box-sizing:border-box;border-radius:9px;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;z-index:5;opacity:0;pointer-events:none}
     .f10-ghost-ink{position:absolute;inset:0;box-sizing:border-box;border-radius:9px;border:2.5px dashed #b42318;opacity:0.8}
-    .f10-ghost .f10-lk{position:absolute;left:19.75px;top:27.6px;width:30.5px;height:30.5px;opacity:0.8}
-    /* residue trails: 3px red 4/6 dashes on screen (panel scale 0.92 -> 3.26 / 4.35 6.52 local), full opacity, unmasked.
-       The dash pattern is set inline by the script (hidden until then): it streams out of the locked source to each chip
-       and on into the AI node, then crawls on 4.5-5.3 (stroke-dashoffset tweens only) */
+    .f10-ghost .f10-lk{position:absolute;left:19.75px;top:18.5px;width:30.5px;height:30.5px;opacity:0.8}
+    /* residue trails as a comb: 3px red 4/6 dashes on screen (panel scale 0.92 -> 3.26 / 4.35 6.52 local), full opacity.
+       One vertical collector at screen x=766 (local 693.3, 24px outside the box edge) starts at the lock box's
+       bottom-right corner; each chip's trail runs straight right from its pill end into it; one dotted red arrow leaves
+       it at y=495 (local 242) into the AI node. Dash patterns are set inline by the script (hidden until then) */
     .f10-trails{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:4;pointer-events:none}
     .f10-trail{fill:none;stroke:#B3261E;stroke-width:3.26;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:0 100000;opacity:1}
+    .f10-trail-head{fill:none;stroke:#B3261E;stroke-width:3.26;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
     .f10-strike{position:absolute;left:0;top:0;width:100%;height:100%}
     .f10-strike path{fill:none;stroke:#b42318;stroke-width:4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
     .f10-slot{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px dashed rgba(30,43,250,0.25);z-index:0;opacity:0}
@@ -81,6 +84,8 @@
     .f10-ai svg{width:28px;height:28px;fill:#9a9a9a}
     .f10-ai-lit{background:#1e2bfa;border-color:#1e2bfa;opacity:0}
     .f10-ai-lit svg{fill:#fdfae7}
+    /* wrong path only: the AI node stays lit blue to the end, ringed 3px (3.26 local) in the residue red, 2px clear */
+    .f10-ai-ring{position:absolute;inset:-7px;box-sizing:border-box;border-radius:50%;border:3.26px solid #b42318;pointer-events:none}
 
     /* search beam */
     .f10-beamwrap{position:absolute;overflow:hidden;z-index:4;pointer-events:none}
@@ -102,10 +107,10 @@
     #f10-scope-draw{fill:none;stroke:#ffffff;stroke-width:12;stroke-dasharray:100;stroke-dashoffset:100}
 
     /* the rule (Scene 4) */
-    #f10-rule{position:absolute;left:0;top:768px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;z-index:20}
+    #f10-rule{position:absolute;left:0;top:720px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;z-index:20}
     #f10-rule .f10-rline{display:block;white-space:nowrap}
     #f10-rule .f10-rph{display:inline-block}
-    #f10-rule .f10-em{color:#1e2bfa}
+    #f10-rule .f10-em{color:#b42318}
   </style>
 
   <div id="root" data-composition-id="10-prefilter" data-width="1920" data-height="1080" data-duration="12.6">
@@ -134,21 +139,21 @@
           <div class="f10-tile f10-tile-L" id="f10-L-t10" data-col="2" style="left:232px;top:308px"><i class="f10-band f10-band-scan"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="2.5" y="1.5" width="9" height="11" rx="1" fill="none" stroke="#6b6b6b" stroke-width="1.2"/><path d="M1.5 7h11" stroke="#6b6b6b" stroke-width="1.2"/></svg><i class="f10-ln" style="top:36px;width:49px"></i><i class="f10-ln" style="top:50px;width:40px"></i><i class="f10-ln" style="top:64px;width:57px"></i><i class="f10-ln" style="top:78px;width:48px"></i><i class="f10-hit"></i></div>
           <div class="f10-tile f10-tile-L" id="f10-L-t11" data-col="3" style="left:326px;top:308px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:52px"></i><i class="f10-ln" style="top:50px;width:43px"></i><i class="f10-ln" style="top:64px;width:34px"></i><i class="f10-ln" style="top:78px;width:51px"></i><i class="f10-hit"></i></div>
           <div class="f10-tray" id="f10-L-tray"><i class="f10-tray-lit f10-tray-neg" id="f10-L-traylit"></i></div>
-          <svg class="f10-flow" viewBox="0 0 804 460">
-            <path class="f10-flow-ghost" d="M674 242 H708"/>
-            <path class="f10-flow-lit" id="f10-L-arrow" d="M674 242 H708" pathLength="100"/>
-            <path class="f10-flow-lit" id="f10-L-head" d="M699 233 L709 242 L699 251" pathLength="100"/>
-          </svg>
+          <!-- wrong path: no blue arrow; the only link into the AI is the dotted red arrow in .f10-trails -->
           <div class="f10-ai" id="f10-L-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
-          <div class="f10-ai f10-ai-lit" id="f10-L-ailit"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
+          <div class="f10-ai f10-ai-lit" id="f10-L-ailit"><i class="f10-ai-ring"></i><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
           <div class="f10-beamwrap" id="f10-L-beamwrap"><i class="f10-beam" id="f10-L-beam"></i></div>
           <i id="f10-filterbar"></i>
         </div>
           <svg class="f10-trails" viewBox="0 0 804 460" aria-hidden="true">
-            <path class="f10-trail" id="f10-trail-0" d="M652 168 C616 168 594 181.5 536 181.5"/>
-            <path class="f10-trail" id="f10-trail-1" d="M648 160 V234 Q648 242 640 242 H618"/>
-            <path class="f10-trail" id="f10-trail-2" d="M648 238 V294.5 Q648 302.5 640 302.5 H546"/>
-            <path class="f10-trail" id="f10-trail-3" d="M648 264 H727"/>
+            <!-- comb (local px; collector x 693.3 = screen 766). Lengths are k*period + dash so every run starts and
+                 ends on a dash: the collector meets the lock box, each tooth meets the collector, the arrow meets it -->
+            <path class="f10-trail" id="f10-trail-c" d="M693.3 118.08 V242"/>
+            <path class="f10-trail" id="f10-trail-0" d="M558.51 181.5 H693.3"/>
+            <path class="f10-trail" id="f10-trail-1" d="M634.6 242 H693.3"/>
+            <path class="f10-trail" id="f10-trail-2" d="M564.66 302.5 H693.3 V242"/>
+            <path class="f10-trail" id="f10-trail-a" d="M693.3 242 H708.52"/>
+            <path class="f10-trail-head" id="f10-trail-h" d="M704.6 234.3 L712.3 242 L704.6 249.7" pathLength="100"/>
           </svg>
           <div class="f10-ghost" id="f10-L-ghost"><i class="f10-ghost-ink"></i><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></div>
           <div id="f10-residue"><span class="f10-res" id="f10-res-0"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>log</span></span><span class="f10-res" id="f10-res-1"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>จำนวนผล</span></span><span class="f10-res" id="f10-res-2"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>สรุป</span></span></div>
@@ -252,45 +257,50 @@
       tl.fromTo("#f10-L-t4", { y: -40, scale: 1.08 }, { y: 0, scale: 1, duration: 0.3, ease: "power2.in", immediateRender: false }, 2.3);
       tl.fromTo("#f10-L-slot", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.07);
       tl.fromTo("#f10-L-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.32);
-      tl.fromTo("#f10-L-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 2.5);
-      tl.fromTo("#f10-L-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.12, ease: "power2.out" }, 2.66);
+      // the hand-off to the AI is the dotted RED arrow (shaft reveal is in the trails block below; head here);
+      // the AI lights blue with its red ring and stays lit to the end of the frame
+      tl.fromTo("#f10-trail-h", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.1, ease: "power2.out" }, 2.62);
       tl.fromTo("#f10-L-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" }, 2.7);
 
-      // hold 2.6-3.0; 3.0-3.5: the filter bar drops, strikes the doc, and the doc folds into the small ghost on the box corner
+      // hold 2.6-3.0; 3.0-3.5: the filter bar drops, strikes the doc, and the doc folds into the small lock box above the box
       tl.fromTo("#f10-filterbar", { opacity: 0 }, { opacity: 1, duration: 0.08, ease: "power2.out" }, 3.0);
       tl.fromTo("#f10-filterbar", { y: 0 }, { y: 220, duration: 0.4, ease: "power2.inOut" }, 3.02);
       tl.fromTo("#f10-filterbar", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power2.out", immediateRender: false }, 3.4);
       tl.fromTo("#f10-strike-path", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.14, ease: "power2.out" }, 3.16);
-      tl.fromTo("#f10-L-t4", { x: 465, y: 0, scale: 1, opacity: 1 }, { x: 576, y: -97.5, scale: 0.85, opacity: 0, duration: 0.22, ease: "power2.inOut", immediateRender: false }, 3.28);
+      tl.fromTo("#f10-L-t4", { x: 465, y: 0, scale: 1, opacity: 1 }, { x: 576, y: -157.75, scale: 0.72, opacity: 0, duration: 0.22, ease: "power2.inOut", immediateRender: false }, 3.28);
       tl.fromTo("#f10-L-ghost", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 3.3);
 
-      // hold 3.5-3.8; residue chips 3.8 / 4.1 / 4.4, each fed by a red dashed trail from the locked source (ghost)
+      // hold 3.5-3.8; residue chips 3.8 / 4.1 / 4.4; the comb: the collector streams down out of the lock box into
+      // the arrow (3.5), then each chip's trail runs right from its pill end into the collector as the chip lands
       [["#f10-res-0", 3.8], ["#f10-res-1", 4.1], ["#f10-res-2", 4.4]].forEach(function (r) {
         tl.fromTo(r[0], { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "power3.out" }, r[1]);
       });
-      // trails: a finite run of 4/6 dashes followed by a long gap. Reveal = the run streams out of the source
-      // (offset M -> M-L); crawl = it keeps flowing on toward the chip / AI (M-L -> M-L-C) until 5.3, then holds still.
-      // crawl: 3 dash periods over 0.8s (power2.inOut) -> peak 2.5 screen px per 30fps frame = 1/4 period, so the
-      // direction of flow stays unambiguous (no wagon-wheel flicker); local px per second (0.92 on screen)
-      var DASH = 4.35, GAP = 6.52, CRAWL_V = 32.6 / 0.8;
+      // trails: a finite run of 4/6 dashes followed by a long gap. Reveal = the run streams out of the path start
+      // (offset M -> M-L); crawl = it keeps flowing on toward the collector / AI (M-L -> M-L-C) until 5.3, then holds.
+      // Every path length is k*PER + DASH and every crawl a whole number of periods, so in the held state each run
+      // still starts and ends on a full dash (the junctions stay joined). Crawl ~3 periods per 0.8s (power2.inOut):
+      // peak <= 0.3 period per 30fps frame, so the direction of flow stays unambiguous (no wagon-wheel flicker)
+      var DASH = 4.35, GAP = 6.52, PER = DASH + GAP, CRAWL_V = 3 * PER / 0.8;
       function trailPattern(el, crawl, fallback) {
         var L = 0;
         try { L = el.getTotalLength(); } catch (e) { L = 0; }
         if (!L || !isFinite(L)) { L = fallback; }
-        L = Math.ceil(L);
-        var n = Math.ceil((L + crawl) / (DASH + GAP)) + 2, arr = [], i;
+        var n = Math.ceil((L + crawl) / PER) + 2, arr = [], i;
         for (i = 0; i < n; i++) { arr.push(DASH, i < n - 1 ? GAP : L + crawl + 2000); }
         el.style.strokeDasharray = arr.join(" ");
         return { L: L, M: n * DASH + (n - 1) * GAP };
       }
-      // [id, fallback length, reveal start, reveal ease, crawl start]; the last trail continues along the arrow into the AI
-      [["#f10-trail-0", 118, 3.74, "power2.out", 4.5], ["#f10-trail-1", 109, 4.04, "power2.out", 4.5],
-       ["#f10-trail-2", 163, 4.34, "power2.out", 4.64], ["#f10-trail-3", 79, 4.66, "power2.inOut", 4.96]].forEach(function (r) {
+      // [id, fallback length, reveal start, reveal duration, reveal ease, crawl start]
+      [["#f10-trail-a", 15.22, 2.5, 0.14, "power2.out", 4.5],
+       ["#f10-trail-c", 123.92, 3.5, 0.3, "power2.out", 4.5],
+       ["#f10-trail-0", 134.79, 3.9, 0.3, "power2.out", 4.5],
+       ["#f10-trail-1", 58.7, 4.2, 0.22, "power2.out", 4.5],
+       ["#f10-trail-2", 189.14, 4.5, 0.34, "power2.inOut", 4.84]].forEach(function (r) {
         var el = q(r[0])[0];
-        var cDur = 5.3 - r[4], C = CRAWL_V * cDur, P = trailPattern(el, C, r[1]);
+        var cDur = 5.3 - r[5], C = Math.max(1, Math.round(CRAWL_V * cDur / PER)) * PER, P = trailPattern(el, C, r[1]);
         // hidden start sits 2 units inside the long gap (offset exactly M leaves a 1px sliver at the path start)
-        tl.fromTo(el, { strokeDashoffset: P.M + 2 }, { strokeDashoffset: P.M - P.L, duration: 0.3, ease: r[3], autoRound: false }, r[2]);
-        tl.fromTo(el, { strokeDashoffset: P.M - P.L }, { strokeDashoffset: P.M - P.L - C, duration: cDur, ease: "power2.inOut", autoRound: false, immediateRender: false }, r[4]);
+        tl.fromTo(el, { strokeDashoffset: P.M + 2 }, { strokeDashoffset: P.M - P.L, duration: r[3], ease: r[4], autoRound: false }, r[2]);
+        tl.fromTo(el, { strokeDashoffset: P.M - P.L }, { strokeDashoffset: P.M - P.L - C, duration: cDur, ease: "power2.inOut", autoRound: false, immediateRender: false }, r[5]);
       });
 
       // ===== Scene 3 (5.3-7.4): RIGHT - scope first, then search inside it (residue holds alone 3.8-5.3) =====
@@ -323,9 +333,13 @@
       tl.fromTo("#f10-R-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.08, ease: "power2.out" }, 7.08);
       tl.fromTo("#f10-R-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power3.out" }, 7.12);
 
-      // ===== Scene 4 (7.1-12.0): NO blur, NO resize. Only the wrong path's documents + tray dim to 50% (7.1-7.5);
-      // its x label, ghost, trails and residue chips (outside #f10-L-body) and the whole right panel stay at 100% =====
-      tl.fromTo("#f10-L-body", { opacity: 1 }, { opacity: 0.5, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 7.1);
+      // ===== Scene 4 (7.1-12.0): NO blur, NO resize. Only the wrong path's document grid dims, to 60% (7.1-7.5);
+      // its x label, lock box, tray, comb, residue chips and the lit, red-ringed AI node stay at 100%, as does the
+      // whole right panel =====
+      q(".f10-tile-L, #f10-L-slot").forEach(function (el) {
+        if (el.id === "f10-L-t4") return; // already folded away into the lock box
+        tl.fromTo(el, { opacity: 1 }, { opacity: 0.6, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 7.1);
+      });
 
       // the rule: line 1 at 7.6, line 2 at 8.1; fully legible by 8.46 (3.54s before the 12.0s exit), then hold still
       tl.fromTo("#f10-r1a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 7.6);
