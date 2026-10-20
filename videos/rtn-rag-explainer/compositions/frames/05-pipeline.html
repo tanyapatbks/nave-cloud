@@ -60,6 +60,14 @@
     .f05-mk{position:absolute;width:12px;height:12px;border-radius:2px;box-sizing:border-box;border:2px solid rgba(30,43,250,0.35);}
     .f05-mk-on{position:absolute;width:12px;height:12px;border-radius:2px;background:#1e2bfa;}
 
+    /* the frame-04 4-dot label badge (canonical: pill 120x36, 1.5px border, four 18px dots, 6px gaps), drawn at
+       canonical size and scaled to 36px wide (x0.3 on screen). .f05-bdg = 0x0 anchor at the badge centre (GSAP target). */
+    .f05-bdg{position:absolute;width:0;height:0;}
+    .f05-badge{position:absolute;left:-60px;top:-18px;width:120px;height:36px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:6px;transform:scale(0.3);transform-origin:50% 50%;}
+    .f05-badge span{display:block;width:18px;height:18px;flex:none;border-radius:50%;background:#1e2bfa;}
+    /* on a chunk tile the badge sits inside the 1.8x form: 0.3 / 1.8 */
+    .f05-chunk .f05-badge{transform:scale(0.166667);}
+
     /* token + station imprints: positioned around a 0x0 anchor at the station centre */
     #f05-token,.f05-ghost{position:absolute;left:0;top:488px;width:0;height:0;}
     .f05-form{position:absolute;left:0;top:0;width:0;height:0;transform:scale(1.8);transform-origin:0 0;}
@@ -169,8 +177,10 @@
 
       // index rows inside the Index card (card-relative px): 12px marker at x 24..36, bar from x 48 to END
       var ROW_CY = [54, 92, 130, 168];
-      var ROW_END = [200, 232, 214, 226]; // row 0 stops short of the check badge
+      var ROW_END = [200, 232, 214, 226]; // right end of each row (bar + badge); row 0 stops short of the check badge
       var MK_X = 24, MK = 12, ROW_X = 48;
+      var BDG_W = 36, BDG_GAP = 8; // each row ends in the 36px label badge; its bar is 44px shorter
+      var DOT_PARK = -64; // the example's points ride to the card centre (5.3-5.6), clear of the row badges
 
       // fixed seeded noise (deterministic function of index)
       function rnd(i) { var s = Math.sin(i * 91.7 + 3.1) * 43758.5453; return s - Math.floor(s); }
@@ -204,11 +214,15 @@
       function box(r) { return { left: r[0] + "px", top: r[1] + "px", width: r[2] + "px", height: r[3] + "px" }; }
       function pt(parent, p, cls) { return mk(parent, "f05-pt" + (cls ? " " + cls : ""), { left: (p[0] - PT / 2) + "px", top: (p[1] - PT / 2) + "px" }); }
       var CHECK_SVG = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var BADGE_HTML = '<div class="f05-badge"><span></span><span></span><span></span><span></span></div>';
+      function addBadge(parent, css) { return mk(parent, "f05-bdg", css, BADGE_HTML); }
 
       function addChunkCard(parent, k) {
         var c = mk(parent, "f05-chunk", { left: (CHX[k] - 13) + "px" });
         mk(c, "f05-cl", { top: "18px", width: "15px" });
         mk(c, "f05-cl", { top: "26px", width: "10px" });
+        // the label badge at the tile's bottom, centred in the free band under the text lines (form units)
+        c.bdg = addBadge(c, { left: "11.5px", top: "37.5px" });
         return c;
       }
 
@@ -226,11 +240,12 @@
       var L5 = CARD_L[5];
       var rows = ROW_CY.map(function (cy, i) {
         var y = CARD_T + cy;
-        var track = mk(indexHost, "f05-row-track", { left: (L5 + ROW_X) + "px", top: (y - 5) + "px", width: (ROW_END[i] - ROW_X) + "px" });
+        var track = mk(indexHost, "f05-row-track", { left: (L5 + ROW_X) + "px", top: (y - 5) + "px", width: (ROW_END[i] - BDG_W - BDG_GAP - ROW_X) + "px" });
         var fill = mk(track, "f05-row-fill");
         var mkOff = mk(indexHost, "f05-mk", { left: (L5 + MK_X) + "px", top: (y - MK / 2) + "px" });
         var mkOn = mk(indexHost, "f05-mk-on", { left: (L5 + MK_X) + "px", top: (y - MK / 2) + "px" });
-        return { track: track, fill: fill, off: mkOff, on: mkOn, x: L5 + MK_X + MK / 2, y: y };
+        var bdg = addBadge(indexHost, { left: (L5 + ROW_END[i] - BDG_W / 2) + "px", top: y + "px" });
+        return { track: track, fill: fill, off: mkOff, on: mkOn, bdg: bdg, x: L5 + MK_X + MK / 2, y: y };
       });
 
       // ---- station imprints (what each station left behind) ----
@@ -371,6 +386,8 @@
       bars.forEach(function (el, i) {
         tl.to(el, Object.assign(toBox(i, chunkBar(i)), { duration: 0.42, ease: "power3.inOut" }), 3.62 + i * 0.04);
       });
+      // each chunk keeps the document's label: the 4-dot badge presses onto every tile (the Chunk imprint keeps it too)
+      tl.fromTo(chunks.map(function (c) { return c.bdg; }), { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.26, ease: "power2.out", stagger: 0.04 }, 3.76);
 
       // Embed (4.4–5.3): the faint axes draw in and 17 points drift from a loose spread into three tinted
       // clusters over 0.8s (4.4–5.2); meanwhile each chunk card flips to a column of vector digits that
@@ -391,7 +408,10 @@
         { x: function (i) { return CHX[i] * S - TOK[i][0]; }, y: function (i) { return -TOK[i][1]; } },
         { x: 0, y: 0, duration: 0.52, ease: "power2.inOut", stagger: 0.02 }, 4.62);
 
-      // Index (5.6): the four points ride into the Index card with the token (camera move 5.3–5.6)
+      // Index (5.6): the four points ride into the Index card with the token (camera move 5.3–5.6), parking at the
+      // card centre; the label badge lands at the right end of each index row (5.62–6.10)
+      tl.to(dots, { x: DOT_PARK, duration: 0.3, ease: "power3.inOut", immediateRender: false }, 5.3);
+      tl.fromTo(rows.map(function (r) { return r.bdg; }), { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 5.62);
 
       // ---- Scene 3 (6.0–9.0): the index inside the Index card; one point settles into each row; hold from 7.0 ----
       tl.fromTo(rows.map(function (r) { return r.track; }), { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out", stagger: 0.04 }, 6.0);
