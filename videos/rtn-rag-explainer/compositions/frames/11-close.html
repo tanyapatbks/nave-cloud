@@ -42,7 +42,7 @@
     .f11-line{position:absolute;left:0;right:0;display:block;white-space:nowrap;text-align:center}
     .f11-ph{display:inline-block;white-space:nowrap}
     #f11-l1{top:262px;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111}
-    #f11-emb{position:relative;color:#9a9a9a}
+    #f11-emb{position:relative;color:#7a7a7a}
     #f11-strike{position:absolute;left:-6px;right:-6px;top:calc(0.755em - 1.5px);height:3px;border-radius:2px;background:#6b6b6b;transform-origin:left center}
     #f11-l2a,#f11-l2b{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-size:44px;line-height:1.45;color:#6b6b6b}
     #f11-l2a{top:388px}
@@ -201,7 +201,7 @@
 
       // Scene 4 (6.2-10.0s): held card. Only the dimmed lattice keeps a barely-perceptible
       // settle drift underneath (starts as the ordering move ends); the title stays still.
-      tl.fromTo("#f11-drift", { scale: 1 }, { scale: 1.012, duration: 7.6, ease: "sine.inOut" }, 2.4);
+      /* no back-half drift: held reads stay still (motion doctrine rule 3) */
 
       window.__timelines["11-close"] = tl;
     })();

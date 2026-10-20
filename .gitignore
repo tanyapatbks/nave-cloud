@@ -7,3 +7,5 @@ node_modules/
 # HyperFrames working caches / intermediate artifacts
 videos/*/.hyperframes/artifacts/
 videos/*/renders/*.tmp*
+videos/*/renders/
+qa/review-*/

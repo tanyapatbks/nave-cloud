@@ -11,8 +11,6 @@
 
     /* ground: full-bleed cream + two faint side glows (left = scope/cobalt, right = neutral grey) */
     #f08-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;overflow:hidden}
-    #f08-glowL{position:absolute;left:-58px;top:300px;width:1100px;height:600px;background:radial-gradient(closest-side,rgba(30,43,250,0.07),rgba(30,43,250,0))}
-    #f08-glowR{position:absolute;left:878px;top:300px;width:1100px;height:600px;background:radial-gradient(closest-side,rgba(107,107,107,0.06),rgba(107,107,107,0))}
 
     /* shared header (static) */
     #f08-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
@@ -64,10 +62,8 @@
     #f08-q .f08-qtext{display:block;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;white-space:nowrap}
   </style>
 
-  <div id="root" data-composition-id="08-two-people" data-width="1920" data-height="1080">
-    <div id="f08-ground" class="clip" data-start="0" data-duration="9" data-track-index="0">
-      <div id="f08-glowL"></div>
-      <div id="f08-glowR"></div>
+  <div id="root" data-composition-id="08-two-people" data-width="1920" data-height="1080" data-duration="9.5">
+    <div id="f08-ground" class="clip" data-start="0" data-duration="9.5" data-track-index="0">
     </div>
 
     <div id="f08-hdr">
@@ -160,7 +156,6 @@
       var TILT = 12, OVER = 8, SLIDE = 380, AMP = 4;
 
       /* ambient: the two side glows bloom in, then stay */
-      tl.fromTo(["#f08-glowL", "#f08-glowR"], { opacity: 0 }, { opacity: 1, duration: 1.6, ease: "power1.inOut" }, 0);
 
       /* Scene 1 (0.0-2.4) — headline per phrase, slide-down settle */
       tl.fromTo("#f08-h2 .f08-ph", { y: -28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.15 }, 0.3);
