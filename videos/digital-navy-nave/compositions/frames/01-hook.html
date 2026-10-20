@@ -1,18 +1,235 @@
 <template>
   <style>
-    #root{position:absolute;inset:0;overflow:hidden}
-    #f01-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
+
+    #root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;container-type:size;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";}
+
+    /* ground (track 0) */
+    #f01-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
+
+    /* atmosphere: faint concentric rings centred behind the composer (960, 470) + 3x3 dot grid top-right */
+    #f01-rings{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:960px 470px;}
+    #f01-rings svg{position:absolute;left:0;top:0;width:1920px;height:1080px;}
+    #f01-grid{position:absolute;left:0;top:0;width:1920px;height:1080px;}
+    #f01-grid svg{position:absolute;left:0;top:0;width:1920px;height:1080px;}
+    #f01-grid path{fill:none;stroke:#1e2bfa;stroke-opacity:0.15;stroke-width:1.5;stroke-linecap:butt;}
+
+    /* composer (frame.md component 5, frame-01 width 1100): card centred at y 470 (top 414, height 112) */
+    #f01-card{position:absolute;left:410px;top:414px;width:1100px;height:112px;box-sizing:border-box;border-radius:20px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;transform-origin:50% 50%;}
+    #f01-spark{position:absolute;left:32px;top:39.5px;width:30px;height:30px;display:block;}
+    #f01-send{position:absolute;right:24px;top:22.5px;width:64px;height:64px;border-radius:50%;background:#1e2bfa;transform-origin:50% 50%;}
+    #f01-send svg{position:absolute;left:0;top:0;width:64px;height:64px;display:block;}
+
+    /* typed line: its own layer over the card (so the card can shrink while the line lifts out).
+       Anchored at x 960; the entrance offset x -466 puts its left edge at x 494 (card 410 + border 1.5 + inset 32 + spark 30 + gap 20) */
+    #f01-lw{position:absolute;left:960px;top:441px;color:#111111;}
+    #f01-line{position:relative;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;}
+    .f01-w{position:relative;display:inline-block;}
+    .f01-caret{position:absolute;left:100%;top:5px;width:3px;height:48px;margin-left:3px;border-radius:1.5px;background:#1e2bfa;}
+    #f01-c0{left:-1px;margin-left:0;}
+
+    /* headline (Scene 2): centred at y 390, 64px / 1.45 = 93px box */
+    #f01-hl{position:absolute;left:0;top:344px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:64px;line-height:1.45;color:#111111;transform-origin:960px 46px;}
+    .f01-line{display:block;white-space:nowrap;}
+    .f01-hp{display:inline-block;}
+
+    /* display (Scene 3): "Digital Navy" cobalt, "?" near-black */
+    #f01-disp{position:absolute;left:0;top:450px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Display","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:170px;line-height:1.3;color:#1e2bfa;white-space:nowrap;}
+    #f01-dn{position:relative;display:inline-block;}
+    #f01-qm{display:inline-block;color:#111111;}
+    #f01-ul{position:absolute;left:0;top:222px;width:100%;height:12px;display:block;overflow:visible;}
+    #f01-ul path{fill:none;stroke:#1e2bfa;stroke-width:6;stroke-linecap:round;}
+
+    /* chapter tracker (frame.md component 1, all upcoming): the SAME box model as compositions/chrome.html
+       (#ch-hdr / #ch-track / .ch-pill / .ch-n, upcoming state), so nothing moves or recolours at the global-10.0s hand-over */
+    #f01-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px}
+    #f01-track{position:absolute;left:0;top:0;height:60px;display:flex;gap:12px;align-items:center}
+    .f01-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b675c;background:rgba(30,43,250,0);white-space:nowrap}
+    .f01-n{font-weight:700;margin-right:10px}
   </style>
-  <div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080" data-duration="10.5">
-    <div id="f01-ground" class="clip" data-start="0" data-duration="10.5" data-track-index="0"></div>
+
+  <div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080" data-duration="10">
+    <div id="f01-ground" class="clip" data-start="0" data-duration="10" data-track-index="0"></div>
+
+    <div id="f01-rings" data-layout-ignore>
+      <svg viewBox="0 0 1920 1080" aria-hidden="true">
+        <circle class="f01-ring" cx="960" cy="470" r="190" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.11"/>
+        <circle class="f01-ring" cx="960" cy="470" r="300" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.085"/>
+        <circle class="f01-ring" cx="960" cy="470" r="410" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.06"/>
+      </svg>
+    </div>
+
+    <div id="f01-grid" data-layout-ignore>
+      <svg viewBox="0 0 1920 1080" aria-hidden="true">
+        <g id="f01-net"></g>
+        <g id="f01-dots"></g>
+      </svg>
+    </div>
+
+    <div id="f01-card">
+      <svg id="f01-spark" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>
+      <div id="f01-send"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 44V21 M22.5 30.5L32 21l9.5 9.5" fill="none" stroke="#fdfae7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+
+    <div id="f01-lw" data-layout-allow-overlap>
+      <span id="f01-line"><span class="f01-caret" id="f01-c0" data-layout-ignore></span><span class="f01-w">ภาพ<span class="f01-caret" data-layout-ignore></span></span><span class="f01-w">อนาคต<span class="f01-caret" data-layout-ignore></span></span><span class="f01-w">ของ<span class="f01-caret" data-layout-ignore></span></span> <span class="f01-w">ทร.<span class="f01-caret" data-layout-ignore></span></span> <span class="f01-w">เป็น<span class="f01-caret" data-layout-ignore></span></span><span class="f01-w">แบบไหน<span class="f01-caret" data-layout-ignore></span></span></span>
+    </div>
+
+    <div id="f01-hl">
+      <span class="f01-line"><span class="f01-hp">แบบไหน...</span> <span class="f01-hp">ที่เรียกว่า</span></span>
+    </div>
+
+    <div id="f01-disp">
+      <span id="f01-dn">Digital Navy<svg id="f01-ul" viewBox="0 0 1000 12" preserveAspectRatio="none" aria-hidden="true" data-layout-ignore><path d="M8 6H992"/></svg></span><span id="f01-qm">?</span>
+    </div>
+
+    <div id="f01-hdr">
+      <div id="f01-track"><span class="f01-pill" id="f01-p1"><b class="f01-n">1</b>โจทย์</span><span class="f01-pill" id="f01-p2"><b class="f01-n">2</b>NAVE</span><span class="f01-pill" id="f01-p3"><b class="f01-n">3</b>เส้นทาง</span></div>
+    </div>
   </div>
+
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
+      var COMP = "01-hook";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]') || document;
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
+      var SVGNS = "http://www.w3.org/2000/svg";
       var tl = gsap.timeline({ paused: true });
-      tl.set({}, {}, 10);
+
+      /* ---------- atmosphere: 3x3 cobalt dot grid (top-right, 12% opacity) + the hairline network ---------- */
+      var GX = [1664, 1720, 1776], GY = [196, 252, 308];
+      var DOTS = [];
+      GY.forEach(function (y) { GX.forEach(function (x) { DOTS.push([x, y]); }); });
+      var dotsG = $("#f01-dots"), netG = $("#f01-net");
+      DOTS.forEach(function (d, i) {
+        var c = document.createElementNS(SVGNS, "circle");
+        c.setAttribute("cx", d[0]); c.setAttribute("cy", d[1]); c.setAttribute("r", 6);
+        c.setAttribute("fill", "#1e2bfa"); c.setAttribute("fill-opacity", "0.12");
+        c.setAttribute("class", "f01-dot");
+        dotsG.appendChild(c);
+      });
+      /* the network joins five of the nine dots (0, 4, 2, 7, 8): each edge runs centre to centre */
+      var EDGES = [[0, 4], [4, 2], [4, 7], [7, 8]];
+      var netPaths = EDGES.map(function (e) {
+        var a = DOTS[e[0]], b = DOTS[e[1]];
+        var p = document.createElementNS(SVGNS, "path");
+        p.setAttribute("d", "M" + a[0] + " " + a[1] + "L" + b[0] + " " + b[1]);
+        netG.appendChild(p);
+        var len = p.getTotalLength();
+        p.style.strokeDasharray = len + " " + (len + 2);
+        p.style.strokeDashoffset = String(len);
+        return { el: p, len: len };
+      });
+
+      /* underline under "Digital Navy": measured path length in the SVG's own user space */
+      var ulPath = $("#f01-ul path");
+      var ulLen = ulPath.getTotalLength();
+      ulPath.style.strokeDasharray = ulLen + " " + (ulLen + 20);
+      ulPath.style.strokeDashoffset = String(ulLen);
+
+      /* =========== Scene 1 (0.0-2.6s): composer fades up, caret blinks twice, the line types per word, send =========== */
+      tl.fromTo("#f01-rings", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.4, ease: "power2.out" }, 0);
+      $$("#f01-rings .f01-ring").forEach(function (el, k) {
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0.05 + k * 0.14);
+      });
+      $$("#f01-dots .f01-dot").forEach(function (el, k) {
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3 + k * 0.05);
+      });
+
+      var LINE_X0 = 494 - 960; /* the line's left edge in the composer, relative to its x-960 anchor */
+      tl.fromTo("#f01-card", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0);
+      tl.fromTo("#f01-lw", { x: LINE_X0, xPercent: 0, y: 16 }, { x: LINE_X0, xPercent: 0, y: 0, duration: 0.4, ease: "power3.out" }, 0);
+
+      /* caret steps: finite opacity steps, never repeat. first tween per element renders its from-state, later ones do not */
+      var STEP = 0.04;
+      function step(el, from, to, at, first) {
+        tl.fromTo(el, { opacity: from }, { opacity: to, duration: STEP, ease: "power2.out", immediateRender: !!first }, at);
+      }
+      var c0 = $("#f01-c0");
+      step(c0, 0, 1, 0.06, true);
+      step(c0, 1, 0, 0.18);   /* blink 1 */
+      step(c0, 0, 1, 0.30);
+      step(c0, 1, 0, 0.42);   /* blink 2 */
+      step(c0, 0, 1, 0.52);
+
+      /* per-word typing (dynamic-content-sequencing): each word's arrival is pre-computed ONCE from its length,
+         so a longer word takes longer to "type"; the first word lands at 0.6s, ~0.22s apart on average */
+      var WORD_T0 = 0.6, WORD_BASE = 0.12, SEC_PER_CHAR = 0.025;
+      var words = $$("#f01-line .f01-w");
+      var acc = WORD_T0;
+      var WORD_AT = words.map(function (w, k) {
+        if (k > 0) acc += WORD_BASE + w.textContent.length * SEC_PER_CHAR;
+        return +acc.toFixed(3);
+      });
+      var SEND_AT = 2.2;
+      step(c0, 1, 0, WORD_AT[0]);
+      words.forEach(function (w, k) {
+        tl.fromTo(w, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "power2.out" }, WORD_AT[k]);
+        var caret = w.querySelector(".f01-caret");
+        /* the caret jumps to the end of the newest word, and hides on send */
+        step(caret, 0, 1, WORD_AT[k], true);
+        step(caret, 1, 0, k + 1 < words.length ? WORD_AT[k + 1] : SEND_AT);
+      });
+
+      /* send button press (press-release-spring, smooth): linear-feel press, power2 release, no overshoot */
+      var PRESS_DUR = 0.12, RELEASE_DUR = 0.42;
+      tl.fromTo("#f01-send", { scale: 1, backgroundColor: "#1e2bfa" }, { scale: 0.92, backgroundColor: "#1620c4", duration: PRESS_DUR, ease: "power2.in" }, SEND_AT);
+      tl.fromTo("#f01-send", { scale: 0.92, backgroundColor: "#1620c4" }, { scale: 1, backgroundColor: "#1e2bfa", duration: RELEASE_DUR, ease: "power2.out", immediateRender: false }, SEND_AT + PRESS_DUR);
+
+      /* =========== Scene 2 (2.6-3.9s): scale-swap - the card shrinks + fades, the typed line lifts out as the eyebrow =========== */
+      var SWAP_AT = 2.6, EXIT_DUR = 0.4, EXIT_SCALE = 0.7;
+      tl.fromTo("#f01-card", { scale: 1, opacity: 1 }, { scale: EXIT_SCALE, opacity: 0, duration: EXIT_DUR, ease: "power2.in", immediateRender: false }, SWAP_AT);
+      /* the line travels from its composer slot to centred at y 300 (box top 271), recolouring to the muted eyebrow grey */
+      tl.fromTo("#f01-lw",
+        { x: LINE_X0, xPercent: 0, y: 0, color: "#111111" },
+        { x: 0, xPercent: -50, y: 271 - 441, color: "#5f5b50", duration: 0.8, ease: "power3.out", immediateRender: false },
+        SWAP_AT);
+
+      /* the incoming headline arrives as the outgoing card finishes: group scale EXIT_SCALE-ish -> 1, phrases rise in */
+      var HL_AT = 3.0;
+      tl.fromTo("#f01-hl", { scale: 0.92 }, { scale: 1, duration: 0.6, ease: "power3.out" }, HL_AT);
+      $$("#f01-hl .f01-hp").forEach(function (el, k) {
+        tl.fromTo(el, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, HL_AT + k * 0.25);
+      });
+
+      /* =========== Scene 3 (3.9-8.4s): "Digital Navy?" lands, underline self-draws, one faint network, then still =========== */
+      tl.fromTo("#f01-disp", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, 3.9);
+
+      tl.fromTo("#f01-ul", { opacity: 0 }, { opacity: 1, duration: 0.02, ease: "power2.out" }, 4.8);
+      tl.fromTo(ulPath, { strokeDashoffset: ulLen }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 4.8);
+
+      /* hairline network: 4 edges, each 0.36s, each starting at ~78% of the previous one (5.6-6.8s) */
+      var NET_AT = 5.6, NET_DUR = 0.36, NET_GAP = 0.28;
+      netPaths.forEach(function (n, k) {
+        tl.fromTo(n.el, { strokeDashoffset: n.len }, { strokeDashoffset: 0, duration: NET_DUR, ease: "power2.out" }, NET_AT + k * NET_GAP);
+      });
+
+      /* =========== Scene 4 (8.4-10.0s): tracker pills, opacity-only, at the chrome's exact geometry (all upcoming) =========== */
+      ["#f01-p1", "#f01-p2", "#f01-p3"].forEach(function (id, k) {
+        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 8.4 + k * 0.1);
+      });
+
+      /* hand-over: the chrome's identical pills are mounted from global 10.0, so these hide at exactly the frame's last
+         instant (local 10.0) and only one set of pills is ever drawn (no doubled 20% borders during the crossfade) */
+      tl.set("#f01-track .f01-pill", { opacity: 0, immediateRender: false }, 10);
+
+      /* the frame is exactly 10s long */
+      tl.to({}, { duration: 10 }, 0);
+
       window.__timelines = window.__timelines || {};
-      window.__timelines["01-hook"] = tl;
+      window.__timelines[COMP] = tl;
     })();
   </script>
 </template>

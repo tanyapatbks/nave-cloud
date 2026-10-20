@@ -1,18 +1,259 @@
 <template>
   <style>
-    #root{position:absolute;inset:0;overflow:hidden}
-    #f14-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
   </style>
-  <div id="root" data-composition-id="14-stage4" data-width="1920" data-height="1080" data-duration="17">
-    <div id="f14-ground" class="clip" data-start="0" data-duration="17" data-track-index="0"></div>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai"}
+    #f14-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+
+    /* stage header (component 12): eyebrow + English stage name on one baseline (y 300-380),
+       Thai purpose line below (y 384-434). The rail band above (y < 290) belongs to roadmap.html. */
+    #f14-head{position:absolute;left:96px;top:300px;height:80px;box-sizing:border-box;padding-top:6px;display:flex;align-items:baseline;white-space:nowrap}
+    #f14-eyebrow{display:block;margin-right:20px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#1e2bfa;white-space:nowrap}
+    #f14-title{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:52px;line-height:1.3;color:#111111;white-space:nowrap}
+    #f14-purpose{position:absolute;left:96px;top:384px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#5F5B50;white-space:nowrap}
+    .f14-ph{display:inline-block;white-space:nowrap}
+
+    /* item tiles (component 13): 64px tall, radius 12, a 28px cobalt stroke icon then the mono term */
+    .f14-row{position:absolute;left:96px;width:1728px;height:64px;display:flex;align-items:center;gap:12px}
+    #f14-row1{top:466px}
+    #f14-row2{top:542px}
+    #f14-row3{top:768px;width:auto}
+    .f14-tile{height:64px;box-sizing:border-box;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;white-space:nowrap;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2)}
+    .f14-row .f14-tile{flex:1 1 auto}
+    #f14-row3 .f14-tile{flex:none}
+    .f14-tile svg{display:block;flex:none;overflow:visible}
+    .f14-tx{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#111111;white-space:nowrap}
+    .f14-ic path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+    /* Scene 3: curly brace under both rows, then the "+" and the Safety Policy stamp below its tip */
+    #f14-brace{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;pointer-events:none}
+    #f14-brace path{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    #f14-add{position:absolute;left:0;top:660px;width:1920px;height:74px;display:flex;align-items:center;justify-content:center;gap:20px}
+    #f14-plus{display:block;flex:none;width:40px;height:40px;overflow:visible}
+    #f14-plus path{fill:none;stroke:#1e2bfa;stroke-width:4;stroke-linecap:round}
+    #f14-stamp{flex:none;height:74px;box-sizing:border-box;padding:0 30px 0 24px;border-radius:12px;background:#1e2bfa;display:flex;align-items:center;gap:14px;white-space:nowrap}
+    #f14-stamp svg{display:block;flex:none;width:36px;height:36px;overflow:visible}
+    #f14-stamp svg path{fill:none;stroke:#fdfae7;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    #f14-stamp-tx{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#fdfae7;white-space:nowrap}
+
+    /* Scene 4: hairline divider at y 752, then the 4+ row (y 768-832) */
+    #f14-rule{position:absolute;left:96px;top:751px;width:1728px;height:1.5px;background:rgba(30,43,250,0.2);transform-origin:0% 50%}
+    #f14-chip{flex:none;display:block;margin-right:4px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    #f14-note{flex:none;display:block;margin-left:12px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#5F5B50;white-space:nowrap}
+  </style>
+
+  <div id="root" data-composition-id="14-stage4" data-width="1920" data-height="1080" data-duration="16.5">
+    <div id="f14-ground" class="clip" data-start="0" data-duration="16.5" data-track-index="0"></div>
+
+    <!-- Scene 1: stage header -->
+    <div id="f14-head"><span id="f14-eyebrow">ขั้นที่ 4</span><span id="f14-title">Production / Specialized NAVE</span></div>
+    <span id="f14-purpose"><span id="f14-p1" class="f14-ph">การทำงานที่ปลอดภัย</span> <span id="f14-p2" class="f14-ph">เชื่อถือได้ ระดับองค์กร</span></span>
+
+    <!-- Scene 2: ten operational guardrails, two justified rows of five -->
+    <div id="f14-row1" class="f14-row">
+      <div id="f14-t1" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 3.5 L22.5 6.8 V13.2 C22.5 18.6 19 22.6 14 24.5 C9 22.6 5.5 18.6 5.5 13.2 V6.8 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 8 V20"/>
+        </svg>
+        <span class="f14-tx">Guardrails</span>
+      </div>
+      <div id="f14-t2" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M9.5 12.5 V9 A4.5 4.5 0 0 1 18.5 9 V12.5"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M7 12.5 H21 A1.5 1.5 0 0 1 22.5 14 V23 A1.5 1.5 0 0 1 21 24.5 H7 A1.5 1.5 0 0 1 5.5 23 V14 A1.5 1.5 0 0 1 7 12.5 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 15.5 A1.7 1.7 0 1 1 14 18.9 A1.7 1.7 0 1 1 14 15.5 Z M14 18.9 V21.5"/>
+        </svg>
+        <span class="f14-tx">Access Control</span>
+      </div>
+      <div id="f14-t3" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M7 4.5 H21 A2.5 2.5 0 0 1 23.5 7 V20 A2.5 2.5 0 0 1 21 22.5 H7 A2.5 2.5 0 0 1 4.5 20 V7 A2.5 2.5 0 0 1 7 4.5 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 9 A4.5 4.5 0 1 1 14 18 A4.5 4.5 0 1 1 14 9 Z M14 13.5 L16.2 11.3"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M8 22.5 V25 M20 22.5 V25"/>
+        </svg>
+        <span class="f14-tx">Secrets Management</span>
+      </div>
+      <div id="f14-t4" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M4.5 6.5 H17.5 M4.5 11.5 H14 M4.5 16.5 H9.5"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M12.5 20 C14.6 16.8 16.9 15.3 19.5 15.3 C22.1 15.3 24.4 16.8 26.5 20 C24.4 23.2 22.1 24.7 19.5 24.7 C16.9 24.7 14.6 23.2 12.5 20 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M19.5 18.2 A1.8 1.8 0 1 1 19.5 21.8 A1.8 1.8 0 1 1 19.5 18.2 Z"/>
+        </svg>
+        <span class="f14-tx">Audit Logs</span>
+      </div>
+      <div id="f14-t5" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M4 20 A10 10 0 0 1 24 20"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M21.1 12.9 L22.6 11.4"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 18.3 A1.7 1.7 0 1 1 14 21.7 A1.7 1.7 0 1 1 14 18.3 Z M15.2 18.8 L19.2 14.2"/>
+        </svg>
+        <span class="f14-tx">Rate Limits</span>
+      </div>
+    </div>
+
+    <div id="f14-row2" class="f14-row">
+      <div id="f14-t6" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M10 25 V5 M6.5 8.5 L10 5 L13.5 8.5"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M10 17 C10 13.5 12.5 11.5 16 11.5 H23 M19.5 8 L23 11.5 L19.5 15"/>
+        </svg>
+        <span class="f14-tx">Fallback Models</span>
+      </div>
+      <div id="f14-t7" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M8.5 20.5 V15.5 A5.5 5.5 0 0 1 19.5 15.5 V20.5"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M6 20.5 H22 A1 1 0 0 1 23 21.5 V23.5 A1 1 0 0 1 22 24.5 H6 A1 1 0 0 1 5 23.5 V21.5 A1 1 0 0 1 6 20.5 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 3 V6 M5.2 6.7 L7.3 8.8 M22.8 6.7 L20.7 8.8 M2.5 14.5 H4.5 M23.5 14.5 H25.5 M11.5 15.5 A2.5 2.5 0 0 1 14 13"/>
+        </svg>
+        <span class="f14-tx">Incident Response</span>
+      </div>
+      <div id="f14-t8" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M15.5 24.5 H7 A2 2 0 0 1 5 22.5 V5.5 A2 2 0 0 1 7 3.5 H19 A2 2 0 0 1 21 5.5 V12"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M8.5 9 L10.3 10.8 L13.8 7.3 M8.5 15.5 L10.3 17.3 L13.8 13.8"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M21 14.5 A4 4 0 1 1 21 22.5 A4 4 0 1 1 21 14.5 Z M18.8 21.8 L17.8 26 L21 24.6 L24.2 26 L23.2 21.8"/>
+        </svg>
+        <span class="f14-tx">Compliance</span>
+      </div>
+      <div id="f14-t9" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 4 H16 A1.5 1.5 0 0 1 17.5 5.5 V10 A1.5 1.5 0 0 1 16 11.5 H5 A1.5 1.5 0 0 1 3.5 10 V5.5 A1.5 1.5 0 0 1 5 4 Z M5 16.5 H16 A1.5 1.5 0 0 1 17.5 18 V22.5 A1.5 1.5 0 0 1 16 24 H5 A1.5 1.5 0 0 1 3.5 22.5 V18 A1.5 1.5 0 0 1 5 16.5 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M7 7.75 H7.1 M10.5 7.75 H14 M7 20.25 H7.1 M10.5 20.25 H14 M10.5 11.5 V16.5"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M22.5 12.5 V3.5 M19.8 6.2 L22.5 3.5 L25.2 6.2 M22.5 15.5 V24.5 M19.8 21.8 L22.5 24.5 L25.2 21.8"/>
+        </svg>
+        <span class="f14-tx">HA / Auto-Scaling</span>
+      </div>
+      <div id="f14-t10" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M8.5 16.5 H20 A4 4 0 0 0 20.6 8.55 A6 6 0 0 0 9.2 9.8 A3.4 3.4 0 0 0 8.5 16.5 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M19 19 V21.5 A3 3 0 0 1 16 24.5 H9 M11.5 22 L9 24.5 L11.5 27"/>
+        </svg>
+        <span class="f14-tx">Disaster Recovery</span>
+      </div>
+    </div>
+
+    <!-- Scene 3: the brace gathers both rows; "+" and the Safety Policy stamp below its tip -->
+    <svg id="f14-brace" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+      <path id="f14-brace-l" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M96 618 C96 627 101 632 110 632 H938 C950 632 958 636 960 646"/>
+      <path id="f14-brace-r" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M1824 618 C1824 627 1819 632 1810 632 H982 C970 632 962 636 960 646"/>
+    </svg>
+    <div id="f14-add">
+      <svg id="f14-plus" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M20 4 V36 M4 20 H36"/></svg>
+      <div id="f14-stamp">
+        <svg viewBox="0 0 28 28" width="36" height="36" aria-hidden="true">
+          <path d="M14 3.5 L22.5 6.8 V13.2 C22.5 18.6 19 22.6 14 24.5 C9 22.6 5.5 18.6 5.5 13.2 V6.8 Z"/>
+          <path d="M14 8.5 V14.8 M14 18.6 V18.7"/>
+        </svg>
+        <span id="f14-stamp-tx">Safety Policy!</span>
+      </div>
+    </div>
+
+    <!-- Scene 4: divider, then the 4+ advanced row -->
+    <div id="f14-rule"></div>
+    <div id="f14-row3" class="f14-row">
+      <span id="f14-chip">4+ Advanced</span>
+      <div id="f14-a1" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 22 A2 2 0 1 1 14 26 A2 2 0 1 1 14 22 Z M14 22 V17"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 17 C14 13.5 8 13 8 8.5 M14 17 C14 13.5 20 13 20 8.5"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M8 4 A2.25 2.25 0 1 1 8 8.5 A2.25 2.25 0 1 1 8 4 Z M20 4 A2.25 2.25 0 1 1 20 8.5 A2.25 2.25 0 1 1 20 4 Z"/>
+        </svg>
+        <span class="f14-tx">Model Routing</span>
+      </div>
+      <div id="f14-a2" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M12.5 7 A8.5 8.5 0 1 1 12.5 24 A8.5 8.5 0 1 1 12.5 7 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M12.5 11 A4.5 4.5 0 1 1 12.5 20 A4.5 4.5 0 1 1 12.5 11 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M22.5 9.5 V3.5 M20 6 L22.5 3.5 L25 6"/>
+        </svg>
+        <span class="f14-tx">Token Tracking</span>
+      </div>
+      <div id="f14-a3" class="f14-tile">
+        <svg class="f14-ic" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 8 A8.5 8.5 0 1 1 14 25 A8.5 8.5 0 1 1 14 8 Z"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M11.5 3.5 H16.5 M14 3.5 V8 M20.5 8.5 L22.5 6.5"/>
+          <path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M14 16.5 L17.5 13"/>
+        </svg>
+        <span class="f14-tx">Latency Optimization</span>
+      </div>
+      <span id="f14-note">ในสภาพแวดล้อมใช้งานจริง</span>
+    </div>
   </div>
+
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
+      var COMP = "14-stage4";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]') || document;
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s, el) { return Array.prototype.slice.call((el || host).querySelectorAll(s)); };
+
       var tl = gsap.timeline({ paused: true });
+
+      /* one tile settles a short distance straight into its slot (grid-card-assemble),
+         then its stroke icon draws in */
+      function assemble(tile, at) {
+        tl.fromTo(tile,
+          { opacity: 0, y: 20, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, at);
+        tl.fromTo($$("svg path", tile),
+          { attr: { "stroke-dashoffset": 1 } },
+          { attr: { "stroke-dashoffset": 0 }, duration: 0.45, ease: "power2.out", stagger: 0.06 }, at + 0.12);
+      }
+
+      /* Scene 1 (0.0-1.6): stage header, then the purpose line phrase by phrase */
+      tl.fromTo([$("#f14-eyebrow"), $("#f14-title")],
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.08 }, 0.3);
+      tl.fromTo([$("#f14-p1"), $("#f14-p2")],
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.3 }, 0.8);
+
+      /* Scene 2 (1.6-5.5): ten tiles assemble in reading order, one per 0.4 s */
+      var cues = [1.8, 2.2, 2.6, 3.0, 3.4, 3.8, 4.2, 4.6, 5.0, 5.4];
+      cues.forEach(function (at, i) { assemble($("#f14-t" + (i + 1)), at); });
+
+      /* Scene 3 (5.5-7.4): the brace draws from both ends into its tip (5.5-6.0),
+         the "+" lands under it (5.9), then the stamp presses in 1.08 -> 1 (6.1) */
+      var brace = [$("#f14-brace-l"), $("#f14-brace-r")];
+      tl.fromTo(brace, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "power2.out" }, 5.5);
+      tl.fromTo(brace,
+        { attr: { "stroke-dashoffset": 1 } },
+        { attr: { "stroke-dashoffset": 0 }, duration: 0.5, ease: "power2.inOut" }, 5.5);
+      tl.fromTo($("#f14-plus"),
+        { opacity: 0, scale: 0.6 },
+        { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 5.9);
+      tl.fromTo($("#f14-stamp"), { opacity: 0 }, { opacity: 1, duration: 0.16, ease: "power2.out" }, 6.1);
+      tl.fromTo($("#f14-stamp"), { scale: 1.08 }, { scale: 1, duration: 0.45, ease: "power3.out" }, 6.1);
+
+      /* Scene 4 (7.4-16.5): hairline divider (7.4-7.6), then the 4+ row, then a still hold from 10.0 */
+      tl.fromTo($("#f14-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.2, ease: "power2.out" }, 7.4);
+      tl.fromTo($("#f14-chip"),
+        { opacity: 0, x: -16 },
+        { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 7.6);
+      assemble($("#f14-a1"), 8.0);
+      assemble($("#f14-a2"), 8.4);
+      assemble($("#f14-a3"), 8.8);
+      tl.fromTo($("#f14-note"),
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 9.4);
+
       tl.set({}, {}, 16.5);
+
       window.__timelines = window.__timelines || {};
-      window.__timelines["14-stage4"] = tl;
+      window.__timelines[COMP] = tl;
     })();
   </script>
 </template>

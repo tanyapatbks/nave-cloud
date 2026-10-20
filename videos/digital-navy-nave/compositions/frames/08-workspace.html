@@ -1,18 +1,257 @@
 <template>
   <style>
-    #root{position:absolute;inset:0;overflow:hidden}
-    #f08-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
   </style>
-  <div id="root" data-composition-id="08-workspace" data-width="1920" data-height="1080" data-duration="13.5">
-    <div id="f08-ground" class="clip" data-start="0" data-duration="13.5" data-track-index="0"></div>
+  <style>
+    #f08-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+    #f08-h2 .f08-line{display:block;white-space:nowrap}
+  </style>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai"}
+    #f08-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+
+    /* headline + subline, revealed per phrase */
+    #f08-h2 .f08-ph{display:inline-block}
+    #f08-sub{position:absolute;left:96px;top:245px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:36px;line-height:1.45;color:#5F5B50}
+    #f08-sub .f08-line{display:block;white-space:nowrap}
+    #f08-sub .f08-ph{display:inline-block}
+
+    /* one canvas-space svg: scope fill + dashed scope, connectors, gate dots, pulses */
+    #f08-svg{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+    .f08-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
+    .f08-link{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .f08-pulse{fill:none;stroke:#1e2bfa;stroke-width:6;stroke-linecap:round}
+
+    /* hub card (card-tinted, radius 14) x 760-1160, y 450-690 */
+    #f08-hub{position:absolute;left:760px;top:450px;width:400px;height:240px;box-sizing:border-box;border-radius:14px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transform-origin:50% 50%}
+    #f08-idrow{display:flex;align-items:center;gap:22px}
+    #f08-avatar{flex:none;display:block;width:96px;height:96px;transform-origin:50% 50%}
+    #f08-name{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;white-space:nowrap}
+    #f08-chips{display:flex;align-items:center;gap:14px}
+    .f08-chip{display:block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:36px;padding:6px 20px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;transform-origin:50% 50%}
+
+    /* scope label pill, centred on the scope top edge (y 400) */
+    #f08-pillwrap{position:absolute;left:640px;top:373.7px;width:640px;display:flex;justify-content:center}
+    #f08-pill{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;padding:6px 24px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap;transform-origin:50% 50%}
+
+    /* satellites: tinted cards, ~100px tall */
+    .f08-sat{position:absolute;width:424px;height:100px;box-sizing:border-box;border-radius:14px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);display:flex;align-items:center;gap:16px;padding:0 16px;transform-origin:50% 50%}
+    #f08-sat1{left:96px;top:400px}
+    #f08-sat2{left:1400px;top:400px}
+    #f08-sat3{left:96px;top:640px}
+    #f08-sat4{left:1400px;top:640px}
+    .f08-gl{flex:none;width:56px;height:56px;box-sizing:border-box;border-radius:12px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center}
+    .f08-gl svg{display:block;width:32px;height:32px;overflow:visible}
+    .f08-gl svg .f08-st{fill:none;stroke:#1e2bfa;stroke-width:2.125;stroke-linecap:round;stroke-linejoin:round}
+    .f08-gl.f08-ainode{border-radius:50%;background:#fdfae7;border:2px solid #1e2bfa}
+    .f08-gl.f08-ainode svg{width:28px;height:28px}
+    .f08-lab{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111;white-space:nowrap}
+
+    /* closing lines, centred at y 772-876 */
+    #f08-close{position:absolute;left:0;top:772px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111}
+    #f08-close .f08-line{display:block;white-space:nowrap}
+    #f08-close .f08-ph{display:inline-block}
+    #f08-close .f08-em{color:#1e2bfa;font-weight:700}
+  </style>
+
+  <div id="root" data-composition-id="08-workspace" data-width="1920" data-height="1080" data-start="0" data-duration="13">
+    <div id="f08-ground" class="clip" data-start="0" data-duration="13" data-track-index="0"></div>
+
+    <!-- Scene 1: headline + subline -->
+    <div id="f08-h2"><span class="f08-line"><span class="f08-ph">NAVE เสมือน</span> <span class="f08-ph">AI-Workspace ของ ทร.</span></span></div>
+    <div id="f08-sub"><span class="f08-line"><span class="f08-ph">ดำเนินการเบ็ดเสร็จ</span> <span class="f08-ph">ภายในที่เดียว</span></span></div>
+
+    <!-- scope (component 4) + connectors + gate dots + pulses -->
+    <svg id="f08-svg" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+      <defs>
+        <mask id="f08-scope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+          <path id="f08-mL" class="f08-mask-path" d="M 960 400 L 668 400 A 28 28 0 0 0 640 428 L 640 712 A 28 28 0 0 0 668 740 L 960 740"/>
+          <path id="f08-mR" class="f08-mask-path" d="M 960 400 L 1252 400 A 28 28 0 0 1 1280 428 L 1280 712 A 28 28 0 0 1 1252 740 L 960 740"/>
+        </mask>
+      </defs>
+      <rect id="f08-scope-fill" x="640" y="400" width="640" height="340" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
+      <rect id="f08-scope-dash" x="640" y="400" width="640" height="340" rx="28" ry="28" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f08-scope-mask)"/>
+
+      <!-- connectors: satellite edge -> gate on the scope edge -> hub edge -->
+      <path id="f08-l1" class="f08-link" d="M 520 450 C 580 450, 580 530, 640 530 L 760 530"/>
+      <path id="f08-l2" class="f08-link" d="M 1400 450 C 1340 450, 1340 530, 1280 530 L 1160 530"/>
+      <path id="f08-l3" class="f08-link" d="M 520 690 C 580 690, 580 610, 640 610 L 760 610"/>
+      <path id="f08-l4" class="f08-link" d="M 1400 690 C 1340 690, 1340 610, 1280 610 L 1160 610"/>
+
+      <!-- pulses: one short cobalt dash per connector -->
+      <path id="f08-p1" class="f08-pulse" d="M 520 450 C 580 450, 580 530, 640 530 L 760 530"/>
+      <path id="f08-p2" class="f08-pulse" d="M 1400 450 C 1340 450, 1340 530, 1280 530 L 1160 530"/>
+      <path id="f08-p3" class="f08-pulse" d="M 520 690 C 580 690, 580 610, 640 610 L 760 610"/>
+      <path id="f08-p4" class="f08-pulse" d="M 1400 690 C 1340 690, 1340 610, 1280 610 L 1160 610"/>
+
+      <!-- gate dots where each connector crosses the dashed line -->
+      <circle id="f08-g1" cx="640" cy="530" r="6.5" fill="#1e2bfa" stroke="#fdfae7" stroke-width="2.5"/>
+      <circle id="f08-g2" cx="1280" cy="530" r="6.5" fill="#1e2bfa" stroke="#fdfae7" stroke-width="2.5"/>
+      <circle id="f08-g3" cx="640" cy="610" r="6.5" fill="#1e2bfa" stroke="#fdfae7" stroke-width="2.5"/>
+      <circle id="f08-g4" cx="1280" cy="610" r="6.5" fill="#1e2bfa" stroke="#fdfae7" stroke-width="2.5"/>
+    </svg>
+
+    <!-- Scene 2: the hub card (identity badge, signed-in ring) -->
+    <div id="f08-hub">
+      <div id="f08-idrow">
+        <svg id="f08-avatar" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
+          <defs><clipPath id="f08-avclip"><circle cx="48" cy="48" r="45.5"/></clipPath></defs>
+          <circle cx="48" cy="48" r="46.75" fill="rgba(30,43,250,0.06)" stroke="#1e2bfa" stroke-width="2.5"/>
+          <g clip-path="url(#f08-avclip)" fill="#9a9a9a">
+            <circle cx="48" cy="38" r="16"/>
+            <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
+          </g>
+        </svg>
+        <span id="f08-name">น.อ.aaaaa</span>
+      </div>
+      <div id="f08-chips">
+        <span id="f08-chip-id" class="f08-chip">Identity</span>
+        <span id="f08-chip-po" class="f08-chip">Policy</span>
+      </div>
+    </div>
+
+    <div id="f08-pillwrap"><span id="f08-pill">ตัวตนและสิทธิ์ ของแต่ละบุคคล</span></div>
+
+    <!-- Scene 3: four satellites -->
+    <div id="f08-sat1" class="f08-sat">
+      <span class="f08-gl"><svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true"><g class="f08-st"><rect x="12" y="3" width="10" height="8" rx="2"/><path d="M17 11 V17 M6 22 V17 H28 V22 M17 17 V22"/><rect x="2" y="22" width="8" height="8" rx="2"/><rect x="13" y="22" width="8" height="8" rx="2"/><rect x="24" y="22" width="8" height="8" rx="2"/></g></svg></span>
+      <span class="f08-lab">หน่วยขึ้นตรง (นขต.)</span>
+    </div>
+    <div id="f08-sat2" class="f08-sat">
+      <span class="f08-gl"><svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true"><g class="f08-st"><rect x="4" y="4" width="11" height="11" rx="3"/><rect x="19" y="4" width="11" height="11" rx="3"/><rect x="4" y="19" width="11" height="11" rx="3"/><rect x="19" y="19" width="11" height="11" rx="3"/></g></svg></span>
+      <span class="f08-lab">แอปภายใน</span>
+    </div>
+    <div id="f08-sat3" class="f08-sat">
+      <span class="f08-gl"><svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true"><g class="f08-st"><path d="M9 3 H20 L27 10 V29 Q27 31 25 31 H9 Q7 31 7 29 V5 Q7 3 9 3 Z"/><path d="M20 3 V10 H27"/><path d="M11.5 17 H22.5 M11.5 21.5 H22.5 M11.5 26 H18"/></g></svg></span>
+      <span class="f08-lab">คลังเอกสาร</span>
+    </div>
+    <div id="f08-sat4" class="f08-sat">
+      <span class="f08-gl f08-ainode"><svg viewBox="0 0 30 30" width="30" height="30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg></span>
+      <span class="f08-lab">ผู้ช่วย AI</span>
+    </div>
+
+    <!-- Scene 4: closing lines -->
+    <div id="f08-close">
+      <span class="f08-line"><span class="f08-ph f08-em">เชื่อมโยง</span><span class="f08-ph">การทำงานระหว่างหน่วย</span></span>
+      <span class="f08-line"><span class="f08-ph">และแอปภายใน</span><span class="f08-ph">ที่เกี่ยวข้อง</span></span>
+    </div>
   </div>
+
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
+      var COMP = "08-workspace";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]') || document;
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
+
+      /* ---- measured stroke setup (svg-path-draw) ---- */
+      /* cubic length by fixed 96-step sampling: deterministic fallback if getTotalLength fails */
+      function bezLen(a, b, c, d) {
+        var n = 96, len = 0, px = a[0], py = a[1];
+        for (var i = 1; i <= n; i++) {
+          var t = i / n, u = 1 - t;
+          var x = u*u*u*a[0] + 3*u*u*t*b[0] + 3*u*t*t*c[0] + t*t*t*d[0];
+          var y = u*u*u*a[1] + 3*u*u*t*b[1] + 3*u*t*t*c[1] + t*t*t*d[1];
+          len += Math.sqrt((x-px)*(x-px) + (y-py)*(y-py)); px = x; py = y;
+        }
+        return len;
+      }
+      function measure(el, fallback) {
+        var len = 0;
+        try { len = el.getTotalLength(); } catch (e) { len = 0; }
+        if (!(len > 0)) len = fallback;
+        return Math.ceil(len);
+      }
+      /* every connector: one cubic (120 x 80) to the gate, then 120px straight into the hub */
+      var CURVE = bezLen([0, 0], [60, 0], [60, 80], [120, 80]);
+      var LINK_FALLBACK = CURVE + 120;
+      var HALF = 292 + Math.PI * 14 + 284 + Math.PI * 14 + 292; /* one half of the scope outline */
+      var PULSE = 44; /* visible length of the travelling pulse dash */
+
+      var links = [], pulses = [], linkLen = [];
+      for (var k = 1; k <= 4; k++) {
+        var l = $("#f08-l" + k), p = $("#f08-p" + k);
+        var len = measure(l, LINK_FALLBACK);
+        l.style.strokeDasharray = len + " " + (len + 4);
+        l.style.strokeDashoffset = String(len + 2);
+        links.push(l); linkLen.push(len);
+        p.style.strokeDasharray = PULSE + " " + (len + PULSE + 20);
+        p.style.strokeDashoffset = String(PULSE + 8);
+        pulses.push(p);
+      }
+      var mL = $("#f08-mL"), mR = $("#f08-mR");
+      var L_HALF = measure(mL, HALF);
+      [mL, mR].forEach(function (m) {
+        m.style.strokeDasharray = L_HALF + " " + (L_HALF + 4);
+        m.style.strokeDashoffset = String(L_HALF + 2);
+      });
+
+      gsap.set($$("#f08-svg circle"), { transformOrigin: "50% 50%" });
+
       var tl = gsap.timeline({ paused: true });
+
+      /* ---- Scene 1 (0.0-2.4): headline per phrase, subline at 1.3 ---- */
+      var hph = $$("#f08-h2 .f08-ph");
+      tl.fromTo(hph[0], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.30);
+      tl.fromTo(hph[1], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.46);
+      var sph = $$("#f08-sub .f08-ph");
+      tl.fromTo(sph[0], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.30);
+      tl.fromTo(sph[1], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.46);
+
+      /* ---- Scene 2 (2.4-5.6): hub card + identity, chips, then the scope self-draws ---- */
+      tl.fromTo("#f08-hub", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }, 2.40);
+      tl.fromTo("#f08-avatar", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 2.45);
+      tl.fromTo("#f08-name", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 2.55);
+      tl.fromTo("#f08-chip-id", { opacity: 0, y: 8, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 3.00);
+      tl.fromTo("#f08-chip-po", { opacity: 0, y: 8, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 3.40);
+
+      /* scope: both halves draw from the top centre and close at the bottom centre */
+      tl.fromTo([mL, mR], { strokeDashoffset: L_HALF + 2 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 3.60);
+      tl.fromTo("#f08-pill", { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 4.00);
+      tl.fromTo("#f08-scope-fill", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 4.20);
+
+      /* ---- Scene 3 (5.6-8.2): satellites spring-pop on their cues; connectors draw on landing ---- */
+      var cues = [5.6, 6.0, 6.4, 6.8];
+      var DRAW = 0.5;
+      for (var i = 0; i < 4; i++) {
+        var t = cues[i];
+        tl.fromTo("#f08-sat" + (i + 1), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }, t);
+        var drawAt = t + 0.3;
+        tl.fromTo(links[i], { strokeDashoffset: linkLen[i] + 2 }, { strokeDashoffset: 0, duration: DRAW, ease: "power2.out" }, drawAt);
+        /* the gate pops the moment the pen reaches it (power2.out: p = 1-(1-u)^2) */
+        var frac = Math.min(0.95, CURVE / linkLen[i]);
+        var gateAt = drawAt + DRAW * (1 - Math.sqrt(1 - frac));
+        tl.fromTo("#f08-g" + (i + 1), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, gateAt);
+      }
+
+      /* ---- Scene 4 (8.2-13.0): one pulse runs all four connectors into the hub; closing lines ---- */
+      for (var j = 0; j < 4; j++) {
+        tl.fromTo(pulses[j], { strokeDashoffset: PULSE + 8 }, { strokeDashoffset: -(linkLen[j] + 8), duration: 0.6, ease: "power2.inOut" }, 8.20);
+      }
+      tl.fromTo("#f08-hub", { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,0.6)", duration: 0.25, ease: "power2.out", immediateRender: false }, 8.70);
+
+      var cph = $$("#f08-close .f08-ph");
+      var cT = [8.20, 8.30, 8.42, 8.52];
+      for (var c = 0; c < cph.length; c++) {
+        tl.fromTo(cph[c], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, cT[c]);
+      }
+
+      /* held read from 9.0 to the end */
       tl.set({}, {}, 13);
+
       window.__timelines = window.__timelines || {};
-      window.__timelines["08-workspace"] = tl;
+      window.__timelines[COMP] = tl;
     })();
   </script>
 </template>

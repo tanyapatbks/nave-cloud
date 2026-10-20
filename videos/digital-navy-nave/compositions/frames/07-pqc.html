@@ -1,18 +1,318 @@
 <template>
   <style>
-    #root{position:absolute;inset:0;overflow:hidden}
-    #f07-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
   </style>
-  <div id="root" data-composition-id="07-pqc" data-width="1920" data-height="1080" data-duration="13">
-    <div id="f07-ground" class="clip" data-start="0" data-duration="13" data-track-index="0"></div>
+  <style>
+    #f07-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+    #f07-h2 .f07-line{display:block;white-space:nowrap}
+  </style>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";}
+    #f07-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
+    #f07-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
+
+    .f07-line{display:block;white-space:nowrap;}
+    .f07-ph{display:inline-block;}
+    .f07-key{color:#1e2bfa;}
+
+    /* timeline: 3px ink rule x 160-1760 at y 560 + two end nodes */
+    #f07-tl{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+    #f07-rule{fill:none;stroke:#3F3C35;stroke-width:3;stroke-linecap:round;}
+    #f07-n0{fill:#3F3C35;}
+    #f07-n1{fill:#fdfae7;stroke:#3F3C35;stroke-width:3;}
+
+    /* end labels, y 584-633 */
+    .f07-lab{position:absolute;top:584px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#3F3C35;white-space:nowrap;}
+    #f07-lab0{left:-40px;width:400px;text-align:center;}
+    #f07-lab1{right:96px;text-align:right;}
+
+    /* centred sentence blocks (risk y 296-412, answer y 676-734) */
+    .f07-say{position:absolute;left:0;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;}
+    #f07-risk{top:296px;}
+    #f07-ans{top:676px;}
+
+    /* the "store": dashed outsider-grey box near the future end */
+    #f07-store{position:absolute;left:1548px;top:410px;width:212px;height:140px;box-sizing:border-box;border:2px dashed #8A867A;border-radius:14px;background:rgba(138,134,122,0.06);}
+
+    /* data packet = document tile (component 3) at 0.7 scale: 92 x 120 */
+    .f07-tile{position:absolute;left:114px;top:424px;width:92px;height:120px;}
+    .f07-tframe{position:absolute;left:0;top:0;width:92px;height:120px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.24);border-radius:9px;background:#f4f2e8;overflow:hidden;}
+    .f07-tband{position:absolute;left:0;top:0;width:100%;height:5px;background:#111111;}
+    .f07-tsvg,.f07-lk{position:absolute;left:0;top:0;width:92px;height:120px;overflow:visible;display:block;}
+    .f07-tsvg .f07-kg{fill:none;stroke:#6b6b6b;stroke-width:1.4;stroke-linejoin:round;}
+    .f07-tsvg .f07-tx1{fill:#6b6b6b;}
+    .f07-tsvg .f07-tx{fill:#9a9a9a;}
+    /* dashed duplicate (the stolen copy) */
+    .f07-ghost .f07-tframe{border:2px dashed #8A867A;background:#f6f3e0;}
+    .f07-ghost .f07-tband{background:#B9B4A2;}
+    .f07-ghost .f07-tsvg .f07-kg{stroke:#A29E90;}
+    .f07-ghost .f07-tsvg .f07-tx1{fill:#A29E90;}
+    .f07-ghost .f07-tsvg .f07-tx{fill:#C4BFAD;}
+
+    /* padlocks: classical (ink, keyhole) and post-quantum (same outline, 3x3 cobalt lattice) */
+    .f07-lk .f07-shk{fill:none;stroke:#3F3C35;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;}
+    .f07-lk .f07-body{fill:#fdfae7;stroke:#3F3C35;stroke-width:3;}
+    .f07-lk .f07-pqbody{fill:#EBE9E8;stroke:#3F3C35;stroke-width:3;}
+    .f07-lk .f07-hole{fill:#3F3C35;}
+    .f07-lk .f07-dot{fill:#1e2bfa;}
+    .f07-lk .f07-crack{fill:none;stroke:#9B2D27;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;}
+
+    /* outsider ghost token: dashed grey outline, no person */
+    #f07-tok{position:absolute;left:220px;top:460px;width:48px;height:48px;}
+    #f07-tok svg{display:block;width:48px;height:48px;overflow:visible;}
+
+    /* quantum glyph, 72px at x 1724-1796, y 318-390 (static shape) */
+    #f07-qg{position:absolute;left:1724px;top:318px;width:72px;height:72px;}
+    #f07-qg svg{display:block;width:72px;height:72px;overflow:visible;}
+    #f07-qg .f07-orb{fill:none;stroke:#1e2bfa;stroke-width:2;}
+
+    /* effects layer: emitted rings (clipped to the safe area) + the holding ring */
+    #f07-fx{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+    #f07-fx .f07-wave{fill:none;stroke:#1e2bfa;stroke-width:3;opacity:0;}
+    #f07-shield{fill:none;stroke:#1e2bfa;stroke-width:3;}
+
+    /* shared check (component 8) on a cobalt disc */
+    #f07-ok{position:absolute;left:1718px;top:453px;width:34px;height:34px;border-radius:50%;background:#1e2bfa;color:#fdfae7;display:flex;align-items:center;justify-content:center;}
+    #f07-ok svg{display:block;width:22px;height:22px;}
+
+    /* note + chip row, y 770-823 */
+    #f07-row{position:absolute;left:0;top:770px;width:1920px;height:53px;display:flex;justify-content:center;align-items:center;gap:20px;}
+    #f07-note{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#5F5B50;}
+    #f07-chip{flex:none;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa;white-space:nowrap;}
+  </style>
+
+  <div id="root" data-composition-id="07-pqc" data-width="1920" data-height="1080" data-start="0" data-duration="12.5">
+    <div id="f07-bg" class="clip" data-start="0" data-duration="12.5" data-track-index="0"></div>
+
+    <div id="f07-stage">
+
+      <div id="f07-h2"><span class="f07-line"><span class="f07-ph">อีกทั้งวางแผนรองรับ <span class="f07-key">PQC</span></span> <span class="f07-ph">ที่กำลังจะมาถึง</span></span></div>
+
+      <div class="f07-say" id="f07-risk">
+        <span class="f07-line"><span class="f07-ph" id="f07-r1a">ข้อมูลที่เข้ารหัสวันนี้</span> <span class="f07-ph" id="f07-r1b">อาจถูกลักลอบเก็บไว้</span></span>
+        <span class="f07-line"><span class="f07-ph" id="f07-r2a">แล้วถูกถอดรหัสได้</span><span class="f07-ph" id="f07-r2b">ในอนาคต</span></span>
+      </div>
+
+      <svg id="f07-tl" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+        <path id="f07-rule" d="M160 560 H1760"/>
+        <circle id="f07-n0" cx="160" cy="560" r="9"/>
+        <circle id="f07-n1" cx="1760" cy="560" r="8.5"/>
+      </svg>
+
+      <div class="f07-lab" id="f07-lab0">วันนี้</div>
+      <div class="f07-lab" id="f07-lab1">อนาคต · ยุคควอนตัม</div>
+
+      <div id="f07-store"></div>
+
+      <!-- the data packet at today -->
+      <div class="f07-tile" id="f07-pk">
+        <div class="f07-tframe"><div class="f07-tband"></div></div>
+        <svg class="f07-tsvg" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
+          <path class="f07-kg" d="M10 12.5h7.5l4 4V27H10z M17.5 12.5v4h4"/>
+          <rect class="f07-tx1" x="27" y="16" width="48" height="5" rx="2.5"/>
+          <rect class="f07-tx" x="10" y="31" width="72" height="4.5" rx="2.25"/>
+          <rect class="f07-tx" x="10" y="39" width="54" height="4.5" rx="2.25"/>
+        </svg>
+        <svg class="f07-lk" id="f07-pk-old" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
+          <path class="f07-shk" d="M32.5 73V62a13.5 13.5 0 0 1 27 0V73"/>
+          <rect class="f07-body" x="21.5" y="71.5" width="49" height="37" rx="7"/>
+          <circle class="f07-hole" cx="46" cy="86.5" r="4.6"/>
+          <rect class="f07-hole" x="44.4" y="88" width="3.2" height="10" rx="1.6"/>
+        </svg>
+        <svg class="f07-lk" id="f07-pk-pq" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
+          <path class="f07-shk" d="M32.5 73V62a13.5 13.5 0 0 1 27 0V73"/>
+          <rect class="f07-pqbody" x="21.5" y="71.5" width="49" height="37" rx="7"/>
+          <circle class="f07-dot" cx="36" cy="80" r="3"/><circle class="f07-dot" cx="46" cy="80" r="3"/><circle class="f07-dot" cx="56" cy="80" r="3"/>
+          <circle class="f07-dot" cx="36" cy="90" r="3"/><circle class="f07-dot" cx="46" cy="90" r="3"/><circle class="f07-dot" cx="56" cy="90" r="3"/>
+          <circle class="f07-dot" cx="36" cy="100" r="3"/><circle class="f07-dot" cx="46" cy="100" r="3"/><circle class="f07-dot" cx="56" cy="100" r="3"/>
+        </svg>
+      </div>
+
+      <!-- stolen copy A: dashed duplicate wearing the classical lock (cracks in the future) -->
+      <div class="f07-tile f07-ghost" id="f07-ca">
+        <div class="f07-tframe"><div class="f07-tband"></div></div>
+        <svg class="f07-tsvg" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
+          <path class="f07-kg" d="M10 12.5h7.5l4 4V27H10z M17.5 12.5v4h4"/>
+          <rect class="f07-tx1" x="27" y="16" width="48" height="5" rx="2.5"/>
+          <rect class="f07-tx" x="10" y="31" width="72" height="4.5" rx="2.25"/>
+          <rect class="f07-tx" x="10" y="39" width="54" height="4.5" rx="2.25"/>
+        </svg>
+        <svg class="f07-lk" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
+          <path class="f07-shk" id="f07-ca-shk" d="M32.5 73V62a13.5 13.5 0 0 1 27 0V73"/>
+          <rect class="f07-body" x="21.5" y="71.5" width="49" height="37" rx="7"/>
+          <circle class="f07-hole" cx="46" cy="86.5" r="4.6"/>
+          <rect class="f07-hole" x="44.4" y="88" width="3.2" height="10" rx="1.6"/>
+          <path class="f07-crack" id="f07-crack" d="M23 80 L33 87.5 L40 82 L49 94 L57 88.5 L69 99"/>
+        </svg>
+      </div>
+
+      <!-- stolen copy B: dashed duplicate wearing the post-quantum lock (holds) -->
+      <div class="f07-tile f07-ghost" id="f07-cb">
+        <div class="f07-tframe"><div class="f07-tband"></div></div>
+        <svg class="f07-tsvg" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
+          <path class="f07-kg" d="M10 12.5h7.5l4 4V27H10z M17.5 12.5v4h4"/>
+          <rect class="f07-tx1" x="27" y="16" width="48" height="5" rx="2.5"/>
+          <rect class="f07-tx" x="10" y="31" width="72" height="4.5" rx="2.25"/>
+          <rect class="f07-tx" x="10" y="39" width="54" height="4.5" rx="2.25"/>
+        </svg>
+        <svg class="f07-lk" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
+          <path class="f07-shk" d="M32.5 73V62a13.5 13.5 0 0 1 27 0V73"/>
+          <rect class="f07-pqbody" x="21.5" y="71.5" width="49" height="37" rx="7"/>
+          <circle class="f07-dot" cx="36" cy="80" r="3"/><circle class="f07-dot" cx="46" cy="80" r="3"/><circle class="f07-dot" cx="56" cy="80" r="3"/>
+          <circle class="f07-dot" cx="36" cy="90" r="3"/><circle class="f07-dot" cx="46" cy="90" r="3"/><circle class="f07-dot" cx="56" cy="90" r="3"/>
+          <circle class="f07-dot" cx="36" cy="100" r="3"/><circle class="f07-dot" cx="46" cy="100" r="3"/><circle class="f07-dot" cx="56" cy="100" r="3"/>
+        </svg>
+      </div>
+
+      <!-- outsider ghost token -->
+      <div id="f07-tok">
+        <svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" fill="rgba(138,134,122,0.14)" stroke="#8A867A" stroke-width="2.5" stroke-dasharray="6.5 5.02"/>
+          <circle cx="24" cy="24" r="8" fill="#8A867A" fill-opacity="0.55"/>
+        </svg>
+      </div>
+
+      <!-- quantum glyph -->
+      <div id="f07-qg">
+        <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+          <ellipse class="f07-orb" cx="36" cy="36" rx="33" ry="11"/>
+          <ellipse class="f07-orb" cx="36" cy="36" rx="33" ry="11" transform="rotate(60 36 36)"/>
+          <ellipse class="f07-orb" cx="36" cy="36" rx="33" ry="11" transform="rotate(120 36 36)"/>
+          <circle cx="36" cy="36" r="9" fill="#1e2bfa"/>
+        </svg>
+      </div>
+
+      <div class="f07-say" id="f07-ans"><span class="f07-line"><span class="f07-ph" id="f07-a1">การเข้ารหัสแบบใหม่</span> <span class="f07-ph" id="f07-a2">ที่<span class="f07-key">ทนทานต่อควอนตัม</span></span></span></div>
+
+      <div id="f07-row"><span id="f07-note">เช่น มาตรฐาน NIST</span><span id="f07-chip">ML-KEM</span></div>
+
+      <svg id="f07-fx" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+        <defs><clipPath id="f07-safe"><rect x="96" y="130" width="1728" height="766"/></clipPath></defs>
+        <g clip-path="url(#f07-safe)">
+          <circle class="f07-wave" id="f07-w1" cx="1760" cy="354" r="36"/>
+          <circle class="f07-wave" id="f07-w2" cx="1760" cy="354" r="36"/>
+        </g>
+        <circle id="f07-shield" cx="1708.8" cy="496" r="33"/>
+      </svg>
+
+      <div id="f07-ok"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+    </div>
   </div>
+
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
+      var COMP = "07-pqc";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]');
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
+
+      /* stroke self-draw prep: one dash the path length, gap a little longer */
+      function prep(el, fallback) {
+        var len = 0;
+        try { len = el.getTotalLength(); } catch (e) { len = 0; }
+        if (!(len > 0)) len = fallback;
+        el.style.strokeDasharray = len + " " + (len + 12);
+        return len;
+      }
+
+      var E3 = "power3.out";
       var tl = gsap.timeline({ paused: true });
+
+      /* geometry: copies start on the packet (centre 160,484) and land in the store's
+         right slot (centre 1708.8,480) at 0.8 scale; the right slot shifts 110px left later */
+      var DX = 1548.8, DY = -4, SC = 0.8, SHIFT = 110;
+
+      /* ---------- Scene 1 (0.0-2.6): headline, timeline draw, end labels ---------- */
+      var H = $$("#f07-h2 .f07-ph");
+      tl.fromTo(H[0], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 0.3);
+      tl.fromTo(H[1], { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 0.48);
+
+      var rule = $("#f07-rule");
+      var rlen = prep(rule, 1600);
+      tl.fromTo(rule, { strokeDashoffset: rlen + 6 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" }, 0.8);
+      tl.fromTo("#f07-n0", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out", transformOrigin: "50% 50%" }, 0.8);
+      tl.fromTo("#f07-n1", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out", transformOrigin: "50% 50%" }, 1.42);
+      tl.fromTo("#f07-lab0", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: E3 }, 1.2);
+      tl.fromTo("#f07-lab1", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: E3 }, 1.6);
+
+      /* ---------- Scene 2 (2.6-4.4): packet, risk line 1, the outsider copies and carries ---------- */
+      tl.fromTo("#f07-pk", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 2.2);
+      tl.fromTo("#f07-r1a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 2.6);
+      tl.fromTo("#f07-r1b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 2.78);
+
+      var tok = $("#f07-tok");
+      tl.fromTo(tok, { opacity: 0, x: 170 }, { opacity: 1, x: 0, duration: 0.32, ease: "expo.out" }, 2.48);
+      /* 2.8: pulls a dashed duplicate off the packet */
+      var ca = $("#f07-ca");
+      tl.fromTo(ca, { opacity: 0, x: 0, y: 0, scale: 1 }, { opacity: 1, x: 30, y: -6, scale: 1, duration: 0.22, ease: E3, transformOrigin: "50% 50%" }, 2.8);
+      tl.to(tok, { x: 30, duration: 0.22, ease: E3, immediateRender: false }, 2.8);
+      tl.fromTo("#f07-store", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.5, ease: E3, transformOrigin: "50% 50%" }, 2.95);
+      /* 3.0-4.0: carried along the timeline into the store */
+      tl.to(ca, { x: DX, y: DY, scale: SC, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 3.0);
+      tl.to(tok, { x: 1548, y: -4, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 3.0);
+
+      /* ---------- Scene 3 (4.4-6.4): risk line 2, quantum glyph + ring, classical lock cracks ---------- */
+      tl.fromTo("#f07-r2a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 4.4);
+      tl.fromTo("#f07-r2b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 4.58);
+      tl.fromTo("#f07-qg", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", transformOrigin: "50% 50%" }, 4.4);
+
+      function wave(id, at) {
+        var w = $(id);
+        tl.fromTo(w, { attr: { r: 36 } }, { attr: { r: 175 }, duration: 0.6, ease: "power2.out" }, at);
+        tl.fromTo(w, { opacity: 0 }, { opacity: 0.9, duration: 0.06, ease: "none" }, at);
+        tl.to(w, { opacity: 0, duration: 0.54, ease: "power2.in", immediateRender: false }, at + 0.06);
+      }
+      wave("#f07-w1", 4.6);
+
+      var crack = $("#f07-crack");
+      var clen = prep(crack, 64);
+      tl.fromTo(crack, { strokeDashoffset: clen + 6 }, { strokeDashoffset: 0, duration: 0.28, ease: "power2.out" }, 4.86);
+      var shk = $("#f07-ca-shk");
+      gsap.set(shk, { svgOrigin: "32.5 73" });
+      tl.fromTo(shk, { y: 0, rotation: 0 }, { y: -5, rotation: -28, duration: 0.3, ease: E3 }, 4.94);
+
+      /* ---------- Scene 4 (6.4-12.5): copy A recedes, lock swap, answer, second copy holds ---------- */
+      tl.to(ca, { opacity: 0.4, x: DX - SHIFT, duration: 0.4, ease: "power3.inOut", immediateRender: false }, 6.4);
+
+      /* scale-swap: classical lock out (power2.in), post-quantum lock in (power3.out, no overshoot) */
+      tl.fromTo("#f07-pk-old", { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.7, duration: 0.22, ease: "power2.in", transformOrigin: "46px 80px", immediateRender: false }, 6.4);
+      tl.fromTo("#f07-pk-pq", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.32, ease: E3, transformOrigin: "46px 80px" }, 6.5);
+
+      tl.fromTo("#f07-a1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 6.6);
+      tl.fromTo("#f07-a2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 6.78);
+
+      /* 6.9-7.6: the outsider copies the packet again into the store */
+      var cb = $("#f07-cb");
+      tl.to(tok, { scale: 1.14, duration: 0.16, ease: "power2.out", transformOrigin: "50% 50%", immediateRender: false }, 6.9);
+      tl.to(tok, { scale: 1, duration: 0.36, ease: E3, immediateRender: false }, 7.06);
+      tl.fromTo(cb, { opacity: 0, x: 0, y: 0, scale: 1 }, { opacity: 1, x: 30, y: -6, scale: 1, duration: 0.18, ease: E3, transformOrigin: "50% 50%" }, 6.9);
+      tl.to(cb, { x: DX, y: DY, scale: SC, duration: 0.55, ease: "power3.inOut", immediateRender: false }, 7.05);
+
+      /* 7.7 ring, 7.9 the lattice lock holds: cobalt ring + shared check */
+      wave("#f07-w2", 7.7);
+      tl.fromTo("#f07-shield", { opacity: 0, attr: { r: 48 } }, { opacity: 1, attr: { r: 33 }, duration: 0.5, ease: E3 }, 7.92);
+      tl.fromTo("#f07-ok", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out", transformOrigin: "50% 50%" }, 8.0);
+
+      /* 8.2 note, 8.4 chip; hold still from 9.2 */
+      tl.fromTo("#f07-note", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 8.2);
+      tl.fromTo("#f07-chip", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: E3, transformOrigin: "50% 50%" }, 8.4);
+
       tl.set({}, {}, 12.5);
+
       window.__timelines = window.__timelines || {};
-      window.__timelines["07-pqc"] = tl;
+      window.__timelines[COMP] = tl;
     })();
   </script>
 </template>

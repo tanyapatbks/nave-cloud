@@ -1,18 +1,268 @@
 <template>
   <style>
-    #root{position:absolute;inset:0;overflow:hidden}
-    #f05-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
+</style>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";}
+    #f05-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
+    #f05-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
+
+    /* Scene 1: eyebrow (y 148-206) + department split-highlight (y 214-382), left at x 96 */
+    #f05-eyebrow{position:absolute;left:96px;top:148px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#5F5B50;white-space:nowrap;}
+    #f05-eyebrow .f05-ph{display:inline-block;}
+    #f05-eyebrow .f05-move{color:#1e2bfa;font-weight:700;}
+    #f05-dept{position:absolute;left:96px;top:214px;box-sizing:border-box;height:168px;padding:14px 44px 14px 32px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);}
+    #f05-dept .f05-dl{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:48px;line-height:1.45;color:#111111;}
+
+    /* Scene 2: lead line centred at y 400-464 */
+    #f05-lead{position:absolute;left:0;top:400px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;}
+    #f05-lead .f05-line{display:block;white-space:nowrap;}
+    #f05-lead .f05-ph{display:inline-block;}
+    #f05-lead .f05-en{color:#1e2bfa;}
+
+    /* converging pieces: every piece is anchored at the lockup centre (960, 585);
+       GSAP bakes xPercent/yPercent -50 and moves x/y as pure offsets (center-outward-expansion, reversed) */
+    #f05-pieces{position:absolute;left:0;top:0;width:1920px;height:1080px;}
+    .f05-pc{position:absolute;left:960px;top:585px;will-change:transform,opacity;}
+    .f05-pc svg{display:block;overflow:visible;}
+
+    /* NAVE wordmark, component 9 at 0.8 scale, centred on y 585 (row y 498-672) */
+    #f05-wm{position:absolute;left:0;top:498px;width:1920px;height:174px;display:flex;justify-content:center;align-items:center;}
+    #f05-wm-en{flex:none;position:relative;font-family:"Chulabhorn Likit Display","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:144px;line-height:174px;color:#111111;white-space:nowrap;}
+    #f05-wm-rule{flex:none;width:5px;height:120px;border-radius:3px;background:#1e2bfa;margin:0 35px;}
+    #f05-wm-th{flex:none;position:relative;top:8px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:120px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
+
+    /* NAV Ecosystem chip (component 11) at y 690-743 */
+    #f05-chiprow{position:absolute;left:0;top:690px;width:1920px;display:flex;justify-content:center;}
+    #f05-chip{flex:none;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa;white-space:nowrap;}
+
+    /* Scene 3: subline, two authored lines centred at y 770-822 / 822-874 */
+    #f05-sub{position:absolute;left:0;top:770px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:36px;line-height:1.45;color:#3F3C35;}
+    #f05-sub .f05-line{display:block;white-space:nowrap;}
   </style>
-  <div id="root" data-composition-id="05-nave" data-width="1920" data-height="1080" data-duration="12.5">
-    <div id="f05-ground" class="clip" data-start="0" data-duration="12.5" data-track-index="0"></div>
+
+  <div id="root" data-composition-id="05-nave" data-width="1920" data-height="1080" data-start="0" data-duration="12">
+    <div id="f05-bg" class="clip" data-start="0" data-duration="12" data-track-index="0"></div>
+
+    <div id="f05-stage">
+
+      <div id="f05-eyebrow"><span class="f05-ph" id="f05-eb1"><span class="f05-move">Move</span> นี้ของ ทร.</span> <span class="f05-ph" id="f05-eb2">นำโดย</span></div>
+
+      <div id="f05-dept">
+        <span class="f05-dl" id="f05-dl1">กรมการสื่อสารและเทคโนโลยีสารสนเทศ</span>
+        <span class="f05-dl" id="f05-dl2">ทหารเรือ</span>
+      </div>
+
+      <div id="f05-lead"><span class="f05-line"><span class="f05-ph" id="f05-ld1">เปลี่ยนผ่าน ทร.</span> <span class="f05-ph" id="f05-ld2">สู่ <span class="f05-en">Digital Navy</span> ด้วย</span></span></div>
+
+      <div id="f05-pieces"></div>
+
+      <div id="f05-wm">
+        <div id="f05-wm-en"><span class="f05-lt">N</span><span class="f05-lt">A</span><span class="f05-lt">V</span><span class="f05-lt">E</span></div>
+        <div id="f05-wm-rule"></div>
+        <div id="f05-wm-th">นาวี</div>
+      </div>
+
+      <div id="f05-chiprow"><span id="f05-chip">NAV Ecosystem</span></div>
+
+      <div id="f05-sub">
+        <span class="f05-line" id="f05-sl1">สอดประสานกับความต้องการของผู้บังคับบัญชา</span>
+        <span class="f05-line" id="f05-sl2">ในหลากหลายมิติ</span>
+      </div>
+
+    </div>
   </div>
+
   <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/MotionPathPlugin.min.js"></script>
   <script>
     (function () {
+      var COMP = "05-nave";
+      gsap.registerPlugin(MotionPathPlugin);
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]');
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
+
+      // Fixed seeded noise: a pure function of an integer index.
+      var rnd = function (n) {
+        var t = (n * 0x6D2B79F5 + 0x9E3779B9) >>> 0;
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+      var r2 = function (i, k) { return rnd(i * 97 + k * 13 + 5); };
+      var lerp = function (a, b, p) { return a + (b - a) * p; };
+
+      // ---------- piece artwork (the film's own objects, small) ----------
+      var BAND = ["#111111", "#6b6b6b", "rgba(30,43,250,0.4)"];
+      var art = {
+        doc: function (i) {
+          return '<svg viewBox="0 0 44 58" width="44" height="58" aria-hidden="true">' +
+            '<rect x="0.75" y="0.75" width="42.5" height="56.5" rx="6" fill="rgba(30,43,250,0.05)" stroke="rgba(30,43,250,0.35)" stroke-width="1.5"/>' +
+            '<path d="M1.5 7 Q1.5 1.5 7 1.5 H37 Q42.5 1.5 42.5 7 V8 H1.5 Z" fill="' + BAND[i % 3] + '"/>' +
+            '<rect x="8" y="18" width="28" height="3.5" rx="1.75" fill="#9a9a9a"/>' +
+            '<rect x="8" y="26" width="24" height="3.5" rx="1.75" fill="#9a9a9a"/>' +
+            '<rect x="8" y="34" width="28" height="3.5" rx="1.75" fill="#9a9a9a"/>' +
+            '<rect x="8" y="42" width="16" height="3.5" rx="1.75" fill="#9a9a9a"/></svg>';
+        },
+        person: function (i) {
+          return '<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">' +
+            '<defs><clipPath id="f05-pclip-' + i + '"><circle cx="24" cy="24" r="22.5"/></clipPath></defs>' +
+            '<circle cx="24" cy="24" r="23.25" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.3)" stroke-width="1.5"/>' +
+            '<g clip-path="url(#f05-pclip-' + i + ')" fill="#9a9a9a"><circle cx="24" cy="19" r="8"/>' +
+            '<path d="M8 48 C8 36 15 30.5 24 30.5 C33 30.5 40 36 40 48 Z"/></g></svg>';
+        },
+        unit: function () {
+          return '<svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<rect x="16" y="5" width="12" height="9" rx="2"/><path d="M22 14 V21 M9 21 H35 M9 21 V27 M22 21 V27 M35 21 V27"/>' +
+            '<rect x="4" y="27" width="10" height="9" rx="2"/><rect x="17" y="27" width="10" height="9" rx="2"/><rect x="30" y="27" width="10" height="9" rx="2"/></svg>';
+        },
+        app: function () {
+          return '<svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true">' +
+            '<rect x="0.75" y="0.75" width="42.5" height="42.5" rx="11" fill="rgba(30,43,250,0.12)" stroke="rgba(30,43,250,0.35)" stroke-width="1.5"/>' +
+            '<rect x="11" y="11" width="9" height="9" rx="2.5" fill="#1e2bfa"/><rect x="24" y="11" width="9" height="9" rx="2.5" fill="#1e2bfa"/>' +
+            '<rect x="11" y="24" width="9" height="9" rx="2.5" fill="#1e2bfa"/><rect x="24" y="24" width="9" height="9" rx="2.5" fill="#1e2bfa" fill-opacity="0.45"/></svg>';
+        },
+        spark: function () {
+          return '<svg viewBox="0 0 30 30" width="28" height="28" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>';
+        },
+        dot: function () {
+          return '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1e2bfa"/></svg>';
+        }
+      };
+      // hand-ordered type mix so no kind clusters in one corner
+      var KIND_L = ["doc", "person", "app", "spark", "unit", "doc", "dot", "person", "app", "unit", "spark", "doc"];
+      var KIND_R = ["person", "doc", "unit", "app", "spark", "doc", "person", "dot", "app", "doc", "unit", "spark"];
+
+      // ---------- layout: 24 pieces in two edge bands (x 40-440 / 1480-1880, y 450-830) ----------
+      // centre of the lockup (stage px)
+      var CX = 960, CY = 585;
+      // target column centres (offsets from CX) for the letters N A V E, and the Thai word span
+      var LETTER_X = [-262, -152, -75, -1];
+      var TH_X0 = 120, TH_X1 = 295;
+      var COLS = [100, 235, 370];
+      var ROWS = [480, 585, 690, 798];
+
+      var pieces = [];
+      var wrap = $("#f05-pieces");
+      for (var i = 0; i < 24; i++) {
+        var right = i >= 12;
+        var j = right ? i - 12 : i;
+        var col = Math.floor(j / 4), row = j % 4;
+        var bx = COLS[col] + (r2(i, 1) - 0.5) * 50;
+        var by = ROWS[row] + (r2(i, 2) - 0.5) * 44;
+        var sx = right ? 1920 - bx : bx;
+        var sy = by;
+        var tx, ty;
+        if (!right) {
+          tx = LETTER_X[Math.floor(j / 3)] + (r2(i, 3) - 0.5) * 36;
+          ty = (r2(i, 4) - 0.5) * 90;
+        } else {
+          tx = lerp(TH_X0, TH_X1, (j + 0.5) / 12) + (r2(i, 3) - 0.5) * 30;
+          ty = (r2(i, 4) - 0.5) * 70 + 12;
+        }
+        var kind = right ? KIND_R[j] : KIND_L[j];
+        var el = document.createElement("div");
+        el.className = "f05-pc";
+        el.id = "f05-pc-" + i;
+        el.innerHTML = art[kind](i);
+        wrap.appendChild(el);
+        var ox = sx - CX, oy = sy - CY;
+        // quadratic control point inside the start/target hull: travel mostly sideways first,
+        // then swoop into the letter (keeps every path inside y 450-830, clear of the lead line)
+        var cx = tx + (ox - tx) * 0.5;
+        var cy = oy + (ty - oy) * 0.15;
+        pieces.push({
+          el: el,
+          ox: ox, oy: oy, cx: cx, cy: cy, tx: tx, ty: ty,
+          op: 0.4 + r2(i, 5) * 0.2,
+          sc: 0.9 + r2(i, 6) * 0.25,
+          rot: (r2(i, 7) - 0.5) * 32
+        });
+      }
+
       var tl = gsap.timeline({ paused: true });
+
+      // Scene 1 (0.0-3.4s): eyebrow per phrase (0.3s), department block per line (0.9s / 1.3s)
+      tl.fromTo([$("#f05-eb1"), $("#f05-eb2")],
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.18 }, 0.3);
+      tl.fromTo("#f05-dept",
+        { opacity: 0, x: -16 },
+        { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.82);
+      tl.fromTo("#f05-dl1",
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.9);
+      tl.fromTo("#f05-dl2",
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 1.3);
+
+      // Scene 2 (3.4-7.4s): lead line per phrase (3.4s)
+      tl.fromTo([$("#f05-ld1"), $("#f05-ld2")],
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.18 }, 3.4);
+
+      // pieces: appear at the edges from 3.6s (stagger 0.03s), converge on curved paths, fade as they merge
+      pieces.forEach(function (p, k) {
+        var s = 3.6 + k * 0.03;
+        var D = k < 12 ? 0.75 : 0.8;
+        gsap.set(p.el, { xPercent: -50, yPercent: -50, x: p.ox, y: p.oy });
+        tl.fromTo(p.el, { opacity: 0 }, { opacity: p.op, duration: 0.25, ease: "power2.out" }, s);
+        tl.fromTo(p.el,
+          { scale: p.sc, rotation: p.rot },
+          { scale: p.sc * 0.45, rotation: 0, duration: D, ease: "power3.inOut" }, s);
+        tl.to(p.el, {
+          motionPath: { path: "M" + p.ox + " " + p.oy + " Q" + p.cx + " " + p.cy + " " + p.tx + " " + p.ty },
+          duration: D, ease: "power3.inOut"
+        }, s);
+        tl.fromTo(p.el,
+          { opacity: p.op },
+          { opacity: 0, duration: D * 0.5, ease: "power2.in", immediateRender: false }, s + D * 0.5);
+      });
+
+      // the wordmark resolves out of the pieces: N A V E build left to right and settle at 4.6s
+      tl.fromTo("#f05-wm-en",
+        { y: 16, scale: 0.97 },
+        { y: 0, scale: 1, duration: 0.42, ease: "power3.out" }, 4.18);
+      tl.fromTo($$("#f05-wm-en .f05-lt"),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.25, ease: "power2.out", stagger: 0.058 }, 4.18);
+      // the cobalt rule draws (from its centre), then the Thai word lands at 5.0s
+      tl.fromTo("#f05-wm-rule",
+        { scaleY: 0 },
+        { scaleY: 1, duration: 0.32, ease: "power3.out" }, 4.56);
+      tl.fromTo("#f05-wm-th",
+        { opacity: 0, x: -14 },
+        { opacity: 1, x: 0, duration: 0.34, ease: "power3.out" }, 4.68);
+
+      // NAV Ecosystem chip lands under the wordmark at 5.6s
+      tl.fromTo("#f05-chip",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 5.6);
+
+      // Scene 3 (7.4-12.0s): subline per line from 7.6s; everything still from 8.4s
+      tl.fromTo("#f05-sl1",
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 7.6);
+      tl.fromTo("#f05-sl2",
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 7.95);
+
+      // held read to the frame end (exactly 12s)
       tl.set({}, {}, 12);
+
       window.__timelines = window.__timelines || {};
-      window.__timelines["05-nave"] = tl;
+      window.__timelines[COMP] = tl;
     })();
   </script>
 </template>

@@ -1,18 +1,311 @@
 <template>
   <style>
-    #root{position:absolute;inset:0;overflow:hidden}
-    #f12-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
   </style>
-  <div id="root" data-composition-id="12-stage2" data-width="1920" data-height="1080" data-duration="20.5">
-    <div id="f12-ground" class="clip" data-start="0" data-duration="20.5" data-track-index="0"></div>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";}
+    #f12-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
+    #f12-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
+    .f12-ph{display:inline-block;}
+
+    /* English mono chip (component 11) */
+    .f12-chip{display:block;flex:none;box-sizing:border-box;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa;white-space:nowrap;}
+
+    /* ---------- stage header (component 12): row y 300-380, purpose line y 384-434 ---------- */
+    #f12-head{position:absolute;left:96px;top:302px;height:76px;display:flex;align-items:baseline;white-space:nowrap;}
+    #f12-eyebrow{display:block;flex:none;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#1e2bfa;}
+    #f12-title{display:block;flex:none;margin-left:20px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:52px;line-height:1.3;color:#111111;}
+    #f12-pill{display:block;flex:none;align-self:center;margin-left:24px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1.45;padding:4px 18px 2px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);}
+    #f12-purpose{position:absolute;left:96px;top:384px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#5F5B50;}
+
+    /* ---------- Part A (x 96-760, y 460-880) ---------- */
+    /* split-highlight block y 460-540 */
+    #f12-blk{position:absolute;left:96px;top:460px;width:664px;height:80px;}
+    #f12-blk-bg{position:absolute;left:0;top:0;width:664px;height:80px;box-sizing:border-box;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);}
+    #f12-blk-in{position:absolute;left:22px;top:0;height:80px;display:flex;align-items:center;}
+    #f12-slot{position:relative;flex:none;width:320px;height:80px;margin-left:16px;}
+    /* frame 03's speech chip (card-tinted, opaque) */
+    #f12-q{position:absolute;left:0;top:12px;box-sizing:border-box;height:56px;padding:0 20px;display:flex;align-items:center;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;color:#111111;white-space:nowrap;visibility:hidden;}
+    #f12-ans{position:absolute;left:4px;top:11px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#1e2bfa;white-space:nowrap;visibility:hidden;}
+
+    /* document tiles (component 3) at 0.5 scale = 66 x 86; every tile is anchored at the stack centre (176, 641)
+       and moved by GSAP x/y/rotation offsets only */
+    #f12-docs{position:absolute;left:0;top:0;width:1920px;height:1080px;}
+    .f12-tile{position:absolute;left:143px;top:598px;width:66px;height:86px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.24);border-radius:7px;background:#f4f2e8;}
+    .f12-tin{position:absolute;left:0;top:0;width:63px;height:83px;overflow:hidden;border-radius:5.5px;}
+    .f12-tin svg{position:absolute;left:0;top:0;width:63px;height:83px;display:block;}
+    .f12-ghost{position:absolute;left:143px;top:598px;width:66px;height:86px;box-sizing:border-box;border:1.5px dashed #B9B4A2;border-radius:7px;}
+    /* the RAG film's 4-dot governance badge at 0.5 scale (60 x 18, 9px dots, 3px gaps), straddling the tile's bottom edge */
+    .f12-badge{position:absolute;left:1.5px;top:75.5px;width:60px;height:18px;box-sizing:border-box;border:1px solid rgba(30,43,250,0.2);border-radius:100px;background:#E6E5EA;display:flex;align-items:center;justify-content:center;gap:3px;}
+    .f12-badge span{display:block;flex:none;width:9px;height:9px;border-radius:50%;background:#1e2bfa;}
+
+    #f12-c-docs{position:absolute;left:284px;top:583px;}
+    #f12-docl{position:absolute;left:284px;top:645px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#3F3C35;}
+    #f12-arrow{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+    #f12-arrow path{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+    #f12-c-clean{position:absolute;left:426px;top:770px;}
+
+    /* seam: hairline divider at x 790, y 460-870 */
+    #f12-div{position:absolute;left:789px;top:460px;width:2px;height:410px;border-radius:1px;background:rgba(30,43,250,0.2);}
+
+    /* ---------- Part B (x 820-1824) ---------- */
+    .f12-row{position:absolute;left:820px;width:1004px;height:60px;}
+    .f12-row .f12-chip{position:absolute;left:0;top:3.5px;}
+    .f12-rq{position:absolute;left:396px;top:5px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#111111;}
+    .f12-rule{position:absolute;left:0;top:66px;width:1004px;height:1.5px;background:rgba(30,43,250,0.12);}
+    #f12-rlab{position:absolute;left:820px;top:760px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#5F5B50;}
+    #f12-rchips{position:absolute;left:820px;top:814px;display:flex;gap:14px;}
+  </style>
+
+  <div id="root" data-composition-id="12-stage2" data-width="1920" data-height="1080" data-start="0" data-duration="20">
+    <div id="f12-bg" class="clip" data-start="0" data-duration="20" data-track-index="0"></div>
+
+    <div id="f12-stage">
+
+      <!-- stage header -->
+      <div id="f12-head">
+        <span id="f12-eyebrow">ขั้นที่ 2</span>
+        <span id="f12-title"><span class="f12-ph" id="f12-t1">Foundation</span> <span class="f12-ph" id="f12-t2">+ Builder NAVE</span> <span class="f12-ph" id="f12-t3">+ Practical</span></span>
+        <span id="f12-pill">ขั้นที่กำลังทำ</span>
+      </div>
+      <span id="f12-purpose"><span class="f12-ph" id="f12-p1">เข้าใจแก่นของระบบ</span><span class="f12-ph" id="f12-p2">&nbsp;· พัฒนาอย่างมั่นคง</span></span>
+
+      <!-- Part A: data foundations -->
+      <div id="f12-blk">
+        <div id="f12-blk-bg"></div>
+        <div id="f12-blk-in">
+          <span class="f12-chip" id="f12-c-df">Data Foundations</span>
+          <div id="f12-slot">
+            <div id="f12-q">จัดการไฟล์อย่างไร?</div>
+            <span id="f12-ans">จัดระเบียบไฟล์</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ghosts of the messy stack, the cleaning arrow, the four tiles (built by the script, seeded) -->
+      <div id="f12-docs"></div>
+
+      <span class="f12-chip" id="f12-c-docs">Documents</span>
+      <span id="f12-docl"><span class="f12-ph" id="f12-dl1">การดำเนินงาน</span><span class="f12-ph" id="f12-dl2">ของหน่วยขึ้นตรง</span></span>
+      <span class="f12-chip" id="f12-c-clean">Data Cleaning</span>
+
+      <div id="f12-div"></div>
+
+      <!-- Part B: the builder's questions -->
+      <div class="f12-row" id="f12-r1" style="top:460px">
+        <div class="f12-rule"></div>
+        <span class="f12-chip">Databases</span>
+        <span class="f12-rq"><span class="f12-ph">เก็บข้อมูลที่ไหน?</span></span>
+      </div>
+      <div class="f12-row" id="f12-r2" style="top:534px">
+        <div class="f12-rule"></div>
+        <span class="f12-chip">Web UI</span>
+        <span class="f12-rq"><span class="f12-ph">หน้าเว็บเป็นยังไง?</span></span>
+      </div>
+      <div class="f12-row" id="f12-r3" style="top:608px">
+        <div class="f12-rule"></div>
+        <span class="f12-chip">Structured Outputs</span>
+        <span class="f12-rq"><span class="f12-ph">Outputs ต้องการประสิทธิผลแบบไหน?</span></span>
+      </div>
+      <div class="f12-row" id="f12-r4" style="top:682px">
+        <span class="f12-chip">RAG or CAG Pipelines</span>
+        <span class="f12-rq"><span class="f12-ph">ชั่งข้อดีข้อเสีย</span><span class="f12-ph">&nbsp;· คุณภาพ</span></span>
+      </div>
+
+      <span id="f12-rlab">เตรียมระบบค้นหา</span>
+      <div id="f12-rchips">
+        <span class="f12-chip">Vector DB</span>
+        <span class="f12-chip">Embeddings</span>
+        <span class="f12-chip">Retrieval</span>
+        <span class="f12-chip">Chunking</span>
+      </div>
+
+    </div>
   </div>
+
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
+      var COMP = "12-stage2";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]');
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
+
+      /* seeded hash in [0,1): deterministic scatter, no Math.random */
+      function rnd(i, k) {
+        var h = Math.imul(i + 1, 0x9e3779b1) ^ Math.imul(k + 7, 0x85ebca77);
+        h = Math.imul(h ^ (h >>> 15), 0x2c1b3c6d);
+        h = Math.imul(h ^ (h >>> 12), 0x297a2d39);
+        h ^= h >>> 15;
+        return (h >>> 0) / 4294967296;
+      }
+
+      /* ---------- document tiles: the messy stack (centre 176, 641) and the cleaned row ---------- */
+      var KINDS = ["pdf", "table", "scan", "chart"];
+      var BAND = { pdf: "#111111", scan: "#6b6b6b", table: "rgba(30,43,250,0.4)", chart: "rgba(30,43,250,0.4)" };
+      var GLYPH = {
+        pdf: '<path d="M5 2.5h8l4.5 4.5v12.5H5z M13 2.5V7h4.5"/>',
+        scan: '<path d="M2.5 7V2.5H7 M15 2.5h4.5V7 M19.5 15v4.5H15 M7 19.5H2.5V15 M5.5 11h11"/>',
+        table: '<rect x="2.5" y="3.5" width="17" height="15" rx="2"/><path d="M2.5 8.5h17 M2.5 13.5h17 M9 8.5v10"/>',
+        chart: '<path d="M3 19.5h16 M6.5 16.5v-5 M11 16.5V6 M15.5 16.5V9"/>'
+      };
+      function lines(i, ys) {
+        return ys.map(function (y, j) {
+          var last = j === ys.length - 1;
+          var w = last ? 44 + rnd(i, 10 + j) * 34 : 82 + rnd(i, 10 + j) * 20;
+          return '<rect x="14" y="' + y + '" width="' + w.toFixed(1) + '" height="8" rx="4" fill="#9a9a9a" fill-opacity="0.75"/>';
+        }).join("");
+      }
+      var INTERIOR = {
+        pdf: function (i) { return lines(i, [56, 78, 100, 122]); },
+        scan: function (i) { return '<g transform="rotate(-2.5 66 86)">' + lines(i, [56, 78, 100, 122]) + "</g>"; },
+        table: function (i) {
+          return '<rect x="14.75" y="48.75" width="101.5" height="14" fill="rgba(30,43,250,0.12)"/>' +
+            '<rect x="14" y="48" width="103" height="66" rx="3" fill="none" stroke="#9a9a9a" stroke-width="2"/>' +
+            '<path d="M14 63h103 M14 80h103 M14 97h103 M48 48v66 M82 48v66" stroke="#9a9a9a" stroke-width="1.8"/>' +
+            lines(i, [128]);
+        },
+        chart: function (i) {
+          var bars = "";
+          for (var b = 0; b < 4; b++) {
+            var h = 18 + rnd(i, 90 + b) * 32;
+            bars += '<rect x="' + (24 + b * 23) + '" y="' + (102 - h).toFixed(1) + '" width="15" height="' + h.toFixed(1) + '" rx="2" fill="rgba(30,43,250,0.3)"/>';
+          }
+          return bars + '<path d="M14 103.5h103" stroke="#9a9a9a" stroke-width="2"/>' + lines(i, [120]);
+        }
+      };
+      function tileSVG(i, kind) {
+        return '<svg class="f12-tsvg" viewBox="0 0 132 172" width="63" height="83" aria-hidden="true">' +
+          '<rect x="0" y="0" width="132" height="8" fill="' + BAND[kind] + '"/>' +
+          '<g transform="translate(12 16) scale(1.1)" fill="none" stroke="#6b6b6b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + GLYPH[kind] + "</g>" +
+          INTERIOR[kind](i) + "</svg>";
+      }
+
+      var SX = 176, SY = 641;
+      /* stack slots relative to the stack centre, bottom tile first */
+      var SLOTS = [[-30, 22], [26, 12], [-10, -14], [18, -26]];
+      /* row slot (left to right) each stack tile flies to, and its departure order (top tile leaves first) */
+      var ROWSLOT = [0, 3, 1, 2];
+      var DEPART = [3, 2, 1, 0];
+      var ROWY = 796;
+      var TILES = [];
+      var ghosts = "", tiles = "";
+      for (var j = 0; j < 4; j++) {
+        var sign = j % 2 ? 1 : -1;
+        var rot = sign * (2.5 + rnd(j + 40, 3) * 3.5);
+        var dx = SLOTS[j][0] + (rnd(j + 40, 1) - 0.5) * 8;
+        var dy = SLOTS[j][1] + (rnd(j + 40, 2) - 0.5) * 6;
+        var t = { id: "f12-d" + j, gid: "f12-g" + j, x: +dx.toFixed(1), y: +dy.toFixed(1), r: +rot.toFixed(2),
+          rx: 96 + 33 + ROWSLOT[j] * 80 - SX, ry: ROWY - SY, slot: ROWSLOT[j], dep: DEPART[j] };
+        TILES.push(t);
+        ghosts += '<div class="f12-ghost" id="' + t.gid + '" style="transform:translate(' + t.x + 'px,' + t.y + 'px) rotate(' + t.r + 'deg)"></div>';
+        tiles += '<div class="f12-tile" id="' + t.id + '"><div class="f12-tin">' + tileSVG(j + 40, KINDS[j]) + "</div>" +
+          '<div class="f12-badge"><span></span><span></span><span></span><span></span></div></div>';
+      }
+      var arrow = '<svg id="f12-arrow" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">' +
+        '<path id="f12-ar-l" d="M169 718 V746"/><path class="f12-ar-w" d="M169 746.5 L160 737.5"/><path class="f12-ar-w" d="M169 746.5 L178 737.5"/></svg>';
+      $("#f12-docs").innerHTML = ghosts + arrow + tiles;
+
       var tl = gsap.timeline({ paused: true });
-      tl.set({}, {}, 20);
+
+      /* ---------- Scene 1 (0.0-1.8): stage header; purpose line ---------- */
+      tl.fromTo($("#f12-eyebrow"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+      ["#f12-t1", "#f12-t2", "#f12-t3"].forEach(function (s, i) {
+        tl.fromTo($(s), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3 + i * 0.08);
+      });
+      tl.fromTo($("#f12-pill"), { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out", transformOrigin: "0% 50%" }, 0.8);
+      tl.fromTo($("#f12-p1"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.8);
+      tl.fromTo($("#f12-p2"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.0);
+
+      /* ---------- Scene 2 (1.8-7.6): Part A ---------- */
+      /* split-highlight block: rule first, fill wipes in from the left */
+      tl.fromTo($("#f12-blk-bg"), { clipPath: "inset(0% 100% 0% 0% round 12px)" }, { clipPath: "inset(0% 0% 0% 0% round 12px)", duration: 0.55, ease: "power3.out" }, 1.8);
+      tl.fromTo($("#f12-c-df"), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 2.0);
+
+      /* frame 03's question pops in (2.0), then swaps in place for the answer (2.6):
+         discrete-text-sequence states (reverse search) + a velocity-matched upward cut */
+      var Q = $("#f12-q"), A = $("#f12-ans");
+      var SEQ = [{ t: 0, s: 0 }, { t: 2.0, s: 1 }, { t: 2.6, s: 2 }];
+      function stateAt(time) {
+        for (var i = SEQ.length - 1; i >= 0; i--) if (time >= SEQ[i].t) return SEQ[i].s;
+        return 0;
+      }
+      var drv = { t: 0 };
+      tl.to(drv, {
+        t: 20, duration: 20, ease: "none",
+        onUpdate: function () {
+          var s = stateAt(drv.t);
+          Q.style.visibility = s === 1 ? "visible" : "hidden";
+          A.style.visibility = s === 2 ? "visible" : "hidden";
+        }
+      }, 0);
+      tl.fromTo(Q, { opacity: 0, scale: 0.6, y: 0 }, { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: "expo.out", transformOrigin: "0% 50%" }, 2.0);
+      tl.fromTo(Q, { y: 0 }, { y: -20, duration: 0.2, ease: "power4.in", immediateRender: false }, 2.4);
+      tl.fromTo(Q, { opacity: 1 }, { opacity: 0, duration: 0.17, ease: "power1.in", immediateRender: false }, 2.42);
+      tl.fromTo(A, { opacity: 0.35, y: 20 }, { opacity: 1, y: 0, duration: 0.26, ease: "power4.out" }, 2.6);
+
+      /* messy stack drops in (3.1), then the Documents chip (3.6) and its label (4.0) */
+      TILES.forEach(function (p, j) {
+        tl.fromTo($("#" + p.id),
+          { opacity: 0, x: p.x, y: p.y - 34, rotation: p.r * 0.4 },
+          { opacity: 1, x: p.x, y: p.y, rotation: p.r, duration: 0.45, ease: "power3.out", transformOrigin: "50% 50%" },
+          3.1 + j * 0.06);
+      });
+      tl.fromTo($("#f12-c-docs"), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 3.6);
+      tl.fromTo($("#f12-dl1"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.0);
+      tl.fromTo($("#f12-dl2"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.15);
+
+      /* 5.0-5.5: the cleaning arrow self-draws downward (shaft, then head) */
+      tl.fromTo($("#f12-ar-l"), { strokeDasharray: "28 60", strokeDashoffset: 30 }, { strokeDasharray: "28 60", strokeDashoffset: 0, duration: 0.32, ease: "power2.inOut" }, 5.0);
+      tl.fromTo($$(".f12-ar-w"), { strokeDasharray: "13 40", strokeDashoffset: 14 }, { strokeDasharray: "13 40", strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 5.3);
+
+      /* 5.6: Data Cleaning lands; 5.7-6.5: the same four tiles fly down and straighten into one row */
+      tl.fromTo($("#f12-c-clean"), { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 5.6);
+      TILES.forEach(function (p) {
+        var el = $("#" + p.id);
+        var a = 5.7 + p.dep * 0.06;
+        tl.fromTo(el, { y: p.y, rotation: p.r }, { y: p.ry, rotation: 0, duration: 0.5, ease: "power3.inOut", immediateRender: false }, a);
+        tl.fromTo(el, { x: p.x }, { x: p.rx, duration: 0.5, ease: "power3.inOut", immediateRender: false }, a + 0.12);
+        tl.fromTo($("#" + p.gid), { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, a + 0.08);
+      });
+      /* 6.6-7.0: each cleaned tile receives the 4-dot governance badge, left to right */
+      TILES.slice().sort(function (m, n) { return m.slot - n.slot; }).forEach(function (p, k) {
+        tl.fromTo($("#" + p.id + " .f12-badge"), { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.16, ease: "power2.out", transformOrigin: "50% 50%" }, 6.6 + k * 0.08);
+      });
+
+      /* ---------- Scene 3 (7.6-8.4): hairline divider draws at x 790 ---------- */
+      tl.fromTo($("#f12-div"), { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power3.inOut", transformOrigin: "50% 0%" }, 7.6);
+
+      /* ---------- Scene 4 (8.4-15.0): four question rows, then the retrieval stack ---------- */
+      [8.4, 9.6, 10.8, 12.2].forEach(function (at, i) {
+        var row = $("#f12-r" + (i + 1));
+        tl.fromTo(row.querySelector(".f12-chip"), { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, at);
+        var rule = row.querySelector(".f12-rule");
+        if (rule) tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out", transformOrigin: "0% 50%" }, at + 0.05);
+        row.querySelectorAll(".f12-rq .f12-ph").forEach(function (ph, k) {
+          tl.fromTo(ph, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at + 0.2 + k * 0.3);
+        });
+      });
+      tl.fromTo($("#f12-rlab"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 13.6);
+      $$("#f12-rchips .f12-chip").forEach(function (c, k) {
+        tl.fromTo(c, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 13.8 + k * 0.25);
+      });
+
+      /* ---------- Scene 5 (15.0-20.0): hold still ---------- */
+      tl.to({}, { duration: 20 }, 0);
+
       window.__timelines = window.__timelines || {};
-      window.__timelines["12-stage2"] = tl;
+      window.__timelines[COMP] = tl;
     })();
   </script>
 </template>

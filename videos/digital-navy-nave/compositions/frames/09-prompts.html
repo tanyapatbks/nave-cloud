@@ -1,18 +1,439 @@
 <template>
   <style>
-    #root{position:absolute;inset:0;overflow:hidden}
-    #f09-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
   </style>
-  <div id="root" data-composition-id="09-prompts" data-width="1920" data-height="1080" data-duration="19.5">
-    <div id="f09-ground" class="clip" data-start="0" data-duration="19.5" data-track-index="0"></div>
+  <style>
+    #f09-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+    #f09-h2 .f09-line{display:block;white-space:nowrap}
+  </style>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;container-type:size;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";color:#111111}
+    #f09-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
+
+    /* headline phrases + the muted example tag, right of the line and centred on it (87px line box) */
+    #f09-h2 .f09-ph{display:inline-block}
+    #f09-tag{position:absolute;left:100%;top:17px;margin-left:32px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;background:#ECE8DA;color:#5F5B50}
+
+    /* composer (component 5, 1200px): x 96-1296, y 300-412; it never moves */
+    #f09-card{position:absolute;left:96px;top:300px;width:1200px;height:112px;box-sizing:border-box;border-radius:20px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
+    #f09-spark{position:absolute;left:32px;top:39.5px;width:30px;height:30px;display:block}
+    #f09-send{position:absolute;right:24px;top:22.5px;width:64px;height:64px;border-radius:50%;background:#1e2bfa;transform-origin:50% 50%}
+    #f09-send svg{position:absolute;left:0;top:0;width:64px;height:64px;display:block}
+    /* typed lines: left edge x 179.5 (card 96 + border 1.5 + inset 32 + spark 30 + gap 20), 58px line box centred on y 356 */
+    .f09-pl{position:absolute;left:82px;top:25.5px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#111111}
+    .f09-w{position:relative;display:inline-block}
+    .f09-caret{position:absolute;left:100%;top:5px;width:3px;height:48px;margin-left:3px;border-radius:1.5px;background:#1e2bfa}
+    .f09-pl .f09-c0{left:-1px;margin-left:0}
+
+    /* shared atoms */
+    .f09-tint{box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
+    .f09-ico{position:relative;flex:none}
+    .f09-spin{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+    .f09-spin svg{display:block;width:100%;height:100%}
+    .f09-done{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:50%;background:#0B6A45;color:#ffffff}
+    .f09-done svg{position:absolute;left:18%;top:18%;width:64%;height:64%;display:block}
+
+    /* Part A: status pills right of the composer (x 1320-1824) */
+    .f09-st{position:absolute;left:1320px;width:504px;height:52px;border-radius:100px;display:flex;align-items:center;padding-left:12px}
+    #f09-st1{top:300px}
+    #f09-st2{top:362px}
+    .f09-st .f09-ico{width:32px;height:32px}
+    .f09-stt{position:relative;top:3px;display:block;margin-left:14px;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#3F3C35}
+
+    /* Part A: answer card (card-tinted) x 128-1180, y 506-836, cobalt left rule like the RAG film's answer card */
+    #f09-ans{position:absolute;left:128px;top:506px;width:1052px;height:330px;border-radius:14px;overflow:hidden}
+    #f09-ans .f09-rule{position:absolute;left:0;top:0;bottom:0;width:5px;background:#1e2bfa}
+    #f09-ans-hd{position:absolute;left:40px;top:24.5px;display:flex;align-items:center;gap:14px}
+    #f09-ans-spark{display:block;flex:none;width:30px;height:30px}
+    #f09-ans-t{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:36px;line-height:1.45;color:#111111}
+    .f09-bar{position:absolute;left:84px;height:12px;border-radius:6px;background:rgba(154,154,154,0.45);transform-origin:0 50%}
+    #f09-cite-row{position:absolute;left:84px;top:218.5px;height:86px;display:flex;align-items:center;gap:20px}
+    /* the RAG film's example document tile at ~0.5 scale: cobalt outline, dark top band, grey lines */
+    .f09-doc{position:relative;flex:none;width:66px;height:86px;box-sizing:border-box;border:2.5px solid #1e2bfa;border-radius:8px;background:#f4f2e8;overflow:hidden}
+    .f09-doc .f09-band{position:absolute;left:0;top:0;right:0;height:5px;background:#111111}
+    .f09-doc .f09-kind{position:absolute;left:6px;top:12px;width:13px;height:15px;display:block;overflow:visible}
+    .f09-doc .f09-kind path{fill:none;stroke:#6b6b6b;stroke-width:1.6;stroke-linejoin:round}
+    .f09-doc .f09-dh{position:absolute;left:24px;top:17px;width:30px;height:5px;border-radius:3px;background:#6b6b6b}
+    .f09-doc .f09-dl{position:absolute;left:7px;height:4px;border-radius:2px;background:#9a9a9a}
+    #f09-cite{display:block;flex:none;white-space:nowrap;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa}
+
+    /* Part A: the person's rights scope (component 4) around the answer, x 96-1500, y 470-868 */
+    .f09-svg{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+    .f09-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
+    #f09-scope-pill{position:absolute;left:136px;top:442px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:32px;line-height:1.45;padding:8px 24px 2px;border-radius:100px;background:#1e2bfa;color:#fdfae7}
+    /* identity badge (component 6 at 0.7 scale, signed-in ring, name shown as grey bars only) */
+    #f09-idb{position:absolute;left:1230px;top:636px;width:240px;height:68px}
+    #f09-idb svg{position:absolute;left:0;top:0;width:68px;height:68px;display:block}
+    #f09-idb .f09-ib{position:absolute;left:86px;border-radius:6px;background:rgba(154,154,154,0.5)}
+
+    /* Part B: checklist card x 96-760, y 452-700 */
+    #f09-chk{position:absolute;left:96px;top:452px;width:664px;height:248px;border-radius:14px}
+    #f09-chk .f09-div{position:absolute;left:30px;right:30px;top:122.5px;height:1.5px;background:rgba(30,43,250,0.12)}
+    .f09-row{position:absolute;left:30.5px;right:30.5px;height:56px;display:flex;align-items:center}
+    #f09-r1{top:32.5px}
+    #f09-r2{top:156.5px}
+    .f09-rico{flex:none;width:56px;height:56px;border-radius:12px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center}
+    .f09-rico svg{display:block;width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .f09-rtxt{display:block;margin-left:22px;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#111111}
+    .f09-row .f09-ico{width:36px;height:36px;margin-left:auto}
+
+    /* Part B: approval card x 820-1360, y 452-700 */
+    #f09-apv{position:absolute;left:820px;top:452px;width:540px;height:248px;border-radius:14px}
+    #f09-apv-av{position:absolute;left:30.5px;top:28.5px;width:96px;height:96px;display:block}
+    .f09-sp{position:absolute;left:150.5px;top:49.3px;display:flex;align-items:center;gap:10px;white-space:nowrap;border-radius:100px;padding:4px 26px 4px 18px;transform-origin:0% 50%}
+    .f09-sp svg{display:block;flex:none}
+    .f09-sp .f09-spt{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:32px;line-height:1.45}
+    #f09-wait{background:#ECE8DA;color:#5F5B50}
+    #f09-wait .f09-spt{font-weight:500}
+    #f09-ok{background:#0B6A45;color:#ffffff}
+    #f09-ok .f09-spt{font-weight:700}
+    /* the drafted memo awaiting approval: a small document tile + grey bars (illustrative, unreadable) */
+    #f09-memo{position:absolute;left:30.5px;top:160.5px;width:34px;height:44px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.35);border-radius:6px;background:#f4f2e8;overflow:hidden}
+    #f09-memo .f09-band{position:absolute;left:0;top:0;right:0;height:4px;background:#111111}
+    #f09-memo .f09-dl{position:absolute;left:6px;height:3px;border-radius:2px;background:#9a9a9a}
+    .f09-mb{position:absolute;left:82.5px;border-radius:6px;background:rgba(154,154,154,0.5)}
+    #f09-go{position:absolute;left:386.5px;top:154.5px;width:120px;height:56px;border-radius:100px;background:#1e2bfa;color:#fdfae7;transform-origin:50% 50%}
+    #f09-go svg{position:absolute;left:45px;top:13px;width:30px;height:30px;display:block}
+
+    /* Part B: three unit tiles (88x88) at x 1560-1648, y 452 / 556 / 660 */
+    .f09-unit{position:absolute;left:1560px;width:88px;height:88px;border-radius:12px;transform-origin:50% 50%}
+    #f09-u1{top:452px}
+    #f09-u2{top:556px}
+    #f09-u3{top:660px}
+    .f09-unit .f09-ub{position:absolute;top:13px;width:8px;height:28px;border-radius:4px;background:#1e2bfa}
+    .f09-unit .f09-umd{position:absolute;left:50px;top:46px;width:26px;height:32px;box-sizing:border-box;border:2px solid #1e2bfa;border-radius:5px;background:#fdfae7}
+    .f09-unit .f09-umd span{position:absolute;left:4px;height:2.5px;border-radius:1.5px;background:rgba(30,43,250,0.55)}
+    .f09-link{fill:none;stroke:#1e2bfa;stroke-width:2.5;stroke-linecap:round}
+    #f09-sent{position:absolute;left:1500px;top:772px;width:298px;text-align:center;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#3F3C35}
+
+    /* Scene 5 note under the approval card: x 820-1300, y 724-776 */
+    #f09-note{position:absolute;left:820px;top:724px;height:52px;display:flex;align-items:center;gap:14px;white-space:nowrap}
+    #f09-note svg{display:block;flex:none;width:40px;height:40px}
+    #f09-note .f09-nl{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:34px;line-height:1.45}
+    #f09-note .f09-np{display:inline-block}
+    #f09-note .f09-np1{font-weight:700;color:#111111}
+    #f09-note .f09-np2{font-weight:500;color:#3F3C35}
+  </style>
+
+  <div id="root" data-composition-id="09-prompts" data-width="1920" data-height="1080" data-duration="19">
+    <div id="f09-ground" class="clip" data-start="0" data-duration="19" data-track-index="0"></div>
+
+    <!-- headline (component 2), two phrases, + the muted example tag -->
+    <div id="f09-h2">
+      <span class="f09-line"><span class="f09-ph" id="f09-hp1">ถาม หรือ สั่งการ</span> <span class="f09-ph" id="f09-hp2">— ในที่เดียว</span></span>
+      <span id="f09-tag">ตัวอย่าง · ภาพเป้าหมาย</span>
+    </div>
+
+    <!-- composer (fixed anchor) with the two typed prompts -->
+    <div id="f09-card">
+      <svg id="f09-spark" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>
+      <span class="f09-pl" id="f09-l1"><span class="f09-caret f09-c0" data-layout-ignore></span><span class="f09-w">สรุป<span class="f09-caret" data-layout-ignore></span></span><span class="f09-w">แนวทาง<span class="f09-caret" data-layout-ignore></span></span><span class="f09-w">ปฏิบัติ<span class="f09-caret" data-layout-ignore></span></span><span class="f09-w">ปี<span class="f09-caret" data-layout-ignore></span></span> <span class="f09-w">69<span class="f09-caret" data-layout-ignore></span></span> <span class="f09-w">ของ<span class="f09-caret" data-layout-ignore></span></span> <span class="f09-w">ศซบ.<span class="f09-caret" data-layout-ignore></span></span></span>
+      <span class="f09-pl" id="f09-l2" data-layout-allow-overlap><span class="f09-caret f09-c0" data-layout-ignore></span><span class="f09-w">ร่าง<span class="f09-caret" data-layout-ignore></span></span><span class="f09-w">หนังสือ<span class="f09-caret" data-layout-ignore></span></span><span class="f09-w">แจ้ง<span class="f09-caret" data-layout-ignore></span></span> <span class="f09-w">นขต.<span class="f09-caret" data-layout-ignore></span></span> <span class="f09-w">พร้อม<span class="f09-caret" data-layout-ignore></span></span><span class="f09-w">นัด<span class="f09-caret" data-layout-ignore></span></span><span class="f09-w">ประชุม<span class="f09-caret" data-layout-ignore></span></span></span>
+      <div id="f09-send"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 44V21 M22.5 30.5L32 21l9.5 9.5" fill="none" stroke="#fdfae7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+
+    <!-- ===== Part A: ask -> answer with citation, inside the person's rights ===== -->
+    <div id="f09-A" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+      <!-- status pills -->
+      <div class="f09-st f09-tint" id="f09-st1">
+        <span class="f09-ico">
+          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
+          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+        <span class="f09-stt">ตรวจสิทธิ์</span>
+      </div>
+      <div class="f09-st f09-tint" id="f09-st2">
+        <span class="f09-ico">
+          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
+          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+        <span class="f09-stt">ค้นในขอบเขตสิทธิ์</span>
+      </div>
+
+      <!-- the rights scope: dashed outline drawn through a two-path mask -->
+      <svg class="f09-svg" id="f09-scope-svg" viewBox="0 0 1920 1080" aria-hidden="true" data-layout-ignore>
+        <defs>
+          <mask id="f09-scope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+            <path id="f09-mA" class="f09-mask-path" d="M 300 471.5 H 1472 A 26.5 26.5 0 0 1 1498.5 498 V 840 A 26.5 26.5 0 0 1 1472 866.5 H 1286"/>
+            <path id="f09-mB" class="f09-mask-path" d="M 300 471.5 H 124 A 26.5 26.5 0 0 0 97.5 498 V 840 A 26.5 26.5 0 0 0 124 866.5 H 1306"/>
+          </mask>
+        </defs>
+        <rect id="f09-scope-fill" x="96" y="470" width="1404" height="398" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
+        <rect id="f09-scope-dash" x="97.5" y="471.5" width="1401" height="395" rx="26.5" ry="26.5" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f09-scope-mask)"/>
+      </svg>
+
+      <!-- answer card -->
+      <div id="f09-ans" class="f09-tint">
+        <span class="f09-rule"></span>
+        <div id="f09-ans-hd">
+          <svg id="f09-ans-spark" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>
+          <span id="f09-ans-t">คำตอบ</span>
+        </div>
+        <span class="f09-bar" style="top:102.5px;width:900px"></span>
+        <span class="f09-bar" style="top:128.5px;width:846px"></span>
+        <span class="f09-bar" style="top:154.5px;width:884px"></span>
+        <span class="f09-bar" style="top:180.5px;width:560px"></span>
+        <div id="f09-cite-row">
+          <div class="f09-doc" id="f09-doc">
+            <span class="f09-band"></span>
+            <svg class="f09-kind" viewBox="0 0 13 15" aria-hidden="true"><path d="M1 1 H8 L12 5 V14 H1 Z"/><path d="M8 1 V5 H12"/></svg>
+            <span class="f09-dh"></span>
+            <span class="f09-dl" style="top:36px;width:47px"></span>
+            <span class="f09-dl" style="top:46px;width:40px"></span>
+            <span class="f09-dl" style="top:56px;width:47px"></span>
+            <span class="f09-dl" style="top:66px;width:28px"></span>
+          </div>
+          <span id="f09-cite">อ้างอิง: นโยบาย69 · v02</span>
+        </div>
+      </div>
+
+      <!-- identity badge inside the scope -->
+      <div id="f09-idb">
+        <svg viewBox="0 0 96 96" width="68" height="68" aria-hidden="true">
+          <defs><clipPath id="f09-avclip-me"><circle cx="48" cy="48" r="45.5"/></clipPath></defs>
+          <circle cx="48" cy="48" r="46.75" fill="rgba(30,43,250,0.06)" stroke="#1e2bfa" stroke-width="2.5"/>
+          <g clip-path="url(#f09-avclip-me)" fill="#9a9a9a">
+            <circle cx="48" cy="38" r="16"/>
+            <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
+          </g>
+        </svg>
+        <span class="f09-ib" style="top:5px;width:150px;height:14px;background:rgba(107,107,107,0.45)"></span>
+        <span class="f09-ib" style="top:29px;width:112px;height:12px"></span>
+        <span class="f09-ib" style="top:51px;width:132px;height:12px"></span>
+      </div>
+
+      <span id="f09-scope-pill">ตามสิทธิ์ของ น.อ.aaaaa</span>
+    </div>
+
+    <!-- ===== Part B: command -> checklist -> human approval -> sent to the units ===== -->
+    <div id="f09-chk" class="f09-tint">
+      <span class="f09-div"></span>
+      <div class="f09-row" id="f09-r1">
+        <span class="f09-rico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span>
+        <span class="f09-rtxt">ร่างหนังสือ</span>
+        <span class="f09-ico">
+          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
+          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </div>
+      <div class="f09-row" id="f09-r2">
+        <span class="f09-rico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h2M14 14h2M8 17.5h2"/></svg></span>
+        <span class="f09-rtxt">ตรวจตารางนัดหมาย</span>
+        <span class="f09-ico">
+          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
+          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+      </div>
+    </div>
+
+    <div id="f09-apv" class="f09-tint">
+      <svg id="f09-apv-av" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
+        <defs><clipPath id="f09-avclip-ap"><circle cx="48" cy="48" r="46.5"/></clipPath></defs>
+        <circle cx="48" cy="48" r="47.25" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/>
+        <g clip-path="url(#f09-avclip-ap)" fill="#9a9a9a">
+          <circle cx="48" cy="38" r="16"/>
+          <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
+        </g>
+      </svg>
+      <span class="f09-sp" id="f09-wait"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></svg><span class="f09-spt">รออนุมัติ</span></span>
+      <span class="f09-sp" id="f09-ok" data-layout-allow-overlap><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="f09-spt">อนุมัติแล้ว</span></span>
+      <div id="f09-memo">
+        <span class="f09-band"></span>
+        <span class="f09-dl" style="top:12px;width:19px"></span>
+        <span class="f09-dl" style="top:19px;width:15px"></span>
+        <span class="f09-dl" style="top:26px;width:19px"></span>
+        <span class="f09-dl" style="top:33px;width:11px"></span>
+      </div>
+      <span class="f09-mb" style="top:164.5px;width:176px;height:12px;background:rgba(107,107,107,0.45)"></span>
+      <span class="f09-mb" style="top:186.5px;width:124px;height:10px"></span>
+      <div id="f09-go"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+
+    <svg class="f09-svg" id="f09-links" viewBox="0 0 1920 1080" aria-hidden="true" data-layout-ignore>
+      <path id="f09-lk1" class="f09-link" d="M 1360 576 C 1460 576, 1460 496, 1560 496"/>
+      <path id="f09-lk2" class="f09-link" d="M 1360 576 C 1460 576, 1460 600, 1560 600"/>
+      <path id="f09-lk3" class="f09-link" d="M 1360 576 C 1460 576, 1460 704, 1560 704"/>
+      <circle id="f09-lk-dot" cx="1360" cy="576" r="6" fill="#1e2bfa" stroke="#fdfae7" stroke-width="2.5"/>
+    </svg>
+
+    <div class="f09-unit f09-tint" id="f09-u1"><span class="f09-ub" style="left:14px"></span><span class="f09-ub" style="left:29px"></span><span class="f09-ub" style="left:44px"></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
+    <div class="f09-unit f09-tint" id="f09-u2"><span class="f09-ub" style="left:14px"></span><span class="f09-ub" style="left:29px"></span><span class="f09-ub" style="left:44px"></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
+    <div class="f09-unit f09-tint" id="f09-u3"><span class="f09-ub" style="left:14px"></span><span class="f09-ub" style="left:29px"></span><span class="f09-ub" style="left:44px"></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
+
+    <span id="f09-sent">ส่งถึง นขต. ที่เกี่ยวข้อง</span>
+
+    <div id="f09-note">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="12.5" r="6"/><path d="M4 33c0-6.6 4.9-10.6 11-10.6 2.7 0 5.1 0.8 7 2.2"/><path d="M5 12.5l4.2 4.2L19 7" transform="translate(20.5 19) scale(0.78)" stroke-width="3"/></g></svg>
+      <span class="f09-nl"><span class="f09-np f09-np1">ต้องมีผู้อนุมัติ</span> <span class="f09-np f09-np2">ก่อนส่งจริง</span></span>
+    </div>
   </div>
+
   <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
+      var COMP = "09-prompts";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]') || document;
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s, root) { return Array.prototype.slice.call((root || host).querySelectorAll(s)); };
       var tl = gsap.timeline({ paused: true });
-      tl.set({}, {}, 19);
+
+      /* caret / state steps: finite opacity steps (never repeat); the first tween per element renders its from-state */
+      var STEP = 0.04;
+      function step(el, from, to, at, first) {
+        tl.fromTo(el, { opacity: from }, { opacity: to, duration: STEP, ease: "power2.out", immediateRender: !!first }, at);
+      }
+
+      /* self-draw prep: one dash the length of the path; offset len+2 hides it fully */
+      function prep(p) {
+        var len = p.getTotalLength();
+        p.style.strokeDasharray = len + " " + (len + 4);
+        p.style.strokeDashoffset = String(len + 2);
+        return len;
+      }
+
+      /* per-word typing: each whole word span appears at its time, the caret jumps to the end of the newest word */
+      function typeLine(line, t0, gap, sendAt, caretOn) {
+        var c0 = line.querySelector(".f09-c0");
+        var words = $$(".f09-w", line);
+        var at = words.map(function (w, k) { return +(t0 + k * gap).toFixed(3); });
+        caretOn.forEach(function (t, k) { step(c0, k % 2 ? 1 : 0, k % 2 ? 0 : 1, t, k === 0); });
+        step(c0, 1, 0, at[0]);
+        words.forEach(function (w, k) {
+          tl.fromTo(w, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "power2.out" }, at[k]);
+          var caret = w.querySelector(".f09-caret");
+          step(caret, 0, 1, at[k], true);
+          step(caret, 1, 0, k + 1 < words.length ? at[k + 1] : sendAt);
+        });
+      }
+
+      /* send press (component 5): scale 0.92 -> 1, power2, no overshoot */
+      var send = $("#f09-send");
+      function pressSend(at, first) {
+        tl.fromTo(send, { scale: 1, backgroundColor: "#1e2bfa" }, { scale: 0.92, backgroundColor: "#1620c4", duration: 0.12, ease: "power2.in", immediateRender: !!first }, at);
+        tl.fromTo(send, { scale: 0.92, backgroundColor: "#1620c4" }, { scale: 1, backgroundColor: "#1e2bfa", duration: 0.42, ease: "power2.out", immediateRender: false }, at + 0.12);
+      }
+
+      /* status icon: a spinner arc turns, then resolves into the shared check on a success disc */
+      function resolve(box, at, doneAt) {
+        var spin = box.querySelector(".f09-spin"), done = box.querySelector(".f09-done"), ck = box.querySelector(".f09-ck");
+        tl.fromTo(spin, { rotation: 0 }, { rotation: 600 * (doneAt + 0.12 - at), duration: doneAt + 0.12 - at, ease: "none" }, at);
+        tl.fromTo(spin, { opacity: 1 }, { opacity: 0, duration: 0.12, ease: "power2.in" }, doneAt);
+        tl.fromTo(done, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out" }, doneAt);
+        tl.fromTo(ck, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, doneAt + 0.06);
+      }
+
+      /* ================= Scene 1 (0.0-2.6): headline, tag, composer, prompt 1 types per word, send ================= */
+      tl.fromTo("#f09-hp1", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+      tl.fromTo("#f09-hp2", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.48);
+      tl.fromTo("#f09-tag", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.6);
+      tl.fromTo("#f09-card", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+
+      var l1 = $("#f09-l1"), l2 = $("#f09-l2");
+      typeLine(l1, 1.0, 0.18, 2.5, [0.6, 0.76, 0.88]);
+      pressSend(2.5, true);
+
+      /* ================= Scene 2 (2.6-9.0): Part A ================= */
+      var st1 = $("#f09-st1"), st2 = $("#f09-st2");
+      tl.fromTo(st1, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 2.9);
+      resolve(st1.querySelector(".f09-ico"), 2.9, 3.2);
+      tl.fromTo(st2, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 3.3);
+      resolve(st2.querySelector(".f09-ico"), 3.3, 3.7);
+
+      /* the answer card opens (4.0) with the spark + heading, four grey bars stream left to right (4.1-4.8) */
+      tl.fromTo("#f09-ans", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, 4.0);
+      tl.fromTo("#f09-ans-spark", { opacity: 0, scale: 0.5, rotation: -45 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "expo.out" }, 4.0);
+      tl.fromTo("#f09-ans-t", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 4.05);
+      $$("#f09-ans .f09-bar").forEach(function (b, k) {
+        tl.fromTo(b, { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.out" }, 4.1 + k * 0.15);
+      });
+
+      /* citation chip + the example document tile land at the card's bottom (5.0) */
+      tl.fromTo("#f09-doc", { opacity: 0, scale: 0.8, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "expo.out" }, 5.0);
+      tl.fromTo("#f09-cite", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 5.05);
+
+      /* the rights scope self-draws around the answer (5.4-6.0), its pill (5.6), the identity badge inside it */
+      var mA = $("#f09-mA"), mB = $("#f09-mB");
+      var LA = prep(mA), LB = prep(mB);
+      tl.fromTo(mA, { strokeDashoffset: LA + 2 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 5.4);
+      tl.fromTo(mB, { strokeDashoffset: LB + 2 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 5.4);
+      tl.fromTo("#f09-scope-pill", { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 5.6);
+      tl.fromTo("#f09-idb", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 5.75);
+      tl.fromTo("#f09-scope-fill", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 5.8);
+      /* hold 6.2-9.0: Part A fully legible and still */
+
+      /* ================= Scene 3 (9.0-9.6): seam ================= */
+      /* Part A accelerates up 40px and fades (power3.in, 0.4s); Part B surfaces mirror it (y +40 -> 0, power3.out, 0.4s) */
+      var EXIT_AT = 9.0, SEAM_DUR = 0.4, SEAM_Y = 40;
+      tl.fromTo("#f09-A", { y: 0 }, { y: -SEAM_Y, duration: SEAM_DUR, ease: "power3.in", immediateRender: false }, EXIT_AT);
+      tl.fromTo("#f09-A", { opacity: 1 }, { opacity: 0, duration: SEAM_DUR, ease: "power2.in", immediateRender: false }, EXIT_AT);
+      /* the composer clears its text the same way, then the caret returns */
+      tl.fromTo(l1, { opacity: 1, y: 0 }, { opacity: 0, y: -10, duration: 0.3, ease: "power3.in", immediateRender: false }, EXIT_AT);
+
+      /* ================= Scene 4 (9.6-15.8): Part B ================= */
+      typeLine(l2, 9.6, 0.2, 11.2, [9.35]);
+      pressSend(11.2, false);
+
+      function enterUp(el, at) {
+        tl.fromTo(el, { y: SEAM_Y }, { y: 0, duration: SEAM_DUR, ease: "power3.out" }, at);
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, at);
+      }
+
+      /* checklist card and its two rows */
+      enterUp($("#f09-chk"), 11.35);
+      tl.fromTo("#f09-chk .f09-div", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 12.15);
+      var r1 = $("#f09-r1"), r2 = $("#f09-r2");
+      tl.fromTo(r1, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 11.6);
+      resolve(r1.querySelector(".f09-ico"), 11.6, 12.0);
+      tl.fromTo(r2, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 12.2);
+      resolve(r2.querySelector(".f09-ico"), 12.2, 12.6);
+
+      /* approval card: neutral approver, the waiting pill (12.9) */
+      enterUp($("#f09-apv"), 12.75);
+      var wait = $("#f09-wait"), ok = $("#f09-ok"), go = $("#f09-go");
+      tl.fromTo(wait, { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 12.9);
+
+      /* approve button press (press-release-spring, smooth: linear-feel press, power2 release, no overshoot) */
+      var PRESS_AT = 13.8, PRESS_DUR = 0.12, RELEASE_DUR = 0.42;
+      tl.fromTo(go, { scale: 1, backgroundColor: "#1e2bfa" }, { scale: 0.92, backgroundColor: "#1620c4", duration: PRESS_DUR, ease: "power2.in" }, PRESS_AT);
+      tl.fromTo(go, { scale: 0.92, backgroundColor: "#1620c4" }, { scale: 1, backgroundColor: "#1e2bfa", duration: RELEASE_DUR, ease: "power2.out", immediateRender: false }, PRESS_AT + PRESS_DUR);
+
+      /* the pill flips to the success badge at the same left anchor (14.1) */
+      tl.fromTo(wait, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.92, duration: 0.1, ease: "power2.in", immediateRender: false }, 14.0);
+      tl.fromTo(ok, { opacity: 0, scale: 0.84 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 14.1);
+
+      /* three connectors fan to three unit tiles (14.6-15.2); each tile receives the memo */
+      tl.fromTo("#f09-lk-dot", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 14.55);
+      ["#f09-lk1", "#f09-lk2", "#f09-lk3"].forEach(function (id, k) {
+        var p = $(id), L = prep(p);
+        tl.fromTo(p, { strokeDashoffset: L + 2 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 14.6 + k * 0.1);
+      });
+      ["#f09-u1", "#f09-u2", "#f09-u3"].forEach(function (id, k) {
+        var u = $(id), md = u.querySelector(".f09-umd");
+        tl.fromTo(u, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, 14.8 + k * 0.1);
+        tl.fromTo(md, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 14.95 + k * 0.1);
+      });
+      tl.fromTo("#f09-sent", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 14.8);
+
+      /* ================= Scene 5 (15.8-19.0): the note, then still from 16.4 ================= */
+      tl.fromTo("#f09-note svg", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out" }, 15.8);
+      tl.fromTo("#f09-note .f09-np1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 15.8);
+      tl.fromTo("#f09-note .f09-np2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 16.0);
+
+      /* the frame is exactly 19s long */
+      tl.to({}, { duration: 19 }, 0);
+
       window.__timelines = window.__timelines || {};
-      window.__timelines["09-prompts"] = tl;
+      window.__timelines[COMP] = tl;
     })();
   </script>
 </template>
