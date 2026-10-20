@@ -31,6 +31,10 @@
     #f11-scope{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
     .f11-tile{position:absolute;width:132px;height:172px;box-sizing:border-box;border-radius:10px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);overflow:hidden}
     .f11-tile.f11-ex{border:2.5px solid #1e2bfa}
+    /* round 2: every tile behind the title block (screen x 421-1498, all rows: columns 2-9) drops to
+       0.6 x the 0.4 lattice = 0.24 effective opacity; the outer columns keep the ~40% callback */
+    #f11-grid .f11-tile{opacity:0.6}
+    #f11-grid .f11-tile:nth-child(10n+1),#f11-grid .f11-tile:nth-child(10n){opacity:1}
     .f11-band{position:absolute;left:0;right:0;top:0;height:4px}
     .f11-glyph{position:absolute;left:12px;top:14px;width:20px;height:20px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
     .f11-ln{position:absolute;left:14px;height:6px;border-radius:3px;background:#9a9a9a}
@@ -50,18 +54,27 @@
     .f11-line{position:absolute;left:0;right:0;display:block;white-space:nowrap;text-align:center}
     .f11-ph{display:inline-block;white-space:nowrap}
     #f11-l1{top:262px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;letter-spacing:0;color:#111111}
-    #f11-emb{color:#8a8a8a}
+    #f11-emb{color:#5F5B57}
     #f11-l2a,#f11-l2b{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:44px;line-height:1.45;letter-spacing:0;color:#3a3a3a}
     #f11-l2a{top:388px}
     #f11-l2b{top:452px}
     #f11-num{font-weight:600;color:#1e2bfa}
 
-    #f11-pay{position:absolute;left:0;right:0;top:568px;display:flex;justify-content:center;align-items:flex-start}
-    .f11-col{position:relative;flex:none}
-    .f11-chipwrap{position:absolute;left:-260px;right:-260px;top:116px;display:flex;justify-content:center}
-    .f11-word{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:72px;line-height:1.45;color:#111111}
-    .f11-dot{display:block;flex:none;width:14px;height:14px;margin:47px 46px 0;border-radius:50%;background:#1e2bfa}
-    .f11-chip{display:block;flex:none;padding:8px 22px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.35;letter-spacing:0.02em;white-space:nowrap}
+    /* round 2: payoff on fixed column centres x 560 / 960 / 1360 (each .f11-col is a zero-width anchor at
+       its centre); word and chip are centred on the anchor; chips share one fixed 330px width (gaps 70px) */
+    #f11-pay{position:absolute;left:0;top:568px;width:1920px;height:170px}
+    .f11-col{position:absolute;top:0;width:0;height:0}
+    #f11-c1{left:560px}
+    #f11-c2{left:960px}
+    #f11-c3{left:1360px}
+    .f11-word{position:absolute;left:-200px;top:0;width:400px;text-align:center;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:72px;line-height:1.45;color:#111111}
+    .f11-chipwrap{position:absolute;left:-165px;top:116px;width:330px}
+    /* mono chip token: 28px, 48px pill, padding 12px 16px */
+    .f11-chip{display:block;box-sizing:border-box;width:330px;height:48px;padding:12px 16px;text-align:center;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;letter-spacing:0.02em;white-space:nowrap}
+    /* cobalt dots at the midpoints of the gaps between neighbouring words: centres x 765 and x 1180 */
+    .f11-dot{position:absolute;top:47px;display:block;width:14px;height:14px;border-radius:50%;background:#1e2bfa}
+    #f11-d1{left:758px}
+    #f11-d2{left:1173px}
   </style>
 
   <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080">
