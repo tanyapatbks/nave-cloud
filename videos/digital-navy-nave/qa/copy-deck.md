@@ -48,7 +48,7 @@ This film is the sequel to the RAG explainer (`videos/rtn-rag-explainer`) and mu
 
 ## Frame 09 — ถาม หรือ สั่งการ ในที่เดียว  ·  88.5–108.1 s
 - term chip: Prompt · Tool Calling
-- on-screen copy (local cue times): headline "ถาม หรือ สั่งการ — ในที่เดียว" (0.3s) · tag "ตัวอย่าง · ภาพเป้าหมาย" (0.6s) · prompt 1 "สรุปแนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s, per word) · status "ตรวจสิทธิ์" (2.9s) "ค้นในขอบเขตสิทธิ์" (3.3s) · answer "คำตอบ" (4.0s) · citation "อ้างอิง: นโยบาย69 · v02" (5.0s) · scope "ตามสิทธิ์ของ น.อ.aaaaa" (5.6s) · prompt 2 "ร่างหนังสือแจ้ง นขต. พร้อมนัดประชุม" (9.6s, per word) · steps "ร่างหนังสือ" (11.6s) "ตรวจตารางนัดหมาย" (12.2s) · approval "รออนุมัติ" (12.9s) → "อนุมัติแล้ว" (14.1s) · send "ส่งถึง นขต. ที่เกี่ยวข้อง" (14.8s) · note "ต้องมีผู้อนุมัติ ก่อนส่งจริง" (15.8s)
+- on-screen copy (local cue times): headline "ถาม หรือ สั่งการ — ในที่เดียว" (0.3s) · tag "ตัวอย่าง · ภาพเป้าหมาย" (0.6s) · prompt 1 "สรุปแนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s, per word) · status "ตรวจสิทธิ์" (2.9s) "ค้นในขอบเขตสิทธิ์" (3.3s) · answer "คำตอบ" (4.0s) · citation "อ้างอิง: นโยบาย69 · v02" (5.0s) · scope "ตามสิทธิ์ของ น.อ.aaaaa" (5.6s) · prompt 2 "ร่างหนังสือแจ้ง นขต. พร้อมนัดประชุม" (9.6s, per word) · steps "ร่างหนังสือ" (11.6s) "ตรวจตารางนัดหมาย" (12.2s) · approval "รออนุมัติ" (12.9s) → "อนุมัติแล้ว" (15.3s) · send "ส่งถึง นขต. ที่เกี่ยวข้อง" (15.8s) · note "ต้องมีผู้อนุมัติ ก่อนส่งจริง" (16.8s)
 - must teach: In NAVE's target picture one composer both answers questions (with citations, within the person's rights) and carries out tasks across units and apps — with human approval before anything goes out.
 
 ## Frame 10 — 5 ขั้น สู่ NAVE ที่พร้อมใช้งานจริง  ·  108.1–119.1 s
@@ -73,7 +73,7 @@ This film is the sequel to the RAG explainer (`videos/rtn-rag-explainer`) and mu
 
 ## Frame 14 — ขั้นที่ 4: Production / Specialized NAVE  ·  162.6–179.1 s
 - term chip: Stage 4 / 5
-- on-screen copy (local cue times): eyebrow "ขั้นที่ 4" (0.3s) · title "Production / Specialized NAVE" (0.3s) · purpose "การทำงานที่ปลอดภัย เชื่อถือได้ ระดับองค์กร" (0.8s) · tiles "Guardrails" (1.8s) "Access Control" (2.2s) "Secrets Management" (2.6s) "Audit Logs" (3.0s) "Rate Limits" (3.4s) "Fallback Models" (3.8s) "Incident Response" (4.2s) "Compliance" (4.6s) "HA / Auto-Scaling" (5.0s) "Disaster Recovery" (5.4s) · stamp "Safety Policy!" (6.1s) · advanced "4+ Advanced" (7.6s) "Model Routing" (8.0s) "Token Tracking" (8.4s) "Latency Optimization" (8.8s) · note "ในสภาพแวดล้อมใช้งานจริง" (9.4s)
+- on-screen copy (local cue times): eyebrow "ขั้นที่ 4" (0.3s) · title "Production / Specialized NAVE" (0.3s) · purpose "การทำงานที่ปลอดภัย เชื่อถือได้ ระดับองค์กร" (0.8s) · tiles "Guardrails" (1.8s) "Access Control" (2.3s) "Secrets Management" (2.8s) "Audit Logs" (3.3s) "Rate Limits" (3.8s) "Fallback Models" (4.3s) "Incident Response" (4.8s) "Compliance" (5.3s) "HA / Auto-Scaling" (5.8s) "Disaster Recovery" (6.3s) · stamp "Safety Policy!" (7.1s) · advanced "4+ Advanced" (8.7s) "Model Routing" (9.2s) "Token Tracking" (9.7s) "Latency Optimization" (10.2s) · note "ในสภาพแวดล้อมใช้งานจริง" (10.8s)
 - must teach: Stage 4 adds guardrails — access control, secrets, audit logs, rate limits, fallbacks, incident response, compliance, HA and disaster recovery — plus a dedicated Safety Policy, then optimises routing, tokens and latency in the real environment.
 
 ## Frame 15 — ขั้นที่ 5: Elite NAVE  ·  179.1–190.1 s
