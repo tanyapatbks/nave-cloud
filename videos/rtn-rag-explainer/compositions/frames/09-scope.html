@@ -71,7 +71,7 @@
   .f09-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
 
   /* scope label pill (component 4) */
-  #f09-scope-pill{position:absolute;left:1028px;top:301px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:6px 24px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
+  #f09-scope-pill{position:absolute;left:1028px;top:321px; /* scope top edge lowered to y 350 so the ACL underline (y≈326) never meets its corner */ font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:6px 24px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
 
   /* four object cards inside the scope */
   .f09-obj{position:absolute;width:370px;height:216px;box-sizing:border-box;padding:22px 24px;border-radius:14px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);display:flex;flex-direction:column;align-items:flex-start}
@@ -164,12 +164,12 @@
   <svg id="f09-svg" viewBox="0 0 1920 1080" aria-hidden="true">
     <defs>
       <mask id="f09-scope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
-        <path id="f09-mtop" class="f09-mask-path" d="M 980 595 L 980 358 A 28 28 0 0 1 1008 330 L 1796 330 A 28 28 0 0 1 1824 358 L 1824 595"/>
+        <path id="f09-mtop" class="f09-mask-path" d="M 980 595 L 980 378 A 28 28 0 0 1 1008 350 L 1796 350 A 28 28 0 0 1 1824 378 L 1824 595"/>
         <path id="f09-mbot" class="f09-mask-path" d="M 980 595 L 980 832 A 28 28 0 0 0 1008 860 L 1796 860 A 28 28 0 0 0 1824 832 L 1824 595"/>
       </mask>
     </defs>
-    <rect id="f09-scope-fill" x="980" y="330" width="844" height="530" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
-    <rect id="f09-scope-dash" x="980" y="330" width="844" height="530" rx="28" ry="28" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f09-scope-mask)"/>
+    <rect id="f09-scope-fill" x="980" y="350" width="844" height="510" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
+    <rect id="f09-scope-dash" x="980" y="350" width="844" height="510" rx="28" ry="28" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f09-scope-mask)"/>
     <path id="f09-link-id" class="f09-link" d="M 776 441 C 878 441, 878 595, 980 595"/>
     <path id="f09-link-acl" class="f09-link" d="M 776 740 C 878 740, 878 595, 980 595"/>
     <circle id="f09-dot-id" cx="776" cy="441" r="5" fill="#1e2bfa"/>
