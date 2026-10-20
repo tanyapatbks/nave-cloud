@@ -43,7 +43,8 @@ blacks=$(ffmpeg -hide_banner -nostats -i "$mp4" -vf "blackdetect=d=0.1:pic_th=0.
 if [ "$blacks" = 0 ]; then say ok "no black segments"; else say FAIL "$blacks black segment(s)"; fi
 
 # 4. Review pack: one cell per second, 10 columns, decoded from the MP4 itself
-ffmpeg -hide_banner -loglevel error -y -i "$mp4" -vf "fps=1,scale=384:-1,tile=10x6:padding=4:color=0x222222" -frames:v 2 "$out/sheet-%02d.png"
+sheets=$(python3 -I -c "import math; print(math.ceil(float('$dur') / 60))")  # 60 cells per sheet
+ffmpeg -hide_banner -loglevel error -y -i "$mp4" -vf "fps=1,scale=384:-1,tile=10x6:padding=4:color=0x222222" -frames:v "$sheets" "$out/sheet-%02d.png"
 say ok "review pack: $(ls "$out"/sheet-*.png | wc -l) sheet(s) in $out"
 
 printf 'qa-mp4: FAIL=%d WARN=%d\n' "$fail" "$warn"
