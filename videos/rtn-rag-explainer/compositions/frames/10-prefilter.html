@@ -25,12 +25,12 @@
 
     /* split stage: two equal tinted panels, flat (no tilt), no shadow */
     /* no filter / blur anywhere on the panels: they stay sharp. They sit at their FINAL layout from 0s
-       (GSAP: scale 0.92 about the top edge + y -24 -> x 128-868 / 1052-1792, y 272-688); nothing resizes later */
+       (GSAP: scale 0.92 about the top edge, y 0 -> x 128-868 / 1052-1792, y 296-712; labels top ~265); nothing resizes later */
     .f10-panel{position:absolute;top:296px;width:804px;height:452px;box-sizing:border-box;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04);transform-origin:50% 0%}
     #f10-L-panel{left:96px}
     #f10-R-panel{left:1020px}
     .f10-body{position:absolute;inset:0}
-    #f10-divider{position:absolute;left:959px;top:300px;width:2px;height:360px;border-radius:1px;background:rgba(30,43,250,0.2);transform-origin:50% 0%}
+    #f10-divider{position:absolute;left:959px;top:324px;width:2px;height:360px;border-radius:1px;background:rgba(30,43,250,0.2);transform-origin:50% 0%}
 
     /* inner-edge deny / allow labels (badge pop); marks drawn as inline SVG (35px so they stay >= 32px at 0.92) */
     .f10-label{position:absolute;top:-34px;display:flex;align-items:center;gap:10px;padding:8px 26px 8px 20px;border-radius:100px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:35px;line-height:1.45;white-space:nowrap;z-index:10}
@@ -107,7 +107,7 @@
     #f10-scope-draw{fill:none;stroke:#ffffff;stroke-width:12;stroke-dasharray:100;stroke-dashoffset:100}
 
     /* the rule (Scene 4) */
-    #f10-rule{position:absolute;left:0;top:720px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;z-index:20}
+    #f10-rule{position:absolute;left:0;top:736px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;z-index:20}
     #f10-rule .f10-rline{display:block;white-space:nowrap}
     #f10-rule .f10-rph{display:inline-block}
     #f10-rule .f10-em{color:#b42318}
@@ -221,9 +221,9 @@
       tl.fromTo("#f10-h-a", { y: -26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.3);
       tl.fromTo("#f10-h-b", { y: -26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.52);
 
-      // panels land at their FINAL layout (scale 0.92 about the top edge, y -24) and never resize afterwards
-      tl.fromTo("#f10-L-panel", { x: -240, y: -24, scale: 0.846, opacity: 0 }, { x: 0, y: -24, scale: 0.92, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.1);
-      tl.fromTo("#f10-R-panel", { x: 240, y: -24, scale: 0.846, opacity: 0 }, { x: 0, y: -24, scale: 0.92, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.28);
+      // panels land at their FINAL layout (scale 0.92 about the top edge, y 0: 24px lower than draft 5) and never resize afterwards
+      tl.fromTo("#f10-L-panel", { x: -240, y: 0, scale: 0.846, opacity: 0 }, { x: 0, y: 0, scale: 0.92, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.1);
+      tl.fromTo("#f10-R-panel", { x: 240, y: 0, scale: 0.846, opacity: 0 }, { x: 0, y: 0, scale: 0.92, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.28);
       tl.fromTo("#f10-divider", { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power2.out" }, 0.3);
 
       q(".f10-tile-L").forEach(function (el, i) {

@@ -29,8 +29,8 @@
     #f01-outline{position:absolute;box-sizing:border-box;inset:-1.5px;border:2.5px solid #1e2bfa;border-radius:10px;}
 
     /* kind chips: ONE foreground row in the left column (outside the wall, never blurred) */
-    #f01-krow{position:absolute;left:96px;top:656px;display:flex;gap:12px;transform-origin:0 0;transform:scale(0.875);z-index:3;}
-    /* the row is born at its FINAL place and size (y 656-706, 28px = 32 x 0.875) and never moves or rescales;
+    #f01-krow{position:absolute;left:96px;top:680px;display:flex;gap:12px;transform-origin:0 0;transform:scale(0.875);z-index:3;}
+    /* the row is born at its FINAL place and size (y 680-730, 28px = 32 x 0.875) and never moves or rescales;
        it ends at x~867, the wall starts at x 1030, so the row never touches a tile. The cream ring stays as a foreground knockout */
     .f01-kchip{display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;padding:4px 18px 4px 14px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);outline:6px solid #fdfae7;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;white-space:nowrap;}
     .f01-kchip.f01-mono{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";letter-spacing:0.02em;}
@@ -39,10 +39,12 @@
     .f01-line{display:block;white-space:nowrap;}
     .f01-ph{display:inline-block;}
 
-    /* year block: eyebrow + rolling year share ONE transform (one origin, top-left) for the Scene-4 shrink */
-    #f01-ygrp{position:absolute;left:96px;top:196px;width:560px;height:282px;transform-origin:0 0;z-index:3;}
-    #f01-eyes{position:absolute;left:0;top:0;height:58px;}
-    .f01-eye{position:absolute;left:0;top:0;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#5F5B50;white-space:nowrap;}
+    /* year block: eyebrow + rolling year share ONE transform (one origin, top-left) for the Scene-4 shrink.
+       Round 6: the whole left stack sits 24px lower (group 196 -> 220); the eyebrow is 40px semibold
+       (700: no 600 face is shipped) near-black #3A372E, its ink 16px above the numerals' ink (eyes top 39px) */
+    #f01-ygrp{position:absolute;left:96px;top:220px;width:560px;height:282px;transform-origin:0 0;z-index:3;}
+    #f01-eyes{position:absolute;left:0;top:39px;height:58px;}
+    .f01-eye{position:absolute;left:0;top:0;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#3A372E;white-space:nowrap;}
     /* year: Latin digits only, so the tight 230px line box is safe. Each digit sits in a FIXED-width slot
        (advance 120px, glyph centred) so the proportional Display numerals never shift the year sideways.
        Each slot is a vertical reel masked to its box: a change slides only that digit (calendar flip). */
@@ -51,16 +53,16 @@
     .f01-reel{position:absolute;left:0;top:0;width:160px;}
     .f01-dig{display:block;width:160px;height:230px;line-height:230px;text-align:center;white-space:nowrap;}
 
-    /* era line (Scene 3): two authored lines under the year, removed at 7.4s */
-    #f01-era{position:absolute;left:96px;top:494px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#3a3a3a;z-index:3;}
+    /* era line (Scene 3): two authored lines under the year, on screen 4.4-9.2s */
+    #f01-era{position:absolute;left:96px;top:518px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#3a3a3a;z-index:3;}
 
     /* question headline (Scene 4), centre-left, three authored lines */
-    #f01-q{position:absolute;left:96px;top:352px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111;z-index:4;}
+    #f01-q{position:absolute;left:96px;top:376px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111;z-index:4;}
     #f01-rag{position:relative;}
     #f01-uline{position:absolute;left:2px;right:2px;top:71px;height:4px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%;}
 
     /* chapter tracker (frame.md component 1, all upcoming): the SAME box model as compositions/chrome.html
-       (#ch-hdr / #ch-track / .ch-pill / .ch-n, upcoming state), so nothing moves or recolours at the 12.0s hand-over */
+       (#ch-hdr / #ch-track / .ch-pill / .ch-n, upcoming state), so nothing moves or recolours at the 13.5s hand-over */
     #f01-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;z-index:4;}
     #f01-track{position:absolute;left:0;top:0;height:60px;display:flex;gap:12px;align-items:center;}
     .f01-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b675c;background:rgba(30,43,250,0);white-space:nowrap;}
@@ -68,7 +70,7 @@
   </style>
 
   <div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080" data-duration="14">
-    <div id="f01-ground" class="clip" data-start="0" data-duration="12.5" data-track-index="0"></div>
+    <div id="f01-ground" class="clip" data-start="0" data-duration="14" data-track-index="0"></div>
 
     <div id="f01-rings"></div>
     <div id="f01-wall"></div>
@@ -227,15 +229,16 @@
       var PITCH = 230;               /* reel cell = slot height */
       var ROLL_AT = 0.8, ROLL_STOP = 3.6;
       var FLIP_MAX = 0.16, FLIP_SHARE = 0.7;
-      var rollEase = gsap.parseEase("power2.out");
+      var rollEase = gsap.parseEase("power2.inOut");
       function invEase(y) {          /* deterministic bisection inverse of the roll ease */
         var lo = 0, hi = 1;
         for (var it = 0; it < 48; it++) { var m = (lo + hi) / 2; if (rollEase(m) < y) lo = m; else hi = m; }
         return (lo + hi) / 2;
       }
-      /* The year value follows ONE power2.out curve; the shown year is that value rounded, so year k arrives
+      /* The year value follows ONE power2.inOut curve; the shown year is that value rounded, so year k arrives
          when the curve passes k - 0.5. The curve is scaled so the last arrival (2569) completes at ROLL_STOP:
-         fast at first, each later step longer, no hitch before the final tick. arrive[k] = when year YA+k is settled. */
+         slow first ticks (2450 ~0.93s ... 2455 ~1.24s), fast through the middle, slowing into 2569 at 3.6s.
+         arrive[k] = when year YA+k is settled. */
       var SPAN = (ROLL_STOP - ROLL_AT) / invEase((N - 0.5) / N);
       var arrive = [ROLL_AT];
       for (var k = 1; k <= N; k++) arrive.push(ROLL_AT + SPAN * invEase((k - 0.5) / N));
@@ -293,9 +296,9 @@
         return texts.map(function (s) { var at = acc; acc += base + s.length * perChar; return at; });
       }
 
-      /* ===== Scene 3 (4.8-7.4s): era line per phrase; kind chips land at their final place at 5.6s ===== */
+      /* ===== Scene 3 (4.4-9.2s): era line per phrase; kind chips land at their final place at 5.6s ===== */
       var eraEls = gsap.utils.toArray("#f01-era .f01-ep");
-      var eraAt = sequence(eraEls.map(function (e) { return e.textContent; }), 4.4, 0.06, 0.009); /* era line from 4.4s: ~3.4s on screen for ~50 chars */
+      var eraAt = sequence(eraEls.map(function (e) { return e.textContent; }), 4.4, 0.06, 0.009); /* era line from 4.4s: ~4.8s on screen (to 9.2s) for ~50 chars */
       eraEls.forEach(function (el, k) {
         tl.fromTo(el, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, eraAt[k]);
       });
@@ -309,21 +312,21 @@
         tl.fromTo("#f01-t" + idx, { scale: 1.06 }, { scale: 1, duration: 0.15, ease: "power2.inOut", immediateRender: false }, at + PULSE_LAG + 0.15);
       });
 
-      /* ===== Scene 4 (7.4-10.8s): era out, year block shrinks to the top-left eyebrow, wall dims, question ===== */
-      tl.fromTo("#f01-era", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 7.8);
+      /* ===== Scene 4 (9.2-12.4s): era out 9.2, year block shrinks 9.2-9.8, wall dims 9.4-9.8, question 9.6 / 10.2 ===== */
+      tl.fromTo("#f01-era", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 9.2);
       /* eyebrow + year move as ONE group: a single transform, one origin (top-left), one ease.
-         scale 0.7 takes the year to 140px and the eyebrow to 28px (40 x 0.7, the type floor); the group box lands at y 140-337, above the headline (y 352) */
-      var SHRINK = 0.7, GRP_TOP = 196, GRP_TO = 140;
-      tl.fromTo("#f01-ygrp", { x: 0, y: 0, scale: 1 }, { x: 0, y: GRP_TO - GRP_TOP, scale: SHRINK, duration: 0.6, ease: "power2.inOut" }, 7.8);
+         scale 0.7 takes the year to 140px and the eyebrow to 28px (40 x 0.7, the type floor); the group box lands at y 164-361, above the headline (y 376) */
+      var SHRINK = 0.7, GRP_TOP = 220, GRP_TO = 164;
+      tl.fromTo("#f01-ygrp", { x: 0, y: 0, scale: 1 }, { x: 0, y: GRP_TO - GRP_TOP, scale: SHRINK, duration: 0.6, ease: "power2.inOut" }, 9.2);
 
-      tl.fromTo("#f01-wall", { "--f01-dof": "0px", opacity: 1 }, { "--f01-dof": "4px", opacity: 0.4, duration: 0.4, ease: "power2.inOut" }, 8.0);
-      tl.fromTo("#f01-t" + HERO, { scale: 1 }, { scale: 1.05, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 8.0);
+      tl.fromTo("#f01-wall", { "--f01-dof": "0px", opacity: 1 }, { "--f01-dof": "4px", opacity: 0.4, duration: 0.4, ease: "power2.inOut" }, 9.4);
+      tl.fromTo("#f01-t" + HERO, { scale: 1 }, { scale: 1.05, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 9.4);
 
       gsap.utils.toArray("#f01-q .f01-qa").forEach(function (el, k) {
-        tl.fromTo(el, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 8.2 + k * 0.14);
+        tl.fromTo(el, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 9.6 + k * 0.14);
       });
       var qEls = gsap.utils.toArray("#f01-q .f01-qb");
-      var qAt = sequence(qEls.map(function (e) { return e.id === "f01-rag" ? "RAG" : e.textContent; }), 8.8, 0.08, 0.012);
+      var qAt = sequence(qEls.map(function (e) { return e.id === "f01-rag" ? "RAG" : e.textContent; }), 10.2, 0.08, 0.012);
       var ragAt = 0;
       qEls.forEach(function (el, k) {
         tl.fromTo(el, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, qAt[k]);
@@ -332,10 +335,10 @@
       /* RAG underline draws once the word has landed */
       tl.fromTo("#f01-uline", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, ragAt + 0.4);
 
-      /* ===== Scene 5 (10.8-12.0s): chapter tracker (all upcoming), opacity-only fades at 10.8 / 10.9 / 11.0s
-         (0.25s each): every pill sits at the chrome's exact position and inactive colour by 11.25s ===== */
+      /* ===== Scene 5 (12.4-13.5s): chapter tracker (all upcoming), opacity-only fades at 12.4 / 12.5 / 12.6s
+         (0.25s each): every pill sits at the chrome's exact position and inactive colour by 12.85s ===== */
       ["#f01-p1", "#f01-p2", "#f01-p3"].forEach(function (id, k) {
-        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 11.0 + k * 0.1);
+        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 12.4 + k * 0.1);
       });
 
       window.__timelines = window.__timelines || {};
