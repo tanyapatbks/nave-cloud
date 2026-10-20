@@ -28,6 +28,7 @@
     #f06-scope-pill{position:absolute;left:824px;top:231px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:6px 24px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
     #f06-wires path,#f06-top rect{fill:none;stroke:#1e2bfa;stroke-linecap:round;stroke-linejoin:round}
     #f06-wires .f06-wire{stroke-width:3}
+    #f06-wires .f06-pulse{stroke-width:8}
     #f06-wires .f06-brace{stroke-width:4}
     #f06-top rect{stroke-width:2.5}
 
@@ -43,36 +44,43 @@
 
     /* three lanes (x 790-1559), all inside the scope */
     .f06-lane{position:absolute;left:790px;width:769px;height:156px;box-sizing:border-box;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04)}
-    .f06-lab{position:absolute;left:24px;top:31px}
-    .f06-lab-row{display:flex;align-items:center;gap:10px;white-space:nowrap}
+    .f06-lab{position:absolute;left:24px;top:28px}
+    .f06-lab-row{display:flex;align-items:center;gap:12px;white-space:nowrap}
     .f06-lab-name{display:block;font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap}
-    .f06-chip{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:22px;line-height:1.45;padding:3px 14px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
-    .f06-lab-sub{display:block;margin-top:4px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:28px;line-height:1.45;color:#6b6b6b;white-space:nowrap}
+    /* English mono chip token (frame.md component 8): 28px, 48px pill, padding 12px 16px */
+    .f06-chip{display:block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    .f06-lab-sub{display:block;margin-top:4px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:32px;line-height:1.45;color:#6b6b6b;white-space:nowrap}
 
-    /* document tiles (component 3) */
-    .f06-tg{position:absolute;width:68px;height:89px}
-    .f06-tile{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:1.5px solid rgba(30,43,250,0.2);background:#fdfae7;overflow:hidden}
+    /* document tiles (component 3), 56 px wide, 16 px gaps, x 1260-1532 */
+    .f06-row{position:absolute;left:0;top:0;width:0;height:0}
+    .f06-tg{position:absolute;width:56px;height:73px}
+    .f06-tile{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:6px;border:1.5px solid rgba(30,43,250,0.2);background:#fdfae7;overflow:hidden}
     .f06-tile svg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
-    .f06-hl{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:2px solid #1e2bfa;opacity:0}
+    .f06-hl{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:6px;border:2px solid #1e2bfa;opacity:0}
+    .f06-ring3{position:absolute;left:-5px;top:-5px;width:66px;height:83px;box-sizing:border-box;border-radius:9px;border:3px solid #1e2bfa;opacity:0}
+    .f06-dash{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:6px;border:2.5px dashed #6b6b6b;opacity:0}
     .f06-mk{position:absolute;box-sizing:border-box;width:20px;height:20px;right:-10px;top:-10px;border:2px solid #fdfae7;background:#1e2bfa}
     .f06-mk-sq{border-radius:4px}
     .f06-mk-ci{border-radius:50%}
     .f06-mk-near{background:#9a9a9a}
 
-    /* metadata filter chips: one row, light in place */
-    #f06-filters{position:absolute;left:1178px;top:696px;display:flex;flex-direction:row;align-items:center;gap:12px}
-    .f06-fc{display:block;font-weight:500;font-size:28px;line-height:1.45;padding:0 12px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2);white-space:nowrap}
+    /* metadata filter chips: the lane-3 sub-label row, light in place */
+    #f06-filters{display:flex;flex-direction:row;align-items:center;gap:12px}
+    .f06-fc{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:0 12px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2);white-space:nowrap}
 
-    /* merge: result stack */
-    #f06-merge-label{position:absolute;left:1656px;top:372px;font-weight:600;font-size:38px;line-height:1.45;color:#111111;white-space:nowrap}
+    /* merge: result stack, 56 px cascade so every sheet's band, kind glyph and lane marker stay visible */
+    #f06-merge-label{position:absolute;left:1656px;top:364px;font-weight:600;font-size:38px;line-height:1.45;color:#111111;white-space:nowrap}
     .f06-ghost{position:absolute;width:132px;height:172px;transform-origin:0 0;opacity:0}
     .f06-ghost .f06-tile{border-radius:10px;border:2px solid #1e2bfa;background:#e6e7fb}
+    .f06-gmk{position:absolute;box-sizing:border-box;width:28px;height:28px;right:-14px;top:-14px;border:2.5px solid #fdfae7;background:#1e2bfa}
+    .f06-gmk.f06-mk-sq{border-radius:5px}
+    .f06-gmk-2{right:22px}
   </style>
 
   <div id="root" data-composition-id="06-hybrid" data-width="1920" data-height="1080" data-start="0" data-duration="12.5">
     <div id="f06-ground" class="clip" data-start="0" data-duration="12.5" data-track-index="0"></div>
 
-    <!-- permission scope: drawn around all three lanes BEFORE any lane searches -->
+    <!-- permission scope: drawn around all three lanes BEFORE any lane box or hit appears -->
     <svg id="f06-scope" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
       <defs>
         <mask id="f06-scope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
@@ -88,6 +96,10 @@
       <path id="f06-p1" class="f06-wire" d="M 744 378 H 790"/>
       <path id="f06-p2" class="f06-wire" d="M 760 378 V 536 Q 760 548 772 548 H 790"/>
       <path id="f06-p3" class="f06-wire" d="M 760 536 V 706 Q 760 718 772 718 H 790"/>
+      <!-- one pulse from the question card along all three connectors (7.0 s) -->
+      <path id="f06-q1" class="f06-pulse" d="M 744 378 H 790"/>
+      <path id="f06-q2" class="f06-pulse" d="M 744 378 H 760 V 536 Q 760 548 772 548 H 790"/>
+      <path id="f06-q3" class="f06-pulse" d="M 744 378 H 760 V 706 Q 760 718 772 718 H 790"/>
       <path id="f06-brace-a" class="f06-brace" d="M 1596 302 C 1610 302 1618 308 1618 322 L 1618 526 C 1618 540 1626 548 1640 548"/>
       <path id="f06-brace-b" class="f06-brace" d="M 1596 794 C 1610 794 1618 788 1618 774 L 1618 570 C 1618 556 1626 548 1640 548"/>
     </svg>
@@ -117,36 +129,38 @@
     <div class="f06-lane" id="f06-lane-3" style="top:640px">
       <div class="f06-lab">
         <div class="f06-lab-row"><span class="f06-lab-name">กรองตามป้าย</span><span class="f06-chip">Metadata</span></div>
-        <span class="f06-lab-sub"></span>
+        <!-- metadata filter: two chips in the sub-label row, lit in place -->
+        <div class="f06-lab-sub" id="f06-filters"><span class="f06-fc" id="f06-fc-year">ปี 2569</span><span class="f06-fc" id="f06-fc-unit">หน่วย สสท./ศซบ.</span></div>
       </div>
     </div>
 
     <!-- keyword lane: columns = the same four documents in every lane (1 example pdf, 2 table, 3 other-unit pdf, 4 scan) -->
-    <div class="f06-tg" id="f06-k1" style="left:1218px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-    <div class="f06-tg" id="f06-k2" style="left:1302px;top:334px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-    <div class="f06-tg" id="f06-k3" style="left:1386px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-    <div class="f06-tg" id="f06-k4" style="left:1470px;top:334px"><div class="f06-tile" data-kind="scan" data-bars="3"></div></div>
-
-    <!-- vector lane -->
-    <div class="f06-tg" id="f06-v1" style="left:1218px;top:503px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
-    <div class="f06-tg" id="f06-v2" style="left:1302px;top:503px"><div class="f06-tile" data-kind="table" data-bars="1"></div></div>
-    <div class="f06-tg" id="f06-v3" style="left:1386px;top:503px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-mk f06-mk-ci f06-mk-near"></div></div>
-    <div class="f06-tg" id="f06-v4" style="left:1470px;top:503px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
-
-    <!-- metadata filter: two chips in one row, lit in place -->
-    <div id="f06-filters">
-      <span class="f06-fc" id="f06-fc-year">ปี 2569</span>
-      <span class="f06-fc" id="f06-fc-unit">หน่วย สสท./ศซบ.</span>
+    <div class="f06-row" id="f06-krow">
+      <div class="f06-tg" id="f06-k1" style="left:1260px;top:341px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+      <div class="f06-tg" id="f06-k2" style="left:1332px;top:341px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-sq"></div></div>
+      <div class="f06-tg" id="f06-k3" style="left:1404px;top:341px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+      <div class="f06-tg" id="f06-k4" style="left:1476px;top:341px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-dash"></div></div>
     </div>
 
-    <!-- merge: result stack (back -> front); each card slides in from its own lane -->
+    <!-- vector lane -->
+    <div class="f06-row" id="f06-vrow">
+      <div class="f06-tg" id="f06-v1" style="left:1260px;top:511px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
+      <div class="f06-tg" id="f06-v2" style="left:1332px;top:511px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-dash"></div></div>
+      <div class="f06-tg" id="f06-v3" style="left:1404px;top:511px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-mk f06-mk-ci f06-mk-near"></div></div>
+      <div class="f06-tg" id="f06-v4" style="left:1476px;top:511px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-ci"></div></div>
+    </div>
+
+    <!-- merge: result stack (DOM back -> front). Slots: back 1672,446 · mid 1664,502 · front 1656,558.
+         Doc 1 lands from both lanes at the back, the table (Keyword only) and the scan (Vector only) on top;
+         from 9.9 s the example document rises to the top and the others shift back one slot. -->
     <div id="f06-merge-label">รวมผล</div>
-    <div class="f06-ghost" id="f06-g-back" style="left:1688px;top:446px"><div class="f06-tile" data-kind="scan" data-bars="3"></div></div>
-    <div class="f06-ghost" id="f06-g-mid" style="left:1672px;top:462px"><div class="f06-tile" data-kind="table" data-bars="1"></div></div>
-    <div class="f06-ghost" id="f06-g-fb" style="left:1656px;top:478px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div></div>
-    <div class="f06-ghost" id="f06-g-fa" style="left:1656px;top:478px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div></div>
+    <div class="f06-ghost" id="f06-g-k1" style="left:1672px;top:446px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-sq"></div></div>
+    <div class="f06-ghost" id="f06-g-v1" style="left:1672px;top:446px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-ci f06-gmk-2"></div><div class="f06-gmk f06-mk-sq" id="f06-g-v1-sq"></div></div>
+    <div class="f06-ghost" id="f06-g-k2" style="left:1664px;top:502px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-gmk f06-mk-sq"></div></div>
+    <div class="f06-ghost" id="f06-g-v4" style="left:1656px;top:558px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-gmk f06-mk-ci"></div></div>
+    <div class="f06-ghost" id="f06-g-ex" style="left:1656px;top:558px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-ci f06-gmk-2"></div><div class="f06-gmk f06-mk-sq"></div></div>
     <svg id="f06-top" viewBox="0 0 1920 1080" width="1920" height="1080">
-      <rect id="f06-ex-outline" x="1656.75" y="478.75" width="130.5" height="170.5" rx="9.25" ry="9.25"/>
+      <rect id="f06-ex-outline" x="1656.75" y="558.75" width="130.5" height="170.5" rx="9.25" ry="9.25"/>
     </svg>
 
     <!-- scope label pill straddles the boundary's top-left edge -->
@@ -182,7 +196,7 @@
       });
 
       var tl = gsap.timeline({ paused: true });
-      var P2 = "power2.out", P3 = "power3.out", IO = "power2.inOut";
+      var P2 = "power2.out", P3 = "power3.out", IO = "power2.inOut", IO3 = "power3.inOut";
 
       /* svg-path-draw: dash = measured length, offset length -> 0 */
       function prep(el, fallback) {
@@ -199,6 +213,15 @@
         var L = prep(el, fallback);
         tl.fromTo(el, { strokeDashoffset: L + 2 }, { strokeDashoffset: 0, duration: dur, ease: P2 }, at);
       }
+      /* a travelling pulse: one SEG-long dash that runs from the path start past its end */
+      function pulse(el, at, dur, fallback) {
+        var L = 0, SEG = 30;
+        try { L = el.getTotalLength(); } catch (e) { L = 0; }
+        if (!L || !isFinite(L)) { L = fallback || 0; }
+        L = Math.ceil(L);
+        el.style.strokeDasharray = SEG + " " + (L + SEG + 2000);
+        tl.fromTo(el, { strokeDashoffset: SEG + 8 }, { strokeDashoffset: -(L + 8), duration: dur, ease: IO }, at);
+      }
       function laneReveal(lane, at) {
         tl.fromTo(lane, { opacity: 0.45 }, { opacity: 1, duration: 0.35, ease: P2, immediateRender: false }, at);
         tl.fromTo(lane.querySelector(".f06-lab-name"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, at);
@@ -207,81 +230,113 @@
       }
       /* a hit: solid cobalt outline, accent-light fill, 20px marker, full opacity */
       function hit(g, at) {
-        tl.fromTo(g, { opacity: 0.55 }, { opacity: 1, duration: 0.3, ease: P2, immediateRender: false }, at);
-        tl.fromTo(g.querySelector(".f06-tile"), { backgroundColor: "#fdfae7" }, { backgroundColor: "#e6e7fb", duration: 0.3, ease: P2 }, at);
-        tl.fromTo(g.querySelector(".f06-hl"), { opacity: 0 }, { opacity: 1, duration: 0.25, ease: P2 }, at);
-        tl.fromTo(g.querySelector(".f06-mk"), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: P3 }, at);
+        var D = 0.18;
+        tl.fromTo(g, { opacity: 0.55 }, { opacity: 1, duration: D, ease: P2, immediateRender: false }, at);
+        tl.fromTo(g.querySelector(".f06-tile"), { backgroundColor: "#fdfae7" }, { backgroundColor: "#e6e7fb", duration: D, ease: P2 }, at);
+        tl.fromTo(g.querySelector(".f06-hl"), { opacity: 0 }, { opacity: 1, duration: D, ease: P2 }, at);
+        tl.fromTo(g.querySelector(".f06-mk"), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: D, ease: P3 }, at);
       }
-      function fade(g, at, from, to) {
-        tl.fromTo(g, { opacity: from }, { opacity: to, duration: 0.35, ease: P2, immediateRender: false }, at);
+      function fade(g, at, from, to, dur) {
+        tl.fromTo(g, { opacity: from }, { opacity: to, duration: dur || 0.35, ease: P2, immediateRender: false }, at);
       }
 
       var lanes = [$("#f06-lane-1"), $("#f06-lane-2"), $("#f06-lane-3")];
       var K = [$("#f06-k1"), $("#f06-k2"), $("#f06-k3"), $("#f06-k4")];
       var V = [$("#f06-v1"), $("#f06-v2"), $("#f06-v3"), $("#f06-v4")];
 
-      /* Scene 1 (0.0-2.8): headline, three empty lanes, question card; at 1.6 the permission scope
-         self-draws around all three lanes with its pill, then the query connector enters the scope */
+      /* Scene 1 (0.0-2.8): headline, question card; at ~1.5 the permission scope self-draws (closed by 2.0)
+         with its pill; only then the three empty lane boxes fade in (2.0-2.4) and the connector enters the scope */
       tl.fromTo($$("#f06-h2 .f06-w"), { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.55, ease: P3, stagger: 0.14 }, 0.3);
-      tl.fromTo(lanes, { opacity: 0, y: 16 }, { opacity: 0.45, y: 0, duration: 0.5, ease: P2, stagger: 0.1 }, 0.5);
       tl.fromTo($("#f06-q"), { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, ease: P3 }, 1.0);
       tl.fromTo($("#f06-qicon"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: P3 }, 1.1);
       tl.fromTo($$(".f06-qw"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3, stagger: 0.08 }, 1.15);
 
       var HALF = 2 * 248 + 741 + Math.PI * 28;               /* straight runs + two quarter arcs */
-      draw($("#f06-mtop"), 1.5, 0.9, HALF);
-      draw($("#f06-mbot"), 1.5, 0.9, HALF);
+      draw($("#f06-mtop"), 1.45, 0.55, HALF);
+      draw($("#f06-mbot"), 1.45, 0.55, HALF);
       tl.fromTo($("#f06-scope-pill"), { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: P3 }, 1.6);
-      tl.fromTo($("#f06-scope-fill"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: P2 }, 2.2);
-      draw($("#f06-p1"), 2.1, 0.35, 46);
-      draw($("#f06-p2"), 2.3, 0.4, 200);
-      draw($("#f06-p3"), 2.3, 0.4, 200);
+      tl.fromTo($("#f06-scope-fill"), { opacity: 0 }, { opacity: 1, duration: 0.4, ease: P2 }, 2.0);
+      tl.fromTo(lanes, { opacity: 0, y: 12 }, { opacity: 0.45, y: 0, duration: 0.3, ease: P2, stagger: 0.05 }, 2.0);
+      draw($("#f06-p1"), 2.15, 0.25, 46);
+      draw($("#f06-p2"), 2.3, 0.35, 200);
+      draw($("#f06-p3"), 2.3, 0.35, 200);
 
-      /* Scene 2 (2.8-4.6): keyword lane — "ศซบ." + "69" underlined, hits on docs 1-3; "แนวทางปฏิบัติ" stays unmarked */
+      /* Scene 2 (2.8-4.6): keyword lane title/chip/sub + its four unlit tiles; "ศซบ." + "69" underlined (no hits yet) */
       laneReveal(lanes[0], 2.8);
       tl.fromTo(K, { opacity: 0, y: 12 }, { opacity: 0.55, y: 0, duration: 0.4, ease: P2, stagger: 0.07 }, 3.1);
       tl.fromTo($("#f06-ul-unit"), { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: P2 }, 3.4);
       tl.fromTo($("#f06-ul-69"), { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: P2 }, 3.5);
-      [0, 1, 2].forEach(function (c, i) { hit(K[c], 3.7 + i * 0.1); });
-      fade(K[3], 3.9, 0.55, 0.3);
 
-      /* Scene 3 (4.6-6.4): vector lane — "แนวทางปฏิบัติ" circled, hits on docs 1 and 4; doc 3 a greyer near-miss */
+      /* Scene 3 (4.6-6.4): vector lane title/chip/sub + its unlit tiles; "แนวทางปฏิบัติ" circled (no hits yet) */
       laneReveal(lanes[1], 4.6);
       tl.fromTo(V, { opacity: 0, y: 12 }, { opacity: 0.55, y: 0, duration: 0.4, ease: P2, stagger: 0.07 }, 4.9);
       draw($("#f06-ring-p"), 5.15, 0.45);
-      hit(V[0], 5.5);
-      hit(V[3], 5.6);
-      tl.fromTo(V[2].querySelector(".f06-mk-near"), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: P3 }, 5.7);
-      fade(V[1], 5.7, 0.55, 0.3);
 
-      /* Scene 4 (6.4-8.4): metadata lane — two filter chips light in place; the other-unit column greys to 30% */
+      /* Scene 4 (6.4-8.4): metadata lane title/chip + its two filter chips (unlit) */
       laneReveal(lanes[2], 6.4);
-      tl.fromTo($$(".f06-fc"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: P3, stagger: 0.12 }, 6.75);
-      var LIT_FROM = { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)" };
-      var LIT_TO = { backgroundColor: "rgba(30,43,250,0.15)", borderColor: "rgba(30,43,250,1)", duration: 0.25, ease: P2 };
-      tl.fromTo($("#f06-fc-year"), LIT_FROM, LIT_TO, 7.2);
-      tl.fromTo($("#f06-fc-unit"), LIT_FROM, LIT_TO, 7.45);
-      fade(K[2], 7.55, 1, 0.3);
-      fade(V[2], 7.55, 0.55, 0.3);
+      tl.fromTo($$(".f06-fc"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: P3, stagger: 0.12 }, 6.6);
 
-      /* Scene 5 (8.4-12.0): bracket self-draws; each lane's hit cards slide into one stack
-         (doc 1 from both lanes, doc 2 only from Keyword, doc 4 only from Vector); settled by 9.3, hold */
+      /* 7.0: ONE pulse from the question card along all three connectors; every lane lights within 7.0-7.3 */
+      var QCARD = $("#f06-q");
+      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,1)", duration: 0.1, ease: P2 }, 6.92);
+      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,1)" }, { borderColor: "rgba(30,43,250,0.2)", duration: 0.35, ease: P2, immediateRender: false }, 7.15);
+      pulse($("#f06-q1"), 7.0, 0.18, 46);
+      pulse($("#f06-q2"), 7.0, 0.18, 211);
+      pulse($("#f06-q3"), 7.0, 0.18, 381);
+      var HIT = 7.12;
+      [0, 1, 2].forEach(function (c) { hit(K[c], HIT); });           /* Keyword squares: docs 1-3 */
+      hit(V[0], HIT); hit(V[3], HIT);                                /* Vector circles: docs 1 and 4 */
+      tl.fromTo(V[2].querySelector(".f06-mk-near"), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.18, ease: P3 }, HIT);
+      var LIT_FROM = { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)" };
+      var LIT_TO = { backgroundColor: "rgba(30,43,250,0.15)", borderColor: "rgba(30,43,250,1)", duration: 0.18, ease: P2 };
+      tl.fromTo($$(".f06-fc"), LIT_FROM, LIT_TO, HIT);                /* Metadata value-chip outlines */
+      fade(K[3], HIT, 0.55, 0.3, 0.18);                              /* misses sit at 30% */
+      fade(V[1], HIT, 0.55, 0.3, 0.18);
+      /* the metadata filter drops the off-target column (doc 3, other unit) in every lane */
+      fade(K[2], 7.35, 1, 0.3, 0.3);
+      fade(V[2], 7.35, 0.55, 0.3, 0.3);
+
+      /* 7.5-8.3: what one method alone misses. The table (Keyword only) and the scan (Vector only) pulse a
+         3px cobalt outline; their missed counterparts (Vector slot 2, Keyword slot 4) become empty dashed slots */
+      [K[1], V[3]].forEach(function (g) {
+        tl.fromTo(g.querySelector(".f06-ring3"), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.35, ease: P3 }, 7.5);
+        tl.fromTo(g, { scale: 1 }, { scale: 1.1, duration: 0.18, ease: P2 }, 7.5);
+        tl.fromTo(g, { scale: 1.1 }, { scale: 1, duration: 0.35, ease: P3, immediateRender: false }, 7.7);
+      });
+      [K[3], V[1]].forEach(function (g) {
+        fade(g, 7.65, 0.3, 1, 0.3);
+        tl.fromTo(g.querySelector(".f06-tile"), { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2 }, 7.65);
+        tl.fromTo(g.querySelector(".f06-dash"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: P2 }, 7.65);
+      });
+
+      /* Scene 5 (8.4-12.0): bracket self-draws; the found thumbnails fly into รวมผล at full opacity with their
+         lane markers (doc 1 from both lanes, doc 2 only from Keyword, doc 4 only from Vector); the table and
+         scan stay on top until 9.9; then the example document rises to the top and the lanes dim; hold */
       draw($("#f06-brace-a"), 8.4, 0.6);
       draw($("#f06-brace-b"), 8.4, 0.6);
       tl.fromTo($("#f06-merge-label"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: P3 }, 8.4);
-      var S = 68 / 132;
+      var S = 56 / 132;
       [
-        ["#f06-g-fa", K[0], 1218, 334, 1656, 478],
-        ["#f06-g-fb", V[0], 1218, 503, 1656, 478],
-        ["#f06-g-mid", K[1], 1302, 334, 1672, 462],
-        ["#f06-g-back", V[3], 1470, 503, 1688, 446]
-      ].forEach(function (g, i) {
-        var el = $(g[0]), at = 8.55 + i * 0.08;
-        tl.fromTo(el, { x: g[2] - g[4], y: g[3] - g[5], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.5, ease: IO }, at);
-        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: P2 }, at);
-        fade(g[1], at, 1, 0.22);
+        ["#f06-g-k1", 1260, 341, 1672, 446, 8.40],
+        ["#f06-g-v1", 1260, 511, 1672, 446, 8.46],
+        ["#f06-g-k2", 1332, 341, 1664, 502, 8.52],
+        ["#f06-g-v4", 1476, 511, 1656, 558, 8.58]
+      ].forEach(function (g) {
+        var el = $(g[0]);
+        tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.55, ease: P3 }, g[5]);
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: P2 }, g[5]);
       });
-      draw($("#f06-ex-outline"), 8.98, 0.32);
+      /* doc 1 was found by both lanes: once both copies have landed it carries both markers */
+      tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: P3 }, 8.85);
+
+      /* 9.9: the example document settles on top (continuity with frame 07); table and scan shift back one slot */
+      tl.fromTo($("#f06-g-k2"), { x: 0, y: 0 }, { x: 8, y: -56, duration: 0.45, ease: IO3, immediateRender: false }, 9.9);
+      tl.fromTo($("#f06-g-v4"), { x: 0, y: 0 }, { x: 8, y: -56, duration: 0.45, ease: IO3, immediateRender: false }, 9.93);
+      tl.fromTo([$("#f06-g-k1"), $("#f06-g-v1")], { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2, immediateRender: false }, 9.95);
+      tl.fromTo($("#f06-g-ex"), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 9.98);
+      draw($("#f06-ex-outline"), 10.2, 0.3);
+      /* lanes dim only after 9.9 */
+      tl.fromTo([$("#f06-krow"), $("#f06-vrow")], { opacity: 1 }, { opacity: 0.4, duration: 0.4, ease: P2 }, 9.95);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;

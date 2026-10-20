@@ -53,7 +53,8 @@
     .f04-row{display:contents;}
     .f04-dot{display:block;width:14px;height:14px;border-radius:50%;background:#1e2bfa;}
     .f04-q{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap;}
-    .f04-sep{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#9a9a9a;}
+    /* question · term separator: 8px dot, #6B6966 (4.8:1 on the card tint); 10px column keeps x≈702 / 725 */
+    .f04-sep{display:block;width:8px;height:8px;margin:0 1px;border-radius:50%;background:#6B6966;}
     .f04-t{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
 
     /* tree-node pills (section headings of the same document) */
@@ -72,12 +73,19 @@
     #f04-leaders{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;z-index:2;}
     #f04-leaders path{fill:none;stroke:#8b8fe8;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;}
 
-    /* English term chips */
+    /* inheritance connector: document -> under the tag card -> up through every chunk's badge slot */
+    #f04-rails .f04-link{stroke-opacity:0.55;}
+    /* copies of the document's badge that ride the connector to each chunk */
+    #f04-copies{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:5;pointer-events:none;}
+    #f04-copies .f04-badge{opacity:0;}
+
+    /* English term chips (mono chip token: 28px, pill 48px, padding 12px 16px) */
     .f04-cw{position:absolute;display:flex;justify-content:center;align-items:center;z-index:3;}
     #f04-cw-chunk{left:1150px;top:375px;width:540px;height:49px;}
-    /* "Tree Nodes" is a label above the gap between the two pills (not a third node) */
-    #f04-cw-tree{left:1300px;top:232px;width:240px;height:45px;}
-    .f04-chip{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:2px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;}
+    /* "สารบัญ" over "Tree Nodes": a label above the gap between the two pills (not a third node) */
+    #f04-cw-tree{left:1310px;top:186px;width:220px;flex-direction:column;}
+    .f04-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:32px;line-height:1.45;color:#111111;}
+    .f04-chip{display:block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:48px;padding:0 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;}
   </style>
 
   <div id="root" data-composition-id="04-tags" data-width="1920" data-height="1080" data-start="0" data-duration="9.5">
@@ -93,12 +101,18 @@
         <path id="f04-tickA" data-len="29" d="M1122 482 H1151"/>
         <path id="f04-railB" data-len="472" d="M1718 339 V777 Q1718 790 1705 790 H1689"/>
         <path id="f04-tickB" data-len="29" d="M1718 692 H1689"/>
+        <!-- inheritance connector: doc bottom edge (285.5, 780) -> y 860 run below the tag card and chunk 4 ->
+             x 1614.5 (badge column) -> chunk 4 slot; then slot-to-slot segments up to chunk 1 -->
+        <path class="f04-link" id="f04-link" data-len="1451" d="M285.5 780 V846 Q285.5 860 299.5 860 H1600.5 Q1614.5 860 1614.5 846 V806"/>
+        <path class="f04-link" id="f04-sp3" data-len="66" d="M1614.5 774 V708"/>
+        <path class="f04-link" id="f04-sp2" data-len="80" d="M1614.5 676 V596"/>
+        <path class="f04-link" id="f04-sp1" data-len="66" d="M1614.5 564 V498"/>
       </svg>
 
-      <!-- leaders from the "Tree Nodes" chip (x 1314-1526, centre y 254.5) down to each pill's top edge (y 280) -->
+      <!-- leaders from the "Tree Nodes" chip (x 1320-1520, centre y 256.4) down to each pill's top edge (y 280) -->
       <svg id="f04-leaders" viewBox="0 0 1920 1080" width="1920" height="1080">
-        <path id="f04-leadA" data-len="89" d="M1314 254.5 H1250.5 V280"/>
-        <path id="f04-leadB" data-len="89" d="M1526 254.5 H1589.5 V280"/>
+        <path id="f04-leadA" data-len="94" d="M1320 256.5 H1250.5 V280"/>
+        <path id="f04-leadB" data-len="94" d="M1520 256.5 H1589.5 V280"/>
       </svg>
 
       <!-- four chunk cards: each card mirrors one block of the document -->
@@ -106,22 +120,22 @@
         <div class="f04-chunk" id="f04-ch1" data-target-x="1194" data-target-y="-128">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:360px"></span><span style="width:331px"></span><span style="width:216px"></span></div>
-          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+          <div class="f04-bslot"><div class="f04-slot"></div></div>
         </div>
         <div class="f04-chunk" id="f04-ch2" data-target-x="1194" data-target-y="-30">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:346px"></span><span style="width:360px"></span><span style="width:259px"></span></div>
-          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+          <div class="f04-bslot"><div class="f04-slot"></div></div>
         </div>
         <div class="f04-chunk" id="f04-ch3" data-target-x="1194" data-target-y="82">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:360px"></span><span style="width:310px"></span><span style="width:180px"></span></div>
-          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+          <div class="f04-bslot"><div class="f04-slot"></div></div>
         </div>
         <div class="f04-chunk" id="f04-ch4" data-target-x="1194" data-target-y="180">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:324px"></span><span style="width:360px"></span><span style="width:230px"></span></div>
-          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+          <div class="f04-bslot"><div class="f04-slot"></div></div>
         </div>
       </div>
 
@@ -144,10 +158,10 @@
 
       <!-- metadata tag card -->
       <div id="f04-tag">
-        <div class="f04-row" id="f04-r1"><span class="f04-dot"></span><span class="f04-q">มาจากไหน?</span><span class="f04-sep">·</span><span class="f04-t">SourceID</span></div>
-        <div class="f04-row" id="f04-r2"><span class="f04-dot"></span><span class="f04-q">ฉบับไหน?</span><span class="f04-sep">·</span><span class="f04-t">Version</span></div>
-        <div class="f04-row" id="f04-r3"><span class="f04-dot"></span><span class="f04-q">ลับแค่ไหน?</span><span class="f04-sep">·</span><span class="f04-t">Classification</span></div>
-        <div class="f04-row" id="f04-r4"><span class="f04-dot"></span><span class="f04-q">ใครเห็นได้?</span><span class="f04-sep">·</span><span class="f04-t">Access</span></div>
+        <div class="f04-row" id="f04-r1"><span class="f04-dot"></span><span class="f04-q">มาจากไหน?</span><span class="f04-sep"></span><span class="f04-t">SourceID</span></div>
+        <div class="f04-row" id="f04-r2"><span class="f04-dot"></span><span class="f04-q">ฉบับไหน?</span><span class="f04-sep"></span><span class="f04-t">Version</span></div>
+        <div class="f04-row" id="f04-r3"><span class="f04-dot"></span><span class="f04-q">ลับแค่ไหน?</span><span class="f04-sep"></span><span class="f04-t">Classification</span></div>
+        <div class="f04-row" id="f04-r4"><span class="f04-dot"></span><span class="f04-q">ใครเห็นได้?</span><span class="f04-sep"></span><span class="f04-t">Access</span></div>
       </div>
 
       <!-- tree nodes -->
@@ -163,7 +177,15 @@
       </div>
 
       <div class="f04-cw" id="f04-cw-chunk"><span class="f04-chip" id="f04-chip-chunk">Chunk</span></div>
-      <div class="f04-cw" id="f04-cw-tree"><span class="f04-chip" id="f04-chip-tree">Tree Nodes</span></div>
+      <div class="f04-cw" id="f04-cw-tree"><span class="f04-th" id="f04-th-tree">สารบัญ</span><span class="f04-chip" id="f04-chip-tree">Tree Nodes</span></div>
+
+      <!-- copies of the document's badge (start on the doc badge, ride the connector, become each chunk's badge) -->
+      <div id="f04-copies">
+        <div class="f04-badge" id="f04-cp1"><span></span><span></span><span></span><span></span></div>
+        <div class="f04-badge" id="f04-cp2"><span></span><span></span><span></span><span></span></div>
+        <div class="f04-badge" id="f04-cp3"><span></span><span></span><span></span><span></span></div>
+        <div class="f04-badge" id="f04-cp4"><span></span><span></span><span></span><span></span></div>
+      </div>
     </div>
   </div>
 
@@ -219,21 +241,22 @@
       });
       tl.fromTo("#f04-chip-chunk", { opacity: 0, y: 10, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 1.45);
 
-      // ---- Scene 3 (2.8–6.0s): tag card, rows on cue, then the inheritance stamp ----
-      tl.fromTo("#f04-tag", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 2.7);
-      var ROW_AT = [2.8, 3.5, 4.2, 4.9];
+      // ---- Scene 3 (2.2–6.7s): tag card, rows on cue (2.4 / 3.0 / 3.6 / 4.2), then the inheritance ----
+      tl.fromTo("#f04-tag", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 2.2);
+      var ROW_AT = [2.4, 3.0, 3.6, 4.2];
       ROW_AT.forEach(function (at, i) {
         var row = $("#f04-r" + (i + 1));
         tl.fromTo(row.querySelector(".f04-dot"), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, at);
         tl.fromTo(row.querySelector(".f04-q"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at + 0.05);
         tl.fromTo([row.querySelector(".f04-sep"), row.querySelector(".f04-t")], { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, at + 0.18);
       });
-      // 5.5s: each row bullet emits its dot; the four dots travel into the document's mini badge,
-      // which is how the 4-dot badge gets its meaning (one dot per tag row).
+      // 4.9–5.9s: one at a time, top to bottom (0.15s apart, 0.55s flight), each row bullet emits its dot;
+      // the four dots travel into the document's mini badge, which is how the 4-dot badge gets its meaning.
       // Row bullet centres (stage px): x 483; y 503.15 / 574.45 / 645.75 / 717.05 (tag card grid, fixed line boxes).
       // Doc badge dot centres: x 255.5 / 275.5 / 295.5 / 315.5, y 748.5 (badge x 235.5-335.5, y 732.5-764.5).
       var ROW_Y = [503.15, 574.45, 645.75, 717.05];
-      var EMIT_AT = [5.5, 5.53, 5.56, 5.59];
+      var EMIT_AT = [4.9, 5.05, 5.2, 5.35];
+      var FLY = 0.55;
       var docBadge = $("#f04-doc-bs .f04-badge");
       var docDots = Array.prototype.slice.call(docBadge.querySelectorAll("span"));
       docDots.forEach(function (d, i) {
@@ -242,20 +265,48 @@
         var rowEls = [row.querySelector(".f04-dot"), row.querySelector(".f04-q"), row.querySelector(".f04-sep"), row.querySelector(".f04-t")];
         // the emitted dot starts exactly on its row bullet (14px bullet = 12px dot x 14/12)
         tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, at);
-        tl.fromTo(d, { x: 483 - (255.5 + 20 * i), y: ROW_Y[i] - 748.5, scale: 14 / 12 }, { x: 0, y: 0, scale: 1, duration: 0.5, ease: "power2.inOut" }, at);
+        tl.fromTo(d, { x: 483 - (255.5 + 20 * i), y: ROW_Y[i] - 748.5, scale: 14 / 12 }, { x: 0, y: 0, scale: 1, duration: FLY, ease: "power2.inOut" }, at);
         // the source row pulses 1 -> 0.6 -> 1 as its dot leaves
         tl.fromTo(rowEls, { opacity: 1 }, { opacity: 0.6, duration: 0.12, ease: "power2.out", immediateRender: false }, at);
         tl.fromTo(rowEls, { opacity: 0.6 }, { opacity: 1, duration: 0.3, ease: "power2.inOut", immediateRender: false }, at + 0.12);
       });
-      // the doc badge body forms as the dots land (dashed slot -> filled pill)
-      tl.fromTo(docBadge, { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)", duration: 0.25, ease: "power2.out" }, 5.9);
-      tl.fromTo("#f04-doc-bs .f04-slot", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.out" }, 5.9);
-      // then the same badge stamps onto each chunk, one at a time, 0.2s apart (6.0-6.6s)
+      // the doc badge body forms as the dots land (dashed slot -> filled pill), complete when the last dot lands at 5.9s
+      tl.fromTo(docBadge, { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)", duration: 0.45, ease: "power2.out" }, 5.45);
+      tl.fromTo("#f04-doc-bs .f04-slot", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power2.out" }, 5.45);
+
+      // the connector the copies ride: out of the doc's bottom edge, under the tag card, up the badge column
+      draw($("#f04-link"), 5.5, 0.42);
+      draw($("#f04-sp3"), 5.84, 0.12);
+      draw($("#f04-sp2"), 5.88, 0.12);
+      draw($("#f04-sp1"), 5.92, 0.12);
+
+      // 5.9–6.7s: a copy of the doc's badge travels the connector to each chunk (0.35s each, 0.15s stagger).
+      // Path of the copy's top-left: doc badge (235.5, 732.5) -> down to the y 860 run (top 844) -> right to the
+      // badge column (x 1564.5) -> up to the chunk's slot. One power2.inOut over the whole path, split into
+      // three tweens at their arc-length fractions so the speed stays continuous through the corners.
+      var E2 = function (t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); };
+      var E2inv = function (f) { return f < 0.5 ? Math.sqrt(f / 2) : 1 - Math.sqrt((1 - f) / 2); };
+      var part = function (t0, t1, f0, f1) { return function (u) { return (E2(t0 + u * (t1 - t0)) - f0) / (f1 - f0); }; };
+      var CP_X0 = 235.5, CP_Y0 = 732.5, RUN_Y = 844, SLOT_X = 1564.5;
+      var SLOT_Y = [466, 564, 676, 774];
+      var COPY_AT = [5.9, 6.05, 6.2, 6.35];
+      var TRAVEL = 0.35;
       chunks.forEach(function (el, i) {
-        stamp(el.querySelector(".f04-bslot"), 6.0 + i * 0.2, el.querySelector(".f04-lit"));
+        var cp = $("#f04-cp" + (i + 1));
+        var at = COPY_AT[i];
+        var L1 = RUN_Y - CP_Y0, L2 = SLOT_X - CP_X0, L3 = RUN_Y - SLOT_Y[i], L = L1 + L2 + L3;
+        var f1 = L1 / L, f2 = (L1 + L2) / L, t1 = E2inv(f1), t2 = E2inv(f2);
+        tl.fromTo(cp, { opacity: 0 }, { opacity: 1, duration: 0.04, ease: "none" }, at);
+        tl.fromTo(cp, { x: CP_X0, y: CP_Y0 }, { x: CP_X0, y: RUN_Y, duration: TRAVEL * t1, ease: part(0, t1, 0, f1) }, at);
+        tl.fromTo(cp, { x: CP_X0 }, { x: SLOT_X, duration: TRAVEL * (t2 - t1), ease: part(t1, t2, f1, f2), immediateRender: false }, at + TRAVEL * t1);
+        tl.fromTo(cp, { y: RUN_Y }, { y: SLOT_Y[i], duration: TRAVEL * (1 - t2), ease: part(t2, 1, f2, 1), immediateRender: false }, at + TRAVEL * t2);
+        // on arrival the copy settles into the chunk's slot and the chunk lights up
+        var land = at + TRAVEL;
+        tl.fromTo(el.querySelector(".f04-slot"), { opacity: 1 }, { opacity: 0, duration: 0.16, ease: "power2.out" }, land - 0.04);
+        tl.fromTo(el.querySelector(".f04-lit"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, land - 0.04);
       });
 
-      // ---- Scene 4 (6.6–9.0s): tree nodes attach, receive the same badge; "Tree Nodes" label at 7.0s; hold from 7.4s ----
+      // ---- Scene 4 (6.6–9.0s): tree nodes attach, receive the same badge; "สารบัญ" over "Tree Nodes" at 7.0s; hold from 7.4s ----
       tl.fromTo("#f04-nA", { opacity: 0, y: -16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 6.6);
       tl.fromTo("#f04-nB", { opacity: 0, y: -16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 6.68);
       draw($("#f04-railA"), 6.72, 0.45);
@@ -264,7 +315,8 @@
       draw($("#f04-tickB"), 7.1, 0.18);
       stamp($("#f04-nA .f04-bslot"), 6.95, null);
       stamp($("#f04-nB .f04-bslot"), 7.05, null);
-      tl.fromTo("#f04-chip-tree", { opacity: 0, y: 10, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 7.0);
+      tl.fromTo("#f04-th-tree", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 7.0);
+      tl.fromTo("#f04-chip-tree", { opacity: 0, y: 10, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 7.06);
       draw($("#f04-leadA"), 7.1, 0.28);
       draw($("#f04-leadB"), 7.1, 0.28);
 

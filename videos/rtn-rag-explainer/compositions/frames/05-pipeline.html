@@ -74,7 +74,7 @@
     .f05-chunk{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid #1e2bfa;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;transform-origin:50% 50%;}
     .f05-cl{position:absolute;left:5px;height:4px;border-radius:2px;background:rgba(17,17,17,0.2);}
     /* Embed: the back of a chunk card = a short column of illustrative vector digits (texture, not data) */
-    .f05-vec{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid rgba(30,43,250,0.35);background:#fdfae7;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:9px;line-height:12px;color:#6b6b6b;transform-origin:50% 50%;}
+    .f05-vec{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid rgba(30,43,250,0.35);background:#fdfae7;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:8.5px;line-height:12px;color:#6b6b6b;transform-origin:50% 50%;}
     .f05-vec span{display:block;white-space:nowrap;}
     /* Embed output = meaning as position: a 7-point scatter (clusters of 3 + 4) on a faint 120x80 L of axes (unscaled px) */
     .f05-ax{position:absolute;background:rgba(17,17,17,0.25);}
@@ -98,7 +98,6 @@
 
       <div id="f05-ghosts"></div>
       <div id="f05-index"></div>
-      <div id="f05-oks"></div>
 
       <div id="f05-micro"><span id="f05-micro-txt"></span></div>
 
@@ -110,6 +109,8 @@
       <div class="f05-lab" id="f05-lab-5" style="left:1533.2px"><span class="f05-lab-th">ทำดัชนี</span><span class="f05-lab-en">Index</span></div>
 
       <div id="f05-token"></div>
+      <!-- station badges sit above the token, so a passing token never covers a check -->
+      <div id="f05-oks"></div>
     </div>
 
 
@@ -159,7 +160,7 @@
 
       // index rows inside the Index card (card-relative px): 12px marker at x 24..36, bar from x 48 to END
       var ROW_CY = [54, 92, 130, 168];
-      var ROW_END = [224, 200, 236, 212];
+      var ROW_END = [200, 232, 214, 226]; // row 0 stops short of the check badge
       var MK_X = 24, MK = 12, ROW_X = 48;
 
       // fixed seeded noise (deterministic function of index)
