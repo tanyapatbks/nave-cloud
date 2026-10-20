@@ -16,7 +16,7 @@ let failures = 0;
 // The persistent chrome (frames 02–10) must carry every frame's term chip and the tracker.
 const chromeHtml = squash(readFileSync(join(project, "compositions/chrome.html"), "utf8").replace(/<[^>]+>/g, " "));
 const terms = [...md.matchAll(/^- term:\s*(.+)$/gm)].map((m) => m[1].trim());
-const chromeMissing = [...terms, "อ่านได้", "ค้นเจอ", "ตามสิทธิ์"].filter((t) => !chromeHtml.includes(squash(t)));
+const chromeMissing = [...terms, "จัดการ", "ค้นหา", "สิทธิการเข้าถึง"].filter((t) => !chromeHtml.includes(squash(t)));
 if (chromeMissing.length) { failures++; console.log(`FAIL chrome.html missing: ${chromeMissing.map((m) => `"${m}"`).join(", ")}`); }
 else console.log(`ok   chrome.html (${terms.length} term chips + tracker)`);
 for (const block of md.split(/^## Frame /m).slice(1)) {
@@ -24,7 +24,7 @@ for (const block of md.split(/^## Frame /m).slice(1)) {
   const onscreen = /^- onscreen:\s*(.+)$/m.exec(block)?.[1] ?? "";
   const expected = [...onscreen.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
   const term = /^- term:\s*(.+)$/m.exec(block)?.[1]?.trim();
-  const chrome = ["อ่านได้", "ค้นเจอ", "ตามสิทธิ์", ...(term ? [term] : [])];
+  const chrome = ["จัดการ", "ค้นหา", "สิทธิการเข้าถึง", ...(term ? [term] : [])];
   const sceneQuotes = [...block.matchAll(/"([^"\n]+)"/g)].map((m) => m[1]);
   const allowed = [...expected, ...chrome, ...sceneQuotes].map(squash);
 

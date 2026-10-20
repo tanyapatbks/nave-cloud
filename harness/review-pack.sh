@@ -4,18 +4,17 @@
 # Usage: harness/review-pack.sh <video.mp4> <out_dir>
 set -euo pipefail
 mp4="$1"; out="$2"; mkdir -p "$out"
-# id start duration (global seconds, from the assembled timeline)
-frames="01-hook 0 9
-02-ingest 9 11
-03-filename 20 12
-04-tags 32 9
-05-pipeline 41 9
-06-hybrid 50 12
-07-rerank 62 8
-08-two-people 70 9
-09-scope 79 10
-10-prefilter 89 12
-11-close 101 10"
+# id start duration (global seconds), derived from STORYBOARD.md
+frames=$(python3 -I - "$(dirname "$0")/../videos/rtn-rag-explainer/STORYBOARD.md" <<'PY'
+import re, sys
+md = open(sys.argv[1], encoding="utf-8").read()
+t = 0.0
+for blk in md.split("\n## Frame ")[1:]:
+    src = re.search(r"^- src:\s*\S*/(\S+)\.html", blk, re.M).group(1)
+    d = float(re.search(r"^- duration:\s*([\d.]+)s", blk, re.M).group(1))
+    print(src, int(t), int(d)); t += d
+PY
+)
 while read -r id s d; do
   n=$(( d * 2 )); rows=$(( (n + 5) / 6 ))
   ffmpeg -nostdin -hide_banner -loglevel error -y -ss "$s" -t "$d" -i "$mp4" \

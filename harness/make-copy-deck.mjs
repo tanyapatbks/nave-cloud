@@ -12,12 +12,12 @@ const intro = `# Copy deck — RTN permission-aware RAG explainer (draft review)
 
 Generated from \`STORYBOARD.md\` by \`harness/make-copy-deck.mjs\`; do not edit by hand.
 
-Global times are in the assembled video (transitions overlap neighbouring frames by ~0.5 s). The on-screen copy below is the ONLY text the film should show, plus the 3-step tracker \`1 อ่านได้ · 2 ค้นเจอ · 3 ตามสิทธิ์\` and an English term chip in the top band of frames 02–10. From frame 02 to frame 10 those two sit on one persistent layer above all transitions (they never slide or crossfade with a frame). There is no narration.
+Global times are in the assembled video (transitions overlap neighbouring frames by ~0.5 s). The on-screen copy below is the ONLY text the film should show, plus the 3-step tracker \`1 จัดการ · 2 ค้นหา · 3 สิทธิการเข้าถึง\` and an English term chip in the top band of frames 02–10. From frame 02 to frame 10 those two sit on one persistent layer above all transitions (they never slide or crossfade with a frame). There is no narration.
 `;
 
 const briefPoints = `## Brief points that must all be present and correct
 
-1. 120+ years of Navy data in many forms (PDFs, scans/images, charts, tables); the question "how do we build RAG for the RTN?"
+1. 120+ years of Navy data (shown as the years rolling from 2449 to 2569) in many forms (PDFs, scans/images, charts, tables); the question "how do we begin building RAG for the RTN?"
 2. Ingestion by modality: PDFs → text + structure; scans/images → OCR + vision models; charts/tables → their actual data and relationships.
 3. Filename metadata convention <sub-unit>_<unit>_<owner-id>_<version-no>_<year>_<name>.pdf with the example ศซบ_สสท_2600000001_v02_2569_นโยบาย69.pdf (หน่วย กอง/แผนก · เจ้าของ หน่วยขึ้นตรง · เลขประจำตัว 10 หลักของผู้นำเข้า · เวอร์ชัน · ปี · ชื่อเอกสาร).
 4. Data governance: every doc/chunk carries SourceID, Version, Classification, Access metadata.
@@ -27,7 +27,9 @@ const briefPoints = `## Brief points that must all be present and correct
 8. If a person cannot open a document, RAG must not retrieve it.
 9. Real permissions come from identity + the ACL in the document registry; docs, chunks, tree nodes and agent tools share the same scope.
 10. The scope is applied BEFORE searching; never search the whole archive and filter afterwards.
-11. Closing: the hardest part is not embeddings; it is turning 120+ years of messy multimodal Navy data into reliable, searchable, permission-aware knowledge.
+11. Closing (the requester's own revised wording): to move to a Digital Navy, the hardest part is not AI / RAG / embeddings but connecting and managing all RTN data systematically into a reliable, searchable, permission-aware dataset.
+
+Copy note: the person names 'น.อ.aaaaa' and 'จ.ต.bbbbb' are the requester's own placeholders; render them exactly.
 
 Constraints: no ships / naval decoration / insignia; never addresses the audience (no "ผู้บังคับบัญชา", "ผู้ไม่มีพื้นฐาน"); no invented numbers or document contents; Thai + English technical terms.
 `;
