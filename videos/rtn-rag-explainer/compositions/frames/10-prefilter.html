@@ -49,7 +49,7 @@
     .f10-hit{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid rgba(30,43,250,0.85);background:rgba(30,43,250,0.10);opacity:0}
     .f10-strike{position:absolute;left:0;top:0;width:100%;height:100%}
     .f10-strike path{fill:none;stroke:#dc2626;stroke-width:4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
-    .f10-slot{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px dashed rgba(30,43,250,0.25);z-index:0}
+    .f10-slot{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px dashed rgba(30,43,250,0.25);z-index:0;opacity:0}
     #f10-L-t4,#f10-R-t7{z-index:6}
 
     /* candidates -> AI zone (wordless: tray, arrow, AI node) */
@@ -101,7 +101,7 @@
 
       <!-- LEFT: search the whole archive, then filter (wrong way) -->
       <div class="f10-panel" id="f10-L-panel">
-        <i class="f10-slot" style="left:44px;top:190px"></i>
+        <i class="f10-slot" id="f10-L-slot" style="left:44px;top:190px"></i>
           <div class="f10-tile f10-tile-L f10-locked" id="f10-L-t0" data-col="0" style="left:44px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:45px"></i><i class="f10-ln" style="top:50px;width:36px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i></div>
           <div class="f10-tile f10-tile-L" id="f10-L-t1" data-col="1" style="left:138px;top:72px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:48px"></i><i class="f10-ln" style="top:50px;width:39px"></i><i class="f10-ln" style="top:64px;width:56px"></i><i class="f10-ln" style="top:78px;width:47px"></i><i class="f10-hit"></i></div>
           <div class="f10-tile f10-tile-L" id="f10-L-t2" data-col="2" style="left:232px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:51px"></i><i class="f10-ln" style="top:50px;width:42px"></i><i class="f10-ln" style="top:64px;width:59px"></i><i class="f10-ln" style="top:78px;width:50px"></i><i class="f10-hit"></i></div>
@@ -130,7 +130,7 @@
 
       <!-- RIGHT: scope first, then search (right way) -->
       <div class="f10-panel" id="f10-R-panel">
-        <i class="f10-slot" style="left:326px;top:190px"></i>
+        <i class="f10-slot" id="f10-R-slot" style="left:326px;top:190px"></i>
           <div class="f10-tile f10-tile-R f10-locked" id="f10-R-t0" data-col="0" style="left:44px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:45px"></i><i class="f10-ln" style="top:50px;width:36px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i></div>
           <div class="f10-tile f10-tile-R" id="f10-R-t1" data-col="1" style="left:138px;top:72px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:48px"></i><i class="f10-ln" style="top:50px;width:39px"></i><i class="f10-ln" style="top:64px;width:56px"></i><i class="f10-ln" style="top:78px;width:47px"></i><i class="f10-hit"></i></div>
           <div class="f10-tile f10-tile-R" id="f10-R-t2" data-col="2" style="left:232px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:51px"></i><i class="f10-ln" style="top:50px;width:42px"></i><i class="f10-ln" style="top:64px;width:59px"></i><i class="f10-ln" style="top:78px;width:50px"></i><i class="f10-hit"></i></div>
@@ -218,6 +218,7 @@
       tl.to("#f10-L-t4", { x: 456, duration: 0.5, ease: "power2.inOut" }, 2.05);
       tl.to("#f10-L-t4", { y: -40, scale: 1.08, duration: 0.24, ease: "power2.out" }, 2.05);
       tl.to("#f10-L-t4", { y: 0, scale: 1, duration: 0.26, ease: "power2.in" }, 2.29);
+      tl.fromTo("#f10-L-slot", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.12);
       tl.fromTo("#f10-L-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.3);
       tl.fromTo("#f10-L-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 2.48);
       tl.fromTo("#f10-L-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.12, ease: "power2.out" }, 2.64);
@@ -259,6 +260,7 @@
       tl.to("#f10-R-t7", { x: 174, duration: 0.42, ease: "power2.inOut" }, 5.72);
       tl.to("#f10-R-t7", { y: -26, scale: 1.06, duration: 0.2, ease: "power2.out" }, 5.72);
       tl.to("#f10-R-t7", { y: 0, scale: 1, duration: 0.22, ease: "power2.in" }, 5.92);
+      tl.fromTo("#f10-R-slot", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 5.78);
       tl.fromTo("#f10-R-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 5.95);
       tl.fromTo("#f10-R-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 6.08);
       tl.fromTo("#f10-R-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.1, ease: "power2.out" }, 6.22);
