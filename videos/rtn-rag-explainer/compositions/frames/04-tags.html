@@ -62,12 +62,17 @@
     .f04-t{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
 
     /* tree-node pills (section headings of the same document) */
-    .f04-node{position:absolute;top:280px;width:226px;height:60px;box-sizing:border-box;padding:0 12px 0 14px;display:flex;align-items:center;gap:8px;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#f4f2e8;z-index:3;}
+    /* round 4: 72px tall (grown downward from top 280) and 252px wide (grown outward, inner edges and the
+       gap under the "Tree Nodes" label unchanged) so glyph 24 + contents list 60 + canonical badge 120 fit */
+    .f04-node{position:absolute;top:280px;width:252px;height:72px;box-sizing:border-box;padding:0 11px 0 14px;display:flex;align-items:center;gap:10px;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#f4f2e8;z-index:3;}
     .f04-node svg{display:block;width:24px;height:24px;flex:none;overflow:visible;}
     .f04-node svg path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
     .f04-node svg circle{fill:#1e2bfa;}
-    .f04-nbar{display:block;width:36px;height:8px;flex:none;border-radius:4px;background:#6b6b6b;}
-    #f04-nA{left:1082px;}
+    /* mini two-level contents list: one heading bar over two sub-bars indented 12px (a table-of-contents entry) */
+    .f04-toc{display:flex;flex-direction:column;gap:7px;width:60px;flex:none;}
+    .f04-toc span{display:block;width:40px;height:6px;margin-left:12px;border-radius:3px;background:#8a8a8a;}
+    .f04-toc .f04-toc-h{width:60px;height:8px;margin-left:0;border-radius:4px;background:#6b6b6b;}
+    #f04-nA{left:1056px;}
     #f04-nB{left:1540px;}
 
     /* connectors (svg-path-draw) */
@@ -87,8 +92,10 @@
     .f04-cw{position:absolute;display:flex;justify-content:center;align-items:center;z-index:3;}
     #f04-cw-chunk{left:1150px;top:375px;width:540px;height:49px;}
     /* "สารบัญ" over "Tree Nodes": a label above the gap between the two pills (not a third node) */
-    #f04-cw-tree{left:1310px;top:186px;width:220px;flex-direction:column;}
-    .f04-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:32px;line-height:1.45;color:#111111;}
+    /* round 4: "สารบัญ" is a caption (28px medium, sub-label grey #5B574B), not a second headline; top 191.8 keeps
+       the chip where it was (centre y 256.4, on the leaders) under the shorter 40.6px caption line box */
+    #f04-cw-tree{left:1310px;top:191.8px;width:220px;flex-direction:column;}
+    .f04-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#5B574B;}
     .f04-chip{display:block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:48px;padding:0 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;}
   </style>
 
@@ -101,9 +108,9 @@
 
       <!-- connectors: section A -> chunks 1,2 (left rail) · section B -> chunks 3,4 (right rail) -->
       <svg id="f04-rails" viewBox="0 0 1920 1080" width="1920" height="1080">
-        <path id="f04-railA" data-len="262" d="M1122 339 V567 Q1122 580 1135 580 H1151"/>
+        <path id="f04-railA" data-len="250" d="M1122 351 V567 Q1122 580 1135 580 H1151"/>
         <path id="f04-tickA" data-len="29" d="M1122 482 H1151"/>
-        <path id="f04-railB" data-len="472" d="M1718 339 V777 Q1718 790 1705 790 H1689"/>
+        <path id="f04-railB" data-len="460" d="M1718 351 V777 Q1718 790 1705 790 H1689"/>
         <path id="f04-tickB" data-len="29" d="M1718 692 H1689"/>
         <!-- inheritance trunk: doc bottom edge (275.5, 780) -> y 860 run below the tag card and chunk 4 ->
              x 1604.5 (badge column) -> chunk 4 slot; then slot-to-slot segments up to chunk 1.
@@ -175,12 +182,12 @@
       <!-- tree nodes -->
       <div class="f04-node" id="f04-nA">
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 8 V19 H14 M5 11 H14"/><circle cx="5" cy="5" r="3.2"/><circle cx="17" cy="11" r="2.8"/><circle cx="17" cy="19" r="2.8"/></svg>
-        <span class="f04-nbar"></span>
+        <div class="f04-toc"><span class="f04-toc-h"></span><span></span><span></span></div>
         <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
       </div>
       <div class="f04-node" id="f04-nB">
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 8 V19 H14 M5 11 H14"/><circle cx="5" cy="5" r="3.2"/><circle cx="17" cy="11" r="2.8"/><circle cx="17" cy="19" r="2.8"/></svg>
-        <span class="f04-nbar"></span>
+        <div class="f04-toc"><span class="f04-toc-h"></span><span></span><span></span></div>
         <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
       </div>
 
@@ -260,25 +267,26 @@
         tl.fromTo([row.querySelector(".f04-sep"), row.querySelector(".f04-t")], { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.28, ease: "power3.out" }, at + 0.12);
       });
       // 4.6–5.3s: still hold (the fourth row is read; nothing moves).
-      // 5.3–6.05s: one at a time, top to bottom (0.11s apart, 0.42s flight), each row bullet emits its dot;
+      // 5.3–6.05s: one at a time, top to bottom (0.15s apart, 0.30s flight), each row bullet emits its dot;
       // the four dots travel into the document's mini badge, which is how the 4-dot badge gets its meaning.
+      // The last dot still lands at 6.05s, when the first copy leaves the doc badge.
       // Row bullet centres (stage px): x 483; y 503.15 / 574.45 / 645.75 / 717.05 (tag card grid, fixed line boxes).
       // Doc badge dot centres: x 239.5 / 263.5 / 287.5 / 311.5, y 748.5 (badge x 215.5-335.5, y 730.5-766.5).
       var ROW_Y = [503.15, 574.45, 645.75, 717.05];
-      var EMIT_AT = [5.3, 5.41, 5.52, 5.63];
-      var FLY = 0.42;
+      var EMIT_AT = [5.3, 5.45, 5.6, 5.75];
+      var FLY = 0.3;
       var docBadge = $("#f04-doc-bs .f04-badge");
       var docDots = Array.prototype.slice.call(docBadge.querySelectorAll("span"));
       docDots.forEach(function (d, i) {
         var at = EMIT_AT[i];
-        var row = $("#f04-r" + (i + 1));
-        var rowEls = [row.querySelector(".f04-dot"), row.querySelector(".f04-q"), row.querySelector(".f04-sep"), row.querySelector(".f04-t")];
+        var bullet = $("#f04-r" + (i + 1) + " .f04-dot");
         // the emitted dot starts exactly on its row bullet (14px bullet = 18px dot x 14/18)
         tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, at);
         tl.fromTo(d, { x: 483 - (239.5 + 24 * i), y: ROW_Y[i] - 748.5, scale: 14 / 18 }, { x: 0, y: 0, scale: 1, duration: FLY, ease: "power2.inOut" }, at);
-        // the source row pulses 1 -> 0.6 -> 1 as its dot leaves
-        tl.fromTo(rowEls, { opacity: 1 }, { opacity: 0.6, duration: 0.12, ease: "power2.out", immediateRender: false }, at);
-        tl.fromTo(rowEls, { opacity: 0.6 }, { opacity: 1, duration: 0.3, ease: "power2.inOut", immediateRender: false }, at + 0.12);
+        // round 4: the row text stays at full opacity; only the bullet signals the departure,
+        // a scale pulse 1.0 -> 1.4 -> 1.0 over 0.3s (later tweens on the bullet's scale: immediateRender false)
+        tl.fromTo(bullet, { scale: 1 }, { scale: 1.4, duration: 0.15, ease: "power2.out", immediateRender: false }, at);
+        tl.fromTo(bullet, { scale: 1.4 }, { scale: 1, duration: 0.15, ease: "power2.inOut", immediateRender: false }, at + 0.15);
       });
       // the doc badge body forms as the dots land (dashed slot -> filled pill), complete when the last dot lands at 6.05s
       tl.fromTo(docBadge, { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)", duration: 0.45, ease: "power2.out" }, 5.6);
