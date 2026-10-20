@@ -18,7 +18,7 @@
     .ch-term span{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
   </style>
 
-  <div id="root" data-composition-id="chrome" data-width="1920" data-height="1080" data-start="0" data-duration="173.6">
+  <div id="root" data-composition-id="chrome" data-width="1920" data-height="1080" data-start="0" data-duration="183.1">
     <div id="ch-hdr">
       <div id="ch-track"><span class="ch-pill" id="ch-p1"><b class="ch-n">1</b>โจทย์</span><span class="ch-pill" id="ch-p2"><b class="ch-n">2</b>NAVE</span><span class="ch-pill" id="ch-p3"><b class="ch-n">3</b>เส้นทาง</span></div>
       <div class="ch-term" id="ch-t02"><span>Seamless Integration</span></div>
@@ -28,7 +28,7 @@
       <div class="ch-term" id="ch-t06"><span>MFA · Multi-Factor Authentication</span></div>
       <div class="ch-term" id="ch-t07"><span>PQC · Post-Quantum Cryptography</span></div>
       <div class="ch-term" id="ch-t08"><span>AI-Workspace</span></div>
-      <div class="ch-term" id="ch-t09"><span>RAG + Tool Calling</span></div>
+      <div class="ch-term" id="ch-t09"><span>Prompt · Tool Calling</span></div>
       <div class="ch-term" id="ch-t10"><span>Production-Ready NAVE</span></div>
       <div class="ch-term" id="ch-t11"><span>Stage 1 / 5</span></div>
       <div class="ch-term" id="ch-t12"><span>Stage 2 / 5</span></div>
@@ -48,8 +48,8 @@
 
       /* frame starts in chrome-local seconds (global minus frame 02's start); kept in sync with
          index.html by harness/post-assemble.mjs (--sync rewrites these three numbers) */
-      var starts = {"02":0,"03":11,"04":23.5,"05":29,"06":40.5,"07":51.5,"08":63.5,"09":75.5,"10":93.5,"11":105.5,"12":116.5,"13":134.5,"14":146,"15":162};
-      var END = 173; /* frame 16 starts: the chrome leaves with the blur-crossfade */
+      var starts = {"10":99,"11":111,"12":122.5,"13":142.5,"14":155,"15":171.5,"02":0,"03":11.5,"04":25,"05":31.5,"06":43.5,"07":54.5,"08":67,"09":80};
+      var END = 182.5; /* frame 16 starts: the chrome leaves with the blur-crossfade */
 
       var UPCOMING = { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0.2)", color: "#6b675c" };
       var CURRENT = { backgroundColor: "rgba(30,43,250,1)", borderColor: "rgba(30,43,250,1)", color: "#fdfae7" };
@@ -78,7 +78,7 @@
         tl.fromTo(el, { opacity: 1 }, { opacity: 0, duration: 0.15, ease: "power1.in", immediateRender: false }, out + (out === END ? 0 : 0.2));
       });
       tl.fromTo($("#ch-track"), { opacity: 1 }, { opacity: 0, duration: 0.5, ease: "power2.inOut", immediateRender: false }, END);
-      tl.to({}, { duration: 173.6 }, 0);
+      tl.to({}, { duration: 183.1 }, 0);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;
