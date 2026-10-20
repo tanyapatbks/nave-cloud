@@ -354,7 +354,7 @@ Font files live in `assets/fonts/` (Chulabhorn Likit via `scripts/fetch-fonts.sh
 
 - **Cobalt `#1e2bfa`** = the active thing: the question, the AI's search reach, and the **permission scope** (what this person may see). Never a headline colour.
 - **Greys** = everything outside the scope / not yet relevant (`text-light` tiles at 35–45% opacity).
-- **`positive #059669`** = allowed / found (✓ chips, inline only). **`negative #dc2626`** = denied / leak (✗ chips, the post-filter "residue" marks) — **only** in frames 08 and 10. No fills larger than a chip.
+- **`positive #059669`** = allowed / found (✓ chips, inline only). For legibility at projection distance use **`success-ink #08573A`** for success text on a light tint and **`success-solid #0B6A45`** (white text / icon) for found badges and station checks; `#059669` alone is too light (≈3:1). **`negative #dc2626`** = denied / leak (✗ chips, the post-filter "residue" marks) — **only** in frames 08 and 10. No fills larger than a chip.
 
 ### Shared components (copy exactly; replace `XX` with your frame_id prefix)
 
@@ -368,6 +368,7 @@ Font files live in `assets/fonts/` (Chulabhorn Likit via `scripts/fetch-fonts.sh
 5. **Question card**: `card-tinted`, radius 14px, padding 28px 36px; eyebrow `คำถาม` (cobalt 600 24px) + the question in `Chulabhorn Likit Text` 600 40px, line-height 1.45.
 6. **Allow / deny chips**: allow = the shared inline-SVG check icon (never the ✓ text glyph, which falls back to a "V"-like form) + `positive` text on `rgba(5,150,105,0.10)`; deny = × (✗ is not in the fonts) + `negative` text — on cream use `#b42318` on `#fde7e3` for contrast; radius 100px; ≥ 28px.
    Shared check icon: `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`, sized to the chip's cap height.
+8. **English mono chip token** (every English term chip or label: tracker term chip, tag terms, station names, lane chips, LLM chip, citation, item chips, payoff chips): `IBM Plex Mono` 500 **28px** (cap height ≈ 20px), cobalt on `accent-light`, radius 100px. Nothing English in mono below 28px.
 7. **Metadata tag** (governance label that travels with every piece): a small card (radius 10px, `card-bg`, 4px cobalt left rule) with up to four rows `question · term`: `มาจากไหน? · SourceID`, `ฉบับไหน? · Version`, `ลับแค่ไหน? · Classification`, `ใครเห็นได้? · Access`. Mini form on chunks: a 4-dot cobalt badge (one dot per tag row; defined in frame 04 and reused unchanged in 09 and 11).
 
 ### No narration — the on-screen copy IS the content (overrides the worker contract's "never render narration")

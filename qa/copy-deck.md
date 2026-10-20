@@ -6,7 +6,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 
 ## Frame 01 — 120 ปีของเอกสาร และคำถามเดียว  ·  0.0–9.0 s
-- on-screen copy (local cue times): "120+" (0.3s) · "ปี ของข้อมูลกองทัพเรือ" (1.2s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (2.4s, staggered) · headline line 1 "แล้วเราจะจัดทำ RAG" + line 2 "ให้กับ ทร. ได้อย่างไร?" (4.6s) · chip under RAG "ค้นเอกสารจริงก่อน แล้วจึงตอบ" (6.0s) · tracker "1 อ่านได้" "2 ค้นเจอ" "3 ตามสิทธิ์" (7.3s)
+- on-screen copy (local cue times): "120+" (0.3s) · "ปี ของข้อมูลกองทัพเรือ" (1.2s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (2.4s, staggered) · headline line 1 "แล้วเราจะจัดทำ RAG" + line 2 "ให้กับ ทร. ได้อย่างไร?" (4.6s) · chip under RAG "ค้นเอกสารจริงก่อน แล้วจึงตอบ" (6.0s) · tracker "1 อ่านได้" "2 ค้นเจอ" "3 ตามสิทธิ์" (8.0s)
 - must teach: The Navy has 120+ years of documents in many forms; the question is how to make an AI answer from them.
 
 ## Frame 02 — ทำให้ AI อ่านเอกสารได้  ·  9.0–20.0 s
@@ -21,7 +21,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 ## Frame 04 — ทุกชิ้นติดป้ายเดิม  ·  32.0–41.0 s
 - term chip: Data Governance
-- on-screen copy (local cue times): headline "แบ่งเป็นชิ้น — ทุกชิ้นติดป้ายเดิม" (0.3s) · chip "Chunk" (1.4s) · tag rows "มาจากไหน? · SourceID" (2.8s) "ฉบับไหน? · Version" (3.5s) "ลับแค่ไหน? · Classification" (4.2s) "ใครเห็นได้? · Access" (4.9s) · chip "Tree Nodes" (7.0s)
+- on-screen copy (local cue times): headline "แบ่งเป็นชิ้น — ทุกชิ้นติดป้ายเดิม" (0.3s) · chip "Chunk" (1.4s) · tag rows "มาจากไหน? · SourceID" (2.4s) "ฉบับไหน? · Version" (3.0s) "ลับแค่ไหน? · Classification" (3.6s) "ใครเห็นได้? · Access" (4.2s) · label "สารบัญ" over chip "Tree Nodes" (7.0s)
 - must teach: Every document and every chunk carries SourceID, Version, Classification and Access.
 
 ## Frame 05 — จากไฟล์ สู่ดัชนีที่ค้นได้  ·  41.0–50.0 s
@@ -36,7 +36,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 ## Frame 07 — คัดตัวจริง ก่อนส่งให้ AI ตอบ  ·  62.0–70.0 s
 - term chip: Reranker
-- on-screen copy (local cue times): headline "คัดตัวจริง ก่อนส่งให้ AI ตอบ" (0.3s) · cut-line label "Top 3" (2.4s) · chip "LLM / ระบบอื่น" (3.4s) · answer card "คำตอบ พร้อมแหล่งอ้างอิง" (3.8s) · citation chip "อ้างอิง: นโยบาย69 · v02" (4.3s)
+- on-screen copy (local cue times): headline "คัดตัวจริง ก่อนส่งให้ AI ตอบ" (0.3s) · cut-line label "Top 3" (3.2s) · chip "LLM / ระบบอื่น" (4.0s) · answer card "คำตอบ พร้อมแหล่งอ้างอิง" (4.4s) · citation chip "อ้างอิง: นโยบาย69 · v02" (4.9s)
 - must teach: A reranker picks the most relevant results before the LLM (or another system) uses them.
 
 ## Frame 08 — คำถามเดียวกัน คำตอบตามสิทธิ์  ·  70.0–79.0 s
@@ -51,7 +51,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 ## Frame 10 — กำหนดขอบเขตก่อน แล้วค่อยค้น  ·  89.0–101.0 s
 - term chip: Pre-filter
-- on-screen copy (local cue times): headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.0s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (4.2s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (6.4s)
+- on-screen copy (local cue times): headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.8s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (4.6s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" (6.8s) + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (7.3s)
 - must teach: Never search the whole archive and filter afterwards; apply the permission scope first.
 
 ## Frame 11 — ส่วนที่ยากที่สุด  ·  101.0–111.0 s
