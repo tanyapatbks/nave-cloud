@@ -270,7 +270,9 @@
       });
       // trails: a finite run of 4/6 dashes followed by a long gap. Reveal = the run streams out of the source
       // (offset M -> M-L); crawl = it keeps flowing on toward the chip / AI (M-L -> M-L-C) until 5.3, then holds still.
-      var DASH = 4.35, GAP = 6.52, CRAWL_V = 65.2 / 0.8; // local px per second (0.92 on screen)
+      // crawl: 3 dash periods over 0.8s (power2.inOut) -> peak 2.5 screen px per 30fps frame = 1/4 period, so the
+      // direction of flow stays unambiguous (no wagon-wheel flicker); local px per second (0.92 on screen)
+      var DASH = 4.35, GAP = 6.52, CRAWL_V = 32.6 / 0.8;
       function trailPattern(el, crawl, fallback) {
         var L = 0;
         try { L = el.getTotalLength(); } catch (e) { L = 0; }
@@ -286,7 +288,8 @@
        ["#f10-trail-2", 163, 4.34, "power2.out", 4.64], ["#f10-trail-3", 79, 4.66, "power2.inOut", 4.96]].forEach(function (r) {
         var el = q(r[0])[0];
         var cDur = 5.3 - r[4], C = CRAWL_V * cDur, P = trailPattern(el, C, r[1]);
-        tl.fromTo(el, { strokeDashoffset: P.M }, { strokeDashoffset: P.M - P.L, duration: 0.3, ease: r[3], autoRound: false }, r[2]);
+        // hidden start sits 2 units inside the long gap (offset exactly M leaves a 1px sliver at the path start)
+        tl.fromTo(el, { strokeDashoffset: P.M + 2 }, { strokeDashoffset: P.M - P.L, duration: 0.3, ease: r[3], autoRound: false }, r[2]);
         tl.fromTo(el, { strokeDashoffset: P.M - P.L }, { strokeDashoffset: P.M - P.L - C, duration: cDur, ease: "power2.inOut", autoRound: false, immediateRender: false }, r[4]);
       });
 
