@@ -54,12 +54,20 @@ The frame-by-frame plan with exact copy and cue times is
   lacks those glyphs). Line-height ≥ 1.45; hand-authored line breaks; reveal per phrase,
   never per character.
 - **Story device:** one example document and one example question followed through the
-  system; three-chapter tracker (อ่านได้ · ค้นเจอ · ตามสิทธิ์); climax = same question by two
-  people with different permissions, then pre-filter vs post-filter.
-- **Length: ~111 s, not 90 s.** Keeping every brief point at a readable pace (≤ 17 Thai
-  chars/s hard ceiling, ~12 target, measured by `harness/check-copy.mjs`: 11.4 average)
-  needs ~107 s; review round 1 added 4 s of payoff holds (frames 06, 07, 10). A shorter
-  cut-down can be derived later by dropping frames 04 and 07.
+  system; three-chapter tracker (1 จัดการ · 2 ค้นหา · 3 สิทธิการเข้าถึง, the requester's
+  labels); climax = same question by two people with different permissions (น.อ.aaaaa /
+  จ.ต.bbbbb, the requester's placeholders), then pre-filter vs post-filter.
+- **Requester copy revision (after draft 4):** frame 01 opens on 'จากวันนั้น...' with the year
+  rolling 2449 → 2569 and 'จนวันนี้...', then asks 'แล้ววันนี้... หากเราจะเริ่มจัดทำ RAG
+  ให้กับ ทร.ได้อย่างไร' (the RAG definition chip was removed); frames 03, 04, 06, 08, 09 and 10
+  take the requester's wording; frame 11 closes on 'การจะเปลี่ยนผ่านไปสู่ Digital Navy …' with
+  the big English payoff Reliable · Searchable · Permission-aware over small Thai chips.
+  STORYBOARD.md is the record of every revision.
+- **Length: 124.5 s (2:04), not 90 s.** Keeping every brief point at a readable pace (≤ 17
+  Thai chars/s hard ceiling, ~12 target, measured by `harness/check-copy.mjs`: 12.0 average)
+  needs ~107 s; review rounds added payoff holds (frames 06, 07, 10), the requester's longer
+  copy (frames 01, 11), and the round-5 critics' reading time (frame 01 +1.5 s, 06 +1 s,
+  11 +3 s). A shorter cut-down can be derived later by dropping frames 04 and 07.
 - **Persistent chrome:** the 3-step tracker and the English term chip for frames 02–10 live
   on one layer (`compositions/chrome.html`) mounted above every transition by
   `harness/post-assemble.mjs`, so they never slide or crossfade with a frame.
