@@ -25,8 +25,11 @@
     #f03-h2 .f03-ph{display:inline-block;}
 
     /* filename strip — every slot is laid out from t=0, so no token ever pushes another */
-    #f03-strip{position:absolute;left:0;top:438px;width:1920px;display:flex;justify-content:center;align-items:flex-start;}
-    #f03-doc{flex:none;width:64px;height:84px;margin-right:28px;}
+    /* round-4: the strip sits 120px higher (token top y 318) and only the token row is centred on x 960;
+       the doc glyph hangs 92px to the left of the row (64px + 28px gap), outside the centring */
+    #f03-strip{position:absolute;left:0;top:318px;width:1920px;display:flex;justify-content:center;align-items:flex-start;}
+    #f03-row{position:relative;flex:none;display:flex;align-items:flex-start;}
+    #f03-doc{position:absolute;left:-92px;top:0;width:64px;height:84px;}
     #f03-doc svg{display:block;width:64px;height:84px;overflow:visible;}
     .f03-col{flex:none;display:flex;flex-direction:column;align-items:center;}
     .f03-slot{position:relative;}
@@ -45,13 +48,20 @@
     .f03-doc-line{fill:#9a9a9a;}
     #f03-doc-kind{fill:none;stroke:#6b6b6b;stroke-width:1.5;stroke-linejoin:round;}
 
-    /* round-3: dashed connector from the filename row (y 522) down to the bridge chip (y 745), anchored
-       under the "_" between 2600000001 and v02 (#f03-s4), with an 80px ink circle holding a struck padlock
-       centred on it at y 695: the name carries no permission */
-    #f03-conn{position:absolute;left:21px;top:84px;width:2px;height:223px;}
-    #f03-conn svg{display:block;width:2px;height:223px;overflow:visible;}
-    #f03-conn path{fill:none;stroke:#3F3C35;stroke-width:2;stroke-dasharray:8 7;stroke-linecap:butt;}
-    #f03-nolock{position:absolute;left:-18px;top:217px;width:80px;height:80px;}
+    /* round-4: a 2px label-stem-blue bracket under the label rows spans the whole token row (8px upturned
+       end ticks, 8px centre tick down at x 960); the dashed connector drops from the centre tick to an 80px
+       ink circle with a struck padlock (top 25px below the bracket line), and the bridge sits 10px below it:
+       the name AS A WHOLE carries no permission. Offsets are from the row top (y 318); the label rows end at 211. */
+    #f03-brk{position:absolute;left:0;right:0;top:210px;height:18px;}
+    #f03-brk .f03-bk{position:absolute;background:#1e2bfa;}
+    #f03-bk-line{left:0;right:0;top:8px;height:2px;}
+    #f03-bk-l{left:0;top:0;width:2px;height:10px;}
+    #f03-bk-r{right:0;top:0;width:2px;height:10px;}
+    #f03-bk-c{left:50%;margin-left:-1px;top:10px;width:2px;height:8px;}
+    #f03-conn{position:absolute;left:50%;margin-left:-1px;top:228px;width:2px;height:17px;}
+    #f03-conn svg{display:block;width:2px;height:17px;overflow:visible;}
+    #f03-conn path{fill:none;stroke:#3F3C35;stroke-width:2;stroke-dasharray:4 3;stroke-dashoffset:4;stroke-linecap:butt;}
+    #f03-nolock{position:absolute;left:50%;margin-left:-40px;top:245px;width:80px;height:80px;}
     #f03-nolock svg{display:block;width:80px;height:80px;overflow:visible;}
     #f03-nolock .f03-nl-ring{fill:#FCF8E5;stroke:#3F3C35;stroke-width:3;}
     #f03-nolock .f03-nl-shackle{fill:none;stroke:#3F3C35;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round;}
@@ -62,7 +72,7 @@
     #f03-nolock .f03-nl-strike{fill:none;stroke:#3F3C35;stroke-width:4;stroke-linecap:round;}
 
     /* bridge line — split-highlight */
-    #f03-bridge{position:absolute;left:0;top:744px;width:1920px;display:flex;justify-content:center;}
+    #f03-bridge{position:absolute;left:0;top:653px;width:1920px;display:flex;justify-content:center;}
     #f03-hl{box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:20px 36px 20px 30px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:36px;line-height:1.45;white-space:nowrap;}
     #f03-led{flex:none;display:block;width:28px;height:28px;fill:none;stroke:#1e2bfa;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
     #f03-bt{display:block;white-space:nowrap;}
@@ -78,6 +88,7 @@
       <div id="f03-h2"><span class="f03-line"><span class="f03-ph">ตั้งชื่อไฟล์</span><span class="f03-ph">แบบเดียวกัน</span><span class="f03-ph">ทุกไฟล์</span></span></div>
 
       <div id="f03-strip">
+       <div id="f03-row">
         <div id="f03-doc">
           <svg viewBox="0 0 64 84" width="64" height="84">
             <defs>
@@ -119,15 +130,7 @@
           <span class="f03-l2">เลข 10 หลัก</span>
         </div>
 
-        <div class="f03-sep" id="f03-s4">_<div id="f03-conn"><svg viewBox="0 0 2 223" width="2" height="223" aria-hidden="true"><path d="M1 0 V223"/></svg></div><div id="f03-nolock"><svg viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
-            <circle class="f03-nl-ring" cx="40" cy="40" r="38.5"/>
-            <path class="f03-nl-shackle" d="M29.5 37V26.5a10.5 10.5 0 0 1 21 0V37"/>
-            <rect class="f03-nl-body" x="21" y="36" width="38" height="28" rx="5"/>
-            <circle class="f03-nl-hole" cx="40" cy="47.5" r="3.6"/>
-            <path class="f03-nl-hole-stem" d="M40 49.5V55"/>
-            <path class="f03-nl-cut" d="M18 18L62 62"/>
-            <path class="f03-nl-strike" d="M18 18L62 62"/>
-          </svg></div></div>
+        <div class="f03-sep" id="f03-s4">_</div>
         <div class="f03-col" id="f03-c4">
           <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">v02</div></div>
           <svg class="f03-tick" viewBox="0 0 4 40" width="4" height="40"><path d="M2 0 V40"/></svg>
@@ -152,6 +155,20 @@
         <div class="f03-col" id="f03-c7">
           <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">.pdf</div></div>
         </div>
+
+        <!-- round-4: bracket under the whole name, connector from its centre tick, struck padlock -->
+        <div id="f03-brk" aria-hidden="true"><div class="f03-bk" id="f03-bk-line"></div><div class="f03-bk" id="f03-bk-l"></div><div class="f03-bk" id="f03-bk-r"></div><div class="f03-bk" id="f03-bk-c"></div></div>
+        <div id="f03-conn"><svg viewBox="0 0 2 17" width="2" height="17" aria-hidden="true"><path d="M1 0 V17"/></svg></div>
+        <div id="f03-nolock"><svg viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+            <circle class="f03-nl-ring" cx="40" cy="40" r="38.5"/>
+            <path class="f03-nl-shackle" d="M29.5 37V26.5a10.5 10.5 0 0 1 21 0V37"/>
+            <rect class="f03-nl-body" x="21" y="36" width="38" height="28" rx="5"/>
+            <circle class="f03-nl-hole" cx="40" cy="47.5" r="3.6"/>
+            <path class="f03-nl-hole-stem" d="M40 49.5V55"/>
+            <path class="f03-nl-cut" d="M18 18L62 62"/>
+            <path class="f03-nl-strike" d="M18 18L62 62"/>
+          </svg></div>
+       </div>
       </div>
 
       <div id="f03-bridge">
@@ -274,12 +291,16 @@
       tl.fromTo($("#f03-hl"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B);
       tl.fromTo($("#f03-b2"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B + 0.55);
 
-      // round-3: the name is not the permission — a dashed connector runs from the filename row down to the
-      // bridge, and an ink circle with a struck padlock pops in on it with the bridge; the strike draws after.
+      // round-3/4: the name is not the permission — a bracket draws out from its centre under the whole row,
+      // a dashed connector drops from its centre tick, and an ink circle with a struck padlock pops in on it
+      // with the bridge; the strike draws after.
       // No text dims: once the bridge has finished (8.5s) only the token pills' fill + border step back to 60%.
+      tl.fromTo($("#f03-brk"),
+        { clipPath: "inset(0% 50% 0% 50%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.35, ease: "power2.out" }, B);
       tl.fromTo($("#f03-conn"),
         { clipPath: "inset(0% 0% 100% 0%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: "power2.out" }, B);
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.25, ease: "power2.out" }, B + 0.05);
       tl.fromTo($("#f03-nolock"),
         { opacity: 0, scale: 0.8 },
         { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out", transformOrigin: "50% 50%" }, B);
