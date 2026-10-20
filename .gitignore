@@ -12,3 +12,6 @@ qa/review-*/
 videos/*/.hyperframes/history-id
 videos/*/.hyperframes/render-outputs.json
 videos/*/.hyperframes/video-state.json
+
+# Chulabhorn Likit font files: fetched from the official source by scripts/fetch-fonts.sh
+videos/*/assets/fonts/ChulabhornLikit*

@@ -1,12 +1,18 @@
 <template>
   <style>
-    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
     @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
-    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
-    @font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-Medium.ttf") format("truetype");}
-    @font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-SemiBold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
 
-    #root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden}
+#root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden}
 
     /* ---- layers (full-duration clips) ---- */
     #f11-ground{position:absolute;inset:0;background:#fdfae7}
@@ -41,19 +47,19 @@
     /* ---- title copy ---- */
     .f11-line{position:absolute;left:0;right:0;display:block;white-space:nowrap;text-align:center}
     .f11-ph{display:inline-block;white-space:nowrap}
-    #f11-l1{top:262px;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111}
+    #f11-l1{top:262px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111}
     #f11-emb{position:relative;color:#7a7a7a}
     #f11-strike{position:absolute;left:-6px;right:-6px;top:calc(0.755em - 1.5px);height:3px;border-radius:2px;background:#6b6b6b;transform-origin:left center}
-    #f11-l2a,#f11-l2b{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-size:44px;line-height:1.45;color:#6b6b6b}
+    #f11-l2a,#f11-l2b{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:44px;line-height:1.45;color:#6b6b6b}
     #f11-l2a{top:388px}
     #f11-l2b{top:452px}
     #f11-num{font-weight:600;color:#1e2bfa}
 
     #f11-pay{position:absolute;left:0;right:0;top:568px;display:flex;justify-content:center;align-items:flex-start}
     .f11-col{display:flex;flex-direction:column;align-items:center}
-    .f11-word{display:block;white-space:nowrap;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:72px;line-height:1.45;color:#111111}
+    .f11-word{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:72px;line-height:1.45;color:#111111}
     .f11-dot{display:block;flex:none;width:14px;height:14px;margin:47px 44px 0;border-radius:50%;background:#1e2bfa}
-    .f11-chip{display:block;margin-top:14px;padding:8px 22px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono";font-weight:500;font-size:24px;line-height:1.45;letter-spacing:0.02em;white-space:nowrap}
+    .f11-chip{display:block;margin-top:14px;padding:8px 22px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;letter-spacing:0.02em;white-space:nowrap}
   </style>
 
   <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080">

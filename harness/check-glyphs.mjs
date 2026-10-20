@@ -2,15 +2,16 @@
 // Glyph-coverage ("tofu") check: every character a frame can put on screen must exist in
 // the shipped fonts, because the render machine has no Thai or symbol fallback fonts.
 // Scans markup text and JS string literals (not <style> blocks or comments) of each
-// composition file and checks each non-ASCII code point against the union of the
-// project's IBM Plex Sans Thai + IBM Plex Mono coverage (Looped shares Plex Sans Thai's set).
+// composition file and checks each non-ASCII code point against the union of the fonts
+// every stack carries: Chulabhorn Likit Text first, then the IBM Plex Sans Thai / IBM Plex
+// Mono fallbacks (Chulabhorn Likit has no ✓ or →, which fall back to Plex per glyph).
 import { readFileSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 
 const project = process.argv[2] ?? "videos/rtn-rag-explainer";
 const fontDir = join(project, "assets/fonts");
-const fonts = ["IBMPlexSansThai-Medium.ttf", "IBMPlexMono-Medium.ttf"];
+const fonts = ["ChulabhornLikitText-Regular.woff2", "IBMPlexSansThai-Medium.ttf", "IBMPlexMono-Medium.ttf"];
 
 const ranges = fonts.flatMap((f) =>
   execFileSync("fc-query", ["-f", "%{charset}", join(fontDir, f)], { encoding: "utf8" })

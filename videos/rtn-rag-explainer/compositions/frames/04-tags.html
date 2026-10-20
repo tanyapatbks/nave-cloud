@@ -1,23 +1,31 @@
 <template>
   <style>
-    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
-    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
     @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
-    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
-  </style>
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
+
+</style>
   <style>
     #f04-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
     #f04-hdr .f04-track{display:flex;gap:12px}
-    #f04-hdr .f04-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+    #f04-hdr .f04-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
     #f04-hdr .f04-n{font-weight:700;margin-right:10px}
     #f04-hdr .f04-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
     #f04-hdr .f04-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
-    #f04-hdr .f04-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
-    #f04-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+    #f04-hdr .f04-term{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    #f04-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
     #f04-h2 .f04-line{display:block;white-space:nowrap}
   </style>
   <style>
-    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"IBM Plex Sans Thai";}
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";}
     #f04-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
     #f04-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
     #f04-h2 .f04-ph{display:inline-block;}
@@ -51,9 +59,9 @@
     #f04-tag{position:absolute;left:436px;top:445px;box-sizing:border-box;padding:32px 40px 32px 36px;border:1.5px solid rgba(30,43,250,0.2);border-left:4px solid #1e2bfa;border-radius:10px;background:rgba(30,43,250,0.04);display:grid;grid-template-columns:14px max-content max-content max-content;column-gap:18px;row-gap:22px;align-items:center;z-index:2;}
     .f04-row{display:contents;}
     .f04-dot{display:block;width:14px;height:14px;border-radius:50%;background:#1e2bfa;}
-    .f04-q{display:block;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap;}
-    .f04-sep{display:block;font-family:"IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#9a9a9a;}
-    .f04-t{display:block;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
+    .f04-q{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap;}
+    .f04-sep{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#9a9a9a;}
+    .f04-t{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
 
     /* tree-node pills (section headings of the same document) */
     .f04-node{position:absolute;top:280px;width:218px;height:60px;box-sizing:border-box;padding:0 14px 0 16px;display:flex;align-items:center;gap:10px;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#f4f2e8;z-index:3;}
@@ -72,7 +80,7 @@
     .f04-cw{position:absolute;display:flex;justify-content:center;align-items:center;z-index:3;}
     #f04-cw-chunk{left:1150px;top:375px;width:540px;height:49px;}
     #f04-cw-tree{left:1300px;top:280px;width:240px;height:60px;}
-    .f04-chip{display:block;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:7px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;}
+    .f04-chip{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:7px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;}
   </style>
 
   <div id="root" data-composition-id="04-tags" data-width="1920" data-height="1080" data-start="0" data-duration="9.5">

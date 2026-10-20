@@ -46,10 +46,13 @@ The frame-by-frame plan with exact copy and cue times is
 - **Look:** `blue-professional` preset (cream ground, single cobalt accent, grey ladder, no
   shadows) with project rules in `frame.md`: cobalt = the active thing (question, AI reach,
   permission scope); greys = out of scope; green/red only as ✓/✗ chips.
-- **Thai typography:** IBM Plex Sans Thai (headlines/labels), IBM Plex Sans Thai Looped
-  (sentences), Sarabun (recreated documents only), IBM Plex Mono (IDs, filenames, English
-  chips); local OFL font files; line-height ≥ 1.45; hand-authored line breaks; reveal per
-  phrase, never per character.
+- **Thai typography (revised at the requester's request):** Chulabhorn Likit (จุฬาภรณ์ลิขิต),
+  the 14th Thai government standard font set, for all Thai and Latin text (Text 300–700;
+  Display 500 for very large type), fetched from the Chulabhorn Royal Academy's official
+  archive by `scripts/fetch-fonts.sh` (SHA-256 pinned, not committed); IBM Plex Mono for IDs,
+  filenames and English chips; IBM Plex Sans Thai only as the ✓/→ fallback (Chulabhorn Likit
+  lacks those glyphs). Line-height ≥ 1.45; hand-authored line breaks; reveal per phrase,
+  never per character.
 - **Story device:** one example document and one example question followed through the
   system; three-chapter tracker (อ่านได้ · ค้นเจอ · ตามสิทธิ์); climax = same question by two
   people with different permissions, then pre-filter vs post-filter.

@@ -4,7 +4,7 @@ name: Blue Professional — Frame (video / frame layer)
 description: >
   Video-first companion to Blue Professional's design.md. The unit is the frame (1920×1080). Atoms
   are identical and sacred — the warm cream canvas, a single saturated cobalt (#1e2bfa) as the only
-  accent, the three-step gray text ladder, IBM Plex Sans Thai (display/numerals/chrome) + IBM Plex Sans Thai (body),
+  accent, the three-step gray text ladder, Chulabhorn Likit Text (display, labels, body) + IBM Plex Mono (IDs, chips),
   soft cobalt-tinted cards (4% fill / 20% border / 10–14px radius) with NO shadows, pill chrome, and
   the cobalt progress bar. Composition + frame scale rewritten. Motion out of scope.
 unit: the frame — 1920×1080 primary; 9:16 and 1:1 documented
@@ -316,24 +316,23 @@ until the script supplies them. Directional chips require a real comparison from
 - Diagonal panel (clip-path), dot grid, concentric rings, and bars are CSS-only; no external imagery is required.
 
 
-## Font loading (auto-generated)
+## Font loading
 
-The brand font ships as local files in `assets/fonts/` — do NOT link Google Fonts for it. Paste this `<style>` into every frame's `<head>`/`<template>` (captions use the same files) so `font-family` resolves in preview, snapshot, and render alike:
+Font files live in `assets/fonts/` (Chulabhorn Likit via `scripts/fetch-fonts.sh`; IBM Plex Sans Thai / Mono are OFL and committed). Paste this `<style>` into every frame's `<template>`:
 
 ```html
 <style>
-@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+@font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
 @font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-Medium.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-Regular.ttf") format("truetype");}
-@font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-SemiBold.ttf") format("truetype");}
-@font-face{font-family:"Sarabun";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Sarabun-Bold.ttf") format("truetype");}
-@font-face{font-family:"Sarabun";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Sarabun-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
 </style>
 ```
 
@@ -342,7 +341,7 @@ The brand font ships as local files in `assets/fonts/` — do NOT link Google Fo
 
 ### Thai typography (load-bearing)
 
-- **Display / labels:** `IBM Plex Sans Thai` (loopless) 500–700. **Full sentences** (gloss lines, bridge lines, the closing line 2): `IBM Plex Sans Thai Looped` 400–500 — looped Thai reads faster in running text. **Recreated documents only:** `Sarabun`. **IDs, filenames, English term chips:** `IBM Plex Mono` 500 (Thai glyphs inside a filename fall back to IBM Plex Sans Thai: declare `font-family: "IBM Plex Mono", "IBM Plex Sans Thai"`).
+- **All Thai and Latin text:** `Chulabhorn Likit Text` (จุฬาภรณ์ลิขิต — the 14th Thai government standard font set, Cabinet resolution 6 July 2021; looped Thai, Latin and Thai numerals; weights 300/400/500/700). Headlines use weight 700; labels 500–700; sentences 400–500. `Chulabhorn Likit Display` (500) is available for very large display type (≥ 72px). Recreated documents use `Chulabhorn Likit Text` too (it is the government document standard). **IDs, filenames, English term chips:** `IBM Plex Mono` 500. Every stack ends with `"IBM Plex Sans Thai"` as a per-glyph fallback, because Chulabhorn Likit has no ✓ or → (stacks: `"Chulabhorn Likit Text","IBM Plex Sans Thai"` and `"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai"`). Font files: run `scripts/fetch-fonts.sh` (official archive from cra.ac.th, SHA-256 pinned; not committed).
 - **Line height ≥ 1.45** on any Thai line (tone marks and upper vowels stack; tighter lines clip them). Never `line-height: 1` and never an `overflow: hidden` mask tighter than the line box on Thai text.
 - **No uppercase / tracking tricks for Thai** (Thai has no case): eyebrows use weight + cobalt, `letter-spacing: 0`. Latin chips may keep `0.02em`.
 - **Emphasis by weight or cobalt colour, never italics.**

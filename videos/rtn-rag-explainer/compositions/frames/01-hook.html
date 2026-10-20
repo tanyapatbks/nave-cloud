@@ -1,11 +1,18 @@
 <template id="01-hook-template">
   <style>
-    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
-    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Light.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Regular.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Display";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitDisplay-Medium.woff2") format("woff2");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Regular.ttf") format("truetype");}
     @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
-    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
 
-    #root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;container-type:size;font-family:"IBM Plex Sans Thai";}
+#root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;container-type:size;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";}
 
     /* ground + atmosphere */
     #f01-ground{position:absolute;inset:0;background:#fdfae7;}
@@ -20,27 +27,27 @@
     .f01-band{position:absolute;left:0;right:0;top:0;height:4px;}
     .f01-tin svg{position:absolute;left:0;top:0;width:129px;height:169px;}
     #f01-outline{position:absolute;box-sizing:border-box;inset:-1.5px;border:2.5px solid #1e2bfa;border-radius:10px;}
-    .f01-kchip{position:absolute;box-sizing:border-box;padding:6px 16px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;}
-    .f01-kchip.f01-mono{font-family:"IBM Plex Mono","IBM Plex Sans Thai";letter-spacing:0.02em;}
+    .f01-kchip{position:absolute;box-sizing:border-box;padding:6px 16px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;}
+    .f01-kchip.f01-mono{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";letter-spacing:0.02em;}
 
     /* hero numeral (Latin digits only: line-height 1.1 is safe here) */
-    #f01-num{position:absolute;left:96px;top:222px;height:242px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:220px;line-height:242px;color:#1e2bfa;white-space:nowrap;transform-origin:0 0;z-index:3;}
+    #f01-num{position:absolute;left:96px;top:222px;height:242px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:220px;line-height:242px;color:#1e2bfa;white-space:nowrap;transform-origin:0 0;z-index:3;}
     #f01-count{display:inline-block;width:396px;font-variant-numeric:tabular-nums;transform-origin:0 185px;}
     #f01-plus{display:inline-block;}
-    #f01-label{position:absolute;left:96px;top:452px;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111;white-space:nowrap;transform-origin:0 0;z-index:3;}
+    #f01-label{position:absolute;left:96px;top:452px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111;white-space:nowrap;transform-origin:0 0;z-index:3;}
     .f01-ph{display:inline-block;}
 
     /* question headline */
-    #f01-q{position:absolute;left:96px;top:343px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111;z-index:4;}
+    #f01-q{position:absolute;left:96px;top:343px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111;z-index:4;}
     #f01-q .f01-line{display:block;white-space:nowrap;}
     #f01-rag{position:relative;}
     #f01-uline{position:absolute;left:2px;right:2px;top:71px;height:4px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%;}
-    #f01-gloss{position:absolute;left:50%;top:196px;box-sizing:border-box;padding:8px 22px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;}
+    #f01-gloss{position:absolute;left:50%;top:196px;box-sizing:border-box;padding:8px 22px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;}
 
     /* chapter tracker (frame.md component 1, all upcoming) */
     #f01-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center;z-index:4;}
     #f01-hdr .f01-track{display:flex;gap:12px;}
-    #f01-hdr .f01-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap;}
+    #f01-hdr .f01-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap;}
     #f01-hdr .f01-cnum{font-weight:700;margin-right:10px}
   </style>
 

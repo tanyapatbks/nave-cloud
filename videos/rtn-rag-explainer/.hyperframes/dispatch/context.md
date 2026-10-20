@@ -5,7 +5,7 @@
 - Confirmed sketch: none (autonomous run). Build straight from your packet's Scene lines.
 - Narration: NONE. This overrides the role's "never render narration as text" rule: your block's `onscreen:` strings ARE the visible copy. Render each exactly, character for character (Thai + English), revealed at its cue time. Do not add, remove, paraphrase or translate visible words. Do not render `scene`, `narrativeRole`, `keyMessage` or Scene-line prose as text.
 - GSAP: load the LOCAL copy inside your `<template>`: `<script src="assets/vendor/gsap.min.js"></script>`. Optional plugins (load + `gsap.registerPlugin(...)` only if used): `assets/vendor/CustomEase.min.js`, `assets/vendor/DrawSVGPlugin.min.js`, `assets/vendor/MotionPathPlugin.min.js`. No CDN or external URL anywhere in the file.
-- Fonts: inside your `<template>` `<style>`, include the `@font-face` rules you use, copied verbatim from frame.md "Font loading (auto-generated)" (src `assets/fonts/...`). Only these families exist: "IBM Plex Sans Thai" (400/500/600/700), "IBM Plex Sans Thai Looped" (400/500/600), "Sarabun" (400/700), "IBM Plex Mono" (400/500/600). Never name any other family (no system fallbacks such as Inter, Arial, sans-serif chains beyond these).
+- Fonts: inside your `<template>` `<style>`, paste the `@font-face` block from frame.md "Font loading" verbatim. Families: "Chulabhorn Likit Text" (300/400/500/700), "Chulabhorn Likit Display" (500), "IBM Plex Mono" (400/500/600), and "IBM Plex Sans Thai" (400/500/700, fallback only). Use the stacks `"Chulabhorn Likit Text","IBM Plex Sans Thai"` and `"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai"`; never name any other family.
 - Background: a full-bleed `class="clip"` ground layer, colour `#fdfae7`, full duration, lowest track (never paint the background on #root).
 - Thai text rules (frame.md "Project adaptation"): line-height ≥ 1.45; each authored line is its own `display:block; white-space:nowrap` span (no `<br>`); reveal per word/phrase spans, NEVER per character; no italics; no uppercase/tracking on Thai; nothing load-bearing under 28px (chips ≥ 22px).
 - Determinism: no `Math.random`, `Date.now`, CSS `transition`/`@keyframes`, `repeat`, `yoyo`. Anything "noisy" (scan speckle, scattered positions) must come from a fixed seeded function of the element index written in your file.
@@ -16,12 +16,12 @@
 <style>
   #fNN-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
   #fNN-hdr .fNN-track{display:flex;gap:12px}
-  #fNN-hdr .fNN-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+  #fNN-hdr .fNN-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
   #fNN-hdr .fNN-n{font-weight:700;margin-right:10px}
   #fNN-hdr .fNN-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
   #fNN-hdr .fNN-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
-  #fNN-hdr .fNN-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
-  #fNN-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+  #fNN-hdr .fNN-term{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+  #fNN-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
   #fNN-h2 .fNN-line{display:block;white-space:nowrap}
 </style>
 <div id="fNN-hdr">
