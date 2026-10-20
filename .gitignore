@@ -3,3 +3,7 @@ research_notes/**/media/
 
 # Dependencies and build output
 node_modules/
+
+# HyperFrames working caches / intermediate artifacts
+videos/*/.hyperframes/artifacts/
+videos/*/renders/*.tmp*

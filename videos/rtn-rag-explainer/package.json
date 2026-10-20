@@ -1,0 +1,12 @@
+{
+  "name": "rtn-rag-explainer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "../../scripts/hf preview",
+    "check": "../../scripts/hf check",
+    "lint": "../../scripts/hf lint",
+    "snapshot": "../../scripts/hf snapshot",
+    "render": "../../scripts/hf render"
+  }
+}

@@ -1,0 +1,39 @@
+กองทัพเรือไทยกว่า 120 ปีที่ผ่านมา มีประเภทข้อมูลหลากหลายไม่ว่าจะเป็น
+PDFs, Images, Charts. Tables คำถามคือ แล้วเราจะจัดทำ RAG ให้กับ ทร.ได้อย่างไร ?
+
+Firstly, Build a proper ingestion pipeline
+- PDFs/Documents -> extract text + structure
+- Scaned Files/ Images -> OCR + Vision Models
+ Charts/ Tables -> extract(their) actual data & relationship
+---> Metadata -> <sub-unit>_<unit>_<owner-id>_<version-no>_<year>_<name>.pdf
+ex. ศซบ_สสท_2600000001_v02_2569_นโยบาย69.pdf
+(
+กติการการจัดระเบียบไฟล์
+- หน่วย (กอง/แผนก) <sub-unit>
+- เจ้าของ (หน่วยขึ้นตรง) <unit>
+- เลขประจำตัว 10 หลักของผู้รับผิดชอบนำเอกสารเข้าสู่ระบบ <owner-id>
+- เวอร์ชั่นของเอกสาร <version-no>
+- ปีของเอกสาร <year>
+- ขื่อของเอกสาร <name>
+
+สิทธิจริงควรมาจาก identity และ ACL (Access Control List) ในทะเบียนเอกสารทุกๆ Docs, Chunks, Tree Nodes, Agent Tools **ต้องใช้ขอบเขตสิทธิเดียวกันก่อนที่จะเริ่มค้น** ห้ามค้นทั้งคลังและมากรองออกทีหลัง
+
+Data Governance: ทุก Docs/Chunks... ต้องมี SourceID, Version, Classification, Access Metadata...
+)
+
+Then,
+Ingest -> Parse -> Clean -> Chunk -> Embed -> Index 
+*** Don't rely only on Vector Search ***
+Use hybrid search
+- Keyword Search: for exact names, IDs, Terms
+- Vector Search: for semantic meaning
+- Metadata filters for thing like date, departments, access
+
+จากนั้นใช้ reranker to select the most relavant results before sending them  to the LLM (or other)
+
+***Don't forget access control***
+If an employee can't access Docs, the RAG system mustn't retrieve it either!!!
+
+The hardest part isn't generating embedding
+->>>
+It's turning 100+ years of messy RTN multimodal data into reliable, searchable, and permission-aware knowledge.
