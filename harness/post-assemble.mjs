@@ -44,7 +44,7 @@ layers.forEach((layer, i) => {
         data-track-index="${layer.track ?? 2 + i}"
       ></div>
 `;
-  html = html.replace(new RegExp(`\\n      <div\\n        id="el-${layer.id}"[\\s\\S]*?></div>\\n`), "\n");
+  html = html.replace(new RegExp(`\\n      <div\\n        id="el-${layer.id}"[\\s\\S]*?></div>\\n`), "");
   const anchor = new RegExp(`(id="el-${layer.until}"[\\s\\S]*?></div>\\n)`);
   if (!anchor.test(html)) throw new Error(`frame ${layer.until} mount not found`);
   html = html.replace(anchor, `$1\n${mount}`);

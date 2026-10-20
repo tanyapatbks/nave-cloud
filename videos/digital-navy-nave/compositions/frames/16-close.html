@@ -63,7 +63,10 @@
        Row 1 = the eyebrow (32px #5F5B50) on the same baseline as, and left of, the credit's first line (36px #3F3C35);
        row 2 = the credit's second line, centred. The 14px gap is a margin, not added text. */
     #f16-cr{top:761px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:36px;line-height:1.45;color:#3F3C35;}
-    #f16-eb1{font-size:32px;color:#5F5B50;margin-right:14px;}
+    #f16-eb1{font-size:32px;color:#5F5B50;margin-right:14px;justify-self:end;}
+    /* row 1 is a 1fr | auto | 1fr grid: the credit's first line sits on the frame's centre axis (the same
+       axis as row 2) and the eyebrow hangs to its left, so both credit lines share one centre */
+    #f16-cr > .f16-line:first-child{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;}
   </style>
 
   <div id="root" data-composition-id="16-close" data-width="1920" data-height="1080" data-start="0" data-duration="14">

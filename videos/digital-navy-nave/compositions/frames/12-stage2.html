@@ -290,6 +290,9 @@
         tl.fromTo(gh, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.06, ease: "none" }, a);
         tl.fromTo(gh, { autoAlpha: 1 }, { autoAlpha: 0, duration: GHOST_GONE - (a + 0.16), ease: "power2.out", immediateRender: false }, a + 0.16);
       });
+      /* 7.0-7.5: once the stack has left, the Documents chip and its label close up to the column's left edge
+         (x 284 -> 96), so the cleaning arrow now runs from the label down to the cleaned row */
+      tl.fromTo([$("#f12-c-docs"), $("#f12-docl")], { x: 0 }, { x: -188, duration: 0.5, ease: "power3.inOut", immediateRender: false }, 7.0);
       /* 7.4-7.8: each cleaned tile receives the 4-dot governance badge, left to right */
       TILES.slice().sort(function (m, n) { return m.slot - n.slot; }).forEach(function (p, k) {
         tl.fromTo($("#" + p.id + " .f12-badge"), { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.16, ease: "power2.out", transformOrigin: "50% 50%" }, 7.4 + k * 0.08);

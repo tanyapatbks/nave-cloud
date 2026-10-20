@@ -48,7 +48,7 @@ the requester's words and the notebook transcription are in
   chips, IBM Plex Sans Thai fallback), plus a project section with 13 NAVE components
   (identity card, composer, policy scope, MFA doors, PQC lock, roadmap rail, stage header,
   tiles…).
-- **Three chapters:** 1 โจทย์ (frames 01–04) · 2 NAVE (05–09) · 3 เส้นทาง (10–16), shown by
+- **Three chapters:** 1 โจทย์ (frames 02–03, introduced by 01) · 2 NAVE (04–09, opening on the turn) · 3 เส้นทาง (10–15), then the close (16), shown by
   a persistent tracker. Crossfade at chapter changes, push-slide left within a chapter,
   blur-crossfade into the close.
 - **Honesty rule:** chapter 2 shows the target picture of NAVE, not a working product. Frame

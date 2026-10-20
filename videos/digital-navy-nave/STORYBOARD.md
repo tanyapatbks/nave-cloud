@@ -359,6 +359,8 @@ Scene 5 (15.0–20.0s): hold still (both halves readable).
 
 Round-2 revisions: (1) The frame-03 callback is readable: the speech chip "จัดการไฟล์อย่างไร?" is drawn in frame 03's exact speech-chip style (36px, 600, with the tether nub), visible 2.0–3.6s, and swaps in place to "จัดระเบียบไฟล์" at 3.6–3.8s. (2) The rest of Part A shifts +0.8s: Documents 4.4, Thai label 4.8, arrow 5.8–6.3, Data Cleaning 6.4, tiles fly 6.5–7.3, badges 7.4–7.8, divider 7.8–8.4; Part B unchanged from 8.4s. (3) The dashed ghost outlines left where the messy stack was fade out during the fly-down (autoAlpha 0 by 7.0s). (4) The in-progress pill "ขั้นที่กำลังทำ" is 32px. (5) Stage header per frame.md component 12 (purpose line 600 44px #111, "แก่นของระบบ" in cobalt) — keep it on one line ≤ x 1824.
 
+Round-3 revisions (orchestrator, draft 2): once the stack has left, the "Documents" chip and its Thai label close up to the column's left edge (x 284 → 96, 7.0–7.5s, power3.inOut), so the cleaning arrow runs from the label down to the cleaned row instead of from empty space.
+
 ## Frame 13 — ขั้นที่ 3: Core Production System
 
 - scene: Stage 3: ten building blocks of a robust AI service assemble as a two-column list and light once in sequence as one system
@@ -466,3 +468,5 @@ Scene 3 (4.8–8.0s): line 3 reveals as [เริ่มแล้ววันน
 Scene 4 (8.0–14.0s): the eyebrow "นำโดย" (Chulabhorn Likit Text 500 28px, #6B675C, y 734–774) at 8.0s and the department credit (two authored lines, Chulabhorn Likit Text 500 32px, #5F5B50, y 776–868) fade in centred (8.2s). Hold still to the end (≥ 5 s; the film ends on this card with no fade-out).
 
 Round-2 revisions: (1) Callback to frame 01: the same 6px cobalt underline self-draws under "Digital Navy" in line 1 at 1.2–1.6s. (2) Hierarchy: lines 2 and 3 at 40px (from 44); the wordmark at 0.7 scale (NAVE ~126px, นาวี ~105px) so it is the largest mark on the card; the eyebrow "นำโดย" sits on the same row as, and left of, the credit's first line ("นำโดย" 32px #5F5B50, credit 36px #3F3C35), saving a row; bottom ink ≤ y 870.
+
+Round-3 revisions (orchestrator, draft 2): the credit's first line is centred on the frame axis with "นำโดย" hanging to its left (a 1fr | auto | 1fr grid row), so "ทหารเรือ" sits centred under the department name.
