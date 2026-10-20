@@ -29,9 +29,9 @@
     #f01-outline{position:absolute;box-sizing:border-box;inset:-1.5px;border:2.5px solid #1e2bfa;border-radius:10px;}
 
     /* kind chips: ONE foreground row in the left column (outside the wall, never blurred) */
-    #f01-krow{position:absolute;left:96px;top:546px;display:flex;gap:12px;transform-origin:0 0;z-index:3;}
-    /* the 32px row ends at x~977 (28px after 4.6s: x~867); the wall starts at x 1030, so the row never touches a tile. The 6px cream ring stays as a foreground knockout */
-    /* after 4.6s the row settles at y 656-706 (16px lower than draft 3, following the definition chip) */
+    #f01-krow{position:absolute;left:96px;top:656px;display:flex;gap:12px;transform-origin:0 0;transform:scale(0.875);z-index:3;}
+    /* round 4: the row is born at its FINAL place and size (y 656-706, 28px = 32 x 0.875) and never moves or rescales;
+       it ends at x~867, the wall starts at x 1030, so the row never touches a tile. The cream ring stays as a foreground knockout */
     .f01-kchip{display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;padding:4px 18px 4px 14px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);outline:6px solid #fdfae7;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;white-space:nowrap;}
     .f01-kchip.f01-mono{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";letter-spacing:0.02em;}
     .f01-kchip svg{display:block;flex:none;width:28px;height:28px;}
@@ -255,23 +255,22 @@
         tl.fromTo("#f01-t" + idx, { scale: 1.06 }, { scale: 1, duration: 0.15, ease: "power2.inOut", immediateRender: false }, at + PULSE_LAG + 0.15);
       });
 
-      /* ===== Scene 3 (4.6-8.0s): focal pull, hero group -> eyebrow, chip row -> lower-left, question per phrase, gloss chip ===== */
-      tl.fromTo("#f01-wall", { "--f01-dof": "0px", opacity: 1 }, { "--f01-dof": "4px", opacity: 0.4, duration: 0.8, ease: "power2.inOut" }, 4.6);
-      tl.fromTo("#f01-outline", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 4.75);
-      tl.fromTo("#f01-t" + HERO, { scale: 1 }, { scale: 1.05, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 4.6);
-
+      /* ===== Scene 3 (3.9-8.0s), sequenced so only one thing changes at a time (round 4):
+         3.9-4.5 hero group shrinks to the eyebrow · 4.3-4.6 wall dims + hero tile highlights · 4.6 question per phrase · 6.0 gloss chip.
+         The chip row does not move (it was born at its final place at 2.4s). ===== */
       /* "120+" and its subtitle move as ONE group: a single transform tween, one origin (top-left), one ease.
          scale 0.615 keeps the subtitle at 32px (52 x 0.615); group box lands at y 138-326, above the headline */
-      tl.fromTo("#f01-hgrp", { x: 0, y: 0, scale: 1 }, { x: 0, y: -84, scale: 0.615, duration: 0.6, ease: "expo.out" }, 4.6);
-      /* dims to the secondary text token #5F5B50 (6.4:1 on cream; text floor #6B675C) */
-      tl.fromTo("#f01-label", { color: "#111111" }, { color: "#5F5B50", duration: 0.6, ease: "power2.out" }, 4.6);
+      tl.fromTo("#f01-hgrp", { x: 0, y: 0, scale: 1 }, { x: 0, y: -84, scale: 0.615, duration: 0.6, ease: "power2.inOut" }, 3.9);
+      /* dims to the secondary text token #5F5B50 (6.4:1 on cream; text floor #6B675C), with the shrink */
+      tl.fromTo("#f01-label", { color: "#111111" }, { color: "#5F5B50", duration: 0.6, ease: "power2.inOut" }, 3.9);
 
-      /* chip row as one group: down to y 656-706 at 28px (32 x 0.875), ~55px under the RAG chip */
-      tl.fromTo("#f01-krow", { y: 0, scale: 1 }, { y: 110, scale: 0.875, duration: 0.6, ease: "power3.out" }, 4.6);
+      tl.fromTo("#f01-wall", { "--f01-dof": "0px", opacity: 1 }, { "--f01-dof": "4px", opacity: 0.4, duration: 0.3, ease: "power2.inOut" }, 4.3);
+      tl.fromTo("#f01-outline", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 4.3);
+      tl.fromTo("#f01-t" + HERO, { scale: 1 }, { scale: 1.05, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 4.3);
 
       var qEls = gsap.utils.toArray("#f01-q .f01-qp");
       var qTexts = qEls.map(function (e) { return e.id === "f01-rag" ? "RAG" : e.textContent; });
-      var qAt = sequence(qTexts, 4.75, 0.06, 0.015, { 3: 0.06 });
+      var qAt = sequence(qTexts, 4.6, 0.06, 0.015, { 3: 0.06 });
       qEls.forEach(function (el, k) {
         tl.fromTo(el, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, qAt[k]);
       });
@@ -285,10 +284,10 @@
       tl.fromTo("#f01-uline", { opacity: 0.4 }, { opacity: 1, duration: 0.2, ease: "power2.inOut", immediateRender: false }, 6.25);
 
       /* ===== Scene 4 (8.0-9.0s): chapter tracker assembles left to right (all upcoming), then held read;
-         the RAG definition has 6.0-8.0s alone. Opacity-only fades at 8.0 / 8.15 / 8.3s (0.3s each): every pill
-         sits at the chrome's exact position and full inactive colour by 8.6s, so the 9.0s hand-over is invisible ===== */
+         the RAG definition has 6.0-8.0s alone. Opacity-only fades at 8.0 / 8.1 / 8.2s (0.25s each): every pill
+         sits at the chrome's exact position and full inactive colour by 8.45s and holds unchanged to the 9.0s hand-over ===== */
       ["#f01-p1", "#f01-p2", "#f01-p3"].forEach(function (id, k) {
-        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 8.0 + k * 0.15);
+        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 8.0 + k * 0.1);
       });
 
       window.__timelines = window.__timelines || {};
