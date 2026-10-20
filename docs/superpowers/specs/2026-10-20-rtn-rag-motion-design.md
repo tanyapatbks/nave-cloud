@@ -56,9 +56,13 @@ The frame-by-frame plan with exact copy and cue times is
 - **Story device:** one example document and one example question followed through the
   system; three-chapter tracker (อ่านได้ · ค้นเจอ · ตามสิทธิ์); climax = same question by two
   people with different permissions, then pre-filter vs post-filter.
-- **Length: ~107 s, not 90 s.** Keeping every brief point at a readable pace (≤ 17 Thai
-  chars/s hard ceiling, ~12 target, measured by `harness/check-copy.mjs`: 11.7 average)
-  needs ~107 s. A shorter cut-down can be derived later by dropping frames 04 and 07.
+- **Length: ~111 s, not 90 s.** Keeping every brief point at a readable pace (≤ 17 Thai
+  chars/s hard ceiling, ~12 target, measured by `harness/check-copy.mjs`: 11.4 average)
+  needs ~107 s; review round 1 added 4 s of payoff holds (frames 06, 07, 10). A shorter
+  cut-down can be derived later by dropping frames 04 and 07.
+- **Persistent chrome:** the 3-step tracker and the English term chip for frames 02–10 live
+  on one layer (`compositions/chrome.html`) mounted above every transition by
+  `harness/post-assemble.mjs`, so they never slide or crossfade with a frame.
 
 ## Quality harness
 
@@ -67,8 +71,11 @@ The frame-by-frame plan with exact copy and cue times is
 2. HyperFrames `lint` + `check` (layout, motion, WCAG contrast) on the assembled project.
 3. `snapshot` contact sheets at every Scene midpoint; visual review of Thai glyph rendering
    (no tofu, no clipped tone marks), keep-out (nothing below y = 896), overlap, hierarchy.
-4. Independent review agents check each frame against its storyboard block (copy exact,
-   reveal timing, no front-loading, no invented facts) and fix in place; loop until clean.
+4. A fresh-context critic panel (comprehension, legibility, motion, accuracy) reviews the
+   rendered MP4's review pack (`harness/review-pack.sh`) against `qa/copy-deck.md`
+   (generated from the storyboard by `harness/make-copy-deck.mjs`); an adversarial synthesis
+   verifies each finding; per-frame fixer agents apply ≤ 3 fixes per frame; loop until no
+   P0/P1 remains and every lens scores ≥ 8 (≤ 6 rounds).
 5. Render MP4 (1080p30, H.264), probe with ffprobe, extract frames from the MP4 itself for a
    final look; an optional SFX version is synthesised locally (no third-party media).
 
