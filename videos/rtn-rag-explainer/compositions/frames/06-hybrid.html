@@ -17,14 +17,7 @@
     /* full-bleed ground (lowest track) */
     #f06-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
 
-    /* shared header (static) */
-    #f06-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
-    #f06-hdr .f06-track{display:flex;gap:12px}
-    #f06-hdr .f06-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
-    #f06-hdr .f06-n{font-weight:700;margin-right:10px}
-    #f06-hdr .f06-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
-    #f06-hdr .f06-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
-    #f06-hdr .f06-term{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    /* chapter tracker + term chip: persistent chrome layer (compositions/chrome.html) */
     #f06-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
     #f06-h2 .f06-line{display:block;white-space:nowrap}
     #f06-h2 .f06-w{display:inline-block}
@@ -76,7 +69,7 @@
     .f06-ghost .f06-tile{border-radius:10px}
   </style>
 
-  <div id="root" data-composition-id="06-hybrid" data-width="1920" data-height="1080" data-start="0" data-duration="11.5">
+  <div id="root" data-composition-id="06-hybrid" data-width="1920" data-height="1080" data-start="0" data-duration="12.5">
     <div id="f06-ground" class="clip" data-start="0" data-duration="11.5" data-track-index="0"></div>
 
     <svg id="f06-wires" viewBox="0 0 1920 1080" width="1920" height="1080">
@@ -146,10 +139,6 @@
       <rect id="f06-ex-outline" x="1656.75" y="478.75" width="130.5" height="170.5" rx="9.25" ry="9.25"/>
     </svg>
 
-    <div id="f06-hdr">
-      <div class="f06-track"><span class="f06-pill is-done"><b class="f06-n">1</b>อ่านได้</span><span class="f06-pill is-current"><b class="f06-n">2</b>ค้นเจอ</span><span class="f06-pill"><b class="f06-n">3</b>ตามสิทธิ์</span></div>
-      <span class="f06-term">Hybrid Search</span>
-    </div>
   </div>
 
   <script src="assets/vendor/gsap.min.js"></script>

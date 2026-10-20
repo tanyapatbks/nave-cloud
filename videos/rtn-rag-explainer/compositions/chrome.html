@@ -1,0 +1,79 @@
+<template>
+  <style>
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Medium.woff2") format("woff2");}
+    @font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+
+    /* Persistent chrome for frames 02-10: the chapter tracker and the English term chip sit on
+       this one layer above every frame transition, so they never slide or crossfade with a
+       frame. Local time 0 = the start of frame 02. Transparent: no ground layer. */
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;pointer-events:none}
+    #ch-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px}
+    #ch-track{position:absolute;left:0;top:0;height:60px;display:flex;gap:12px;align-items:center}
+    .ch-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:rgba(30,43,250,0);white-space:nowrap}
+    .ch-n{font-weight:700;margin-right:10px}
+    .ch-term{position:absolute;right:0;top:0;height:60px;display:flex;align-items:center;opacity:0}
+    .ch-term span{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+  </style>
+
+  <div id="root" data-composition-id="chrome" data-width="1920" data-height="1080" data-start="0" data-duration="92.6">
+    <div id="ch-hdr">
+      <div id="ch-track"><span class="ch-pill" id="ch-p1"><b class="ch-n">1</b>อ่านได้</span><span class="ch-pill" id="ch-p2"><b class="ch-n">2</b>ค้นเจอ</span><span class="ch-pill" id="ch-p3"><b class="ch-n">3</b>ตามสิทธิ์</span></div>
+      <div class="ch-term" id="ch-t02"><span>Ingestion Pipeline</span></div>
+      <div class="ch-term" id="ch-t03"><span>Metadata</span></div>
+      <div class="ch-term" id="ch-t04"><span>Data Governance</span></div>
+      <div class="ch-term" id="ch-t05"><span>Ingest → Index</span></div>
+      <div class="ch-term" id="ch-t06"><span>Hybrid Search</span></div>
+      <div class="ch-term" id="ch-t07"><span>Reranker</span></div>
+      <div class="ch-term" id="ch-t08"><span>Access Control</span></div>
+      <div class="ch-term" id="ch-t09"><span>Identity + ACL</span></div>
+      <div class="ch-term" id="ch-t10"><span>Pre-filter</span></div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var COMP = "chrome";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]') || document;
+      var $ = function (s) { return host.querySelector(s); };
+      var tl = gsap.timeline({ paused: true });
+
+      /* frame starts in chrome-local seconds (global minus 9.0); keep in sync with STORYBOARD */
+      var starts = { "02": 0, "03": 11, "04": 23, "05": 32, "06": 41, "07": 53, "08": 61, "09": 70, "10": 80 };
+      var END = 92; /* frame 11 starts: the chrome leaves with the blur-crossfade */
+
+      var UPCOMING = { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0.2)", color: "#6b6b6b" };
+      var CURRENT = { backgroundColor: "rgba(30,43,250,1)", borderColor: "rgba(30,43,250,1)", color: "#fdfae7" };
+      var DONE = { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.08)", color: "#1e2bfa" };
+      /* immediateRender:false — a pill has two state tweens, and an eagerly rendered later
+         fromTo would overwrite the earlier state (pill 2 lit from t=0) */
+      function pill(id, from, to, at) {
+        tl.fromTo($(id), from, Object.assign({ duration: 0.3, ease: "power2.out", immediateRender: false }, to), at);
+      }
+      ["#ch-p1", "#ch-p2", "#ch-p3"].forEach(function (id) { tl.set($(id), UPCOMING, 0); });
+      /* frame 01 hands over all three pills "upcoming"; chapter 1 lights as frame 02 arrives */
+      pill("#ch-p1", UPCOMING, CURRENT, 0.05);
+      pill("#ch-p1", CURRENT, DONE, starts["06"]);
+      pill("#ch-p2", UPCOMING, CURRENT, starts["06"]);
+      pill("#ch-p2", CURRENT, DONE, starts["08"]);
+      pill("#ch-p3", UPCOMING, CURRENT, starts["08"]);
+
+      /* term chip: old text out (0.15 s), then new text in (0.2 s); never both visible */
+      var ids = ["02", "03", "04", "05", "06", "07", "08", "09", "10"]; /* not Object.keys: "10" is an integer-like key and would sort first */
+      ids.forEach(function (k, i) {
+        var el = $("#ch-t" + k);
+        var out = i + 1 < ids.length ? starts[ids[i + 1]] : END;
+        tl.set(el, { opacity: 0 }, 0);
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out", immediateRender: false }, starts[k] + 0.15);
+        tl.fromTo(el, { opacity: 1 }, { opacity: 0, duration: 0.15, ease: "power1.in", immediateRender: false }, out);
+      });
+      tl.fromTo($("#ch-track"), { opacity: 1 }, { opacity: 0, duration: 0.5, ease: "power2.inOut", immediateRender: false }, END);
+      tl.to({}, { duration: 92.6 }, 0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[COMP] = tl;
+    })();
+  </script>
+</template>

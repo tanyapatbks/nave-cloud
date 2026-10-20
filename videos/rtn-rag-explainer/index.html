@@ -37,7 +37,7 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="107"
+      data-duration="111"
       data-width="1920"
       data-height="1080"
     >
@@ -97,7 +97,7 @@
         data-composition-id="06-hybrid"
         data-composition-src="compositions/frames/06-hybrid.html"
         data-start="50"
-        data-duration="11.5"
+        data-duration="12.5"
         data-track-index="1"
       ></div>
 
@@ -106,8 +106,8 @@
         class="scene"
         data-composition-id="07-rerank"
         data-composition-src="compositions/frames/07-rerank.html"
-        data-start="61"
-        data-duration="7.5"
+        data-start="62"
+        data-duration="8.5"
         data-track-index="0"
       ></div>
 
@@ -116,7 +116,7 @@
         class="scene"
         data-composition-id="08-two-people"
         data-composition-src="compositions/frames/08-two-people.html"
-        data-start="68"
+        data-start="70"
         data-duration="9.5"
         data-track-index="1"
       ></div>
@@ -126,7 +126,7 @@
         class="scene"
         data-composition-id="09-scope"
         data-composition-src="compositions/frames/09-scope.html"
-        data-start="77"
+        data-start="79"
         data-duration="10.5"
         data-track-index="0"
       ></div>
@@ -136,8 +136,8 @@
         class="scene"
         data-composition-id="10-prefilter"
         data-composition-src="compositions/frames/10-prefilter.html"
-        data-start="87"
-        data-duration="10.6"
+        data-start="89"
+        data-duration="12.6"
         data-track-index="1"
       ></div>
 
@@ -146,9 +146,19 @@
         class="scene"
         data-composition-id="11-close"
         data-composition-src="compositions/frames/11-close.html"
-        data-start="97"
+        data-start="101"
         data-duration="10"
         data-track-index="0"
+      ></div>
+
+      <div
+        id="el-chrome"
+        class="scene"
+        data-composition-id="chrome"
+        data-composition-src="compositions/chrome.html"
+        data-start="9"
+        data-duration="92.6"
+        data-track-index="2"
       ></div>
 
     </div>
@@ -173,22 +183,22 @@
         tl.to("#el-05-pipeline", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 50);
         tl.fromTo("#el-06-hybrid", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 50);
         tl.addLabel("hf:transition:05-pipeline:06-hybrid:crossfade", 50);
-        tl.to("#el-06-hybrid", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 61);
-        tl.fromTo("#el-07-rerank", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 61);
-        tl.addLabel("hf:transition:06-hybrid:07-rerank:push-slide", 61);
-        tl.to("#el-07-rerank", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 68);
-        tl.fromTo("#el-08-two-people", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 68);
-        tl.addLabel("hf:transition:07-rerank:08-two-people:crossfade", 68);
-        tl.to("#el-08-two-people", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 77);
-        tl.fromTo("#el-09-scope", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 77);
-        tl.addLabel("hf:transition:08-two-people:09-scope:push-slide", 77);
-        tl.to("#el-09-scope", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 87);
-        tl.fromTo("#el-10-prefilter", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 87);
-        tl.addLabel("hf:transition:09-scope:10-prefilter:push-slide", 87);
-        tl.to("#el-10-prefilter", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 97);
-        tl.fromTo("#el-11-close", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 97);
-        tl.addLabel("hf:transition:10-prefilter:11-close:blur-crossfade", 97);
-        tl.to({}, { duration: 107 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+        tl.to("#el-06-hybrid", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 62);
+        tl.fromTo("#el-07-rerank", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 62);
+        tl.addLabel("hf:transition:06-hybrid:07-rerank:push-slide", 62);
+        tl.to("#el-07-rerank", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 70);
+        tl.fromTo("#el-08-two-people", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 70);
+        tl.addLabel("hf:transition:07-rerank:08-two-people:crossfade", 70);
+        tl.to("#el-08-two-people", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 79);
+        tl.fromTo("#el-09-scope", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 79);
+        tl.addLabel("hf:transition:08-two-people:09-scope:push-slide", 79);
+        tl.to("#el-09-scope", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 89);
+        tl.fromTo("#el-10-prefilter", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 89);
+        tl.addLabel("hf:transition:09-scope:10-prefilter:push-slide", 89);
+        tl.to("#el-10-prefilter", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 101);
+        tl.fromTo("#el-11-close", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 101);
+        tl.addLabel("hf:transition:10-prefilter:11-close:blur-crossfade", 101);
+        tl.to({}, { duration: 111 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
       })();
     </script>
   </body>

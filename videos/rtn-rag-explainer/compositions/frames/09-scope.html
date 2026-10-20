@@ -16,13 +16,6 @@
   #f09-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
 </style>
 <style>
-  #f09-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
-  #f09-hdr .f09-track{display:flex;gap:12px}
-  #f09-hdr .f09-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
-    #f09-hdr .f09-n{font-weight:700;margin-right:10px}
-  #f09-hdr .f09-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
-  #f09-hdr .f09-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
-  #f09-hdr .f09-term{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
   #f09-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
   #f09-h2 .f09-line{display:block;white-space:nowrap}
 </style>
@@ -87,10 +80,6 @@
   <div id="f09-ground" class="clip" data-start="0" data-duration="10.5" data-track-index="0"></div>
 
   <!-- shared header: ①② done, ③ current (static) -->
-  <div id="f09-hdr">
-    <div class="f09-track"><span class="f09-pill is-done"><b class="f09-n">1</b>อ่านได้</span><span class="f09-pill is-done"><b class="f09-n">2</b>ค้นเจอ</span><span class="f09-pill is-current"><b class="f09-n">3</b>ตามสิทธิ์</span></div>
-    <span class="f09-term">Identity + ACL</span>
-  </div>
 
   <!-- headline, revealed per phrase -->
   <div id="f09-h2">

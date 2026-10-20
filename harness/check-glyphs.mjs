@@ -23,9 +23,14 @@ const ranges = fonts.flatMap((f) =>
 const covered = (cp) => cp <= 0x7e || ranges.some(([a, b]) => cp >= a && cp <= b);
 
 const dir = join(project, "compositions/frames");
+const files = [
+  ...readdirSync(dir).filter((f) => f.endsWith(".html")).sort().map((f) => join(dir, f)),
+  join(project, "compositions/chrome.html"),
+];
 let bad = 0;
-for (const file of readdirSync(dir).filter((f) => f.endsWith(".html")).sort()) {
-  const src = readFileSync(join(dir, file), "utf8")
+for (const path of files) {
+  const file = path.split("/").pop();
+  const src = readFileSync(path, "utf8")
     .replace(/<style[\s\S]*?<\/style>/g, "")
     .replace(/<!--[\s\S]*?-->/g, "");
   const missing = new Map();

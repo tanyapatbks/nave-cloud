@@ -10,12 +10,12 @@ frames="01-hook 0 9
 03-filename 20 12
 04-tags 32 9
 05-pipeline 41 9
-06-hybrid 50 11
-07-rerank 61 7
-08-two-people 68 9
-09-scope 77 10
-10-prefilter 87 10
-11-close 97 10"
+06-hybrid 50 12
+07-rerank 62 8
+08-two-people 70 9
+09-scope 79 10
+10-prefilter 89 12
+11-close 101 10"
 while read -r id s d; do
   n=$(( d * 2 )); rows=$(( (n + 5) / 6 ))
   ffmpeg -nostdin -hide_banner -loglevel error -y -ss "$s" -t "$d" -i "$mp4" \
