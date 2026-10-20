@@ -1,0 +1,5 @@
+# Third-party media downloaded only for research frame analysis (copyrighted; not redistributed)
+research_notes/**/media/
+
+# Dependencies and build output
+node_modules/
