@@ -25,17 +25,23 @@
     #f12-head{position:absolute;left:96px;top:302px;height:76px;display:flex;align-items:baseline;white-space:nowrap;}
     #f12-eyebrow{display:block;flex:none;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#1e2bfa;}
     #f12-title{display:block;flex:none;margin-left:20px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:52px;line-height:1.3;color:#111111;}
-    #f12-pill{display:block;flex:none;align-self:center;margin-left:24px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1.45;padding:4px 18px 2px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);}
-    #f12-purpose{position:absolute;left:96px;top:384px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#5F5B50;}
+    #f12-pill{display:block;flex:none;align-self:center;margin-left:24px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:32px;line-height:1.45;padding:4px 18px 2px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);}
+    /* purpose line (component 12): 600 44px #111, key phrase in cobalt, one line y 384-448 */
+    #f12-purpose{position:absolute;left:96px;top:384px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;}
+    #f12-purpose .f12-key{color:#1e2bfa;}
 
     /* ---------- Part A (x 96-760, y 460-880) ---------- */
     /* split-highlight block y 460-540 */
     #f12-blk{position:absolute;left:96px;top:460px;width:664px;height:80px;}
     #f12-blk-bg{position:absolute;left:0;top:0;width:664px;height:80px;box-sizing:border-box;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);}
-    #f12-blk-in{position:absolute;left:22px;top:0;height:80px;display:flex;align-items:center;}
-    #f12-slot{position:relative;flex:none;width:320px;height:80px;margin-left:16px;}
-    /* frame 03's speech chip (card-tinted, opaque) */
-    #f12-q{position:absolute;left:0;top:12px;box-sizing:border-box;height:56px;padding:0 20px;display:flex;align-items:center;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;color:#111111;white-space:nowrap;visibility:hidden;}
+    #f12-blk-in{position:absolute;left:16px;top:0;height:80px;display:flex;align-items:center;}
+    #f12-slot{position:relative;flex:none;width:328px;height:80px;margin-left:12px;}
+    /* frame 03's speech chip (card-tinted, opaque, 600 36px, 64px tall, radius 14) with a short stub of its
+       2px tether hanging from the chip's bottom centre to the block's bottom edge. Horizontal padding is
+       20px (frame 03: 28px) so the chip fits beside "Data Foundations" inside the block (x <= 760). */
+    #f12-qw{position:absolute;left:0;top:4px;visibility:hidden;}
+    #f12-q{position:relative;box-sizing:border-box;height:64px;padding:0 20px;display:flex;align-items:center;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111;white-space:nowrap;}
+    #f12-qn{position:absolute;left:50%;top:64px;width:2px;height:12px;margin-left:-1px;background:rgba(30,43,250,0.4);}
     #f12-ans{position:absolute;left:4px;top:11px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#1e2bfa;white-space:nowrap;visibility:hidden;}
 
     /* document tiles (component 3) at 0.5 scale = 66 x 86; every tile is anchored at the stack centre (176, 641)
@@ -44,7 +50,7 @@
     .f12-tile{position:absolute;left:143px;top:598px;width:66px;height:86px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.24);border-radius:7px;background:#f4f2e8;}
     .f12-tin{position:absolute;left:0;top:0;width:63px;height:83px;overflow:hidden;border-radius:5.5px;}
     .f12-tin svg{position:absolute;left:0;top:0;width:63px;height:83px;display:block;}
-    .f12-ghost{position:absolute;left:143px;top:598px;width:66px;height:86px;box-sizing:border-box;border:1.5px dashed #B9B4A2;border-radius:7px;}
+    .f12-ghost{position:absolute;left:143px;top:598px;width:66px;height:86px;box-sizing:border-box;border:1.5px dashed #B9B4A2;border-radius:7px;opacity:0;visibility:hidden;}
     /* the RAG film's 4-dot governance badge at 0.5 scale (60 x 18, 9px dots, 3px gaps), straddling the tile's bottom edge */
     .f12-badge{position:absolute;left:1.5px;top:75.5px;width:60px;height:18px;box-sizing:border-box;border:1px solid rgba(30,43,250,0.2);border-radius:100px;background:#E6E5EA;display:flex;align-items:center;justify-content:center;gap:3px;}
     .f12-badge span{display:block;flex:none;width:9px;height:9px;border-radius:50%;background:#1e2bfa;}
@@ -78,7 +84,7 @@
         <span id="f12-title"><span class="f12-ph" id="f12-t1">Foundation</span> <span class="f12-ph" id="f12-t2">+ Builder NAVE</span> <span class="f12-ph" id="f12-t3">+ Practical</span></span>
         <span id="f12-pill">ขั้นที่กำลังทำ</span>
       </div>
-      <span id="f12-purpose"><span class="f12-ph" id="f12-p1">เข้าใจแก่นของระบบ</span><span class="f12-ph" id="f12-p2">&nbsp;· พัฒนาอย่างมั่นคง</span></span>
+      <span id="f12-purpose"><span class="f12-ph" id="f12-p1">เข้าใจ<span class="f12-key">แก่นของระบบ</span></span><span class="f12-ph" id="f12-p2">&nbsp;· พัฒนาอย่างมั่นคง</span></span>
 
       <!-- Part A: data foundations -->
       <div id="f12-blk">
@@ -86,7 +92,7 @@
         <div id="f12-blk-in">
           <span class="f12-chip" id="f12-c-df">Data Foundations</span>
           <div id="f12-slot">
-            <div id="f12-q">จัดการไฟล์อย่างไร?</div>
+            <div id="f12-qw"><div id="f12-q">จัดการไฟล์อย่างไร?</div><div id="f12-qn"></div></div>
             <span id="f12-ans">จัดระเบียบไฟล์</span>
           </div>
         </div>
@@ -227,15 +233,17 @@
       tl.fromTo($("#f12-p1"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.8);
       tl.fromTo($("#f12-p2"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.0);
 
-      /* ---------- Scene 2 (1.8-7.6): Part A ---------- */
+      /* ---------- Scene 2 (1.8-8.4): Part A ---------- */
       /* split-highlight block: rule first, fill wipes in from the left */
       tl.fromTo($("#f12-blk-bg"), { clipPath: "inset(0% 100% 0% 0% round 12px)" }, { clipPath: "inset(0% 0% 0% 0% round 12px)", duration: 0.55, ease: "power3.out" }, 1.8);
       tl.fromTo($("#f12-c-df"), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 2.0);
 
-      /* frame 03's question pops in (2.0), then swaps in place for the answer (2.6):
-         discrete-text-sequence states (reverse search) + a velocity-matched upward cut */
-      var Q = $("#f12-q"), A = $("#f12-ans");
-      var SEQ = [{ t: 0, s: 0 }, { t: 2.0, s: 1 }, { t: 2.6, s: 2 }];
+      /* frame 03's question pops in exactly as it did there (2.0: tether stub grows up, chip springs from
+         its bottom centre), holds legible to 3.6, then swaps in place for the answer (3.6-3.8):
+         discrete-text-sequence states (reverse search) + a velocity-matched upward cut (533 px/s both sides) */
+      var QW = $("#f12-qw"), Q = $("#f12-q"), QN = $("#f12-qn"), A = $("#f12-ans");
+      var SWAP = 3.72;
+      var SEQ = [{ t: 0, s: 0 }, { t: 2.0, s: 1 }, { t: SWAP, s: 2 }];
       function stateAt(time) {
         for (var i = SEQ.length - 1; i >= 0; i--) if (time >= SEQ[i].t) return SEQ[i].s;
         return 0;
@@ -245,46 +253,50 @@
         t: 20, duration: 20, ease: "none",
         onUpdate: function () {
           var s = stateAt(drv.t);
-          Q.style.visibility = s === 1 ? "visible" : "hidden";
+          QW.style.visibility = s === 1 ? "visible" : "hidden";
           A.style.visibility = s === 2 ? "visible" : "hidden";
         }
       }, 0);
-      tl.fromTo(Q, { opacity: 0, scale: 0.6, y: 0 }, { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: "expo.out", transformOrigin: "0% 50%" }, 2.0);
-      tl.fromTo(Q, { y: 0 }, { y: -20, duration: 0.2, ease: "power4.in", immediateRender: false }, 2.4);
-      tl.fromTo(Q, { opacity: 1 }, { opacity: 0, duration: 0.17, ease: "power1.in", immediateRender: false }, 2.42);
-      tl.fromTo(A, { opacity: 0.35, y: 20 }, { opacity: 1, y: 0, duration: 0.26, ease: "power4.out" }, 2.6);
+      tl.fromTo(QN, { scaleY: 0 }, { scaleY: 1, duration: 0.25, ease: "power2.out", transformOrigin: "50% 100%" }, 2.0);
+      tl.fromTo(Q, { opacity: 0, scale: 0, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out", transformOrigin: "50% 100%" }, 2.0);
+      tl.fromTo(QW, { y: 0 }, { y: -16, duration: SWAP - 3.6, ease: "power4.in" }, 3.6);
+      tl.fromTo(QW, { opacity: 1 }, { opacity: 0, duration: SWAP - 3.62, ease: "power1.in" }, 3.62);
+      tl.fromTo(A, { opacity: 0.35, y: 24 }, { opacity: 1, y: 0, duration: 0.18, ease: "power4.out" }, SWAP);
 
-      /* messy stack drops in (3.1), then the Documents chip (3.6) and its label (4.0) */
+      /* messy stack drops in (3.9), then the Documents chip (4.4) and its label (4.8) */
       TILES.forEach(function (p, j) {
         tl.fromTo($("#" + p.id),
           { opacity: 0, x: p.x, y: p.y - 34, rotation: p.r * 0.4 },
           { opacity: 1, x: p.x, y: p.y, rotation: p.r, duration: 0.45, ease: "power3.out", transformOrigin: "50% 50%" },
-          3.1 + j * 0.06);
+          3.9 + j * 0.06);
       });
-      tl.fromTo($("#f12-c-docs"), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 3.6);
-      tl.fromTo($("#f12-dl1"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.0);
-      tl.fromTo($("#f12-dl2"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.15);
+      tl.fromTo($("#f12-c-docs"), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 4.4);
+      tl.fromTo($("#f12-dl1"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.8);
+      tl.fromTo($("#f12-dl2"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.95);
 
-      /* 5.0-5.5: the cleaning arrow self-draws downward (shaft, then head) */
-      tl.fromTo($("#f12-ar-l"), { strokeDasharray: "28 60", strokeDashoffset: 30 }, { strokeDasharray: "28 60", strokeDashoffset: 0, duration: 0.32, ease: "power2.inOut" }, 5.0);
-      tl.fromTo($$(".f12-ar-w"), { strokeDasharray: "13 40", strokeDashoffset: 14 }, { strokeDasharray: "13 40", strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 5.3);
+      /* 5.8-6.3: the cleaning arrow self-draws downward (shaft, then head) */
+      tl.fromTo($("#f12-ar-l"), { strokeDasharray: "28 60", strokeDashoffset: 30 }, { strokeDasharray: "28 60", strokeDashoffset: 0, duration: 0.32, ease: "power2.inOut" }, 5.8);
+      tl.fromTo($$(".f12-ar-w"), { strokeDasharray: "13 40", strokeDashoffset: 14 }, { strokeDasharray: "13 40", strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 6.1);
 
-      /* 5.6: Data Cleaning lands; 5.7-6.5: the same four tiles fly down and straighten into one row */
-      tl.fromTo($("#f12-c-clean"), { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 5.6);
+      /* 6.4: Data Cleaning lands; 6.5-7.3: the same four tiles fly down and straighten into one row.
+         Each tile's dashed outline is uncovered as it lifts off and is gone by 7.0 (a brief trace, not a hold). */
+      tl.fromTo($("#f12-c-clean"), { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 6.4);
+      var GHOST_GONE = 7.0;
       TILES.forEach(function (p) {
-        var el = $("#" + p.id);
-        var a = 5.7 + p.dep * 0.06;
+        var el = $("#" + p.id), gh = $("#" + p.gid);
+        var a = 6.5 + p.dep * 0.06;
         tl.fromTo(el, { y: p.y, rotation: p.r }, { y: p.ry, rotation: 0, duration: 0.5, ease: "power3.inOut", immediateRender: false }, a);
         tl.fromTo(el, { x: p.x }, { x: p.rx, duration: 0.5, ease: "power3.inOut", immediateRender: false }, a + 0.12);
-        tl.fromTo($("#" + p.gid), { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, a + 0.08);
+        tl.fromTo(gh, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.06, ease: "none" }, a);
+        tl.fromTo(gh, { autoAlpha: 1 }, { autoAlpha: 0, duration: GHOST_GONE - (a + 0.16), ease: "power2.out", immediateRender: false }, a + 0.16);
       });
-      /* 6.6-7.0: each cleaned tile receives the 4-dot governance badge, left to right */
+      /* 7.4-7.8: each cleaned tile receives the 4-dot governance badge, left to right */
       TILES.slice().sort(function (m, n) { return m.slot - n.slot; }).forEach(function (p, k) {
-        tl.fromTo($("#" + p.id + " .f12-badge"), { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.16, ease: "power2.out", transformOrigin: "50% 50%" }, 6.6 + k * 0.08);
+        tl.fromTo($("#" + p.id + " .f12-badge"), { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.16, ease: "power2.out", transformOrigin: "50% 50%" }, 7.4 + k * 0.08);
       });
 
-      /* ---------- Scene 3 (7.6-8.4): hairline divider draws at x 790 ---------- */
-      tl.fromTo($("#f12-div"), { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power3.inOut", transformOrigin: "50% 0%" }, 7.6);
+      /* ---------- Scene 3 (7.8-8.4): hairline divider draws at x 790 ---------- */
+      tl.fromTo($("#f12-div"), { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power3.inOut", transformOrigin: "50% 0%" }, 7.8);
 
       /* ---------- Scene 4 (8.4-15.0): four question rows, then the retrieval stack ---------- */
       [8.4, 9.6, 10.8, 12.2].forEach(function (at, i) {

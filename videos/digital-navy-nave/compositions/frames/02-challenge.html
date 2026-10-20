@@ -44,27 +44,37 @@
     #f02-q .f02-ph{display:inline-block;}
     #f02-q .f02-cob{color:#1e2bfa;font-weight:700;}
 
-    /* puzzle: joined footprint x 1102-1622, y 470-730; seam on x 1362 */
+    /* puzzle: joined footprint x 1102-1622, y 456-716 (SVG user space keeps y 470-730; the
+       boxes sit 14px higher to make room for the two chip rows); seam on x 1362; the knob
+       (tab of the left piece) spans x 1362-1440 around the centre line */
     .f02-pzsvg{position:absolute;left:0;top:0;display:block;overflow:visible;}
-    #f02-pzj{position:absolute;left:1102px;top:470px;width:520px;height:260px;}
+    #f02-pzj{position:absolute;left:1102px;top:456px;width:520px;height:260px;}
     #f02-pzj svg{width:520px;height:260px;}
-    #f02-pzj path{fill:rgba(30,43,250,0.08);stroke:#1e2bfa;stroke-width:2;stroke-linejoin:round;}
-    #f02-pl{position:absolute;left:1102px;top:470px;width:338px;height:260px;}
+    /* the joined shape: accent-light fill (rgba(30,43,250,0.08)), cobalt outline, no straight seam */
+    #f02-pzj-shape{fill:rgba(30,43,250,0.08);stroke:#1e2bfa;stroke-width:2;stroke-linejoin:round;}
+    /* the interlock knob curve stays as a hairline so the shape still reads as two pieces joined */
+    #f02-knob{fill:none;stroke:rgba(30,43,250,0.35);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+    #f02-pl{position:absolute;left:1102px;top:456px;width:338px;height:260px;}
     #f02-pl .f02-pzsvg{width:338px;height:260px;}
     #f02-pl-shape{fill:rgba(30,43,250,0.15);stroke:#1e2bfa;stroke-width:2;stroke-linejoin:round;}
-    #f02-pr{position:absolute;left:1362px;top:470px;width:260px;height:260px;}
+    #f02-pr{position:absolute;left:1362px;top:456px;width:260px;height:260px;}
     #f02-pr .f02-pzsvg{width:260px;height:260px;}
     #f02-pr-shape{fill:#ECE8DA;stroke:#3F3C35;stroke-width:2;stroke-linejoin:round;}
-    #f02-spark{position:absolute;left:78px;top:98px;width:64px;height:64px;display:block;}
-    #f02-pr-t{position:absolute;left:60px;top:89px;width:200px;text-align:center;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:56px;line-height:1.45;color:#3F3C35;}
+    /* spark and "ทร." sit ~120px apart, either side of the knob: spark x 1276-1340, ทร. from x ~1460 */
+    #f02-spark{position:absolute;left:174px;top:98px;width:64px;height:64px;display:block;}
+    #f02-pr-t{position:absolute;left:95px;top:89px;text-align:left;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:56px;line-height:1.45;color:#3F3C35;}
 
-    /* Scene 4: criteria chips (split-highlight pills) under the joined piece, y 770-830 */
-    #f02-crit{position:absolute;left:900px;top:770px;width:924px;height:60px;display:flex;justify-content:center;align-items:center;gap:12px;}
-    .f02-chip{flex:none;box-sizing:border-box;height:60px;display:flex;align-items:center;gap:10px;padding:0 18px 0 14px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);}
+    /* Scene 4: criteria chips (split-highlight pills) under the joined piece; at 36px the three do
+       not fit one row in x 900-1824, so two centred rows: y 740-804 and 814-878 */
+    #f02-crit{position:absolute;left:900px;top:740px;width:924px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+    .f02-crow{display:flex;justify-content:center;align-items:center;gap:12px;}
+    .f02-chip{flex:none;box-sizing:border-box;height:64px;display:flex;align-items:center;gap:12px;padding:0 22px 0 12px;border-radius:12px;background:rgba(30,43,250,0.08);}
+    /* the cobalt left accent: an inset 4x36 bar inside the padding (not a border on the rounded pill) */
+    .f02-chip .f02-bar{flex:none;display:block;width:4px;height:36px;border-radius:2px;background:#1e2bfa;}
     .f02-tgt{flex:none;display:block;width:28px;height:28px;overflow:visible;}
     .f02-tgt .f02-ring{fill:none;stroke:#1e2bfa;stroke-width:2;}
     .f02-tgt .f02-dot{fill:#1e2bfa;}
-    .f02-chip .f02-ct{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:32px;line-height:1.45;color:#111111;}
+    .f02-chip .f02-ct{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:36px;line-height:1.45;color:#111111;}
   </style>
 
   <div id="root" data-composition-id="02-challenge" data-width="1920" data-height="1080" data-start="0" data-duration="12">
@@ -87,7 +97,7 @@
       </div>
 
       <div id="f02-pzj">
-        <svg class="f02-pzsvg" viewBox="1102 470 520 260" width="520" height="260" aria-hidden="true"><path d="M1116 470 H1608 Q1622 470 1622 484 V716 Q1622 730 1608 730 H1116 Q1102 730 1102 716 V484 Q1102 470 1116 470 Z"/></svg>
+        <svg class="f02-pzsvg" viewBox="1102 470 520 260" width="520" height="260" aria-hidden="true"><path id="f02-pzj-shape" d="M1116 470 H1608 Q1622 470 1622 484 V716 Q1622 730 1608 730 H1116 Q1102 730 1102 716 V484 Q1102 470 1116 470 Z"/><path id="f02-knob" d="M1362 570 C1369 570 1376 578 1376 584 A34 34 0 1 1 1376 616 C1376 622 1369 630 1362 630"/></svg>
       </div>
       <div id="f02-pl">
         <svg class="f02-pzsvg" viewBox="1102 470 338 260" width="338" height="260" aria-hidden="true"><path id="f02-pl-shape" d="M1116 470 H1362 V570 C1369 570 1376 578 1376 584 A34 34 0 1 1 1376 616 C1376 622 1369 630 1362 630 V730 H1116 Q1102 730 1102 716 V484 Q1102 470 1116 470 Z"/></svg>
@@ -99,9 +109,13 @@
       </div>
 
       <div id="f02-crit">
-        <div class="f02-chip" id="f02-k1"><svg class="f02-tgt" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><circle class="f02-ring" cx="14" cy="14" r="12"/><circle class="f02-ring" cx="14" cy="14" r="6.5"/><circle class="f02-dot" cx="14" cy="14" r="2.2"/></svg><span class="f02-ct">ราบรื่น</span></div>
-        <div class="f02-chip" id="f02-k2"><svg class="f02-tgt" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><circle class="f02-ring" cx="14" cy="14" r="12"/><circle class="f02-ring" cx="14" cy="14" r="6.5"/><circle class="f02-dot" cx="14" cy="14" r="2.2"/></svg><span class="f02-ct">ไร้รอยต่อ</span></div>
-        <div class="f02-chip" id="f02-k3"><svg class="f02-tgt" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><circle class="f02-ring" cx="14" cy="14" r="12"/><circle class="f02-ring" cx="14" cy="14" r="6.5"/><circle class="f02-dot" cx="14" cy="14" r="2.2"/></svg><span class="f02-ct">ผลลัพธ์ใช้งานได้จริง เป็นรูปธรรม</span></div>
+        <div class="f02-crow" id="f02-crow1">
+          <div class="f02-chip" id="f02-k1"><span class="f02-bar"></span><svg class="f02-tgt" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><circle class="f02-ring" cx="14" cy="14" r="12"/><circle class="f02-ring" cx="14" cy="14" r="6.5"/><circle class="f02-dot" cx="14" cy="14" r="2.2"/></svg><span class="f02-ct">ราบรื่น</span></div>
+          <div class="f02-chip" id="f02-k2"><span class="f02-bar"></span><svg class="f02-tgt" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><circle class="f02-ring" cx="14" cy="14" r="12"/><circle class="f02-ring" cx="14" cy="14" r="6.5"/><circle class="f02-dot" cx="14" cy="14" r="2.2"/></svg><span class="f02-ct">ไร้รอยต่อ</span></div>
+        </div>
+        <div class="f02-crow" id="f02-crow2">
+          <div class="f02-chip" id="f02-k3"><span class="f02-bar"></span><svg class="f02-tgt" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><circle class="f02-ring" cx="14" cy="14" r="12"/><circle class="f02-ring" cx="14" cy="14" r="6.5"/><circle class="f02-dot" cx="14" cy="14" r="2.2"/></svg><span class="f02-ct">ผลลัพธ์ใช้งานได้จริง เป็นรูปธรรม</span></div>
+        </div>
       </div>
 
     </div>
@@ -173,8 +187,9 @@
       tl.fromTo(pl, { x: -OUT }, { x: 0, duration: LOCK - SLIDE, ease: "power3.inOut", immediateRender: false }, SLIDE);
       tl.fromTo(pr, { x: OUT }, { x: 0, duration: LOCK - SLIDE, ease: "power3.inOut", immediateRender: false }, SLIDE);
 
-      /* at contact the seam fades out: both fills ease to the shared accent-light fill while the
-         two outlines hand over to the single joined outline */
+      /* at contact the straight seam fades out: both fills ease to the shared accent-light fill while
+         the two outlines hand over to the single joined outline; the knob curve hands over to the
+         joined shape's 1.5px hairline (#f02-knob), so the join still reads as two pieces */
       tl.to($("#f02-pl-shape"), { fill: ACCENT_LIGHT, duration: 0.5, ease: "power2.out" }, LOCK);
       tl.to($("#f02-pr-shape"), { fill: ACCENT_LIGHT_ON_CREAM, stroke: COBALT, duration: 0.5, ease: "power2.out" }, LOCK);
       tl.fromTo([$("#f02-pl-shape"), $("#f02-pr-shape")], { opacity: 1 }, { opacity: 0, duration: 0.55, ease: "power2.inOut", immediateRender: false }, LOCK + 0.05);

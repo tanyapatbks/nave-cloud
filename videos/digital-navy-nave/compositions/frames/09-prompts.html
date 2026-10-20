@@ -20,9 +20,10 @@
     #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;container-type:size;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";color:#111111}
     #f09-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
 
-    /* headline phrases + the muted example tag, right of the line and centred on it (87px line box) */
+    /* headline phrases + the example tag, right of the line and centred on it (87px line box; tag box 46.4 + 12 + 4 = 62.4px) */
     #f09-h2 .f09-ph{display:inline-block}
-    #f09-tag{position:absolute;left:100%;top:17px;margin-left:32px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;background:#ECE8DA;color:#5F5B50}
+    #f09-h2 .f09-hw{color:#111111}
+    #f09-tag{position:absolute;left:100%;top:12.3px;margin-left:32px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;padding:6px 22px;border-radius:100px;border:2px solid rgba(30,43,250,0.35);background:#ECE8DA;color:#5F5B50}
 
     /* composer (component 5, 1200px): x 96-1296, y 300-412; it never moves */
     #f09-card{position:absolute;left:96px;top:300px;width:1200px;height:112px;box-sizing:border-box;border-radius:20px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
@@ -105,16 +106,19 @@
     #f09-go{position:absolute;left:386.5px;top:154.5px;width:120px;height:56px;border-radius:100px;background:#1e2bfa;color:#fdfae7;transform-origin:50% 50%}
     #f09-go svg{position:absolute;left:45px;top:13px;width:30px;height:30px;display:block}
 
-    /* Part B: three unit tiles (88x88) at x 1560-1648, y 452 / 556 / 660: the unit glyph (three bars) + a received memo */
+    /* Part B: three unit tiles (88x88) at x 1560-1648, y 452 / 556 / 660: frame 03's boxed unit glyph (rounded square + three
+       short bars, here 48px in cobalt) with the received memo resting on its lower-right corner */
     .f09-unit{position:absolute;left:1560px;width:88px;height:88px;border-radius:12px;transform-origin:50% 50%}
     #f09-u1{top:452px}
     #f09-u2{top:556px}
     #f09-u3{top:660px}
-    .f09-unit .f09-ub{position:absolute;top:13px;width:8px;height:28px;border-radius:4px;background:#1e2bfa}
-    .f09-unit .f09-umd{position:absolute;left:50px;top:46px;width:26px;height:32px;box-sizing:border-box;border:2px solid #1e2bfa;border-radius:5px;background:#fdfae7}
+    .f09-unit .f09-ug{position:absolute;left:8.5px;top:8.5px;width:48px;height:48px;box-sizing:border-box;border:2px solid #1e2bfa;border-radius:10px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:5px}
+    .f09-unit .f09-ug span{display:block;flex:none;width:5px;height:19px;border-radius:2.5px;background:#1e2bfa}
+    .f09-unit .f09-umd{position:absolute;left:50.5px;top:44.5px;width:26px;height:32px;box-sizing:border-box;border:2px solid #1e2bfa;border-radius:5px;background:#fdfae7}
     .f09-unit .f09-umd span{position:absolute;left:4px;height:2.5px;border-radius:1.5px;background:rgba(30,43,250,0.55)}
     .f09-link{fill:none;stroke:#1e2bfa;stroke-width:2.5;stroke-linecap:round}
-    #f09-sent{position:absolute;left:1500px;top:772px;width:298px;text-align:center;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#3F3C35}
+    /* send label centred under the tiles (tile centre x 1604): x 1404-1804 */
+    #f09-sent{position:absolute;left:1404px;top:772px;width:400px;text-align:center;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#3F3C35}
 
     /* Scene 5 note under the approval card: x 820-1300, y 724-776 */
     #f09-note{position:absolute;left:820px;top:724px;height:52px;display:flex;align-items:center;gap:14px;white-space:nowrap}
@@ -126,11 +130,11 @@
   </style>
 
   <div id="root" data-composition-id="09-prompts" data-width="1920" data-height="1080" data-duration="20.1">
-    <div id="f09-ground" class="clip" data-start="0" data-duration="19" data-track-index="0"></div>
+    <div id="f09-ground" class="clip" data-start="0" data-duration="20.1" data-track-index="0"></div>
 
     <!-- headline (component 2), two phrases, + the muted example tag -->
     <div id="f09-h2">
-      <span class="f09-line"><span class="f09-ph" id="f09-hp1">ถาม หรือ สั่งการ</span> <span class="f09-ph" id="f09-hp2">— ในที่เดียว</span></span>
+      <span class="f09-line"><span class="f09-ph" id="f09-hp1"><span class="f09-hw" id="f09-hw-ask">ถาม</span> หรือ <span class="f09-hw" id="f09-hw-cmd">สั่งการ</span></span> <span class="f09-ph" id="f09-hp2">— ในที่เดียว</span></span>
       <span id="f09-tag">ตัวอย่าง · ภาพเป้าหมาย</span>
     </div>
 
@@ -218,9 +222,9 @@
       <circle id="f09-lk-dot" cx="1360" cy="576" r="6" fill="#1e2bfa" stroke="#fdfae7" stroke-width="2.5"/>
     </svg>
 
-    <div class="f09-unit f09-tint" id="f09-u1"><span class="f09-ub" style="left:14px"></span><span class="f09-ub" style="left:29px"></span><span class="f09-ub" style="left:44px"></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
-    <div class="f09-unit f09-tint" id="f09-u2"><span class="f09-ub" style="left:14px"></span><span class="f09-ub" style="left:29px"></span><span class="f09-ub" style="left:44px"></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
-    <div class="f09-unit f09-tint" id="f09-u3"><span class="f09-ub" style="left:14px"></span><span class="f09-ub" style="left:29px"></span><span class="f09-ub" style="left:44px"></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
+    <div class="f09-unit f09-tint" id="f09-u1"><span class="f09-ug"><span></span><span></span><span></span></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
+    <div class="f09-unit f09-tint" id="f09-u2"><span class="f09-ug"><span></span><span></span><span></span></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
+    <div class="f09-unit f09-tint" id="f09-u3"><span class="f09-ug"><span></span><span></span><span></span></span><span class="f09-umd"><span style="top:6px;width:14px"></span><span style="top:12px;width:11px"></span><span style="top:18px;width:14px"></span></span></div>
 
     <span id="f09-sent">ส่งถึง นขต. ที่เกี่ยวข้อง</span>
 
@@ -295,6 +299,9 @@
       tl.fromTo("#f09-hp2", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.48);
       tl.fromTo("#f09-tag", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.6);
       tl.fromTo("#f09-card", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+      /* ask vs command: "ถาม" turns cobalt as the question starts typing and stays cobalt through Part A (colour only) */
+      var hwAsk = $("#f09-hw-ask"), hwCmd = $("#f09-hw-cmd");
+      tl.fromTo(hwAsk, { color: "#111111" }, { color: "#1e2bfa", duration: 0.35, ease: "power2.out" }, 0.85);
 
       var l1 = $("#f09-l1"), l2 = $("#f09-l2");
       typeLine(l1, 1.0, 0.18, 2.5, [0.6, 0.76, 0.88]);
@@ -330,14 +337,18 @@
       /* hold 6.2-9.0: Part A fully legible and still */
 
       /* ================= Scene 3 (9.0-9.6): seam ================= */
-      /* Part A accelerates up 40px and fades (power3.in, 0.4s); Part B surfaces mirror it (y +40 -> 0, power3.out, 0.4s) */
-      var EXIT_AT = 9.0, SEAM_DUR = 0.4, SEAM_Y = 40;
-      tl.fromTo("#f09-A", { y: 0 }, { y: -SEAM_Y, duration: SEAM_DUR, ease: "power3.in", immediateRender: false }, EXIT_AT);
-      tl.fromTo("#f09-A", { opacity: 1 }, { opacity: 0, duration: SEAM_DUR, ease: "power2.in", immediateRender: false }, EXIT_AT);
-      /* the composer clears its text the same way, then the caret returns */
-      tl.fromTo(l1, { opacity: 1, y: 0 }, { opacity: 0, y: -10, duration: 0.3, ease: "power3.in", immediateRender: false }, EXIT_AT);
+      /* clear-then-restart: Part A moves up 40px and fades 9.0-9.45 (power2.inOut, moving from the first frame);
+         Part B surfaces later enter with the mirrored move (y +40 -> 0, power3.out, 0.4s) */
+      var EXIT_AT = 9.0, EXIT_DUR = 0.45, SEAM_DUR = 0.4, SEAM_Y = 40;
+      tl.fromTo("#f09-A", { y: 0 }, { y: -SEAM_Y, duration: EXIT_DUR, ease: "power2.inOut", immediateRender: false }, EXIT_AT);
+      tl.fromTo("#f09-A", { opacity: 1 }, { opacity: 0, duration: EXIT_DUR, ease: "power2.inOut", immediateRender: false }, EXIT_AT);
+      /* the composer's prompt-1 text fades 9.0-9.3, then the caret returns (9.35) and prompt 2 types from 9.6 */
+      tl.fromTo(l1, { opacity: 1, y: 0 }, { opacity: 0, y: -10, duration: 0.3, ease: "power2.inOut", immediateRender: false }, EXIT_AT);
+      /* the headline emphasis moves from "ถาม" to "สั่งการ" with the seam (colour only) */
+      tl.fromTo(hwAsk, { color: "#1e2bfa" }, { color: "#111111", duration: EXIT_DUR, ease: "power2.inOut", immediateRender: false }, EXIT_AT);
+      tl.fromTo(hwCmd, { color: "#111111" }, { color: "#1e2bfa", duration: EXIT_DUR, ease: "power2.inOut" }, EXIT_AT);
 
-      /* ================= Scene 4 (9.6-15.8): Part B ================= */
+      /* ================= Scene 4 (9.6-16.8): Part B ================= */
       typeLine(l2, 9.6, 0.2, 11.2, [9.35]);
       pressSend(11.2, false);
 
@@ -361,34 +372,35 @@
       tl.fromTo(wait, { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 12.9);
 
       /* approve button press (press-release-spring, smooth: linear-feel press, power2 release, no overshoot) */
-      var PRESS_AT = 13.8, PRESS_DUR = 0.12, RELEASE_DUR = 0.42;
+      /* the waiting pill holds 12.9-15.3 so the human gate reads before the press */
+      var PRESS_AT = 15.0, PRESS_DUR = 0.12, RELEASE_DUR = 0.42;
       tl.fromTo(go, { scale: 1, backgroundColor: "#1e2bfa" }, { scale: 0.92, backgroundColor: "#1620c4", duration: PRESS_DUR, ease: "power2.in" }, PRESS_AT);
       tl.fromTo(go, { scale: 0.92, backgroundColor: "#1620c4" }, { scale: 1, backgroundColor: "#1e2bfa", duration: RELEASE_DUR, ease: "power2.out", immediateRender: false }, PRESS_AT + PRESS_DUR);
 
-      /* the pill flips to the success badge at the same left anchor (14.1) */
-      tl.fromTo(wait, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.92, duration: 0.1, ease: "power2.in", immediateRender: false }, 14.0);
-      tl.fromTo(ok, { opacity: 0, scale: 0.84 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 14.1);
+      /* the pill flips to the success badge at the same left anchor (15.3) */
+      tl.fromTo(wait, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.92, duration: 0.1, ease: "power2.in", immediateRender: false }, 15.2);
+      tl.fromTo(ok, { opacity: 0, scale: 0.84 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 15.3);
 
-      /* three connectors fan to three unit tiles (14.6-15.2); each tile receives the memo */
-      tl.fromTo("#f09-lk-dot", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 14.55);
+      /* three connectors fan to three unit tiles (15.6-16.2); each tile receives the memo */
+      tl.fromTo("#f09-lk-dot", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 15.55);
       ["#f09-lk1", "#f09-lk2", "#f09-lk3"].forEach(function (id, k) {
         var p = $(id), L = prep(p);
-        tl.fromTo(p, { strokeDashoffset: L + 2 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 14.6 + k * 0.1);
+        tl.fromTo(p, { strokeDashoffset: L + 2 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 15.6 + k * 0.1);
       });
       ["#f09-u1", "#f09-u2", "#f09-u3"].forEach(function (id, k) {
         var u = $(id), md = u.querySelector(".f09-umd");
-        tl.fromTo(u, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, 14.8 + k * 0.1);
-        tl.fromTo(md, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 14.95 + k * 0.1);
+        tl.fromTo(u, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, 15.8 + k * 0.1);
+        tl.fromTo(md, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 15.95 + k * 0.1);
       });
-      tl.fromTo("#f09-sent", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 14.8);
+      tl.fromTo("#f09-sent", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 15.8);
 
-      /* ================= Scene 5 (15.8-19.0): the note, then still from 16.4 ================= */
-      tl.fromTo("#f09-note svg", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out" }, 15.8);
-      tl.fromTo("#f09-note .f09-np1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 15.8);
-      tl.fromTo("#f09-note .f09-np2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 16.0);
+      /* ================= Scene 5 (16.8-19.6): the note, then still from 17.4 ================= */
+      tl.fromTo("#f09-note svg", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out" }, 16.8);
+      tl.fromTo("#f09-note .f09-np1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 16.8);
+      tl.fromTo("#f09-note .f09-np2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 16.95);
 
-      /* the frame is exactly 19s long */
-      tl.to({}, { duration: 19 }, 0);
+      /* the frame is 19.6s long (the mount runs 0.5s more for the crossfade into frame 10) */
+      tl.to({}, { duration: 19.6 }, 0);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;

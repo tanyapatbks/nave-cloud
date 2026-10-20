@@ -1,0 +1,21 @@
+{
+  "duration": 204.1,
+  "starts": {
+    "01-hook": 0,
+    "02-challenge": 8.5,
+    "03-data": 20,
+    "04-turn": 33.5,
+    "05-nave": 40,
+    "06-mfa": 52,
+    "07-pqc": 63,
+    "08-workspace": 75.5,
+    "09-prompts": 88.5,
+    "10-roadmap": 108.1,
+    "11-stage1": 119.1,
+    "12-stage2": 130.6,
+    "13-stage3": 150.6,
+    "14-stage4": 162.6,
+    "15-stage5": 179.1,
+    "16-close": 190.1
+  }
+}

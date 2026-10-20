@@ -17,19 +17,22 @@
     #f11-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
 
     /* stage header (component 12): eyebrow + English stage name on one baseline (y 300-380),
-       Thai purpose line below (y 384-434). The rail band above (y < 290) belongs to roadmap.html. */
+       Thai purpose line below (y 384-448, 600 44px #111, key phrase in cobalt).
+       The rail band above (y < 290) belongs to roadmap.html. */
     #f11-head{position:absolute;left:96px;top:300px;height:80px;box-sizing:border-box;padding-top:6px;display:flex;align-items:baseline;white-space:nowrap}
     #f11-eyebrow{display:block;margin-right:20px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#1e2bfa;white-space:nowrap}
     #f11-title{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:52px;line-height:1.3;color:#111111;white-space:nowrap}
-    #f11-purpose{position:absolute;left:96px;top:384px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#5F5B50;white-space:nowrap}
+    #f11-purpose{position:absolute;left:96px;top:384px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;white-space:nowrap}
+    #f11-purpose .f11-ph{white-space:nowrap}
+    #f11-p2{color:#1e2bfa}
 
     /* group labels (y 466-518) */
     .f11-label{position:absolute;top:466px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:36px;line-height:1.45;color:#3F3C35;white-space:nowrap}
     #f11-lab1{left:96px}
     #f11-lab2{left:900px}
 
-    /* item tiles (component 13): 64px tall, radius 12, icon then mono term */
-    .f11-tile{position:absolute;height:64px;box-sizing:border-box;border-radius:12px;display:flex;align-items:center;gap:10px;padding:0 18px;white-space:nowrap;transform-origin:0% 50%}
+    /* item tiles (component 13, this frame 72px tall with 14px gaps): radius 12, icon then mono term */
+    .f11-tile{position:absolute;height:72px;box-sizing:border-box;border-radius:12px;display:flex;align-items:center;gap:10px;padding:0 18px;white-space:nowrap;transform-origin:0% 50%}
     .f11-tile svg{display:block;flex:none;overflow:visible}
     .f11-tx{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#111111;white-space:nowrap}
     .f11-ic path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -37,22 +40,18 @@
     /* "can only" group: solid tinted tiles, left column x 96-760 */
     .f11-can{left:96px;width:664px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2)}
     #f11-c1{top:536px}
-    #f11-c2{top:612px}
-    #f11-c3{top:688px}
+    #f11-c2{top:622px}
+    #f11-c3{top:708px}
 
     /* "still lacks" group: missing variant, two columns x 900-1340 / 1384-1824 */
     .f11-miss{width:440px;background:transparent;border:2px dashed #8A867A}
     .f11-miss .f11-tx{color:#5F5B50}
     .f11-hc path{fill:none;stroke:#8A867A;stroke-width:2;stroke-linecap:round}
     #f11-m1{left:900px;top:536px}
-    #f11-m2{left:900px;top:612px}
-    #f11-m3{left:900px;top:688px}
+    #f11-m2{left:900px;top:622px}
+    #f11-m3{left:900px;top:708px}
     #f11-m4{left:1384px;top:536px}
-    #f11-m5{left:1384px;top:612px}
-
-    /* bridge arrow: 3px cobalt, x 900 -> 1800 at y 820 */
-    #f11-arrow{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;pointer-events:none}
-    #f11-arrow path{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    #f11-m5{left:1384px;top:622px}
   </style>
 
   <div id="root" data-composition-id="11-stage1" data-width="1920" data-height="1080" data-duration="12">
@@ -60,7 +59,7 @@
 
     <!-- Scene 1: stage header -->
     <div id="f11-head"><span id="f11-eyebrow">ขั้นที่ 1</span><span id="f11-title">Demo Only</span></div>
-    <span id="f11-purpose">ระบบ AI ที่ยังไม่พร้อมใช้งานจริง</span>
+    <span id="f11-purpose"><span id="f11-p1" class="f11-ph">ระบบ AI ที่</span><span id="f11-p2" class="f11-ph">ยังไม่พร้อมใช้งานจริง</span></span>
 
     <!-- Scene 2: what the stage can only do -->
     <span id="f11-lab1" class="f11-label">ขั้นนี้ทำได้แค่</span>
@@ -109,12 +108,6 @@
       <svg class="f11-hc" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M12 2 A10 10 0 0 1 12 22 A10 10 0 0 1 12 2 Z"/></svg>
       <span class="f11-tx">Deployment Pipeline</span>
     </div>
-
-    <!-- Scene 4: bridge arrow toward stage 2 (no text) -->
-    <svg id="f11-arrow" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
-      <path id="f11-shaft" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M900 820 H1799"/>
-      <path id="f11-head2" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M1786 807 L1800 820 L1786 833"/>
-    </svg>
   </div>
 
   <script src="assets/vendor/gsap.min.js"></script>
@@ -164,13 +157,14 @@
       assemble($("#f11-m4"), 5.8);
       assemble($("#f11-m5"), 6.2);
 
-      /* Scene 4 (7.4-11.5): the bridge arrow self-draws (7.4-8.0), then everything holds still */
-      tl.fromTo($("#f11-shaft"),
-        { attr: { "stroke-dashoffset": 1 } },
-        { attr: { "stroke-dashoffset": 0 }, duration: 0.48, ease: "power2.inOut" }, 7.4);
-      tl.fromTo($("#f11-head2"),
-        { attr: { "stroke-dashoffset": 1 } },
-        { attr: { "stroke-dashoffset": 0 }, duration: 0.16, ease: "power2.out" }, 7.84);
+      /* Scene 4 (7.0-11.5): the English tile labels recede to #6B675C (7.0-7.4) so the hold
+         rests on the Thai purpose line; everything holds still from 7.4 */
+      tl.fromTo($$(".f11-can .f11-tx"),
+        { color: "#111111" },
+        { color: "#6B675C", duration: 0.4, ease: "power2.out" }, 7.0);
+      tl.fromTo($$(".f11-miss .f11-tx"),
+        { color: "#5F5B50" },
+        { color: "#6B675C", duration: 0.4, ease: "power2.out" }, 7.0);
 
       tl.set({}, {}, 11.5);
 

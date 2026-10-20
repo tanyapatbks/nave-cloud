@@ -33,27 +33,37 @@
     /* Scene 1: line 1 centred at y 160-241 */
     #f16-l1{top:160px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:56px;line-height:1.45;color:#111111;}
     #f16-l1 .f16-cb{color:#1e2bfa;}
+    /* callback to frame 01: the same 6px cobalt round-capped underline under "Digital Navy", self-drawn.
+       Frame 01's stroke centre sits 1.341em below its 1.3-line top; on this 1.45 line that is 1.416em = 79px,
+       so the 12px-tall SVG starts at 73px (stroke y 236-242). The viewBox width matches the phrase's rendered
+       width so the round caps are not squashed by preserveAspectRatio="none". */
+    #f16-l1a{position:relative;}
+    #f16-ul{position:absolute;left:0;top:73px;width:100%;height:12px;display:block;overflow:visible;}
+    #f16-ul path{fill:none;stroke:#1e2bfa;stroke-width:6;stroke-linecap:round;}
 
-    /* Scene 2: line 2, two authored lines centred at y 262-326 / 326-390 */
-    #f16-l2{top:262px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:44px;line-height:1.45;color:#3F3C35;}
+    /* Scene 2: line 2, two authored lines at 40px, centred at y 270-328 / 328-386 */
+    #f16-l2{top:270px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#3F3C35;}
     #f16-l2 .f16-em{color:#1e2bfa;font-weight:700;}
 
-    /* Scene 3: line 3 centred at y 420-484 */
-    #f16-l3{top:420px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;}
+    /* Scene 3: line 3 at 40px, centred at y 418-476 */
+    #f16-l3{top:418px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;}
 
-    /* NAVE wordmark, component 9 at 0.6 scale (frame 05's lockup x 0.75), row y 515-646, centred on y 580 */
-    #f16-wm{position:absolute;left:0;top:515px;width:1920px;height:131px;display:flex;justify-content:center;align-items:center;}
-    #f16-wm-en{flex:none;position:relative;font-family:"Chulabhorn Likit Display","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:108px;line-height:131px;color:#111111;white-space:nowrap;}
-    #f16-wm-rule{flex:none;width:4px;height:90px;border-radius:2px;background:#1e2bfa;margin:0 26px;}
-    #f16-wm-th{flex:none;position:relative;top:6px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:90px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
+    /* NAVE wordmark, component 9 at 0.7 scale (NAVE 126px, rule 4x105, gaps 31, Thai 105px): the largest mark on the card.
+       Row y 492-644, centred on y 568 */
+    #f16-wm{position:absolute;left:0;top:492px;width:1920px;height:152px;display:flex;justify-content:center;align-items:center;}
+    #f16-wm-en{flex:none;position:relative;font-family:"Chulabhorn Likit Display","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:126px;line-height:152px;color:#111111;white-space:nowrap;}
+    #f16-wm-rule{flex:none;width:4px;height:105px;border-radius:2px;background:#1e2bfa;margin:0 31px;}
+    #f16-wm-th{flex:none;position:relative;top:7px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:105px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
 
-    /* NAV Ecosystem chip (component 11) at y 664-717 */
-    #f16-chiprow{position:absolute;left:0;top:664px;width:1920px;display:flex;justify-content:center;}
+    /* NAV Ecosystem chip (component 11) at y 660-713 */
+    #f16-chiprow{position:absolute;left:0;top:660px;width:1920px;display:flex;justify-content:center;}
     #f16-chip{flex:none;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa;white-space:nowrap;}
 
-    /* Scene 4: eyebrow y 734-775, department credit (two authored lines) y 776-869 */
-    #f16-eb{top:734px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#6B675C;}
-    #f16-cr{top:776px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#5F5B50;}
+    /* Scene 4: one centred credit block, two authored lines y 761-813 / 813-865 (ink <= y 852).
+       Row 1 = the eyebrow (32px #5F5B50) on the same baseline as, and left of, the credit's first line (36px #3F3C35);
+       row 2 = the credit's second line, centred. The 14px gap is a margin, not added text. */
+    #f16-cr{top:761px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:36px;line-height:1.45;color:#3F3C35;}
+    #f16-eb1{font-size:32px;color:#5F5B50;margin-right:14px;}
   </style>
 
   <div id="root" data-composition-id="16-close" data-width="1920" data-height="1080" data-start="0" data-duration="14">
@@ -76,7 +86,7 @@
 
     <div id="f16-stage">
       <div id="f16-l1" class="f16-block">
-        <span class="f16-line"><span class="f16-ph f16-cb" id="f16-l1a">Digital Navy</span> <span class="f16-ph" id="f16-l1b">ที่เรามองเห็น</span></span>
+        <span class="f16-line"><span class="f16-ph f16-cb" id="f16-l1a">Digital Navy<svg id="f16-ul" viewBox="0 0 330 12" preserveAspectRatio="none" aria-hidden="true" data-layout-ignore><path d="M4 6H326"/></svg></span> <span class="f16-ph" id="f16-l1b">ที่เรามองเห็น</span></span>
       </div>
 
       <div id="f16-l2" class="f16-block">
@@ -96,13 +106,9 @@
 
       <div id="f16-chiprow"><span id="f16-chip">NAV Ecosystem</span></div>
 
-      <div id="f16-eb" class="f16-block">
-        <span class="f16-line" id="f16-eb1">นำโดย</span>
-      </div>
-
       <div id="f16-cr" class="f16-block">
-        <span class="f16-line" id="f16-cr1">กรมการสื่อสารและเทคโนโลยีสารสนเทศ</span>
-        <span class="f16-line" id="f16-cr2">ทหารเรือ</span>
+        <span class="f16-line"><span class="f16-ph" id="f16-eb1">นำโดย</span><span class="f16-ph" id="f16-cr1">กรมการสื่อสารและเทคโนโลยีสารสนเทศ</span></span>
+        <span class="f16-line"><span class="f16-ph" id="f16-cr2">ทหารเรือ</span></span>
       </div>
     </div>
   </div>
@@ -142,6 +148,15 @@
       tl.fromTo("#f16-rings", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.4, ease: "power2.out" }, 0);
       tl.fromTo($$("#f16-dots .f16-dot"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.05 }, 0.25);
       phrases([$("#f16-l1a"), $("#f16-l1b")], 0.7, 0.2);
+
+      /* callback to frame 01: once "Digital Navy" has settled (1.2s), its underline self-draws left to right
+         (1.2-1.6s, power2.out); the same idiom as frame 01 (measured length, dash offset, a 0.02s opacity gate) */
+      var ulPath = $("#f16-ul path");
+      var ulLen = ulPath.getTotalLength();
+      ulPath.style.strokeDasharray = ulLen + " " + (ulLen + 20);
+      ulPath.style.strokeDashoffset = String(ulLen);
+      tl.fromTo("#f16-ul", { opacity: 0 }, { opacity: 1, duration: 0.02, ease: "power2.out" }, 1.2);
+      tl.fromTo(ulPath, { strokeDashoffset: ulLen }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 1.2);
 
       /* =========== Scene 2 (1.9-4.8s): line 2, per phrase - first authored line at 1.9s, second at 3.1s =========== */
       phrases($$("#f16-l2a > .f16-ph"), 1.9, 0.26);
