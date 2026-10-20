@@ -20,8 +20,10 @@ ok = abs(nb - round(dur * 30)) <= 1 and (not exp or abs(dur - float(exp)) <= 0.5
 sys.exit(0 if ok else 1)
 EOF
 
-# 2. Freezes longer than 4 s (the final 5 s end card is exempt). A planned held read listed in
-#    PLANNED_HOLDS ("start-end,start-end" in global seconds) may freeze up to 5.5 s inside its window.
+# 2. Freezes longer than 4 s. Exempt: the end card, i.e. a freeze that starts in the last 5 s, or one
+#    that runs to the last frame and lasts at most END_CARD seconds (default 5; set it to the
+#    storyboard's planned end-card hold). A planned held read listed in PLANNED_HOLDS
+#    ("start-end,start-end" in global seconds) may freeze up to 5.5 s inside its window.
 log=$(ffmpeg -hide_banner -nostats -i "$mp4" -vf "freezedetect=n=0.001:d=4" -map 0:v -f null - 2>&1 || true)
 starts=$(grep -oE "freeze_start: [0-9.]+" <<< "$log" | awk '{print $2}' || true)
 durs=$(grep -oE "freeze_duration: [0-9.]+" <<< "$log" | awk '{print $2}' || true)
@@ -30,13 +32,15 @@ paste <(printf '%s\n' $starts) <(printf '%s\n' $durs) | while read -r s fd; do
   [ -z "$s" ] && continue
   fd="${fd:-$(awk -v s="$s" -v d="$dur" 'BEGIN{print d-s}')}"
   awk -v s="$s" -v d="$dur" 'BEGIN{exit !(s >= d-5)}' && continue
+  awk -v s="$s" -v f="$fd" -v d="$dur" -v m="${END_CARD:-5}" 'BEGIN{exit !(s+f >= d-0.1 && f <= m)}' && { echo "endcard $s+${fd}s"; continue; }
   if python3 -I -c "import sys; s,fd=float(sys.argv[1]),float(sys.argv[2]); w=[tuple(map(float,x.split('-'))) for x in sys.argv[3].split(',') if x]; sys.exit(0 if fd<=5.5 and any(a<=s and s+fd<=b for a,b in w) else 1)" "$s" "$fd" "${PLANNED_HOLDS:-}"; then
     echo "planned $s+${fd}s"; else echo "bad $s+${fd}s"; fi
 done > "$out/.freezes"
 bad=$(grep '^bad' "$out/.freezes" | cut -d' ' -f2 | paste -sd' ' || true)
 planned=$(grep '^planned' "$out/.freezes" | cut -d' ' -f2 | paste -sd' ' || true)
+endcard=$(grep '^endcard' "$out/.freezes" | cut -d' ' -f2 | paste -sd' ' || true)
 rm -f "$out/.freezes"
-if [ -z "$bad" ]; then say ok "no unplanned freeze > 4s outside the end card${planned:+ (planned holds: $planned)}"; else say FAIL "freeze > 4s at: $bad"; fi
+if [ -z "$bad" ]; then say ok "no unplanned freeze > 4s outside the end card${planned:+ (planned holds: $planned)}${endcard:+ (end card: $endcard, END_CARD=${END_CARD:-5})}"; else say FAIL "freeze > 4s at: $bad"; fi
 
 # 3. Black frames
 blacks=$(ffmpeg -hide_banner -nostats -i "$mp4" -vf "blackdetect=d=0.1:pic_th=0.98:pix_th=0.10" -map 0:v -f null - 2>&1 | grep -c "black_start" || true)
