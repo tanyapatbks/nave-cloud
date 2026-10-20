@@ -16,6 +16,7 @@ from sfx.synth import blip, chime, click, envelope, impact, pad, pop, riser, scr
 TIMELINE = "../../videos/digital-navy-nave/sound/timeline.json"
 OUT = "../../videos/digital-navy-nave/sound/nave-sfx.wav"
 TARGET_LUFS = -16.0  # a briefing room, not a feed: sit under the picture
+CEILING_DB = -3.5  # true-peak ceiling of the WAV: AAC adds ~2.4 dB of overshoot, so the MP4 stays near -1 dBFS
 
 # D major throughout. Chapter 1 (the problem) rests on B minor, the turn opens into D, the
 # roadmap moves to G/D, the close resolves on D6/9.

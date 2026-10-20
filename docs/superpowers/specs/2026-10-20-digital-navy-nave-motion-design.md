@@ -88,7 +88,25 @@ the requester's words and the notebook transcription are in
 
 ## Deliverables
 
-- `videos/digital-navy-nave/renders/digital-navy-nave.mp4` (silent master) and
-  `digital-navy-nave-sfx.mp4` (with sound); renders are not committed.
-- Source: `videos/digital-navy-nave/` (compositions, storyboard, frame.md, layers, sound
-  cue sheet); fonts are fetched by `scripts/fetch-fonts.sh`.
+- `videos/digital-navy-nave/renders/digital-navy-nave.mp4`: the silent master, 204.1 s, 1920×1080, 30 fps,
+  H.264 yuv420p (`--quality delivery`). `harness/qa-mp4.sh` passes it: spec, frame count, no black
+  frames, and no freeze over 4 s except the planned reading holds and the 5.3 s end card.
+- `videos/digital-navy-nave/renders/digital-navy-nave-sfx.mp4`: the same picture stream, bit for bit,
+  with the sound pass muxed in (AAC 192k). It measures −16.0 LUFS and −1.6 dBTP on the MP4; the cue
+  sheet masters the WAV to a −3.5 dBTP ceiling to leave room for AAC overshoot.
+- Renders are not committed; `scripts/hf render --quality delivery` rebuilds the master. Run
+  `node sound/timeline.mjs`, then from `vendor/whaleyxbt-claude-motion` run
+  `python3 -m sfx ../../videos/digital-navy-nave/sound/cues.py`, then the ffmpeg mux to rebuild the
+  sound version.
+- A private, browser-playable page with a seekable chapter list:
+  https://claude.ai/artifact/9xVHHMigJPKsTcpShE4pLN
+- Source: `videos/digital-navy-nave/` (compositions, storyboard with each round's revisions,
+  frame.md, layers, sound cue sheet). Fonts are fetched by `scripts/fetch-fonts.sh`.
+
+## Review record
+
+- Round 1 (draft 1): a critic panel of four lenses (comprehension, legibility, motion, fidelity). The
+  orchestrator verified each finding and wrote "Round-2 revisions" into all 16 frame blocks. One fixer
+  agent per frame applied them.
+- Round 2 (draft 2): the orchestrator reviewed it; two small fixes (frames 12 and 16) were recorded as
+  "Round-3 revisions". A fresh-eyes critic found no P0/P1 in any frame.
