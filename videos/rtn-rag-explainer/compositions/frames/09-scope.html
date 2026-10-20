@@ -21,17 +21,21 @@
 </style>
 <style>
   /* headline phrases */
-  #f09-h2 .f09-ph{display:inline-block}
+  #f09-h2 .f09-ph{display:inline-block;position:relative}
   #f09-h2 .f09-em{color:#1e2bfa}
+  /* round 2: 3px cobalt underline ties each Thai noun to its English chip (drawn on the chip's cue) */
+  #f09-h2 .f09-ul{position:absolute;left:0;right:0;bottom:12px;height:3px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%}
 
   /* shared card + chip atoms */
   .f09-card{position:absolute;box-sizing:border-box;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);border-radius:14px}
-  .f09-chip{display:inline-block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;letter-spacing:0.02em;padding:6px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+  /* mono chip token (round 2): 28px mono, cap ~20px, pill height 48px, padding 12px 16px */
+  .f09-chip{display:inline-block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;letter-spacing:0.02em;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
 
   /* identity badge card */
   #f09-id{left:96px;top:356px;width:600px;height:170px;padding:0 28px;display:flex;align-items:center;gap:28px}
-  #f09-avatar{flex:none;width:112px;height:112px;border-radius:50%;overflow:hidden;box-sizing:border-box;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2)}
-  #f09-avatar svg{display:block;width:109px;height:109px}
+  /* frame-08 avatar component (ring + grey figure) at 110px; ring stroke cobalt = active */
+  #f09-avatar{flex:none;width:110px;height:110px}
+  #f09-avatar svg{display:block;width:110px;height:110px}
   .f09-idbars{display:flex;flex-direction:column;gap:14px}
   .f09-idbar{display:block;height:14px;border-radius:6px;background:rgba(154,154,154,0.5);transform-origin:0 50%}
   .f09-idbar.f09-strong{height:18px;background:rgba(107,107,107,0.45)}
@@ -70,7 +74,7 @@
   .f09-ico{flex:none;width:56px;height:56px;border-radius:12px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center}
   .f09-ico svg{width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .f09-obj-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111}
-  .f09-obj .f09-chip{margin-top:4px;padding:6px 16px}
+  .f09-obj .f09-chip{margin-top:4px}
   .f09-badge{flex:none;width:100px;height:32px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:8px}
   .f09-badge span{display:block;flex:none;width:12px;height:12px;border-radius:50%;background:#1e2bfa}
 </style>
@@ -85,15 +89,19 @@
   <!-- headline, revealed per phrase -->
   <div id="f09-h2">
     <span class="f09-line"><span class="f09-ph">สิทธิ์จริง</span><span class="f09-ph">มาจาก</span></span>
-    <span class="f09-line"><span class="f09-ph f09-em">ตัวตน</span> <span class="f09-ph">+</span> <span class="f09-ph f09-em">ทะเบียนเอกสาร</span></span>
+    <span class="f09-line"><span class="f09-ph f09-em">ตัวตน<span id="f09-ul-id" class="f09-ul"></span></span> <span class="f09-ph">+</span> <span class="f09-ph f09-em">ทะเบียนเอกสาร<span id="f09-ul-acl" class="f09-ul"></span></span></span>
   </div>
 
   <!-- identity badge card -->
   <div id="f09-id" class="f09-card">
     <div id="f09-avatar">
-      <svg viewBox="0 0 109 109" aria-hidden="true">
-        <circle cx="54.5" cy="45" r="19" fill="#1e2bfa"/>
-        <path d="M17 116 C 19 86, 37 73, 54.5 73 C 72 73, 90 86, 92 116 Z" fill="#1e2bfa"/>
+      <svg viewBox="0 0 96 96" width="110" height="110" aria-hidden="true">
+        <defs><clipPath id="f09-avclip"><circle cx="48" cy="48" r="46.5"/></clipPath></defs>
+        <circle cx="48" cy="48" r="47.25" fill="rgba(30,43,250,0.06)" stroke="#1e2bfa" stroke-width="1.5"/>
+        <g clip-path="url(#f09-avclip)" fill="#9a9a9a">
+          <circle cx="48" cy="38" r="16"/>
+          <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
+        </g>
       </svg>
     </div>
     <div class="f09-idbars">
@@ -254,10 +262,14 @@
   tl.fromTo("#f09-avatar", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.25);
   tl.fromTo(".f09-idbar", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out", stagger: 0.07 }, 1.32);
   tl.fromTo("#f09-chip-id", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 1.40);
+  // 'Identity' -> underline under 'ตัวตน' (held to the end)
+  tl.fromTo("#f09-ul-id", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 1.40);
 
   tl.fromTo("#f09-ledger", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.95);
   tl.fromTo("#f09-ledger .f09-row", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 2.05);
   tl.fromTo("#f09-chip-acl", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 2.20);
+  // 'ACL' -> underline under 'ทะเบียนเอกสาร' (held to the end)
+  tl.fromTo("#f09-ul-acl", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 2.20);
   // the example document's row lights up cobalt
   tl.fromTo("#f09-row-hi", { backgroundColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", duration: 0.35, ease: "power2.out" }, 2.55);
   tl.fromTo(".f09-hi-bar", { backgroundColor: "rgba(154,154,154,0.5)" }, { backgroundColor: "rgba(30,43,250,1)", duration: 0.35, ease: "power2.out" }, 2.55);

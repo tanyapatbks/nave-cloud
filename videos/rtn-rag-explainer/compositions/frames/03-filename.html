@@ -45,6 +45,12 @@
     .f03-doc-line{fill:#9a9a9a;}
     #f03-doc-kind{fill:none;stroke:#6b6b6b;stroke-width:1.5;stroke-linejoin:round;}
 
+    /* slashed padlock between the label row and the bridge: the name carries no permission */
+    #f03-nolock{position:absolute;left:942px;top:672px;width:36px;height:36px;}
+    #f03-nolock svg{display:block;width:36px;height:36px;overflow:visible;}
+    #f03-nolock .f03-nl-ink{fill:none;stroke:#6b6b6b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    #f03-nolock .f03-nl-cut{fill:none;stroke:#fdfae7;stroke-width:5;stroke-linecap:round;}
+
     /* bridge line — split-highlight */
     #f03-bridge{position:absolute;left:0;top:744px;width:1920px;display:flex;justify-content:center;}
     #f03-hl{box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:20px 36px 20px 30px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:36px;line-height:1.45;white-space:nowrap;}
@@ -128,6 +134,16 @@
         <div class="f03-col" id="f03-c7">
           <div class="f03-slot"><div class="f03-ghost"></div><div class="f03-tok">.pdf</div></div>
         </div>
+      </div>
+
+      <div id="f03-nolock">
+        <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true">
+          <path class="f03-nl-ink" d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>
+          <rect class="f03-nl-ink" x="5" y="10.5" width="14" height="10" rx="2"/>
+          <path class="f03-nl-ink" d="M12 14.5v2.5"/>
+          <path class="f03-nl-cut" d="M3.5 3.5L20.5 20.5"/>
+          <path class="f03-nl-ink" d="M3.5 3.5L20.5 20.5"/>
+        </svg>
       </div>
 
       <div id="f03-bridge">
@@ -249,6 +265,14 @@
       var B = 7.6;
       tl.fromTo($("#f03-hl"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B);
       tl.fromTo($("#f03-b2"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B + 0.55);
+
+      // round-2: the name is not the permission — the token row and its labels step back to 55%,
+      // a grey slashed padlock sits between the labels and the bridge, the registry icon pulses once
+      tl.to($$("#f03-strip .f03-col"), { opacity: 0.55, duration: 0.3, ease: "power2.out", immediateRender: false }, B);
+      tl.to($$("#f03-strip .f03-sep"), { opacity: 0.55, duration: 0.3, ease: "power2.out", immediateRender: false }, B);
+      tl.fromTo($("#f03-nolock"), { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", transformOrigin: "50% 50%" }, B + 0.15);
+      tl.fromTo($("#f03-led"), { scale: 1 }, { scale: 1.15, duration: 0.2, ease: "power2.out", transformOrigin: "50% 50%" }, B + 0.6);
+      tl.to($("#f03-led"), { scale: 1, duration: 0.2, ease: "power2.inOut", immediateRender: false }, B + 0.8);
 
       tl.set({}, {}, 12);
 
