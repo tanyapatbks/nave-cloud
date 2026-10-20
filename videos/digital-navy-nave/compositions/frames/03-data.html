@@ -156,9 +156,10 @@
       /* ---------- unit columns (x 120-1800): centres, tile counts, pile slots ---------- */
       var CX = [288, 624, 960, 1296, 1632];
       var COUNT = [3, 4, 4, 3, 4];
-      var MESSY = 2; /* column 3: no question chip, the messiest pile */
-      /* pile slot centres relative to (cx, 600), bottom tile first */
+      var MESSY = 2; /* column 3: the messiest pile; it shares chip q4 with column 4 */
+      /* pile slot centres relative to (cx, 616), bottom tile first; S scales the whole pile (round 2: ~0.9) */
       var SLOTS = [[-30, 30], [28, 16], [-12, -14], [16, -30]];
+      var S = 0.9;
       var KINDS = ["pdf", "scan", "table", "chart"];
       var BAND = { pdf: "#111111", scan: "#6b6b6b", table: "rgba(30,43,250,0.4)", chart: "rgba(30,43,250,0.4)" };
       var GLYPH = {
@@ -193,7 +194,7 @@
         }
       };
       function tileSVG(i, kind) {
-        return '<svg viewBox="0 0 132 172" width="69" height="91" aria-hidden="true">' +
+        return '<svg viewBox="0 0 132 172" width="63" height="83" aria-hidden="true">' +
           '<rect x="0" y="0" width="132" height="7" fill="' + BAND[kind] + '"/>' +
           '<g transform="translate(12 16) scale(1.1)" fill="none" stroke="#6b6b6b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + GLYPH[kind] + "</g>" +
           INTERIOR[kind](i) + "</svg>";
@@ -212,10 +213,10 @@
           var sign = (j + c) % 2 ? 1 : -1;
           var rot = sign * (messy ? 5 + rnd(id, 3) : 1.5 + rnd(id, 3) * 4);
           rot = Math.max(-6, Math.min(6, rot));
-          var dx = SLOTS[j][0] * sx + (rnd(id, 1) - 0.5) * 14;
-          var dy = SLOTS[j][1] * sy + (rnd(id, 2) - 0.5) * 10;
+          var dx = (SLOTS[j][0] * sx + (rnd(id, 1) - 0.5) * 14) * S;
+          var dy = (SLOTS[j][1] * sy + (rnd(id, 2) - 0.5) * 10) * S;
           var tid = "f03-p" + (c + 1) + "-" + j;
-          html += '<div class="f03-tile f03-col' + (c + 1) + '" id="' + tid + '" style="left:' + (CX[c] - 36) + 'px">' + tileSVG(id, kind) + "</div>";
+          html += '<div class="f03-tile f03-col' + (c + 1) + '" id="' + tid + '" style="left:' + (CX[c] - 33) + 'px">' + tileSVG(id, kind) + "</div>";
           pile.push({ id: tid, x: +dx.toFixed(1), y: +dy.toFixed(1), r: +rot.toFixed(2), seed: id });
         }
         PILES.push(pile);
@@ -238,34 +239,40 @@
           { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out", transformOrigin: "50% 50%" }, T);
         pile.forEach(function (p, j) {
           tl.fromTo($("#" + p.id),
-            { opacity: 0, x: p.x, y: p.y - 34, rotation: p.r * 0.4 },
+            { opacity: 0, x: p.x, y: p.y - 31, rotation: p.r * 0.4 },
             { opacity: 1, x: p.x, y: p.y, rotation: p.r, duration: 0.45, ease: "power3.out", transformOrigin: "50% 50%" },
             T + 0.08 + j * 0.06);
         });
       });
 
-      /* ---------- Scene 3 (3.2-5.6): question chips pop on cue, tethered; their column's tiles jostle once ---------- */
+      /* ---------- Scene 3 (3.2-5.6): question chips pop on cue; each tether self-draws from its column up to the chip;
+         the tiles of every column a chip serves jostle once (chip q4 serves columns 3 and 4) ---------- */
       var Q = [
-        { n: 1, col: 0, at: 3.2 },
-        { n: 2, col: 1, at: 3.8 },
-        { n: 4, col: 3, at: 4.4 },
-        { n: 5, col: 4, at: 5.0 }
+        { n: 1, cols: [0], at: 3.2 },
+        { n: 2, cols: [1], at: 3.8 },
+        { n: 4, cols: [2, 3], at: 4.4 },
+        { n: 5, cols: [4], at: 5.0 }
       ];
       Q.forEach(function (q) {
-        tl.fromTo($("#f03-t" + q.n),
-          { scaleY: 0 },
-          { scaleY: 1, duration: 0.25, ease: "power2.out", transformOrigin: "50% 100%" }, q.at);
+        q.cols.forEach(function (col, k) {
+          var tp = $("#f03-t" + (col + 1));
+          var tlen = 0;
+          try { tlen = tp.getTotalLength(); } catch (e) { tlen = 0; }
+          if (!(tlen > 0)) tlen = 64;
+          tp.style.strokeDasharray = tlen + " " + (tlen + 12);
+          tl.fromTo(tp, { strokeDashoffset: tlen }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, q.at);
+          var J = q.at + 0.22 + k * 0.05;
+          PILES[col].forEach(function (p, j) {
+            var jx = (rnd(p.seed, 40) - 0.5) * 12 * S;
+            var jy = (-3 - rnd(p.seed, 41) * 4) * S;
+            var jr = (j % 2 ? 1 : -1) * (1.5 + rnd(p.seed, 42) * 1.5);
+            tl.to($("#" + p.id), { x: p.x + jx, y: p.y + jy, rotation: p.r + jr, duration: 0.12, ease: "power2.out", immediateRender: false }, J + j * 0.02);
+            tl.to($("#" + p.id), { x: p.x, y: p.y, rotation: p.r, duration: 0.4, ease: "power3.out", immediateRender: false }, J + 0.12 + j * 0.02);
+          });
+        });
         tl.fromTo($("#f03-q" + q.n),
           { opacity: 0, scale: 0, y: 12 },
           { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out", transformOrigin: "50% 100%" }, q.at);
-        var J = q.at + 0.22;
-        PILES[q.col].forEach(function (p, j) {
-          var jx = (rnd(p.seed, 40) - 0.5) * 12;
-          var jy = -3 - rnd(p.seed, 41) * 4;
-          var jr = (j % 2 ? 1 : -1) * (1.5 + rnd(p.seed, 42) * 1.5);
-          tl.to($("#" + p.id), { x: p.x + jx, y: p.y + jy, rotation: p.r + jr, duration: 0.12, ease: "power2.out", immediateRender: false }, J + j * 0.02);
-          tl.to($("#" + p.id), { x: p.x, y: p.y, rotation: p.r, duration: 0.4, ease: "power3.out", immediateRender: false }, J + 0.12 + j * 0.02);
-        });
       });
 
       /* ---------- Scene 4 (5.6-7.4): cobalt bracket self-draws under all columns; level label at 6.0 ---------- */
