@@ -3,6 +3,9 @@
 # no skill self-updates, no telemetry, no update checks, and the local
 # headless Chromium instead of a downloaded Chrome.
 set -euo pipefail
+# `snapshot` sends frames to Gemini for vision analysis whenever a Gemini key is set,
+# and HeyGen keys switch TTS/BGM to the hosted service: never let project frames leave.
+unset GEMINI_API_KEY GOOGLE_API_KEY GOOGLE_GENERATIVE_AI_API_KEY HEYGEN_API_KEY
 export HYPERFRAMES_SKIP_SKILLS=1
 export HYPERFRAMES_NO_TELEMETRY=1
 export DO_NOT_TRACK=1

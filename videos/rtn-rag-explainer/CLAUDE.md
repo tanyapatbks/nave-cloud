@@ -2,7 +2,7 @@
 
 > **Local rules for this repo (nave-cloud) — override anything below:**
 > - Skills are pinned, reviewed copies in the repo's `.claude/skills/` (see `.claude/skills/SOURCES.md`). Never run `hyperframes skills update`, `skills check`, `npx skills add`, `hyperframes usage`, `hyperframes feedback`, or `publish`.
-> - Run the CLI only via `../../scripts/hf <command>` (or the npm scripts below, which call it). It disables skill self-updates, telemetry and update checks, and uses the local headless Chromium.
+> - Run the CLI only via `../../scripts/hf <command>` (or the npm scripts below, which call it). It disables skill self-updates, telemetry and update checks, strips Gemini/Google/HeyGen API keys (so `snapshot` never sends frames to Gemini), and uses the local headless Chromium. Always pass `--describe false` to `snapshot`.
 > - Fonts are local font files (TTF, OFL) under `assets/fonts/` declared with `@font-face` in every composition; GSAP is the local copy under `assets/vendor/`. No CDN or Google Fonts at render time.
 
 
