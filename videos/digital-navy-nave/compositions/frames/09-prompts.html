@@ -105,7 +105,7 @@
     #f09-go{position:absolute;left:386.5px;top:154.5px;width:120px;height:56px;border-radius:100px;background:#1e2bfa;color:#fdfae7;transform-origin:50% 50%}
     #f09-go svg{position:absolute;left:45px;top:13px;width:30px;height:30px;display:block}
 
-    /* Part B: three unit tiles (88x88) at x 1560-1648, y 452 / 556 / 660 */
+    /* Part B: three unit tiles (88x88) at x 1560-1648, y 452 / 556 / 660: the unit glyph (three bars) + a received memo */
     .f09-unit{position:absolute;left:1560px;width:88px;height:88px;border-radius:12px;transform-origin:50% 50%}
     #f09-u1{top:452px}
     #f09-u2{top:556px}
@@ -142,23 +142,11 @@
       <div id="f09-send"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 44V21 M22.5 30.5L32 21l9.5 9.5" fill="none" stroke="#fdfae7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </div>
 
-    <!-- ===== Part A: ask -> answer with citation, inside the person's rights ===== -->
+    <!-- ===== Part A: ask, then an answer with its citation, inside the person's rights ===== -->
     <div id="f09-A" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
-      <!-- status pills -->
-      <div class="f09-st f09-tint" id="f09-st1">
-        <span class="f09-ico">
-          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
-          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </span>
-        <span class="f09-stt">ตรวจสิทธิ์</span>
-      </div>
-      <div class="f09-st f09-tint" id="f09-st2">
-        <span class="f09-ico">
-          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
-          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </span>
-        <span class="f09-stt">ค้นในขอบเขตสิทธิ์</span>
-      </div>
+      <!-- status pills (the spinner + check icon is filled in by the script) -->
+      <div class="f09-st f09-tint" id="f09-st1"><span class="f09-ico"></span><span class="f09-stt">ตรวจสิทธิ์</span></div>
+      <div class="f09-st f09-tint" id="f09-st2"><span class="f09-ico"></span><span class="f09-stt">ค้นในขอบเขตสิทธิ์</span></div>
 
       <!-- the rights scope: dashed outline drawn through a two-path mask -->
       <svg class="f09-svg" id="f09-scope-svg" viewBox="0 0 1920 1080" aria-hidden="true" data-layout-ignore>
@@ -175,38 +163,22 @@
       <!-- answer card -->
       <div id="f09-ans" class="f09-tint">
         <span class="f09-rule"></span>
-        <div id="f09-ans-hd">
-          <svg id="f09-ans-spark" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>
-          <span id="f09-ans-t">คำตอบ</span>
-        </div>
+        <div id="f09-ans-hd"><svg id="f09-ans-spark" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg><span id="f09-ans-t">คำตอบ</span></div>
         <span class="f09-bar" style="top:102.5px;width:900px"></span>
         <span class="f09-bar" style="top:128.5px;width:846px"></span>
         <span class="f09-bar" style="top:154.5px;width:884px"></span>
         <span class="f09-bar" style="top:180.5px;width:560px"></span>
         <div id="f09-cite-row">
-          <div class="f09-doc" id="f09-doc">
-            <span class="f09-band"></span>
-            <svg class="f09-kind" viewBox="0 0 13 15" aria-hidden="true"><path d="M1 1 H8 L12 5 V14 H1 Z"/><path d="M8 1 V5 H12"/></svg>
-            <span class="f09-dh"></span>
-            <span class="f09-dl" style="top:36px;width:47px"></span>
-            <span class="f09-dl" style="top:46px;width:40px"></span>
-            <span class="f09-dl" style="top:56px;width:47px"></span>
-            <span class="f09-dl" style="top:66px;width:28px"></span>
-          </div>
+          <div class="f09-doc" id="f09-doc"><span class="f09-band"></span><svg class="f09-kind" viewBox="0 0 13 15" aria-hidden="true"><path d="M1 1 H8 L12 5 V14 H1 Z"/><path d="M8 1 V5 H12"/></svg><span class="f09-dh"></span>
+            <span class="f09-dl" style="top:36px;width:47px"></span><span class="f09-dl" style="top:46px;width:40px"></span><span class="f09-dl" style="top:56px;width:47px"></span><span class="f09-dl" style="top:66px;width:28px"></span></div>
           <span id="f09-cite">อ้างอิง: นโยบาย69 · v02</span>
         </div>
       </div>
 
-      <!-- identity badge inside the scope -->
+      <!-- identity badge inside the scope (signed-in ring, no name text) -->
       <div id="f09-idb">
-        <svg viewBox="0 0 96 96" width="68" height="68" aria-hidden="true">
-          <defs><clipPath id="f09-avclip-me"><circle cx="48" cy="48" r="45.5"/></clipPath></defs>
-          <circle cx="48" cy="48" r="46.75" fill="rgba(30,43,250,0.06)" stroke="#1e2bfa" stroke-width="2.5"/>
-          <g clip-path="url(#f09-avclip-me)" fill="#9a9a9a">
-            <circle cx="48" cy="38" r="16"/>
-            <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
-          </g>
-        </svg>
+        <svg viewBox="0 0 96 96" width="68" height="68" aria-hidden="true"><defs><clipPath id="f09-avclip-me"><circle cx="48" cy="48" r="45.5"/></clipPath></defs><circle cx="48" cy="48" r="46.75" fill="rgba(30,43,250,0.06)" stroke="#1e2bfa" stroke-width="2.5"/>
+          <g clip-path="url(#f09-avclip-me)" fill="#9a9a9a"><circle cx="48" cy="38" r="16"/><path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/></g></svg>
         <span class="f09-ib" style="top:5px;width:150px;height:14px;background:rgba(107,107,107,0.45)"></span>
         <span class="f09-ib" style="top:29px;width:112px;height:12px"></span>
         <span class="f09-ib" style="top:51px;width:132px;height:12px"></span>
@@ -215,45 +187,25 @@
       <span id="f09-scope-pill">ตามสิทธิ์ของ น.อ.aaaaa</span>
     </div>
 
-    <!-- ===== Part B: command -> checklist -> human approval -> sent to the units ===== -->
+    <!-- ===== Part B: a command, a checklist, a human approval, then sent to the units ===== -->
     <div id="f09-chk" class="f09-tint">
       <span class="f09-div"></span>
       <div class="f09-row" id="f09-r1">
         <span class="f09-rico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span>
-        <span class="f09-rtxt">ร่างหนังสือ</span>
-        <span class="f09-ico">
-          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
-          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </span>
+        <span class="f09-rtxt">ร่างหนังสือ</span><span class="f09-ico"></span>
       </div>
       <div class="f09-row" id="f09-r2">
         <span class="f09-rico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h2M14 14h2M8 17.5h2"/></svg></span>
-        <span class="f09-rtxt">ตรวจตารางนัดหมาย</span>
-        <span class="f09-ico">
-          <span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/><circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>
-          <span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </span>
+        <span class="f09-rtxt">ตรวจตารางนัดหมาย</span><span class="f09-ico"></span>
       </div>
     </div>
 
     <div id="f09-apv" class="f09-tint">
-      <svg id="f09-apv-av" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
-        <defs><clipPath id="f09-avclip-ap"><circle cx="48" cy="48" r="46.5"/></clipPath></defs>
-        <circle cx="48" cy="48" r="47.25" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/>
-        <g clip-path="url(#f09-avclip-ap)" fill="#9a9a9a">
-          <circle cx="48" cy="38" r="16"/>
-          <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
-        </g>
-      </svg>
+      <svg id="f09-apv-av" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true"><defs><clipPath id="f09-avclip-ap"><circle cx="48" cy="48" r="46.5"/></clipPath></defs><circle cx="48" cy="48" r="47.25" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/>
+        <g clip-path="url(#f09-avclip-ap)" fill="#9a9a9a"><circle cx="48" cy="38" r="16"/><path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/></g></svg>
       <span class="f09-sp" id="f09-wait"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></svg><span class="f09-spt">รออนุมัติ</span></span>
       <span class="f09-sp" id="f09-ok" data-layout-allow-overlap><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="f09-spt">อนุมัติแล้ว</span></span>
-      <div id="f09-memo">
-        <span class="f09-band"></span>
-        <span class="f09-dl" style="top:12px;width:19px"></span>
-        <span class="f09-dl" style="top:19px;width:15px"></span>
-        <span class="f09-dl" style="top:26px;width:19px"></span>
-        <span class="f09-dl" style="top:33px;width:11px"></span>
-      </div>
+      <div id="f09-memo"><span class="f09-band"></span><span class="f09-dl" style="top:12px;width:19px"></span><span class="f09-dl" style="top:19px;width:15px"></span><span class="f09-dl" style="top:26px;width:19px"></span><span class="f09-dl" style="top:33px;width:11px"></span></div>
       <span class="f09-mb" style="top:164.5px;width:176px;height:12px;background:rgba(107,107,107,0.45)"></span>
       <span class="f09-mb" style="top:186.5px;width:124px;height:10px"></span>
       <div id="f09-go"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -286,6 +238,12 @@
       var $ = function (s) { return host.querySelector(s); };
       var $$ = function (s, root) { return Array.prototype.slice.call((root || host).querySelectorAll(s)); };
       var tl = gsap.timeline({ paused: true });
+
+      /* status icon markup (spinner arc over a faint track, then the shared check on a success disc), same for all four slots */
+      var ICON = '<span class="f09-spin"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="3"/>' +
+        '<circle cx="16" cy="16" r="12" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 100" transform="rotate(-90 16 16)"/></svg></span>' +
+        '<span class="f09-done"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="f09-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+      $$(".f09-ico").forEach(function (el) { el.innerHTML = ICON; });
 
       /* caret / state steps: finite opacity steps (never repeat); the first tween per element renders its from-state */
       var STEP = 0.04;
@@ -323,7 +281,7 @@
         tl.fromTo(send, { scale: 0.92, backgroundColor: "#1620c4" }, { scale: 1, backgroundColor: "#1e2bfa", duration: 0.42, ease: "power2.out", immediateRender: false }, at + 0.12);
       }
 
-      /* status icon: a spinner arc turns, then resolves into the shared check on a success disc */
+      /* status icon: the spinner arc turns, then resolves into the shared check on a success disc */
       function resolve(box, at, doneAt) {
         var spin = box.querySelector(".f09-spin"), done = box.querySelector(".f09-done"), ck = box.querySelector(".f09-ck");
         tl.fromTo(spin, { rotation: 0 }, { rotation: 600 * (doneAt + 0.12 - at), duration: doneAt + 0.12 - at, ease: "none" }, at);
