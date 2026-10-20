@@ -23,7 +23,7 @@
     #f05-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
     #f05-h2 .f05-ph{display:inline-block;}
 
-    /* the world: everything on the station strip (the subtle camera lock lives here).
+    /* the world: everything on the station strip (fixed in x: the strip fills x 96..1823 exactly, so it has no lean).
        World y + 110 = frame y: labels y≈381-474, cards y 488-708 (centred under the headline) */
     #f05-world{position:absolute;left:0;top:110px;width:1920px;height:1080px;transform-origin:50% 50%;}
 
@@ -42,12 +42,12 @@
     .f05-ok svg{display:block;width:22px;height:22px;}
 
     /* station labels: Thai 600 28px over the mono chip token (IBM Plex Mono 500 28px, pill 48px, padding 12px 16px) */
-    .f05-lab{position:absolute;top:271px;width:287.6px;text-align:center;}
+    .f05-lab{position:absolute;top:271px;width:293px;text-align:center;}
     .f05-lab-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;color:#111111;}
     .f05-lab-en{display:block;width:max-content;height:48px;box-sizing:border-box;margin:4px auto 0;padding:12px 16px;border-radius:100px;background:rgba(30,43,250,0.08);white-space:nowrap;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;color:#1e2bfa;}
 
     /* Clean station micro readout (discrete-text-sequence); bottom 18px above the card edge */
-    #f05-micro{position:absolute;left:704.2px;top:532px;width:220px;height:48px;box-sizing:border-box;padding:0 16px;border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;white-space:nowrap;}
+    #f05-micro{position:absolute;left:703px;top:532px;width:220px;height:48px;box-sizing:border-box;padding:0 16px;border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;white-space:nowrap;}
     #f05-micro-txt{display:inline-block;white-space:nowrap;color:#111111;}
     #f05-micro-txt .f05-m-old{color:#111111;}
     #f05-micro-txt .f05-m-old.is-done{color:var(--f05-ink-2);}
@@ -83,11 +83,11 @@
     .f05-mark{position:absolute;width:5px;height:5px;border-radius:1.5px;background:#9a9a9a;transform-origin:50% 50%;}
     .f05-chunk{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid #1e2bfa;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;transform-origin:50% 50%;}
     .f05-cl{position:absolute;left:5px;height:4px;border-radius:2px;background:rgba(17,17,17,0.2);}
-    /* Embed: the back of a chunk card = a short column of illustrative vector digits (texture, not data) */
-    .f05-vec{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid rgba(30,43,250,0.35);background:#fdfae7;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:8.5px;line-height:12px;color:var(--f05-ink-floor);transform-origin:50% 50%;}
-    .f05-vec span{display:block;white-space:nowrap;}
-    /* Embed output = meaning as position: 21 points of 12px in three tinted clusters (~172x128) on a faint 196x140 L of axes (unscaled px) */
-    .f05-ax{position:absolute;background:rgba(17,17,17,0.25);}
+    /* Embed output = meaning as position (no axes): 17 points of 12px in three tinted clusters (~172x128, unscaled px)
+       plus the example's four chunks, flown in from the Chunk station as 10px cobalt dots (two to the cobalt, two to the grey) */
+    .f05-fly{position:absolute;width:0;height:0;}
+    .f05-copy{position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0;}
+    .f05-dot{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:#1e2bfa;transform-origin:50% 50%;}
     .f05-pt{position:absolute;width:12px;height:12px;border-radius:50%;background:#1e2bfa;transform-origin:50% 50%;}
     .f05-pt.is-a{background:#9a9a9a;}
     .f05-pt.is-b{background:#8b8fe8;}
@@ -100,24 +100,24 @@
       <div id="f05-segs"></div>
       <div id="f05-focus"></div>
 
-      <div class="f05-card" id="f05-card-0" style="left:108px"></div>
-      <div class="f05-card" id="f05-card-1" style="left:395.6px"></div>
-      <div class="f05-card" id="f05-card-2" style="left:683.2px"></div>
-      <div class="f05-card" id="f05-card-3" style="left:970.8px"></div>
-      <div class="f05-card" id="f05-card-4" style="left:1258.4px"></div>
-      <div class="f05-card" id="f05-card-5" style="left:1546px"></div>
+      <div class="f05-card" id="f05-card-0" style="left:96px"></div>
+      <div class="f05-card" id="f05-card-1" style="left:389px"></div>
+      <div class="f05-card" id="f05-card-2" style="left:682px"></div>
+      <div class="f05-card" id="f05-card-3" style="left:975px"></div>
+      <div class="f05-card" id="f05-card-4" style="left:1268px"></div>
+      <div class="f05-card" id="f05-card-5" style="left:1561px"></div>
 
       <div id="f05-ghosts"></div>
       <div id="f05-index"></div>
 
       <div id="f05-micro"><span id="f05-micro-txt"></span></div>
 
-      <div class="f05-lab" id="f05-lab-0" style="left:95.2px"><span class="f05-lab-th">รับเข้า</span><span class="f05-lab-en">Ingest</span></div>
-      <div class="f05-lab" id="f05-lab-1" style="left:382.8px"><span class="f05-lab-th">แยกส่วน</span><span class="f05-lab-en">Parse</span></div>
-      <div class="f05-lab" id="f05-lab-2" style="left:670.4px"><span class="f05-lab-th">ทำความสะอาด</span><span class="f05-lab-en">Clean</span></div>
-      <div class="f05-lab" id="f05-lab-3" style="left:958px"><span class="f05-lab-th">ตัดเป็นชิ้น</span><span class="f05-lab-en">Chunk</span></div>
-      <div class="f05-lab" id="f05-lab-4" style="left:1245.6px"><span class="f05-lab-th">แปลงเป็นความหมาย</span><span class="f05-lab-en">Embed</span></div>
-      <div class="f05-lab" id="f05-lab-5" style="left:1533.2px"><span class="f05-lab-th">ทำดัชนี</span><span class="f05-lab-en">Index</span></div>
+      <div class="f05-lab" id="f05-lab-0" style="left:80.5px"><span class="f05-lab-th">รับเข้า</span><span class="f05-lab-en">Ingest</span></div>
+      <div class="f05-lab" id="f05-lab-1" style="left:373.5px"><span class="f05-lab-th">แยกส่วน</span><span class="f05-lab-en">Parse</span></div>
+      <div class="f05-lab" id="f05-lab-2" style="left:666.5px"><span class="f05-lab-th">ทำความสะอาด</span><span class="f05-lab-en">Clean</span></div>
+      <div class="f05-lab" id="f05-lab-3" style="left:959.5px"><span class="f05-lab-th">ตัดเป็นชิ้น</span><span class="f05-lab-en">Chunk</span></div>
+      <div class="f05-lab" id="f05-lab-4" style="left:1252.5px"><span class="f05-lab-th">แปลงเป็นความหมาย</span><span class="f05-lab-en">Embed</span></div>
+      <div class="f05-lab" id="f05-lab-5" style="left:1545.5px"><span class="f05-lab-th">ทำดัชนี</span><span class="f05-lab-en">Index</span></div>
 
       <div id="f05-token"></div>
       <!-- station badges sit above the token, so a passing token never covers a check -->
@@ -136,21 +136,24 @@
       var token = $("f05-token");
       var focus = $("f05-focus");
       var ghostsHost = $("f05-ghosts");
+      var flyersHost = $("f05-flyers");
       var segsHost = $("f05-segs");
       var indexHost = $("f05-index");
       var oksHost = $("f05-oks");
       var microTxt = $("f05-micro-txt");
 
       // ---- layout constants (world px; world y + 110 = frame y) ----
-      // strip x 108..1808 so that, with the camera lean (max 15px), it always stays inside x 96..1824
+      // strip x 96..1823 (the term chip's right edge): six 262px cards, five 31px gaps; the world never leans,
+      // so the strip always stays inside x 96..1824
       var CY = 488; // card middle (frame y 598); cards 220px tall: world 378..598
       var S = 1.8; // form scale inside token + imprints (.f05-form): 1.5x the draft-2 glyphs
       var W = 262, CARD_H = 220, CARD_T = CY - CARD_H / 2;
       var OK_D = 34; // check badge diameter
-      var CARD_L = [108, 395.6, 683.2, 970.8, 1258.4, 1546]; // gutters 25.6px
+      var CARD_L = [96, 389, 682, 975, 1268, 1561]; // gaps 31px; Index card right edge = 1823
       var CX = CARD_L.map(function (l) { return l + W / 2; });
       var CUE = [1.0, 1.8, 2.6, 3.6, 4.4, 5.6];
-      // camera: arrive at / leave each station (Embed keeps the token until 5.3: flip + 0.8s cluster drift, settled by 5.2)
+      // camera: arrive at / leave each station. The chunk cards stay at Chunk when the camera moves on (3.92); at Embed
+      // (4.4-5.2) copies of them shrink into dots and fly into the Embed box; the token picks the dots up there for 5.3
       var ARR = [1.02, 1.82, 2.62, 3.62, 4.42, 5.6];
       var DEP = [0.3, 1.32, 2.12, 3.12, 3.92, 5.3];
       var START_X = -150; // token waits fully off-frame (left) before sliding into Ingest
@@ -161,26 +164,25 @@
       var PARSED = [[-36, -40, 44, 9], [-36, -16, 72, 5], [-36, -4, 64, 5], [-36, 8, 72, 5]];
       var JIT = [0, 9, -7, 5];
       var CHX = [-48, -16, 16, 48]; // four chunk cards, 26 wide: at 1.8x they span ±110px inside the 262px card
-      // illustrative vector values shown on the back of each chunk card (fixed, texture only)
-      var VEC = [["0.1", "-0.5", "0.9"], ["-0.3", "0.1", "0.6"], ["0.8", "-0.2", "0.4"], ["-0.7", "0.6", "-0.1"]];
 
-      // Embed scatter (unscaled px, origin = card centre): faint L of axes 196x140 centred in the card;
-      // three tinted clusters of 7 points (12px, centres >= 17px apart) spanning ~172x128:
-      // A = grey (lower left), B = accent-mid (top), C = cobalt (right, the example's neighbourhood).
-      // TOK = the example's 4 chunk points inside cluster C (sorted top to bottom = index row order);
-      // C_REST = the other 3 cobalt points. Top-right stays clear of the check badge.
-      var AX_W = 196, AX_H = 140, PT = 12;
-      var PT_A = [[-46, 18], [-64, 12], [-81, 21], [-55, 34], [-73, 38], [-38, 44], [-66, 54]];
+      // Embed scatter (unscaled px, origin = card centre), no axes: three tinted clusters of 7 points
+      // (centres >= 17px apart) spanning ~172x128: A = grey (lower left), B = accent-mid (top), C = cobalt (right).
+      // TOK = where the example's 4 chunks land as 10px dots: chunks 0,1 (left cards) -> grey cluster A,
+      // chunks 2,3 -> cobalt cluster C (left-to-right order kept, so the flight paths never cross).
+      // PT_A / PT_B / C_REST = the 17 other 12px points. Top-right stays clear of the check badge.
+      var PT = 12, DOT = 10;
+      var PT_A = [[-46, 18], [-64, 12], [-81, 21], [-38, 44], [-66, 54]];
       var PT_B = [[6, -54], [12, -36], [3, -19], [-10, -45], [-14, -27], [-20, -62], [-30, -34]];
-      var C_REST = [[44, 2], [79, 5], [36, 28]];
-      var TOK = [[62, -4], [53, 18], [71, 22], [64, 38]];
+      var C_REST = [[44, 2], [79, 5], [36, 28], [62, -4], [64, 38]];
+      var TOK = [[-73, 38], [-55, 34], [53, 18], [71, 22]];
+      var FLY_T = [4.55, 4.5, 4.45, 4.4]; // flight start per chunk: the card nearest Embed (3) leaves first; all land by 5.2
+      var PARK = [[-2, -4], [-11, 18], [7, 22], [0, 38]]; // where the dots ride to in the Index card (5.3-5.6), clear of the row badges
 
       // index rows inside the Index card (card-relative px): 12px marker at x 24..36, bar from x 48 to END
       var ROW_CY = [54, 92, 130, 168];
       var ROW_END = [200, 232, 214, 226]; // right end of each row (bar + badge); row 0 stops short of the check badge
       var MK_X = 24, MK = 12, ROW_X = 48;
       var BDG_W = 36, BDG_GAP = 8; // each row ends in the 36px label badge; its bar is 44px shorter
-      var DOT_PARK = -64; // the example's points ride to the card centre (5.3-5.6), clear of the row badges
 
       // fixed seeded noise (deterministic function of index)
       function rnd(i) { var s = Math.sin(i * 91.7 + 3.1) * 43758.5453; return s - Math.floor(s); }
@@ -191,7 +193,7 @@
         var r = PARSED[k];
         return [r[0] + JIT[k] - MARK_GAP - MARK_SZ, r[1] + r[3] / 2 - MARK_SZ / 2];
       });
-      // Embed drift: each non-token point starts at a seeded spot inside the axes and drifts into its cluster
+      // Embed drift: each non-token point starts at a seeded spot inside the box and drifts into its cluster
       var CLOUD = PT_A.map(function (p) { return { p: p, cls: "is-a" }; })
         .concat(PT_B.map(function (p) { return { p: p, cls: "is-b" }; }))
         .concat(C_REST.map(function (p) { return { p: p, cls: "" }; }));
@@ -217,8 +219,8 @@
       var BADGE_HTML = '<div class="f05-badge"><span></span><span></span><span></span><span></span></div>';
       function addBadge(parent, css) { return mk(parent, "f05-bdg", css, BADGE_HTML); }
 
-      function addChunkCard(parent, k) {
-        var c = mk(parent, "f05-chunk", { left: (CHX[k] - 13) + "px" });
+      function addChunkCard(parent, k, cx) { // cx = card centre x in form units (default: its slot in the station)
+        var c = mk(parent, "f05-chunk", { left: ((cx === undefined ? CHX[k] : cx) - 13) + "px" });
         mk(c, "f05-cl", { top: "18px", width: "15px" });
         mk(c, "f05-cl", { top: "26px", width: "10px" });
         // the label badge at the tile's bottom, centred in the free band under the text lines (form units)
@@ -264,17 +266,24 @@
       (function (G) { // Clean: aligned, no noise (accent-mid strokes)
         PARSED.forEach(function (b) { mk(G, "f05-stroke", box(stroke(b, CLEAN_UP))); });
       })(gforms[2]);
-      (function (G) { // Chunk: four small cards
-        for (var k = 0; k < 4; k++) addChunkCard(G, k);
-        for (var j = 0; j < 4; j++) mk(G, "f05-bar" + (j === 0 ? " is-head" : ""), box(chunkBar(j)));
-      })(gforms[3]);
-      // Embed: faint axes + three-cluster scatter (unscaled, on the ghost anchor itself, not its scaled form)
+      // Chunk: no imprint needed: the token's own four cards stay in the station when the camera moves on (render)
+      // Embed: three-cluster scatter, no axes (unscaled, on the ghost anchor itself, not its scaled form)
       var G4 = ghosts[4];
-      var axV = mk(G4, "f05-ax", { left: (-AX_W / 2) + "px", top: (-AX_H / 2) + "px", width: "1px", height: (AX_H + 1) + "px", transformOrigin: "50% 100%" });
-      var axH = mk(G4, "f05-ax", { left: (-AX_W / 2) + "px", top: (AX_H / 2) + "px", width: AX_W + "px", height: "1px", transformOrigin: "0 50%" });
       var cloud = CLOUD.map(function (c) { return pt(G4, c.p, c.cls); });
-      // imprints of the example's 4 points: they stay in cluster C when the token carries its points on
-      var impB = TOK.map(function (p) { return pt(G4, p); });
+      // the flyers: a 0x0 anchor at each landing spot in the Embed box (world px); inside, a copy of chunk card k
+      // (same 1.8x form as the Chunk originals, which stay put) that shrinks while a 10px cobalt dot grows in its place.
+      // After landing they stay as the Embed imprint when the token carries its own four dots on to Index.
+      var flyers = TOK.map(function (p, k) {
+        var f = mk(flyersHost, "f05-fly", { left: (CX[4] + p[0]) + "px", top: (CY + p[1]) + "px" });
+        f.copy = mk(f, "f05-copy");
+        var form = mk(f.copy, "f05-form");
+        addChunkCard(form, k, 0);
+        mk(form, "f05-bar" + (k === 0 ? " is-head" : ""), box([-9, -14, 18, k === 0 ? 6 : 4]));
+        f.dot = mk(f, "f05-dot");
+        f.dx = (CX[3] + CHX[k] * S) - (CX[4] + p[0]); // start = the centre of chunk card k in the Chunk station
+        f.dy = -p[1];
+        return f;
+      });
 
       // ---- the travelling token ----
       var tf = mk(token, "f05-form");
@@ -284,11 +293,8 @@
       var bars = BARS.map(function (b) { return mk(tf, "f05-bar", box(b)); });
       var headHL = mk(bars[0], "f05-bar-hl");
       var marks = MARK.map(function (p) { return mk(tf, "f05-mark", { left: p[0] + "px", top: p[1] + "px" }); });
-      var vecs = CHX.map(function (x, k) {
-        return mk(tf, "f05-vec", { left: (x - 13) + "px" }, VEC[k].map(function (v) { return "<span>" + v + "</span>"; }).join(""));
-      });
-      // the example's four chunk points (cobalt, unscaled px) settle at the TOK positions inside cluster C
-      var dots = TOK.map(function (p) { return pt(token, p); });
+      // the example's four chunk dots (cobalt, 10px, unscaled px): picked up at the TOK landing spots in the Embed box
+      var dots = TOK.map(function (p) { return mk(token, "f05-dot", { left: (p[0] - DOT / 2) + "px", top: (p[1] - DOT / 2) + "px" }); });
 
       // bar transform that maps base box -> target box (transform-origin: left centre)
       function toBox(k, r) {
@@ -322,8 +328,10 @@
         var tx = camX(t);
         token.style.transform = "translate(" + tx + "px, 0px)";
         focus.style.transform = "translate(" + tx + "px, 0px)";
-        var wx = (960 - tx) * 0.015; // camera leans with the token (focus-lock, damped)
-        world.style.transform = "translate(" + wx + "px, 0px)";
+        // from the Chunk departure on, the token's form (its four chunk cards) stays in the Chunk station: these are
+        // the originals; only copies of them fly on to Embed (the token itself travels on with the dots only)
+        var off = t > DEP[4] ? CX[3] - tx : 0;
+        tf.style.transform = "translate(" + off + "px, 0px) scale(" + S + ")";
         var i = MICRO.length - 1;
         while (i > 0 && t < MICRO[i].t) i--;
         if (i !== microIdx) { microTxt.innerHTML = MICRO[i].html; microIdx = i; }
@@ -350,10 +358,8 @@
       function depart(k) { // token leaves station k toward k+1: line fills, station keeps an imprint
         var dep = DEP[k + 1];
         tl.fromTo(segFills[k], { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "none" }, dep + 0.12);
-        if (k === 4) { // Embed: the example's four points stay behind in the scatter as the token leaves
-          tl.fromTo(impB, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out", stagger: 0.03 }, dep + 0.14);
-          return;
-        }
+        if (k === 4) return; // Embed: the landed flyers stay behind in the scatter as the token leaves
+        if (k === 3) return; // Chunk: the token's own four cards stay in the station (see render), full strength
         tl.fromTo(ghosts[k], { opacity: 0 }, { opacity: (k === 1 || k === 2) ? 1 : 0.38, duration: 0.35, ease: "power2.out" }, dep + 0.28);
       }
       for (var k = 0; k < 6; k++) lightStation(k);
@@ -389,28 +395,31 @@
       // each chunk keeps the document's label: the 4-dot badge presses onto every tile (the Chunk imprint keeps it too)
       tl.fromTo(chunks.map(function (c) { return c.bdg; }), { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.26, ease: "power2.out", stagger: 0.04 }, 3.76);
 
-      // Embed (4.4–5.3): the faint axes draw in and 17 points drift from a loose spread into three tinted
-      // clusters over 0.8s (4.4–5.2); meanwhile each chunk card flips to a column of vector digits that
-      // condenses into one point, and the four points drift into the cobalt cluster (meaning as position)
-      tl.fromTo(axV, { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.3, ease: "power3.out" }, 4.42);
-      tl.fromTo(axH, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power3.out" }, 4.46);
+      // Embed (4.4–5.2): 17 points drift from a loose spread into three tinted clusters (no axes); meanwhile a copy
+      // of each chunk card lifts off its original, shrinks into a 10px dot and flies along the line into the Embed
+      // box: chunks 0,1 land in the grey cluster, 2,3 in the cobalt one (meaning as position). All landed by 5.2.
       cloud.forEach(function (el, j) {
         var c = CLOUD[j], t0 = 4.4 + c.d;
         tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, t0);
         tl.fromTo(el, { x: c.sx - c.p[0], y: c.sy - c.p[1] }, { x: 0, y: 0, duration: 0.72, ease: "power2.inOut" }, t0);
       });
-      tl.to(bars, { opacity: 0, duration: 0.08, ease: "power2.in" }, 4.42);
-      tl.to(chunks, { scaleX: 0, duration: 0.1, ease: "power2.in", stagger: 0.02 }, 4.42);
-      tl.fromTo(vecs, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.1, ease: "power2.out", stagger: 0.02 }, 4.5);
-      tl.to(vecs, { opacity: 0, scaleX: 0.5, scaleY: 0.1, duration: 0.14, ease: "power3.in", stagger: 0.02 }, 4.62);
-      tl.fromTo(dots, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out", stagger: 0.02 }, 4.62);
-      tl.fromTo(dots,
-        { x: function (i) { return CHX[i] * S - TOK[i][0]; }, y: function (i) { return -TOK[i][1]; } },
-        { x: 0, y: 0, duration: 0.52, ease: "power2.inOut", stagger: 0.02 }, 4.62);
+      flyers.forEach(function (f, k) {
+        var t0 = FLY_T[k];
+        tl.fromTo(f, { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none" }, t0 - 0.01); // appears on its identical original
+        tl.fromTo(f.copy, { scale: 1 }, { scale: 0.12, duration: 0.26, ease: "power2.in" }, t0);
+        tl.to(f.copy, { opacity: 0, duration: 0.1, ease: "power2.in" }, t0 + 0.16);
+        tl.fromTo(f.dot, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.16, ease: "power2.out" }, t0 + 0.12);
+        tl.fromTo(f, { x: f.dx }, { x: 0, duration: 0.6, ease: "power2.inOut" }, t0 + 0.05);
+        tl.fromTo(f, { y: f.dy }, { y: 0, duration: 0.6, ease: "power3.in" }, t0 + 0.05); // stays on the line, drops in late
+      });
 
-      // Index (5.6): the four points ride into the Index card with the token (camera move 5.3–5.6), parking at the
-      // card centre; the label badge lands at the right end of each index row (5.62–6.10)
-      tl.to(dots, { x: DOT_PARK, duration: 0.3, ease: "power3.inOut", immediateRender: false }, 5.3);
+      // Index (5.6): the token picks up the four landed dots (5.22; the flyers stay as the Embed imprint) and they
+      // ride into the Index card with it (camera move 5.3–5.6), parking near the card centre; the label badge
+      // lands at the right end of each index row (5.62–6.10)
+      tl.fromTo(dots, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: "none" }, 5.22);
+      dots.forEach(function (el, i) {
+        tl.to(el, { x: PARK[i][0] - TOK[i][0], y: PARK[i][1] - TOK[i][1], duration: 0.3, ease: "power3.inOut" }, 5.3);
+      });
       tl.fromTo(rows.map(function (r) { return r.bdg; }), { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 5.62);
 
       // ---- Scene 3 (6.0–9.0): the index inside the Index card; one point settles into each row; hold from 7.0 ----
@@ -419,7 +428,7 @@
       dots.forEach(function (el, i) {
         var r = rows[i];
         var t0 = 6.08 + i * 0.1, land = t0 + 0.36;
-        tl.to(el, { x: (r.x - CX[5]) - TOK[i][0], y: (r.y - CY) - TOK[i][1], scale: MK / PT, duration: 0.36, ease: "power3.inOut" }, t0);
+        tl.to(el, { x: (r.x - CX[5]) - TOK[i][0], y: (r.y - CY) - TOK[i][1], scale: MK / DOT, duration: 0.36, ease: "power3.inOut" }, t0);
         tl.to(el, { opacity: 0, duration: 0.08, ease: "power2.out" }, land);
         tl.fromTo(r.on, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, land);
         tl.fromTo(r.fill, { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "power3.out" }, land);

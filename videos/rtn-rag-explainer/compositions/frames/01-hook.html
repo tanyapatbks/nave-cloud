@@ -41,9 +41,9 @@
 
     /* year block: eyebrow + rolling year share ONE transform (one origin, top-left) for the Scene-4 shrink.
        Round 6: the whole left stack sits 24px lower (group 196 -> 220); the eyebrow is 40px semibold
-       (700: no 600 face is shipped) near-black #3A372E, its ink 16px above the numerals' ink (eyes top 39px) */
+       (700: no 600 face is shipped) near-black #3A372E, its ink 16px above the numerals' ink (eyes top 38px) */
     #f01-ygrp{position:absolute;left:96px;top:220px;width:560px;height:282px;transform-origin:0 0;z-index:3;}
-    #f01-eyes{position:absolute;left:0;top:39px;height:58px;}
+    #f01-eyes{position:absolute;left:0;top:38px;height:58px;}
     .f01-eye{position:absolute;left:0;top:0;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#3A372E;white-space:nowrap;}
     /* year: Latin digits only, so the tight 230px line box is safe. Each digit sits in a FIXED-width slot
        (advance 120px, glyph centred) so the proportional Display numerals never shift the year sideways.
@@ -237,7 +237,8 @@
       }
       /* The year value follows ONE power2.inOut curve; the shown year is that value rounded, so year k arrives
          when the curve passes k - 0.5. The curve is scaled so the last arrival (2569) completes at ROLL_STOP:
-         slow first ticks (2450 ~0.93s ... 2455 ~1.24s), fast through the middle, slowing into 2569 at 3.6s.
+         (GSAP power2 = cubic) slow first ticks (2450 ~1.12s, 2451 ~1.26s, 2453 ~1.40s, 2455 ~1.50s), fast through
+         the middle, slowing into 2569 at 3.6s.
          arrive[k] = when year YA+k is settled. */
       var SPAN = (ROLL_STOP - ROLL_AT) / invEase((N - 0.5) / N);
       var arrive = [ROLL_AT];

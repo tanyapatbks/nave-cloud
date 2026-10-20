@@ -57,17 +57,22 @@
     .f10-hit{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid rgba(30,43,250,0.85);background:rgba(30,43,250,0.10);opacity:0}
     .f10-alarm{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid #b42318;opacity:0}
     /* ghost of the filtered-out doc = the locked source of the leak: a dashed locked tile sitting fully ABOVE the
-       residue box (screen x 703-768, y 318-381; box top y~399), centre (660,84.25) local; padlock 30.5 local = 28px */
+       residue box (screen x 703-768, y 342-405; box top y~423), centre (660,84.25) local; padlock 30.5 local = 28px */
     .f10-ghost{position:absolute;left:625px;top:50px;width:70px;height:68.5px;box-sizing:border-box;border-radius:9px;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;z-index:5;opacity:0;pointer-events:none}
     .f10-ghost-ink{position:absolute;inset:0;box-sizing:border-box;border-radius:9px;border:2.5px dashed #b42318;opacity:0.8}
     .f10-ghost .f10-lk{position:absolute;left:19.75px;top:18.5px;width:30.5px;height:30.5px;opacity:0.8}
-    /* residue trails as a comb: 3px red 4/6 dashes on screen (panel scale 0.92 -> 3.26 / 4.35 6.52 local), full opacity.
-       One vertical collector at screen x=766 (local 693.3, 24px outside the box edge) starts at the lock box's
-       bottom-right corner; each chip's trail runs straight right from its pill end into it; one dotted red arrow leaves
-       it at y=495 (local 242) into the AI node. Dash patterns are set inline by the script (hidden until then) */
+    /* the leak route as a comb: 3px #9B2D27 dashes, 10 on / 6 off on screen (panel scale 0.92 -> 3.26 / 10.87 / 6.52
+       local; the script fits each run to a whole number of dashes so both ends land on a dash). One vertical collector
+       at screen x~754 (local 681, 12px clear of the box's red border) drops from the lock box's bottom edge; each chip's
+       trail runs straight right from its pill end into it; one short arrow leaves it at y~519 (local 242): its head
+       stands 12px clear of the collector and its tip touches the AI node's red ring (screen x~782). Hidden until drawn */
     .f10-trails{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:4;pointer-events:none}
-    .f10-trail{fill:none;stroke:#B3261E;stroke-width:3.26;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:0 100000;opacity:1}
-    .f10-trail-head{fill:none;stroke:#B3261E;stroke-width:3.26;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
+    .f10-trail{fill:none;stroke:#9B2D27;stroke-width:3.26;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:0 100000;opacity:1}
+    .f10-trail-head{fill:none;stroke:#9B2D27;stroke-width:3.26;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
+    /* the single leak event: one 12px (13.04 local) dot slides out from under the lock box, down the collector and
+       under the AI node (the left AI node sits above the comb so the dot disappears into it) */
+    .f10-leakdot{position:absolute;left:674.48px;top:105.48px;width:13.04px;height:13.04px;border-radius:50%;background:#9B2D27;z-index:4;opacity:0;pointer-events:none}
+    #f10-L-ailit{z-index:5}
     .f10-strike{position:absolute;left:0;top:0;width:100%;height:100%}
     .f10-strike path{fill:none;stroke:#b42318;stroke-width:4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
     .f10-slot{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px dashed rgba(30,43,250,0.25);z-index:0;opacity:0}
@@ -146,15 +151,18 @@
           <i id="f10-filterbar"></i>
         </div>
           <svg class="f10-trails" viewBox="0 0 804 460" aria-hidden="true">
-            <!-- comb (local px; collector x 693.3 = screen 766). Lengths are k*period + dash so every run starts and
-                 ends on a dash: the collector meets the lock box, each tooth meets the collector, the arrow meets it -->
-            <path class="f10-trail" id="f10-trail-c" d="M693.3 118.08 V242"/>
-            <path class="f10-trail" id="f10-trail-0" d="M558.51 181.5 H693.3"/>
-            <path class="f10-trail" id="f10-trail-1" d="M634.6 242 H693.3"/>
-            <path class="f10-trail" id="f10-trail-2" d="M564.66 302.5 H693.3 V242"/>
-            <path class="f10-trail" id="f10-trail-a" d="M693.3 242 H708.52"/>
-            <path class="f10-trail-head" id="f10-trail-h" d="M704.6 234.3 L712.3 242 L704.6 249.7" pathLength="100"/>
+            <!-- comb (local px; collector x 681 = screen ~754). The collector starts 1.5px under the lock box's bottom
+                 edge (118.5) and ends 1.63px (half a stroke) below the arrow's axis so the corner closes square -->
+            <path class="f10-trail" id="f10-trail-c" d="M681 117 V243.63"/>
+            <path class="f10-trail" id="f10-trail-0" d="M558.51 181.5 H681"/>
+            <path class="f10-trail" id="f10-trail-1" d="M634.6 242 H681"/>
+            <path class="f10-trail" id="f10-trail-2" d="M564.66 302.5 H681 V242"/>
+            <!-- arrow: shaft to the head's vertex; head legs start 13.04 local (12 screen px) clear of the collector's
+                 ink, vertex ink (round join) ends at x 711 = the ring's outer edge (centre 748, radius 37) -->
+            <path class="f10-trail" id="f10-trail-a" d="M681 242 H709.37"/>
+            <path class="f10-trail-head" id="f10-trail-h" d="M697.3 229.93 L709.37 242 L697.3 254.07" pathLength="100"/>
           </svg>
+          <i class="f10-leakdot" id="f10-L-leakdot"></i>
           <div class="f10-ghost" id="f10-L-ghost"><i class="f10-ghost-ink"></i><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></div>
           <div id="f10-residue"><span class="f10-res" id="f10-res-0"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>log</span></span><span class="f10-res" id="f10-res-1"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>จำนวนผล</span></span><span class="f10-res" id="f10-res-2"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>สรุป</span></span></div>
         <div class="f10-label f10-label-neg" id="f10-L-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5"/></svg><span>ค้นทั้งคลัง แล้วค่อยกรอง</span></div>
@@ -270,38 +278,44 @@
       tl.fromTo("#f10-L-t4", { x: 465, y: 0, scale: 1, opacity: 1 }, { x: 576, y: -157.75, scale: 0.72, opacity: 0, duration: 0.22, ease: "power2.inOut", immediateRender: false }, 3.28);
       tl.fromTo("#f10-L-ghost", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 3.3);
 
-      // hold 3.5-3.8; residue chips 3.8 / 4.1 / 4.4; the comb: the collector streams down out of the lock box into
-      // the arrow (3.5), then each chip's trail runs right from its pill end into the collector as the chip lands
-      [["#f10-res-0", 3.8], ["#f10-res-1", 4.1], ["#f10-res-2", 4.4]].forEach(function (r) {
+      // hold 3.5-3.8; residue chips 3.8 / 4.2 / 4.6; the comb: the collector streams down out of the lock box (3.5;
+      // the arrow into the AI is already drawn at 2.5), then each chip's trail runs right from its pill end into the
+      // collector as the chip lands. The dashes hold still once drawn (no crawl): the only thing that travels the
+      // route is the single leak dot (4.7-5.2)
+      [["#f10-res-0", 3.8], ["#f10-res-1", 4.2], ["#f10-res-2", 4.6]].forEach(function (r) {
         tl.fromTo(r[0], { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "power3.out" }, r[1]);
       });
-      // trails: a finite run of 4/6 dashes followed by a long gap. Reveal = the run streams out of the path start
-      // (offset M -> M-L); crawl = it keeps flowing on toward the collector / AI (M-L -> M-L-C) until 5.3, then holds.
-      // Every path length is k*PER + DASH and every crawl a whole number of periods, so in the held state each run
-      // still starts and ends on a full dash (the junctions stay joined). Crawl ~3 periods per 0.8s (power2.inOut):
-      // peak <= 0.3 period per 30fps frame, so the direction of flow stays unambiguous (no wagon-wheel flicker)
-      var DASH = 4.35, GAP = 6.52, PER = DASH + GAP, CRAWL_V = 3 * PER / 0.8;
-      function trailPattern(el, crawl, fallback) {
+      // trails: one finite run of 10/6 dashes (screen px) followed by a long gap. The run is fitted to the path
+      // (k+1 dashes, k gaps, scaled by <= ~5%) so it starts and ends on a full dash. Reveal = the run streams out of
+      // the path start (offset L+2 -> 0), then holds.
+      var DASH = 10 / 0.92, GAP = 6 / 0.92, PER = DASH + GAP;
+      function trailPattern(el, fallback) {
         var L = 0;
         try { L = el.getTotalLength(); } catch (e) { L = 0; }
         if (!L || !isFinite(L)) { L = fallback; }
-        var n = Math.ceil((L + crawl) / PER) + 2, arr = [], i;
-        for (i = 0; i < n; i++) { arr.push(DASH, i < n - 1 ? GAP : L + crawl + 2000); }
+        var k = Math.max(0, Math.round((L - DASH) / PER)), f = L / (k * PER + DASH), arr = [], i;
+        for (i = 0; i <= k; i++) { arr.push(DASH * f, i < k ? GAP * f : L + 2000); }
         el.style.strokeDasharray = arr.join(" ");
-        return { L: L, M: n * DASH + (n - 1) * GAP };
+        return L;
       }
-      // [id, fallback length, reveal start, reveal duration, reveal ease, crawl start]
-      [["#f10-trail-a", 15.22, 2.5, 0.14, "power2.out", 4.5],
-       ["#f10-trail-c", 123.92, 3.5, 0.3, "power2.out", 4.5],
-       ["#f10-trail-0", 134.79, 3.9, 0.3, "power2.out", 4.5],
-       ["#f10-trail-1", 58.7, 4.2, 0.22, "power2.out", 4.5],
-       ["#f10-trail-2", 189.14, 4.5, 0.34, "power2.inOut", 4.84]].forEach(function (r) {
-        var el = q(r[0])[0];
-        var cDur = 5.3 - r[5], C = Math.max(1, Math.round(CRAWL_V * cDur / PER)) * PER, P = trailPattern(el, C, r[1]);
-        // hidden start sits 2 units inside the long gap (offset exactly M leaves a 1px sliver at the path start)
-        tl.fromTo(el, { strokeDashoffset: P.M + 2 }, { strokeDashoffset: P.M - P.L, duration: r[3], ease: r[4], autoRound: false }, r[2]);
-        tl.fromTo(el, { strokeDashoffset: P.M - P.L }, { strokeDashoffset: P.M - P.L - C, duration: cDur, ease: "power2.inOut", autoRound: false, immediateRender: false }, r[5]);
+      // [id, fallback length, reveal start, reveal duration, reveal ease]
+      [["#f10-trail-a", 28.37, 2.5, 0.14, "power2.out"],
+       ["#f10-trail-c", 126.63, 3.5, 0.3, "power2.out"],
+       ["#f10-trail-0", 122.49, 3.9, 0.3, "power2.out"],
+       ["#f10-trail-1", 46.4, 4.3, 0.2, "power2.out"],
+       ["#f10-trail-2", 176.84, 4.62, 0.2, "power2.out"]].forEach(function (r) {
+        var el = q(r[0])[0], L = trailPattern(el, r[1]);
+        // hidden start sits 2 units inside the long gap (offset exactly L leaves a 1px sliver at the path start)
+        tl.fromTo(el, { strokeDashoffset: L + 2 }, { strokeDashoffset: 0, duration: r[3], ease: r[4], autoRound: false }, r[2]);
       });
+
+      // 4.7-5.2: ONE leak event. A 12px dot slides out from under the lock box (centre local 681,112), down the
+      // collector (130 local px, power2.in) and turns into the AI node (41 px, power2.out; the speeds match at the
+      // corner), fading as it passes under the red ring
+      tl.fromTo("#f10-L-leakdot", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power2.out" }, 4.7);
+      tl.fromTo("#f10-L-leakdot", { y: 0 }, { y: 130, duration: 0.38, ease: "power2.in", autoRound: false }, 4.7);
+      tl.fromTo("#f10-L-leakdot", { x: 0 }, { x: 41, duration: 0.12, ease: "power2.out", autoRound: false, immediateRender: false }, 5.08);
+      tl.fromTo("#f10-L-leakdot", { opacity: 1 }, { opacity: 0, duration: 0.06, ease: "power2.in", immediateRender: false }, 5.14);
 
       // ===== Scene 3 (5.3-7.4): RIGHT - scope first, then search inside it (residue holds alone 3.8-5.3) =====
       tl.fromTo("#f10-R-label", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 5.3);
