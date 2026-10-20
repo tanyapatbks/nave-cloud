@@ -3,47 +3,53 @@
     @font-face{font-family:"Chulabhorn Likit Text";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/ChulabhornLikitText-Bold.woff2") format("woff2");}
     @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
     @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Mono";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype");}
 
     /* Persistent roadmap rail for frames 11-15 (frame.md component 10). Frame 10 builds the
        identical rail in place; this layer takes over at frame 11's start, above every frame
        transition, so the rail never slides with a frame. Only the focus halo (the stage the
-       current frame shows) moves, at each stage-frame boundary + 0.25 s. Local time 0 = the
-       start of frame 11. Transparent: no ground layer. */
+       current frame shows) moves, at each stage-frame boundary + 0.25 s. Stages already reached
+       or in progress (1, 2) take the cobalt focus; stages not yet reached (3-5) take an ink focus
+       (#111 label + 3px underline, warm-grey halo), so the moving focus never reads as progress.
+       The pin sits at x 336, the visual midpoint between the Demo and Foundation labels.
+       Local time 0 = the start of frame 11. Transparent: no ground layer. */
     #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;pointer-events:none}
     #rm-rail{position:absolute;left:0;top:0;width:1920px;height:300px}
     #rm-track{position:absolute;left:0;top:0;overflow:visible}
     .rm-halo{position:absolute;top:150px;width:68px;height:68px;margin-left:-34px;border-radius:50%;background:rgba(30,43,250,0.15);opacity:0}
-    .rm-node{position:absolute;top:160px;width:48px;height:48px;margin-left:-24px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:26px;line-height:1;background:#fdfae7;border:2px solid rgba(30,43,250,0.35);color:#5F5B50}
+    .rm-halo.rm-future{background:#ECE8DA}
+    .rm-node{position:absolute;top:160px;width:48px;height:48px;margin-left:-24px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1;background:#fdfae7;border:2px solid rgba(30,43,250,0.35);color:#5F5B50}
     .rm-node span{display:block;position:relative;top:1px}
     #rm-n1{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
     .rm-label{position:absolute;top:222px;width:360px;margin-left:-180px;text-align:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:40px;color:#5F5B50;white-space:nowrap}
-    #rm-pin{position:absolute;left:346px;top:146px;width:28px;height:38px;overflow:visible}
+    .rm-label span{display:inline-block;border-bottom:3px solid rgba(17,17,17,0);line-height:34px}
+    #rm-pin{position:absolute;left:316px;top:130px;width:40px;height:54px;overflow:visible}
     #rm-plus{position:absolute;left:1372px;top:152px;width:24px;height:24px;border-radius:50%;background:#1e2bfa;opacity:0}
-    #rm-here{position:absolute;left:360px;top:222px;transform:translateX(-50%);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1.45;padding:4px 18px 2px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    #rm-here{position:absolute;left:336px;top:222px;transform:translateX(-50%);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1.45;padding:4px 14px 2px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
   </style>
 
-  <div id="root" data-composition-id="roadmap" data-width="1920" data-height="1080" data-start="0" data-duration="72.1">
+  <div id="root" data-composition-id="roadmap" data-width="1920" data-height="1080" data-start="0" data-duration="71.6">
     <div id="rm-rail">
       <svg id="rm-track" width="1920" height="300" viewBox="0 0 1920 300" aria-hidden="true">
-        <line x1="360" y1="184" x2="1760" y2="184" stroke="#B9B4A2" stroke-width="3" stroke-dasharray="12 10" stroke-linecap="butt"/>
-        <line x1="160" y1="184" x2="360" y2="184" stroke="#1e2bfa" stroke-width="4" stroke-linecap="round"/>
+        <line x1="336" y1="184" x2="1760" y2="184" stroke="#B9B4A2" stroke-width="3" stroke-dasharray="12 10" stroke-linecap="butt"/>
+        <line x1="160" y1="184" x2="336" y2="184" stroke="#1e2bfa" stroke-width="4" stroke-linecap="round"/>
       </svg>
       <div class="rm-halo" id="rm-h1" style="left:160px"></div>
       <div class="rm-halo" id="rm-h2" style="left:560px"></div>
-      <div class="rm-halo" id="rm-h3" style="left:960px"></div>
-      <div class="rm-halo" id="rm-h4" style="left:1360px"></div>
-      <div class="rm-halo" id="rm-h5" style="left:1760px"></div>
+      <div class="rm-halo rm-future" id="rm-h3" style="left:960px"></div>
+      <div class="rm-halo rm-future" id="rm-h4" style="left:1360px"></div>
+      <div class="rm-halo rm-future" id="rm-h5" style="left:1760px"></div>
       <div class="rm-node" id="rm-n1" style="left:160px"><span>1</span></div>
       <div class="rm-node" id="rm-n2" style="left:560px"><span>2</span></div>
       <div class="rm-node" id="rm-n3" style="left:960px"><span>3</span></div>
       <div class="rm-node" id="rm-n4" style="left:1360px"><span>4</span></div>
       <div class="rm-node" id="rm-n5" style="left:1760px"><span>5</span></div>
-      <div class="rm-label" id="rm-l1" style="left:160px">Demo</div>
-      <div class="rm-label" id="rm-l2" style="left:560px">Foundation</div>
-      <div class="rm-label" id="rm-l3" style="left:960px">Core Production</div>
-      <div class="rm-label" id="rm-l4" style="left:1360px">Specialized</div>
-      <div class="rm-label" id="rm-l5" style="left:1760px">Elite</div>
-      <svg id="rm-pin" viewBox="0 0 28 38" aria-hidden="true"><path d="M14 38C14 38 1 22.5 1 13.5A13 13 0 0 1 27 13.5C27 22.5 14 38 14 38Z" fill="#1e2bfa"/><circle cx="14" cy="13.5" r="5" fill="#fdfae7"/></svg>
+      <div class="rm-label" id="rm-l1" style="left:160px"><span>Demo</span></div>
+      <div class="rm-label" id="rm-l2" style="left:560px"><span>Foundation</span></div>
+      <div class="rm-label" id="rm-l3" style="left:960px"><span>Core Production</span></div>
+      <div class="rm-label" id="rm-l4" style="left:1360px"><span>Specialized</span></div>
+      <div class="rm-label" id="rm-l5" style="left:1760px"><span>Elite</span></div>
+      <svg id="rm-pin" viewBox="0 0 40 54" aria-hidden="true"><path d="M20 54C20 54 1.5 32 1.5 19.5A18.5 18.5 0 0 1 38.5 19.5C38.5 32 20 54 20 54Z" fill="#1e2bfa"/><circle cx="20" cy="19.5" r="7" fill="#fdfae7"/></svg>
       <div id="rm-here">เราอยู่ตรงนี้</div>
       <svg id="rm-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5V17.5M6.5 12H17.5" stroke="#fdfae7" stroke-width="2.6" stroke-linecap="round"/></svg>
     </div>
@@ -59,26 +65,31 @@
 
       /* stage-frame starts in local seconds (global minus frame 11's start); kept in sync with
          index.html by harness/post-assemble.mjs (--sync rewrites these three numbers) */
-      var starts = {"11":0,"12":11.5,"13":31.5,"14":44,"15":60.5};
-      var END = 71.5; /* frame 16 starts: the rail leaves with the blur-crossfade */
+      var starts = {"11":0,"12":11.5,"13":31.5,"14":43.5,"15":60};
+      var END = 71; /* frame 16 starts: the rail leaves with the blur-crossfade */
 
       var ids = ["11", "12", "13", "14", "15"];
       ids.forEach(function (k, i) {
-        var n = i + 1, halo = $("#rm-h" + n), label = $("#rm-l" + n);
+        var n = i + 1, halo = $("#rm-h" + n), label = $("#rm-l" + n), text = $("#rm-l" + n + " span");
         var on = starts[k] + 0.25;
         var off = i + 1 < ids.length ? starts[ids[i + 1]] + 0.25 : END;
+        var future = n >= 3; /* not yet reached: ink focus, never cobalt */
+        var FOCUS = future ? { color: "#111111", fontWeight: 600 } : { color: "#1e2bfa" };
+        var REST = future ? { color: "#5F5B50", fontWeight: 500 } : { color: "#5F5B50" };
         tl.set(halo, { opacity: 0, scale: 0.6 }, 0);
         tl.fromTo(halo, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out", immediateRender: false }, on);
-        tl.fromTo(label, { color: "#5F5B50" }, { color: "#1e2bfa", duration: 0.3, ease: "power2.out", immediateRender: false }, on);
+        tl.fromTo(label, REST, Object.assign({ duration: 0.3, ease: "power2.out", immediateRender: false }, FOCUS), on);
+        if (future) tl.fromTo(text, { borderBottomColor: "rgba(17,17,17,0)" }, { borderBottomColor: "rgba(17,17,17,1)", duration: 0.3, ease: "power2.out", immediateRender: false }, on);
         if (off < END) {
           tl.fromTo(halo, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.6, duration: 0.25, ease: "power2.in", immediateRender: false }, off - 0.05);
-          tl.fromTo(label, { color: "#1e2bfa" }, { color: "#5F5B50", duration: 0.25, ease: "power2.in", immediateRender: false }, off - 0.05);
+          tl.fromTo(label, FOCUS, Object.assign({ duration: 0.25, ease: "power2.in", immediateRender: false }, REST), off - 0.05);
+          if (future) tl.fromTo(text, { borderBottomColor: "rgba(17,17,17,1)" }, { borderBottomColor: "rgba(17,17,17,0)", duration: 0.25, ease: "power2.in", immediateRender: false }, off - 0.05);
         }
       });
       /* frame 14's "4+ Advanced" beat: node 4 gains a "+" badge, kept through frame 15 */
-      tl.fromTo($("#rm-plus"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, starts["14"] + 7.6);
+      tl.fromTo($("#rm-plus"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, starts["14"] + 8.7);
       tl.fromTo($("#rm-rail"), { opacity: 1 }, { opacity: 0, duration: 0.5, ease: "power2.inOut", immediateRender: false }, END);
-      tl.to({}, { duration: 72.1 }, 0);
+      tl.to({}, { duration: 71.6 }, 0);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;

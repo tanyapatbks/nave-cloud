@@ -37,7 +37,7 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="206.5"
+      data-duration="204.1"
       data-width="1920"
       data-height="1080"
     >
@@ -47,7 +47,7 @@
         data-composition-id="01-hook"
         data-composition-src="compositions/frames/01-hook.html"
         data-start="0"
-        data-duration="10.5"
+        data-duration="9"
         data-track-index="0"
       ></div>
 
@@ -56,7 +56,7 @@
         class="scene"
         data-composition-id="02-challenge"
         data-composition-src="compositions/frames/02-challenge.html"
-        data-start="10"
+        data-start="8.5"
         data-duration="12"
         data-track-index="1"
       ></div>
@@ -66,7 +66,7 @@
         class="scene"
         data-composition-id="03-data"
         data-composition-src="compositions/frames/03-data.html"
-        data-start="21.5"
+        data-start="20"
         data-duration="14"
         data-track-index="0"
       ></div>
@@ -76,7 +76,7 @@
         class="scene"
         data-composition-id="04-turn"
         data-composition-src="compositions/frames/04-turn.html"
-        data-start="35"
+        data-start="33.5"
         data-duration="7"
         data-track-index="1"
       ></div>
@@ -86,7 +86,7 @@
         class="scene"
         data-composition-id="05-nave"
         data-composition-src="compositions/frames/05-nave.html"
-        data-start="41.5"
+        data-start="40"
         data-duration="12.5"
         data-track-index="0"
       ></div>
@@ -96,7 +96,7 @@
         class="scene"
         data-composition-id="06-mfa"
         data-composition-src="compositions/frames/06-mfa.html"
-        data-start="53.5"
+        data-start="52"
         data-duration="11.5"
         data-track-index="1"
       ></div>
@@ -106,7 +106,7 @@
         class="scene"
         data-composition-id="07-pqc"
         data-composition-src="compositions/frames/07-pqc.html"
-        data-start="64.5"
+        data-start="63"
         data-duration="13"
         data-track-index="0"
       ></div>
@@ -116,7 +116,7 @@
         class="scene"
         data-composition-id="08-workspace"
         data-composition-src="compositions/frames/08-workspace.html"
-        data-start="77"
+        data-start="75.5"
         data-duration="13.5"
         data-track-index="1"
       ></div>
@@ -126,8 +126,8 @@
         class="scene"
         data-composition-id="09-prompts"
         data-composition-src="compositions/frames/09-prompts.html"
-        data-start="90"
-        data-duration="19.5"
+        data-start="88.5"
+        data-duration="20.1"
         data-track-index="0"
       ></div>
 
@@ -136,8 +136,8 @@
         class="scene"
         data-composition-id="10-roadmap"
         data-composition-src="compositions/frames/10-roadmap.html"
-        data-start="109"
-        data-duration="12.5"
+        data-start="108.1"
+        data-duration="11.5"
         data-track-index="1"
       ></div>
 
@@ -146,7 +146,7 @@
         class="scene"
         data-composition-id="11-stage1"
         data-composition-src="compositions/frames/11-stage1.html"
-        data-start="121"
+        data-start="119.1"
         data-duration="12"
         data-track-index="0"
       ></div>
@@ -156,7 +156,7 @@
         class="scene"
         data-composition-id="12-stage2"
         data-composition-src="compositions/frames/12-stage2.html"
-        data-start="132.5"
+        data-start="130.6"
         data-duration="20.5"
         data-track-index="1"
       ></div>
@@ -166,8 +166,8 @@
         class="scene"
         data-composition-id="13-stage3"
         data-composition-src="compositions/frames/13-stage3.html"
-        data-start="152.5"
-        data-duration="13"
+        data-start="150.6"
+        data-duration="12.5"
         data-track-index="0"
       ></div>
 
@@ -176,7 +176,7 @@
         class="scene"
         data-composition-id="14-stage4"
         data-composition-src="compositions/frames/14-stage4.html"
-        data-start="165"
+        data-start="162.6"
         data-duration="17"
         data-track-index="1"
       ></div>
@@ -186,7 +186,7 @@
         class="scene"
         data-composition-id="15-stage5"
         data-composition-src="compositions/frames/15-stage5.html"
-        data-start="181.5"
+        data-start="179.1"
         data-duration="11.6"
         data-track-index="0"
       ></div>
@@ -196,7 +196,7 @@
         class="scene"
         data-composition-id="16-close"
         data-composition-src="compositions/frames/16-close.html"
-        data-start="192.5"
+        data-start="190.1"
         data-duration="14"
         data-track-index="1"
       ></div>
@@ -206,8 +206,8 @@
         class="scene"
         data-composition-id="roadmap"
         data-composition-src="compositions/roadmap.html"
-        data-start="121"
-        data-duration="72.1"
+        data-start="119.1"
+        data-duration="71.6"
         data-track-index="3"
       ></div>
 
@@ -216,12 +216,10 @@
         class="scene"
         data-composition-id="chrome"
         data-composition-src="compositions/chrome.html"
-        data-start="10"
-        data-duration="183.1"
+        data-start="8.5"
+        data-duration="182.2"
         data-track-index="2"
       ></div>
-
-
 
     </div>
 
@@ -230,52 +228,52 @@
       window.__timelines["main"] = gsap.timeline({ paused: true });
       // ── frame transitions (injected by transitions.mjs) ──
       (function () { var tl = window.__timelines["main"];
-        tl.to("#el-01-hook", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 10);
-        tl.fromTo("#el-02-challenge", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 10);
-        tl.addLabel("hf:transition:01-hook:02-challenge:crossfade", 10);
-        tl.to("#el-02-challenge", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 21.5);
-        tl.fromTo("#el-03-data", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 21.5);
-        tl.addLabel("hf:transition:02-challenge:03-data:push-slide", 21.5);
-        tl.to("#el-03-data", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 35);
-        tl.fromTo("#el-04-turn", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 35);
-        tl.addLabel("hf:transition:03-data:04-turn:crossfade", 35);
-        tl.to("#el-04-turn", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 41.5);
-        tl.fromTo("#el-05-nave", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 41.5);
-        tl.addLabel("hf:transition:04-turn:05-nave:push-slide", 41.5);
-        tl.to("#el-05-nave", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 53.5);
-        tl.fromTo("#el-06-mfa", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 53.5);
-        tl.addLabel("hf:transition:05-nave:06-mfa:push-slide", 53.5);
-        tl.to("#el-06-mfa", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 64.5);
-        tl.fromTo("#el-07-pqc", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 64.5);
-        tl.addLabel("hf:transition:06-mfa:07-pqc:push-slide", 64.5);
-        tl.to("#el-07-pqc", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 77);
-        tl.fromTo("#el-08-workspace", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 77);
-        tl.addLabel("hf:transition:07-pqc:08-workspace:push-slide", 77);
-        tl.to("#el-08-workspace", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 90);
-        tl.fromTo("#el-09-prompts", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 90);
-        tl.addLabel("hf:transition:08-workspace:09-prompts:push-slide", 90);
-        tl.to("#el-09-prompts", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 109);
-        tl.fromTo("#el-10-roadmap", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 109);
-        tl.addLabel("hf:transition:09-prompts:10-roadmap:crossfade", 109);
-        tl.to("#el-10-roadmap", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 121);
-        tl.fromTo("#el-11-stage1", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 121);
-        tl.addLabel("hf:transition:10-roadmap:11-stage1:push-slide", 121);
-        tl.to("#el-11-stage1", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 132.5);
-        tl.fromTo("#el-12-stage2", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 132.5);
-        tl.addLabel("hf:transition:11-stage1:12-stage2:push-slide", 132.5);
-        tl.to("#el-12-stage2", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 152.5);
-        tl.fromTo("#el-13-stage3", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 152.5);
-        tl.addLabel("hf:transition:12-stage2:13-stage3:push-slide", 152.5);
-        tl.to("#el-13-stage3", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 165);
-        tl.fromTo("#el-14-stage4", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 165);
-        tl.addLabel("hf:transition:13-stage3:14-stage4:push-slide", 165);
-        tl.to("#el-14-stage4", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 181.5);
-        tl.fromTo("#el-15-stage5", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 181.5);
-        tl.addLabel("hf:transition:14-stage4:15-stage5:push-slide", 181.5);
-        tl.to("#el-15-stage5", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 192.5);
-        tl.fromTo("#el-16-close", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 192.5);
-        tl.addLabel("hf:transition:15-stage5:16-close:blur-crossfade", 192.5);
-        tl.to({}, { duration: 206.5 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+        tl.to("#el-01-hook", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 8.5);
+        tl.fromTo("#el-02-challenge", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 8.5);
+        tl.addLabel("hf:transition:01-hook:02-challenge:crossfade", 8.5);
+        tl.to("#el-02-challenge", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 20);
+        tl.fromTo("#el-03-data", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 20);
+        tl.addLabel("hf:transition:02-challenge:03-data:push-slide", 20);
+        tl.to("#el-03-data", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 33.5);
+        tl.fromTo("#el-04-turn", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 33.5);
+        tl.addLabel("hf:transition:03-data:04-turn:crossfade", 33.5);
+        tl.to("#el-04-turn", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 40);
+        tl.fromTo("#el-05-nave", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 40);
+        tl.addLabel("hf:transition:04-turn:05-nave:push-slide", 40);
+        tl.to("#el-05-nave", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 52);
+        tl.fromTo("#el-06-mfa", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 52);
+        tl.addLabel("hf:transition:05-nave:06-mfa:push-slide", 52);
+        tl.to("#el-06-mfa", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 63);
+        tl.fromTo("#el-07-pqc", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 63);
+        tl.addLabel("hf:transition:06-mfa:07-pqc:push-slide", 63);
+        tl.to("#el-07-pqc", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 75.5);
+        tl.fromTo("#el-08-workspace", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 75.5);
+        tl.addLabel("hf:transition:07-pqc:08-workspace:push-slide", 75.5);
+        tl.to("#el-08-workspace", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 88.5);
+        tl.fromTo("#el-09-prompts", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 88.5);
+        tl.addLabel("hf:transition:08-workspace:09-prompts:push-slide", 88.5);
+        tl.to("#el-09-prompts", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 108.1);
+        tl.fromTo("#el-10-roadmap", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 108.1);
+        tl.addLabel("hf:transition:09-prompts:10-roadmap:crossfade", 108.1);
+        tl.to("#el-10-roadmap", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 119.1);
+        tl.fromTo("#el-11-stage1", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 119.1);
+        tl.addLabel("hf:transition:10-roadmap:11-stage1:push-slide", 119.1);
+        tl.to("#el-11-stage1", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 130.6);
+        tl.fromTo("#el-12-stage2", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 130.6);
+        tl.addLabel("hf:transition:11-stage1:12-stage2:push-slide", 130.6);
+        tl.to("#el-12-stage2", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 150.6);
+        tl.fromTo("#el-13-stage3", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 150.6);
+        tl.addLabel("hf:transition:12-stage2:13-stage3:push-slide", 150.6);
+        tl.to("#el-13-stage3", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 162.6);
+        tl.fromTo("#el-14-stage4", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 162.6);
+        tl.addLabel("hf:transition:13-stage3:14-stage4:push-slide", 162.6);
+        tl.to("#el-14-stage4", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 179.1);
+        tl.fromTo("#el-15-stage5", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 179.1);
+        tl.addLabel("hf:transition:14-stage4:15-stage5:push-slide", 179.1);
+        tl.to("#el-15-stage5", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 190.1);
+        tl.fromTo("#el-16-close", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 190.1);
+        tl.addLabel("hf:transition:15-stage5:16-close:blur-crossfade", 190.1);
+        tl.to({}, { duration: 204.1 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
       })();
     </script>
   </body>
