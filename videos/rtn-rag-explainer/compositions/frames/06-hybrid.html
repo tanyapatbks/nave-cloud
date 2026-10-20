@@ -26,9 +26,10 @@
     /* permission scope (component 4, same as frame 09) + wires: question -> lanes connectors + the merge bracket */
     #f06-scope,#f06-wires,#f06-top{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
     .f06-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
-    /* +4 px top padding (10/6) with the pill centre kept at y 308.2 (the outline's top edge): top 279 -> 277, so
-       the stacked upper marks of 'สิทธิ์' clear the pill's top edge */
-    #f06-scope-pill{position:absolute;left:824px;top:277px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:10px 24px 6px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
+    /* top padding 6 -> 12 px with the pill centre kept at y 308.2 (the outline's top edge): top 279 -> 276. The
+       stacked thanthakhat of 'สิทธิ์' rises ~3.5 px above the line box, so +4 px measured only ~6.5 px of
+       clearance; +6 px gives >= 8 px */
+    #f06-scope-pill{position:absolute;left:824px;top:276px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:12px 24px 6px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
     #f06-wires path,#f06-top rect{fill:none;stroke:#1e2bfa;stroke-linecap:round;stroke-linejoin:round}
     #f06-wires .f06-wire{stroke-width:3}
     #f06-wires .f06-pulse{stroke-width:8}
