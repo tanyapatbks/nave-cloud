@@ -25,7 +25,7 @@
     .f15-ph{display:inline-block;white-space:nowrap}
     .f15-key{color:#1e2bfa}
 
-    /* Scene 3 loop: a rounded rect through the four card centres (366/1554, 525/805), drawn UNDER the cards */
+    /* Scene 3 loop: a rounded rect through the four card centres (366/1554, 545/805), drawn UNDER the cards */
     #f15-loop-svg{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;pointer-events:none}
     #f15-loop{fill:none;stroke:#1e2bfa;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
     .f15-chev{fill:none;stroke:#1e2bfa;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
@@ -37,10 +37,12 @@
        opaque backing (4% cobalt tint pre-composited on cream); outer edges stay at x 96 / 1824 */
     .f15-card{position:absolute;width:540px;height:150px;box-sizing:border-box;border-radius:14px;background:#F4F2E8;border:1.5px solid rgba(30,43,250,0.2)}
     /* clockwise from top-left: KPIs -> Human-in-the-Loop Approval -> Adoption Metrics -> Executive Dashboards */
-    #f15-c1{left:96px;top:450px}
-    #f15-c2{left:1284px;top:450px}
-    #f15-c3{left:1284px;top:730px}
-    #f15-c4{left:96px;top:730px}
+    /* top row at y 470 (component 12: content y ~470-880) so the 44px purpose line has air above the cards;
+       pulse origins sit on each card's outer edge so a pulse never crosses x 96 / 1824 or y 880 */
+    #f15-c1{left:96px;top:470px;transform-origin:0% 50%}
+    #f15-c2{left:1284px;top:470px;transform-origin:100% 50%}
+    #f15-c3{left:1284px;top:730px;transform-origin:100% 100%}
+    #f15-c4{left:96px;top:730px;transform-origin:0% 100%}
     .f15-viz{position:absolute;left:0;right:0;top:22px;height:64px;display:flex;align-items:center;justify-content:center;gap:16px}
     .f15-viz svg{display:block;flex:none;overflow:visible}
     .f15-name{position:absolute;left:0;right:0;top:90px;display:block;text-align:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#111111;white-space:nowrap}
@@ -49,8 +51,8 @@
     #f15-pill{display:flex;flex:none;align-items:center;justify-content:center;width:112px;height:52px;border-radius:100px;background:#0B6A45;color:#ffffff}
     #f15-pill svg{display:block}
 
-    /* centre label of the loop: x ~ 580-1340, y 628-703, with a spark either side */
-    #f15-ci{position:absolute;left:0;top:628px;width:1920px;height:76px;display:flex;align-items:center;justify-content:center;gap:28px}
+    /* centre label of the loop, centred in the row gap (y 620-730): x ~ 560-1360, y 637-713, with a spark either side */
+    #f15-ci{position:absolute;left:0;top:637px;width:1920px;height:76px;display:flex;align-items:center;justify-content:center;gap:28px}
     #f15-ci-tx{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:52px;line-height:1.45;color:#111111;white-space:nowrap}
     .f15-w{display:inline-block;white-space:nowrap}
     .f15-spark{display:block;flex:none;width:30px;height:30px;overflow:visible}
@@ -65,11 +67,11 @@
 
     <!-- Scene 3 (drawn under the cards): the improvement loop, its direction chevrons, the dot's trail and the travelling dot -->
     <svg id="f15-loop-svg" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true" data-layout-ignore>
-      <path id="f15-loop" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M 636 525 H 1494 A 60 60 0 0 1 1554 585 V 745 A 60 60 0 0 1 1494 805 H 426 A 60 60 0 0 1 366 745 V 585 A 60 60 0 0 1 426 525 Z"/>
-      <path id="f15-chev1" class="f15-chev" d="M 954 513 L 966 525 L 954 537"/>
-      <path id="f15-chev2" class="f15-chev" d="M 1542 659 L 1554 671 L 1566 659"/>
+      <path id="f15-loop" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M 636 545 H 1494 A 60 60 0 0 1 1554 605 V 745 A 60 60 0 0 1 1494 805 H 426 A 60 60 0 0 1 366 745 V 605 A 60 60 0 0 1 426 545 Z"/>
+      <path id="f15-chev1" class="f15-chev" d="M 954 533 L 966 545 L 954 557"/>
+      <path id="f15-chev2" class="f15-chev" d="M 1542 669 L 1554 681 L 1566 669"/>
       <path id="f15-chev3" class="f15-chev" d="M 966 793 L 954 805 L 966 817"/>
-      <path id="f15-chev4" class="f15-chev" d="M 354 671 L 366 659 L 378 671"/>
+      <path id="f15-chev4" class="f15-chev" d="M 354 681 L 366 669 L 378 681"/>
       <g id="f15-trail">
         <path class="f15-trail" pathLength="1"/>
         <path class="f15-trail" pathLength="1"/>
@@ -210,10 +212,10 @@
         { opacity: 0, scale: 0.7, transformOrigin: "50% 50%" },
         { opacity: 1, scale: 1, transformOrigin: "50% 50%", duration: 0.4, ease: "power3.out", stagger: 0.08 }, 4.0);
 
-      /* Loop geometry (px): rounded rect through the card centres x 366 / 1554, y 525 / 805, corner radius 60.
-         Straight runs: top/bottom 1068, sides 160; Q = one quarter arc. Total length 2456 + 4Q (~2833). */
+      /* Loop geometry (px): rounded rect through the card centres x 366 / 1554, y 545 / 805, corner radius 60.
+         Straight runs: top/bottom 1068, sides 140; Q = one quarter arc. Total length 2416 + 4Q (~2793). */
       var Q = Math.PI * 30;
-      var LEN = 2456 + 4 * Q;
+      var LEN = 2416 + 4 * Q;
       /* inverse of power2.inOut (GSAP power2 = cubic): progress -> time fraction */
       var inv = function (f) { return f < 0.5 ? Math.cbrt(f / 4) : 1 - Math.cbrt(2 * (1 - f)) / 2; };
 
@@ -226,7 +228,7 @@
         { attr: { "stroke-dashoffset": 0 }, duration: DRAW_DUR, ease: "power2.inOut" }, DRAW_AT);
 
       /* each direction chevron appears as the drawing head passes it (segment midpoints, as arc length from x 636) */
-      [324, 938 + Q, 1552 + 2 * Q, 2166 + 3 * Q].forEach(function (s, i) {
+      [324, 928 + Q, 1532 + 2 * Q, 2136 + 3 * Q].forEach(function (s, i) {
         tl.fromTo($("#f15-chev" + (i + 1)),
           { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" },
           { opacity: 1, scale: 1, transformOrigin: "50% 50%", duration: 0.3, ease: "power3.out" },
@@ -246,14 +248,14 @@
          where it started. A ~130px fading trail rides behind it: 8 dashes of the same path, all ending at the dot,
          shorter ones wider, so their overlap darkens toward the dot. */
       var DOT_AT = 6.2, DOT_DUR = 2.0, TRAIL = 130;
-      var DOT_PATH = "M 666 525 H 1494 A 60 60 0 0 1 1554 585 V 745 A 60 60 0 0 1 1494 805 H 426 A 60 60 0 0 1 366 745 V 585 A 60 60 0 0 1 426 525 H 666";
+      var DOT_PATH = "M 666 545 H 1494 A 60 60 0 0 1 1554 605 V 745 A 60 60 0 0 1 1494 805 H 426 A 60 60 0 0 1 366 745 V 605 A 60 60 0 0 1 426 545 H 666";
       var trail = $$(".f15-trail");
       var N = trail.length;
       trail.forEach(function (el, i) {
         var k = i + 1;
         var Lk = (TRAIL / LEN) * (k / N);
         el.setAttribute("d", DOT_PATH);
-        gsap.set(el, { attr: { "stroke-width": 12 - (k - 1) * 0.7, "stroke-opacity": 0.17, "stroke-dasharray": Lk + " 2", "stroke-dashoffset": Lk } });
+        gsap.set(el, { attr: { "stroke-width": 14 - (k - 1) * 0.9, "stroke-opacity": 0.2, "stroke-dasharray": Lk + " 2", "stroke-dashoffset": Lk } });
         tl.fromTo(el,
           { attr: { "stroke-dashoffset": Lk } },
           { attr: { "stroke-dashoffset": Lk - 1 }, duration: DOT_DUR, ease: "power2.inOut" }, DOT_AT);
@@ -263,7 +265,7 @@
       tl.fromTo(trailG, { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, 7.95);
 
       var dot = $("#f15-dot");
-      gsap.set(dot, { xPercent: -50, yPercent: -50, x: 666, y: 525 });
+      gsap.set(dot, { xPercent: -50, yPercent: -50, x: 666, y: 545 });
       tl.fromTo(dot, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, DOT_AT);
       tl.to(dot, { motionPath: { path: DOT_PATH }, duration: DOT_DUR, ease: "power2.inOut" }, DOT_AT);
 
@@ -277,9 +279,9 @@
         tl.fromTo(card, { borderColor: "rgba(30,43,250,0.65)" }, { borderColor: "rgba(30,43,250,0.2)", duration: 0.34, ease: "power3.out", immediateRender: false }, at + 0.12);
       }
       pulse($("#f15-c2"), passAt(618) - 0.03);           /* Approval, top-right: enters at x 1284 (~6.93) */
-      pulse($("#f15-c3"), passAt(973 + Q) - 0.03);       /* Adoption, bottom-right: enters at y 730 (~7.08) */
-      pulse($("#f15-c4"), passAt(1846 + 2 * Q) - 0.03);  /* Dashboards, bottom-left: enters at x 636 (~7.34) */
-      pulse($("#f15-c1"), passAt(2201 + 3 * Q) - 0.03);  /* KPIs, top-left: enters at y 600 (~7.54), last pulse settles ~8.0 */
+      pulse($("#f15-c3"), passAt(953 + Q) - 0.03);       /* Adoption, bottom-right: enters at y 730 (~7.08) */
+      pulse($("#f15-c4"), passAt(1826 + 2 * Q) - 0.03);  /* Dashboards, bottom-left: enters at x 636 (~7.35) */
+      pulse($("#f15-c1"), passAt(2161 + 3 * Q) - 0.03);  /* KPIs, top-left: enters at y 620 (~7.54), last pulse settles ~8.0 */
 
       /* hold still from 8.4 to the end (the trail has faded by 8.3; the dot rests beside KPIs) */
       tl.set({}, {}, 11);

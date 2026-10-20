@@ -276,7 +276,7 @@
       /* Scene 4 (6.4-11.0s): held checkpoint, no motion. At the frame's last instant (local 11.0 =
          global 119.1) the rail hides: the persistent roadmap.html layer (identical pixels) takes
          over at that moment; headline, subline, cards and band slide out with the frame. */
-      tl.set(rail, { autoAlpha: 0, immediateRender: false }, 11.0);
+      tl.set($("#f10-rail"), { autoAlpha: 0, immediateRender: false }, 11.0);
       tl.to({}, { duration: 11.5 }, 0);
 
       window.__timelines = window.__timelines || {};

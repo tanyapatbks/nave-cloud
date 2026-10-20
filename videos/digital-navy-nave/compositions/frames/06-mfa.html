@@ -24,62 +24,69 @@
     #f06-h2 .f06-ph{display:inline-block}
     #f06-h2 .f06-en{color:#1e2bfa}
 
-    /* the gate: two stacked doors at x 1180-1420 (upper y 340-590, lower y 610-860).
-       Each door = an overflow-clipped box holding a lit interior and two opaque leaves;
-       the leaves meet on a 2px seam. The outline is a separate SVG so it can self-draw. */
-    .f06-door{position:absolute;left:1180px;width:240px;height:250px;border-radius:20px;overflow:hidden}
-    #f06-doorU{top:340px}
-    #f06-doorL{top:610px}
-    .f06-inside{position:absolute;left:0;top:0;width:240px;height:250px;background:rgba(30,43,250,0.2)}
-    .f06-leaf{position:absolute;top:0;width:120px;height:250px;box-sizing:border-box;background:linear-gradient(rgba(30,43,250,0.05),rgba(30,43,250,0.05)),#fdfae7}
-    .f06-leafL{left:0;border-right:1px solid rgba(30,43,250,0.32)}
-    .f06-leafR{left:120px;border-left:1px solid rgba(30,43,250,0.32)}
-    #f06-gate{position:absolute;left:1180px;top:340px;width:240px;height:520px;overflow:visible}
-    #f06-gate path{fill:none;stroke:rgba(30,43,250,0.32);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+    /* the gate: two stacked 300px doors centred on x 1180 (x 1030-1330; upper y 380-610, lower y 630-860).
+       Each door = an overflow-clipped box with NO interior fill (an open door shows the cream ground)
+       holding two tinted leaves that meet on the seam at x 1180. The outline is a separate SVG (self-draw). */
+    .f06-door{position:absolute;left:1030px;width:300px;height:230px;border-radius:20px;overflow:hidden}
+    #f06-doorU{top:380px}
+    #f06-doorL{top:630px}
+    .f06-leaf{position:absolute;top:0;width:150px;height:230px;box-sizing:border-box;background:linear-gradient(rgba(30,43,250,0.06),rgba(30,43,250,0.06)),#fdfae7}
+    .f06-leafL{left:0;border-right:1.5px solid rgba(30,43,250,0.35)}
+    .f06-leafR{left:150px;border-left:1.5px solid rgba(30,43,250,0.35)}
+    #f06-gate{position:absolute;left:1030px;top:380px;width:300px;height:480px;overflow:visible}
+    #f06-gate path{fill:none;stroke:rgba(30,43,250,0.35);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 
-    /* small cobalt padlock on each seam (centre x 1300; upper y 465, lower y 735) */
-    .f06-lock{position:absolute;left:1280px;width:40px;height:40px;display:block;overflow:visible;transform-origin:50% 50%}
-    #f06-lockU{top:445px}
-    #f06-lockL{top:715px}
+    /* 64px padlock on each seam (centre x 1180; upper y 495, lower y 745) */
+    .f06-lock{position:absolute;left:1148px;width:64px;height:64px;display:block;overflow:visible;transform-origin:50% 50%}
+    #f06-lockU{top:463px}
+    #f06-lockL{top:713px}
+    .f06-lock .f06-lring{fill:#fdfae7;stroke:rgba(30,43,250,0.28);stroke-width:1.2}
+    .f06-lock .f06-shk{fill:none;stroke:#1e2bfa;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .f06-lock .f06-lbody{fill:#fdfae7;stroke:#1e2bfa;stroke-width:2.2}
+    .f06-lock .f06-lhole{fill:#1e2bfa}
+    .f06-lock .f06-lstem{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round}
+    #f06-shkUo{stroke:#0B6A45;opacity:0}
 
-    /* factor slots: 64px, on each door's left face at x 1196 */
-    .f06-slot{position:absolute;left:1196px;width:64px;height:64px;transform-origin:50% 50%}
-    .f06-slot svg.f06-sout{position:absolute;left:0;top:0;width:64px;height:64px;display:block;overflow:visible}
-    .f06-slot svg.f06-sout rect{fill:none;stroke:rgba(30,43,250,0.35);stroke-width:2;stroke-dasharray:8 6}
-    .f06-sfill{position:absolute;left:0;top:0;width:64px;height:64px;border-radius:12px;background:#0B6A45;opacity:0;transform-origin:50% 50%}
-    .f06-scheck{position:absolute;left:14px;top:14px;width:36px;height:36px;display:block;color:#ffffff}
-    .f06-sx{position:absolute;left:20px;top:20px;width:24px;height:24px;display:block;opacity:0;transform-origin:50% 50%}
-    #f06-s1{top:380px}
-    #f06-s2{top:470px}
-    #f06-s3{top:650px}
-    #f06-s4{top:740px}
+    /* factor slots: 80px, on each door's left leaf at x 1046-1126 */
+    .f06-slot{position:absolute;left:1046px;width:80px;height:80px;transform-origin:50% 50%}
+    .f06-slot svg.f06-sout{position:absolute;left:0;top:0;width:80px;height:80px;display:block;overflow:visible}
+    .f06-slot svg.f06-sout rect{fill:none;stroke:rgba(30,43,250,0.35);stroke-width:2;stroke-dasharray:9 6}
+    .f06-sfill{position:absolute;left:0;top:0;width:80px;height:80px;border-radius:14px;background:#0B6A45;opacity:0;transform-origin:50% 50%}
+    .f06-scheck{position:absolute;left:18px;top:18px;width:44px;height:44px;display:block;color:#ffffff}
+    .f06-sx{position:absolute;left:25px;top:25px;width:30px;height:30px;display:block;opacity:0;transform-origin:50% 50%}
+    #f06-s1{top:406px}
+    #f06-s2{top:504px}
+    #f06-s3{top:656px}
+    #f06-s4{top:754px}
 
-    /* identity badge (component 6, signed-in ring) */
-    #f06-avatar{position:absolute;left:96px;top:380px;width:96px;height:96px;display:block;transform-origin:50% 50%}
-    #f06-name{position:absolute;left:216px;top:399px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;white-space:nowrap}
+    /* actors: both lanes start at the shared left edge x 200 */
+    .f06-actor{position:absolute;left:200px;width:96px;height:96px;display:block;transform-origin:50% 50%}
+    #f06-avatar{top:398px}
+    #f06-ghostp{top:648px}
+    #f06-name{position:absolute;left:200px;top:338px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;white-space:nowrap}
 
-    /* factor chips: right edge pinned to the slot's right edge (x 1260), so the glyph end
-       docks exactly into the slot; the Thai text ends left of the gate (x < 1180) */
-    .f06-chip{position:absolute;right:660px;height:64px;box-sizing:border-box;display:flex;align-items:center;border-radius:12px;padding-left:24px;white-space:nowrap}
-    .f06-ctext{display:block;padding-right:26px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:34px;line-height:1.45;white-space:nowrap}
-    .f06-cgl{flex:none;height:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+    /* factor chips: left edge 24px right of the lane's actor (x 320); each chip grows out of its
+       actor until its glyph end (the last 76px) sits inside its slot (right edge x 1126) */
+    .f06-chip{position:absolute;left:320px;width:806px;min-width:max-content;height:76px;box-sizing:border-box;display:flex;align-items:center;border-radius:14px;padding-left:28px;white-space:nowrap}
+    .f06-ctext{display:block;flex:none;padding-right:28px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:40px;line-height:1.45;white-space:nowrap}
+    .f06-cgl{flex:none;margin-left:auto;width:76px;height:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
     .f06-cgl svg{display:block;flex:none;overflow:visible}
     .f06-fac{background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;border:1.5px solid rgba(30,43,250,0.35)}
     .f06-fac .f06-ctext{font-weight:600;color:#111111}
-    .f06-fac .f06-cgl{width:62.5px;border-left:1.5px solid rgba(30,43,250,0.22)}
-    #f06-chip1{top:380px}
-    #f06-chip2{top:470px}
-    /* the outsider ghost token: dashed grey, no person */
-    #f06-ghost{top:650px;background:#fdfae7;border:2px dashed #8A867A}
-    #f06-ghost .f06-ctext{font-weight:500;color:#5F5B50}
-    #f06-ghost .f06-cgl{width:62px;border-left:2px dashed #8A867A}
+    .f06-fac .f06-cgl{border-left:1.5px solid rgba(30,43,250,0.22)}
+    #f06-chip1{top:408px}
+    #f06-chip2{top:506px}
+    /* the leaked password: dashed grey outsider chip */
+    #f06-leak{top:658px;background:#fdfae7;border:2px dashed #8A867A}
+    #f06-leak .f06-ctext{font-weight:500;color:#5F5B50}
+    #f06-leak .f06-cgl{border-left:2px dashed #8A867A}
 
-    /* result chips, right of the gate */
-    .f06-res{position:absolute;left:1448px;display:flex;align-items:center;gap:10px;box-sizing:border-box;border-radius:100px;white-space:nowrap;transform-origin:50% 50%}
-    .f06-res .f06-rtxt{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;white-space:nowrap}
+    /* result pills, right of the gate (40px text, 64px tall) */
+    .f06-res{position:absolute;left:1360px;height:64px;display:flex;align-items:center;gap:12px;box-sizing:border-box;border-radius:100px;white-space:nowrap;transform-origin:50% 50%}
+    .f06-res .f06-rtxt{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;white-space:nowrap}
     .f06-res svg{display:block;flex:none}
-    #f06-ok{top:431px;height:49px;padding:1px 26px 0 20px;background:#0B6A45;color:#ffffff}
-    #f06-no{top:700px;height:49px;padding:1px 26px 0 20px;background:#fde7e3;color:#b42318;border:1.5px solid rgba(180,35,24,0.28)}
+    #f06-ok{top:463px;padding:2px 32px 0 24px;background:#0B6A45;color:#ffffff}
+    #f06-no{top:713px;padding:2px 32px 0 24px;background:#fde7e3;color:#b42318;border:1.5px solid rgba(180,35,24,0.28)}
   </style>
 
   <div id="root" data-composition-id="06-mfa" data-width="1920" data-height="1080" data-start="0" data-duration="11.5">
@@ -87,9 +94,8 @@
 
     <div id="f06-h2"><span class="f06-line"><span class="f06-ph">เริ่มจากยกระดับ</span><span class="f06-ph">ความปลอดภัย</span></span><span class="f06-line"><span class="f06-ph">ของระบบภายใน ทร.</span> <span class="f06-ph">ด้วย <span class="f06-en">MFA</span></span></span></div>
 
-    <!-- the gate: two doors -->
+    <!-- the gate: two doors (no interior fill) -->
     <div id="f06-doorU" class="f06-door">
-      <div class="f06-inside"></div>
       <div id="f06-leafUL" class="f06-leaf f06-leafL"></div>
       <div id="f06-leafUR" class="f06-leaf f06-leafR"></div>
     </div>
@@ -97,71 +103,86 @@
       <div class="f06-leaf f06-leafL"></div>
       <div class="f06-leaf f06-leafR"></div>
     </div>
-    <svg id="f06-gate" viewBox="0 0 240 520" width="240" height="520" aria-hidden="true">
-      <path id="f06-outU" pathLength="1" stroke-dasharray="1 1.02" stroke-dashoffset="1.01" d="M20 1 H220 A19 19 0 0 1 239 20 V230 A19 19 0 0 1 220 249 H20 A19 19 0 0 1 1 230 V20 A19 19 0 0 1 20 1 Z"/>
-      <path id="f06-outL" pathLength="1" stroke-dasharray="1 1.02" stroke-dashoffset="1.01" d="M20 271 H220 A19 19 0 0 1 239 290 V500 A19 19 0 0 1 220 519 H20 A19 19 0 0 1 1 500 V290 A19 19 0 0 1 20 271 Z"/>
+    <svg id="f06-gate" viewBox="0 0 300 480" width="300" height="480" aria-hidden="true">
+      <path id="f06-outU" pathLength="1" stroke-dasharray="1 1.02" stroke-dashoffset="1.01" d="M20 1 H280 A19 19 0 0 1 299 20 V210 A19 19 0 0 1 280 229 H20 A19 19 0 0 1 1 210 V20 A19 19 0 0 1 20 1 Z"/>
+      <path id="f06-outL" pathLength="1" stroke-dasharray="1 1.02" stroke-dashoffset="1.01" d="M20 251 H280 A19 19 0 0 1 299 270 V460 A19 19 0 0 1 280 479 H20 A19 19 0 0 1 1 460 V270 A19 19 0 0 1 20 251 Z"/>
     </svg>
 
-    <!-- padlocks on the seams -->
-    <svg id="f06-lockU" class="f06-lock" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-      <circle cx="20" cy="20" r="19" fill="#fdfae7" stroke="rgba(30,43,250,0.25)" stroke-width="1.5"/>
-      <path id="f06-shackU" d="M14.5 18 V14 a5.5 5.5 0 0 1 11 0 V18" fill="none" stroke="#1e2bfa" stroke-width="2.2" stroke-linecap="round"/>
-      <rect x="11" y="18" width="18" height="13" rx="3" fill="#fdfae7" stroke="#1e2bfa" stroke-width="2.2"/>
-      <circle cx="20" cy="23.5" r="1.7" fill="#1e2bfa"/>
-      <path d="M20 24 V27" fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round"/>
+    <!-- padlocks on the seams: the upper one has a second, open shackle (green) for the unlock -->
+    <svg id="f06-lockU" class="f06-lock" viewBox="0 0 40 40" width="64" height="64" aria-hidden="true">
+      <circle id="f06-ringU" class="f06-lring" cx="20" cy="20" r="19"/>
+      <path id="f06-shkU" class="f06-shk" d="M14.5 18 V14 a5.5 5.5 0 0 1 11 0 V18"/>
+      <path id="f06-shkUo" class="f06-shk" d="M14.5 18 V9 a5.5 5.5 0 0 1 11 0 V11"/>
+      <rect id="f06-bodyU" class="f06-lbody" x="11" y="18" width="18" height="13" rx="3"/>
+      <circle id="f06-holeU" class="f06-lhole" cx="20" cy="23.5" r="1.7"/>
+      <path id="f06-stemU" class="f06-lstem" d="M20 24 V27"/>
     </svg>
-    <svg id="f06-lockL" class="f06-lock" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-      <circle cx="20" cy="20" r="19" fill="#fdfae7" stroke="rgba(30,43,250,0.25)" stroke-width="1.5"/>
-      <path d="M14.5 18 V14 a5.5 5.5 0 0 1 11 0 V18" fill="none" stroke="#1e2bfa" stroke-width="2.2" stroke-linecap="round"/>
-      <rect x="11" y="18" width="18" height="13" rx="3" fill="#fdfae7" stroke="#1e2bfa" stroke-width="2.2"/>
-      <circle cx="20" cy="23.5" r="1.7" fill="#1e2bfa"/>
-      <path d="M20 24 V27" fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round"/>
+    <svg id="f06-lockL" class="f06-lock" viewBox="0 0 40 40" width="64" height="64" aria-hidden="true">
+      <circle class="f06-lring" cx="20" cy="20" r="19"/>
+      <path class="f06-shk" d="M14.5 18 V14 a5.5 5.5 0 0 1 11 0 V18"/>
+      <rect class="f06-lbody" x="11" y="18" width="18" height="13" rx="3"/>
+      <circle class="f06-lhole" cx="20" cy="23.5" r="1.7"/>
+      <path class="f06-lstem" d="M20 24 V27"/>
     </svg>
 
-    <!-- upper lane: the signed-in person -->
-    <svg id="f06-avatar" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
+    <!-- factor chips (drawn under the actors, so each grows out from behind its actor) -->
+    <div id="f06-chip1" class="f06-chip f06-fac"><span class="f06-ctext">รหัสผ่าน</span><span class="f06-cgl">
+      <svg viewBox="0 0 36 36" width="46" height="46" aria-hidden="true"><g fill="none" stroke="#1e2bfa" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="18" r="6.5"/><path d="M16 18 H33.5"/><path d="M26.5 18 V24.5"/><path d="M31.5 18 V23"/></g></svg>
+    </span></div>
+    <div id="f06-chip2" class="f06-chip f06-fac"><span class="f06-ctext">ยืนยันผ่านแอปบนมือถือ</span><span class="f06-cgl">
+      <svg viewBox="0 0 36 36" width="44" height="44" aria-hidden="true"><g fill="none" stroke="#1e2bfa" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="3.5" width="16" height="29" rx="3" stroke-width="2"/><path d="M16 28.5 H20" stroke-width="2"/><path transform="translate(12.6 9.6) scale(0.45)" d="M5 12.5l4.2 4.2L19 7" stroke-width="4.4"/></g></svg>
+    </span></div>
+    <div id="f06-leak" class="f06-chip"><span class="f06-ctext">แม้รหัสผ่านจะรั่วไหล</span><span class="f06-cgl">
+      <svg viewBox="0 0 36 36" width="46" height="46" aria-hidden="true"><g fill="none" stroke="#8A867A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="18" r="6.5"/><path d="M16 18 H33.5"/><path d="M26.5 18 V24.5"/><path d="M31.5 18 V23"/></g></svg>
+    </span></div>
+
+    <!-- upper lane actor: the signed-in person (component 6) with the name above the badge -->
+    <span id="f06-name">น.อ.aaaaa</span>
+    <svg id="f06-avatar" class="f06-actor" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
       <defs><clipPath id="f06-avclip"><circle cx="48" cy="48" r="45.5"/></clipPath></defs>
+      <circle cx="48" cy="48" r="46.75" fill="#fdfae7"/>
       <circle cx="48" cy="48" r="46.75" fill="rgba(30,43,250,0.06)" stroke="#1e2bfa" stroke-width="2.5"/>
       <g clip-path="url(#f06-avclip)" fill="#9a9a9a">
         <circle cx="48" cy="38" r="16"/>
         <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
       </g>
     </svg>
-    <span id="f06-name">น.อ.aaaaa</span>
 
-    <!-- factor chips -->
-    <div id="f06-chip1" class="f06-chip f06-fac"><span class="f06-ctext">รหัสผ่าน</span><span class="f06-cgl">
-      <svg viewBox="0 0 36 36" width="40" height="40" aria-hidden="true"><g fill="none" stroke="#1e2bfa" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="18" r="6.5"/><path d="M16 18 H33.5"/><path d="M26.5 18 V24.5"/><path d="M31.5 18 V23"/></g></svg>
-    </span></div>
-    <div id="f06-chip2" class="f06-chip f06-fac"><span class="f06-ctext">ยืนยันผ่านแอปบนมือถือ</span><span class="f06-cgl">
-      <svg viewBox="0 0 36 36" width="36" height="36" aria-hidden="true"><g fill="none" stroke="#1e2bfa" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="3.5" width="16" height="29" rx="3" stroke-width="2"/><path d="M16 28.5 H20" stroke-width="2"/><path transform="translate(12.6 9.6) scale(0.45)" d="M5 12.5l4.2 4.2L19 7" stroke-width="4.4"/></g></svg>
-    </span></div>
-    <div id="f06-ghost" class="f06-chip"><span class="f06-ctext">แม้รหัสผ่านจะรั่วไหล</span><span class="f06-cgl">
-      <svg viewBox="0 0 36 36" width="40" height="40" aria-hidden="true"><g fill="none" stroke="#8A867A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="18" r="6.5"/><path d="M16 18 H33.5"/><path d="M26.5 18 V24.5"/><path d="M31.5 18 V23"/></g></svg>
-    </span></div>
+    <!-- lower lane actor: the outsider ghost (badge outline, dashed grey, no name, no face) -->
+    <svg id="f06-ghostp" class="f06-actor" viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
+      <defs><clipPath id="f06-ghclip"><circle cx="48" cy="48" r="45"/></clipPath></defs>
+      <circle cx="48" cy="48" r="46.75" fill="#fdfae7"/>
+      <circle cx="48" cy="48" r="46.75" fill="rgba(138,134,122,0.08)" stroke="#8A867A" stroke-width="2.5" stroke-dasharray="7 5.24"/>
+      <g clip-path="url(#f06-ghclip)" fill="none" stroke="#8A867A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="48" cy="38" r="15" stroke-dasharray="5 4.42"/>
+        <path d="M17 97 C17 73 31 62 48 62 C65 62 79 73 79 97" stroke-dasharray="6 4.5"/>
+      </g>
+    </svg>
 
     <!-- factor slots (drawn above the chips, so a docked glyph shows inside the slot outline) -->
     <div id="f06-s1" class="f06-slot">
-      <svg class="f06-sout" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><rect x="1" y="1" width="62" height="62" rx="12"/></svg>
+      <svg class="f06-sout" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true"><rect x="1" y="1" width="78" height="78" rx="14"/></svg>
       <div class="f06-sfill"></div>
-      <svg class="f06-scheck" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path class="f06-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="f06-scheck" viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path class="f06-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <div id="f06-s2" class="f06-slot">
-      <svg class="f06-sout" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><rect x="1" y="1" width="62" height="62" rx="12"/></svg>
+      <svg class="f06-sout" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true"><rect x="1" y="1" width="78" height="78" rx="14"/></svg>
       <div class="f06-sfill"></div>
-      <svg class="f06-scheck" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path class="f06-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="f06-scheck" viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path class="f06-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <div id="f06-s3" class="f06-slot">
-      <svg class="f06-sout" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><rect x="1" y="1" width="62" height="62" rx="12"/></svg>
+      <svg class="f06-sout" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true"><rect x="1" y="1" width="78" height="78" rx="14"/></svg>
+      <div class="f06-sfill"></div>
+      <svg class="f06-scheck" viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path class="f06-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <div id="f06-s4" class="f06-slot">
-      <svg class="f06-sout" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><rect id="f06-s4r" x="1" y="1" width="62" height="62" rx="12"/></svg>
-      <svg class="f06-sx" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><g fill="none" stroke="#9B2D27" stroke-width="3" stroke-linecap="round"><path d="M6.5 6.5 L17.5 17.5"/><path d="M17.5 6.5 L6.5 17.5"/></g></svg>
+      <svg class="f06-sout" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true"><rect id="f06-s4r" x="1" y="1" width="78" height="78" rx="14"/></svg>
+      <svg class="f06-sx" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><g fill="none" stroke="#9B2D27" stroke-width="3" stroke-linecap="round"><path d="M6.5 6.5 L17.5 17.5"/><path d="M17.5 6.5 L6.5 17.5"/></g></svg>
     </div>
 
     <!-- results -->
-    <div id="f06-ok" class="f06-res"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path id="f06-okck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="f06-rtxt">ยืนยันตัวตนแล้ว</span></div>
-    <div id="f06-no" class="f06-res"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><g fill="none" stroke="#b42318" stroke-width="3" stroke-linecap="round"><path d="M6.5 6.5 L17.5 17.5"/><path d="M17.5 6.5 L6.5 17.5"/></g></svg><span class="f06-rtxt">ก็ยังเข้าสู่ระบบไม่ได้</span></div>
+    <div id="f06-ok" class="f06-res"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path id="f06-okck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="f06-rtxt">ยืนยันตัวตนแล้ว</span></div>
+    <div id="f06-no" class="f06-res"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><g fill="none" stroke="#b42318" stroke-width="3" stroke-linecap="round"><path d="M6.5 6.5 L17.5 17.5"/><path d="M17.5 6.5 L6.5 17.5"/></g></svg><span class="f06-rtxt">ก็ยังเข้าสู่ระบบไม่ได้</span></div>
   </div>
 
   <script src="assets/vendor/gsap.min.js"></script>
@@ -172,10 +193,11 @@
       var $ = function (s) { return host.querySelector(s); };
       var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
 
-      /* chip travel distances (px): each chip starts just right of the person (x ~ 470)
-         and travels right until its glyph end sits in its slot */
-      var D1 = 560, D2 = 370, D3 = 380;
-      var OPEN = 36; /* how far each upper leaf slides when the door opens */
+      /* chip widths (px): each chip first shows at its natural width right of its actor
+         (min-width:max-content guards the estimate), then grows to FULL so its glyph end docks */
+      var FULL = 806;            /* x 320 -> 1126: the glyph end centred in the 80px slot at x 1046 */
+      var W1 = 276, W2 = 548, W3 = 468;
+      var OPEN_L = 16, OPEN_R = 144; /* upper leaves part to a 160px gap; the left leaf (slots) barely moves */
 
       var tl = gsap.timeline({ paused: true });
 
@@ -198,41 +220,48 @@
 
       /* Scene 2 (1.4-5.6): the signed-in person; two factors dock; the upper door opens */
       tl.fromTo($("#f06-avatar"), { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 1.4);
-      tl.fromTo($("#f06-name"), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 1.5);
+      tl.fromTo($("#f06-name"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.5);
 
-      function dock(chip, slot, dist, at) {
-        tl.fromTo(chip, { x: -dist }, { x: 0, duration: 0.7, ease: "power3.out" }, at);
+      /* a chip slides out from behind its actor at natural width, then its glyph end travels
+         right (the chip grows) until it sits in the slot; the slot turns green with the check */
+      function dock(chip, slot, w0, at, travelAt, land) {
         tl.fromTo(chip, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, at);
-        var land = at + 0.68;
-        tl.fromTo(slot.querySelector(".f06-sout"), { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, land);
-        tl.fromTo(slot.querySelector(".f06-sfill"), { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, land);
-        tl.fromTo(slot.querySelector(".f06-ck"), { attr: { "stroke-dashoffset": 1 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.25, ease: "power2.out" }, land + 0.08);
+        tl.fromTo(chip, { x: -40 }, { x: 0, duration: 0.35, ease: "power3.out" }, at);
+        tl.fromTo(chip, { width: w0 }, { width: FULL, duration: land - travelAt, ease: "power3.inOut" }, travelAt);
+        tl.fromTo(slot.querySelector(".f06-sout"), { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, land - 0.02);
+        tl.fromTo(slot.querySelector(".f06-sfill"), { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, land - 0.02);
+        tl.fromTo(slot.querySelector(".f06-ck"), { attr: { "stroke-dashoffset": 1 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.25, ease: "power2.out" }, land + 0.06);
       }
-      dock($("#f06-chip1"), $("#f06-s1"), D1, 2.0);
-      dock($("#f06-chip2"), $("#f06-s2"), D2, 2.9);
+      dock($("#f06-chip1"), $("#f06-s1"), W1, 2.0, 2.15, 2.7);
+      dock($("#f06-chip2"), $("#f06-s2"), W2, 2.9, 3.05, 3.6);
 
-      /* both factors in: the padlock opens, then the leaves part and stay open */
-      tl.fromTo($("#f06-shackU"), { y: 0 }, { y: -4.5, duration: 0.25, ease: "power3.out" }, 3.6);
-      tl.fromTo($("#f06-leafUL"), { x: 0 }, { x: -OPEN, duration: 0.4, ease: "power3.inOut" }, 3.7);
-      tl.fromTo($("#f06-leafUR"), { x: 0 }, { x: OPEN, duration: 0.4, ease: "power3.inOut" }, 3.7);
-      tl.fromTo($("#f06-ok"), { opacity: 0, x: -16, scale: 0.85 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: "expo.out" }, 4.0);
-      tl.fromTo($("#f06-okck"), { attr: { "stroke-dashoffset": 1 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.25, ease: "power2.out" }, 4.12);
+      /* both factors in (3.6): the upper padlock's shackle lifts open and the lock turns green */
+      tl.fromTo($("#f06-shkU"), { opacity: 1 }, { opacity: 0, duration: 0.18, ease: "power2.out" }, 3.6);
+      tl.fromTo($("#f06-shkUo"), { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 3.6);
+      tl.fromTo([$("#f06-bodyU"), $("#f06-stemU")], { stroke: "#1e2bfa" }, { stroke: "#0B6A45", duration: 0.25, ease: "power2.out" }, 3.6);
+      tl.fromTo($("#f06-holeU"), { fill: "#1e2bfa" }, { fill: "#0B6A45", duration: 0.25, ease: "power2.out" }, 3.6);
+      tl.fromTo($("#f06-ringU"), { stroke: "rgba(30,43,250,0.28)" }, { stroke: "rgba(11,106,69,0.45)", duration: 0.25, ease: "power2.out" }, 3.6);
 
-      /* Scene 3 (5.6-11.0): the leaked password alone; the lower door never opens */
-      var ghost = $("#f06-ghost");
-      tl.fromTo(ghost, { opacity: 0, x: -D3 - 24 }, { opacity: 1, x: -D3, duration: 0.3, ease: "power2.out" }, 6.0);
-      tl.fromTo(ghost, { x: -D3 }, { x: 0, duration: 0.6, ease: "power3.inOut", immediateRender: false }, 6.3);
-      /* docked: slot 1 keeps only the ghost's own dashed outline, no fill and no check */
-      tl.fromTo($("#f06-s3 .f06-sout"), { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, 6.82);
+      /* 3.7-4.2: the leaves part to a 160px gap showing the cream ground; the right leaf slides
+         into the wall, the left leaf (with the docked slots above it) barely moves; the open lock rides the left leaf */
+      tl.fromTo($("#f06-leafUL"), { x: 0 }, { x: -OPEN_L, duration: 0.5, ease: "power3.inOut" }, 3.7);
+      tl.fromTo($("#f06-lockU"), { x: 0 }, { x: -OPEN_L, duration: 0.5, ease: "power3.inOut" }, 3.7);
+      tl.fromTo($("#f06-leafUR"), { x: 0 }, { x: OPEN_R, duration: 0.5, ease: "power3.inOut" }, 3.7);
+      tl.fromTo($("#f06-ok"), { opacity: 0, x: -16, scale: 0.85 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: "expo.out" }, 4.1);
+      tl.fromTo($("#f06-okck"), { attr: { "stroke-dashoffset": 1 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.25, ease: "power2.out" }, 4.22);
 
-      /* the second slot stays empty: its outline turns red with a small x */
+      /* Scene 3 (5.6-11.0): the outsider holds a leaked but CORRECT password; the second factor is missing */
+      tl.fromTo($("#f06-ghostp"), { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 5.6);
+      dock($("#f06-leak"), $("#f06-s3"), W3, 6.0, 6.3, 6.9);
+
+      /* the second slot stays empty: its outline turns red with an x; the lower door never opens */
       tl.fromTo($("#f06-s4r"),
         { stroke: "rgba(30,43,250,0.35)" },
         { stroke: "rgba(155,45,39,1)", duration: 0.25, ease: "power2.out", immediateRender: false }, 7.0);
       tl.fromTo($("#f06-s4 .f06-sx"), { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 7.05);
       tl.fromTo($("#f06-no"), { opacity: 0, x: -16, scale: 0.85 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: "expo.out" }, 7.2);
 
-      /* deny chip and the empty slot pulse once together, then everything holds still from 8.2 */
+      /* deny pill and the empty slot pulse once together, then everything holds still from 8.2 */
       tl.fromTo([$("#f06-no"), $("#f06-s4")], { scale: 1 }, { scale: 1.06, duration: 0.2, ease: "power2.out", immediateRender: false }, 7.8);
       tl.fromTo([$("#f06-no"), $("#f06-s4")], { scale: 1.06 }, { scale: 1, duration: 0.2, ease: "power2.inOut", immediateRender: false }, 8.0);
 

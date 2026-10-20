@@ -25,69 +25,56 @@
     .f07-ph{display:inline-block;}
     .f07-key{color:#1e2bfa;}
 
-    /* timeline: 3px ink rule x 160-1760 at y 560 + two end nodes */
-    #f07-tl{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+    /* back layer: the outsider's store (dashed grey box x 1340-1760, y 300-550) + the timeline (y 620, x 160-1760) */
+    #f07-back{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+    #f07-store rect{fill:rgba(138,134,122,0.06);stroke:#8A867A;stroke-width:2;stroke-dasharray:10 8;}
     #f07-rule{fill:none;stroke:#3F3C35;stroke-width:3;stroke-linecap:round;}
     #f07-n0{fill:#3F3C35;}
     #f07-n1{fill:#fdfae7;stroke:#3F3C35;stroke-width:3;}
 
-    /* end labels, y 584-633 */
-    .f07-lab{position:absolute;top:584px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#3F3C35;white-space:nowrap;}
+    /* end labels under the timeline, y 638-687 */
+    .f07-lab{position:absolute;top:638px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#3F3C35;white-space:nowrap;}
     #f07-lab0{left:-40px;width:400px;text-align:center;}
     #f07-lab1{right:96px;text-align:right;}
 
-    /* centred sentence blocks (risk y 296-412, answer y 676-734) */
-    .f07-say{position:absolute;left:0;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;}
-    #f07-risk{top:296px;}
-    #f07-ans{top:676px;}
+    /* risk line: two lines y 290-406, centred on x 800 (between the packet and the store) */
+    .f07-say{position:absolute;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;}
+    #f07-risk{left:0;width:1600px;top:290px;}
+    /* answer line y 720-778, centred on the frame */
+    #f07-ans{left:0;width:1920px;top:720px;}
 
-    /* the "store": dashed outsider-grey box near the future end */
-    #f07-store{position:absolute;left:1548px;top:406px;width:212px;height:140px;box-sizing:border-box;border:2px dashed #8A867A;border-radius:14px;background:rgba(138,134,122,0.06);}
+    /* document tiles (component 3, full size 132 x 172): packet at x 96-228, y 436-608; copies start on it */
+    .f07-tile{position:absolute;left:96px;top:436px;width:132px;height:172px;}
+    .f07-tile svg{position:absolute;left:0;top:0;width:132px;height:172px;overflow:visible;display:block;}
+    .f07-lkc .f07-shk{fill:none;stroke:#3F3C35;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;}
+    .f07-lkc .f07-body{fill:#fdfae7;stroke:#3F3C35;stroke-width:3.5;}
+    .f07-lkc .f07-hole{fill:#3F3C35;}
+    .f07-crack{fill:none;stroke:#9B2D27;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;}
+    /* planned post-quantum lock: dashed cobalt outline + 3x3 lattice */
+    .f07-lkq .f07-qshk{fill:none;stroke:#1e2bfa;stroke-width:5;stroke-linecap:round;stroke-dasharray:9 6.5;}
+    .f07-lkq .f07-qbody{fill:#E8E7EC;stroke:#1e2bfa;stroke-width:3;stroke-dasharray:10 6;}
+    .f07-lkq .f07-grid{fill:none;stroke:rgba(30,43,250,0.38);stroke-width:1.5;}
+    .f07-lkq .f07-dot{fill:#1e2bfa;}
 
-    /* data packet = document tile (component 3) at 0.7 scale: 92 x 120 */
-    .f07-tile{position:absolute;left:114px;top:424px;width:92px;height:120px;}
-    .f07-tframe{position:absolute;left:0;top:0;width:92px;height:120px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.24);border-radius:9px;background:#f4f2e8;overflow:hidden;}
-    .f07-tband{position:absolute;left:0;top:0;width:100%;height:5px;background:#111111;}
-    .f07-tsvg,.f07-lk{position:absolute;left:0;top:0;width:92px;height:120px;overflow:visible;display:block;}
-    .f07-tsvg .f07-kg{fill:none;stroke:#6b6b6b;stroke-width:1.4;stroke-linejoin:round;}
-    .f07-tsvg .f07-tx1{fill:#6b6b6b;}
-    .f07-tsvg .f07-tx{fill:#9a9a9a;}
-    /* dashed duplicate (the stolen copy) */
-    .f07-ghost .f07-tframe{border:2px dashed #8A867A;background:#f6f3e0;}
-    .f07-ghost .f07-tband{background:#B9B4A2;}
-    .f07-ghost .f07-tsvg .f07-kg{stroke:#A29E90;}
-    .f07-ghost .f07-tsvg .f07-tx1{fill:#A29E90;}
-    .f07-ghost .f07-tsvg .f07-tx{fill:#C4BFAD;}
+    /* outsider: dashed ghost person (identity-badge silhouette outline, 110px, no name), stands at x 252-362, y 498-608 */
+    #f07-gh{position:absolute;left:252px;top:498px;width:110px;height:110px;}
+    #f07-gh svg{display:block;width:110px;height:110px;overflow:visible;}
 
-    /* padlocks: classical (ink, keyhole) and post-quantum (same outline, 3x3 cobalt lattice) */
-    .f07-lk .f07-shk{fill:none;stroke:#3F3C35;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-    .f07-lk .f07-body{fill:#fdfae7;stroke:#3F3C35;stroke-width:3.2;}
-    .f07-lk .f07-pqbody{fill:#EBE9E8;stroke:#3F3C35;stroke-width:3.2;}
-    .f07-lk .f07-hole{fill:#3F3C35;}
-    .f07-lk .f07-dot{fill:#1e2bfa;}
-    .f07-lk .f07-crack{fill:none;stroke:#9B2D27;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;}
+    /* quantum glyph: Bloch-sphere qubit, 96px, centred over the store at x 1502-1598, y 200-296 */
+    #f07-qg{position:absolute;left:1502px;top:200px;width:96px;height:96px;}
+    #f07-qg svg{display:block;width:96px;height:96px;overflow:visible;}
 
-    /* outsider ghost token: dashed grey outline, no person */
-    #f07-tok{position:absolute;left:220px;top:460px;width:48px;height:48px;}
-    #f07-tok svg{display:block;width:48px;height:48px;overflow:visible;}
-
-    /* quantum glyph, 72px at x 1724-1796, y 318-390 (static shape) */
-    #f07-qg{position:absolute;left:1724px;top:318px;width:72px;height:72px;}
-    #f07-qg svg{display:block;width:72px;height:72px;overflow:visible;}
-    #f07-qg .f07-orb{fill:none;stroke:#1e2bfa;stroke-width:1.6;}
-    #f07-qg .f07-qc{fill:rgba(30,43,250,0.08);stroke:#1e2bfa;stroke-width:2.5;}
-
-    /* effects layer: emitted ring = a 220-degree arc facing the store (stays inside x <= 1824) + the holding ring */
+    /* effects: emitted rings (full circles, stay inside y >= 170, x 1385-1715) + the holding ring on copy B */
     #f07-fx{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
-    #f07-fx .f07-wave{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-dasharray:61.1 38.9;stroke-dashoffset:-19.44;opacity:0;}
+    #f07-fx .f07-wave{fill:none;stroke:#1e2bfa;stroke-width:3;opacity:0;}
     #f07-shield{fill:none;stroke:#1e2bfa;stroke-width:3;}
 
-    /* shared check (component 8) on a cobalt disc */
-    #f07-ok{position:absolute;left:1726px;top:457px;width:28px;height:28px;border-radius:50%;background:#1e2bfa;color:#fdfae7;display:flex;align-items:center;justify-content:center;}
-    #f07-ok svg{display:block;width:18px;height:18px;}
+    /* shared check (component 8) on a cobalt disc at the holding ring's upper right */
+    #f07-ok{position:absolute;left:1487px;top:373px;width:40px;height:40px;border-radius:50%;background:#1e2bfa;color:#fdfae7;display:flex;align-items:center;justify-content:center;}
+    #f07-ok svg{display:block;width:26px;height:26px;}
 
-    /* note + chip row, y 770-823 */
-    #f07-row{position:absolute;left:0;top:770px;width:1920px;height:53px;display:flex;justify-content:center;align-items:center;gap:20px;}
+    /* note + chip row, y 800-853 */
+    #f07-row{position:absolute;left:0;top:800px;width:1920px;height:53px;display:flex;justify-content:center;align-items:center;gap:20px;}
     #f07-note{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#5F5B50;}
     #f07-chip{flex:none;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa;white-space:nowrap;}
   </style>
@@ -104,104 +91,121 @@
         <span class="f07-line"><span class="f07-ph" id="f07-r2a">แล้วถูกถอดรหัสได้</span><span class="f07-ph" id="f07-r2b">ในอนาคต</span></span>
       </div>
 
-      <svg id="f07-tl" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
-        <path id="f07-rule" d="M160 560 H1760"/>
-        <circle id="f07-n0" cx="160" cy="560" r="9"/>
-        <circle id="f07-n1" cx="1760" cy="560" r="8.5"/>
+      <svg id="f07-back" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+        <g id="f07-store"><rect x="1341" y="301" width="418" height="248" rx="16"/></g>
+        <path id="f07-rule" d="M160 620 H1760"/>
+        <circle id="f07-n0" cx="160" cy="620" r="9"/>
+        <circle id="f07-n1" cx="1760" cy="620" r="8.5"/>
       </svg>
 
       <div class="f07-lab" id="f07-lab0">วันนี้</div>
       <div class="f07-lab" id="f07-lab1">อนาคต · ยุคควอนตัม</div>
 
-      <div id="f07-store"></div>
-
-      <!-- the data packet at today -->
-      <div class="f07-tile" id="f07-pk">
-        <div class="f07-tframe"><div class="f07-tband"></div></div>
-        <svg class="f07-tsvg" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
-          <path class="f07-kg" d="M9 10h6.5l3.5 3.5V23H9z M15.5 10v3.5H19"/>
-          <rect class="f07-tx1" x="24" y="12" width="52" height="5" rx="2.5"/>
-          <rect class="f07-tx" x="9" y="28" width="66" height="4.5" rx="2.25"/>
-        </svg>
-        <svg class="f07-lk" id="f07-pk-old" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
-          <path class="f07-shk" d="M28 68V58a18 18 0 0 1 36 0V68"/>
-          <rect class="f07-body" x="16" y="66" width="60" height="46" rx="8"/>
-          <circle class="f07-hole" cx="46" cy="84" r="5.5"/>
-          <rect class="f07-hole" x="44" y="86" width="4" height="13" rx="2"/>
-        </svg>
-        <svg class="f07-lk" id="f07-pk-pq" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
-          <path class="f07-shk" d="M28 68V58a18 18 0 0 1 36 0V68"/>
-          <rect class="f07-pqbody" x="16" y="66" width="60" height="46" rx="8"/>
-          <circle class="f07-dot" cx="33" cy="77" r="3.6"/><circle class="f07-dot" cx="46" cy="77" r="3.6"/><circle class="f07-dot" cx="59" cy="77" r="3.6"/>
-          <circle class="f07-dot" cx="33" cy="89" r="3.6"/><circle class="f07-dot" cx="46" cy="89" r="3.6"/><circle class="f07-dot" cx="59" cy="89" r="3.6"/>
-          <circle class="f07-dot" cx="33" cy="101" r="3.6"/><circle class="f07-dot" cx="46" cy="101" r="3.6"/><circle class="f07-dot" cx="59" cy="101" r="3.6"/>
-        </svg>
-      </div>
-
-      <!-- stolen copy A: dashed duplicate wearing the classical lock (cracks in the future) -->
-      <div class="f07-tile f07-ghost" id="f07-ca">
-        <div class="f07-tframe"><div class="f07-tband"></div></div>
-        <svg class="f07-tsvg" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
-          <path class="f07-kg" d="M9 10h6.5l3.5 3.5V23H9z M15.5 10v3.5H19"/>
-          <rect class="f07-tx1" x="24" y="12" width="52" height="5" rx="2.5"/>
-          <rect class="f07-tx" x="9" y="28" width="66" height="4.5" rx="2.25"/>
-        </svg>
-        <svg class="f07-lk" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
-          <path class="f07-shk" id="f07-ca-shk" d="M28 68V58a18 18 0 0 1 36 0V68"/>
-          <rect class="f07-body" x="16" y="66" width="60" height="46" rx="8"/>
-          <circle class="f07-hole" cx="46" cy="84" r="5.5"/>
-          <rect class="f07-hole" x="44" y="86" width="4" height="13" rx="2"/>
-          <path class="f07-crack" id="f07-crack" d="M18 76 L30 86 L38 79 L48 95 L57 88 L74 102"/>
-        </svg>
-      </div>
-
-      <!-- stolen copy B: dashed duplicate wearing the post-quantum lock (holds) -->
-      <div class="f07-tile f07-ghost" id="f07-cb">
-        <div class="f07-tframe"><div class="f07-tband"></div></div>
-        <svg class="f07-tsvg" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
-          <path class="f07-kg" d="M9 10h6.5l3.5 3.5V23H9z M15.5 10v3.5H19"/>
-          <rect class="f07-tx1" x="24" y="12" width="52" height="5" rx="2.5"/>
-          <rect class="f07-tx" x="9" y="28" width="66" height="4.5" rx="2.25"/>
-        </svg>
-        <svg class="f07-lk" viewBox="0 0 92 120" width="92" height="120" aria-hidden="true">
-          <path class="f07-shk" d="M28 68V58a18 18 0 0 1 36 0V68"/>
-          <rect class="f07-pqbody" x="16" y="66" width="60" height="46" rx="8"/>
-          <circle class="f07-dot" cx="33" cy="77" r="3.6"/><circle class="f07-dot" cx="46" cy="77" r="3.6"/><circle class="f07-dot" cx="59" cy="77" r="3.6"/>
-          <circle class="f07-dot" cx="33" cy="89" r="3.6"/><circle class="f07-dot" cx="46" cy="89" r="3.6"/><circle class="f07-dot" cx="59" cy="89" r="3.6"/>
-          <circle class="f07-dot" cx="33" cy="101" r="3.6"/><circle class="f07-dot" cx="46" cy="101" r="3.6"/><circle class="f07-dot" cx="59" cy="101" r="3.6"/>
-        </svg>
-      </div>
-
-      <!-- outsider ghost token -->
-      <div id="f07-tok">
-        <svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
-          <circle cx="24" cy="24" r="22" fill="rgba(138,134,122,0.14)" stroke="#8A867A" stroke-width="2.5" stroke-dasharray="6.5 5.02"/>
-          <circle cx="24" cy="24" r="8" fill="#8A867A" fill-opacity="0.55"/>
-        </svg>
-      </div>
-
-      <!-- quantum glyph -->
+      <!-- quantum glyph: sphere, tilted equator (back half lighter), state arrow centre to rim -->
       <div id="f07-qg">
-        <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
-          <circle class="f07-qc" cx="36" cy="36" r="34.5"/>
-          <ellipse class="f07-orb" cx="36" cy="36" rx="24" ry="8.5"/>
-          <ellipse class="f07-orb" cx="36" cy="36" rx="24" ry="8.5" transform="rotate(60 36 36)"/>
-          <ellipse class="f07-orb" cx="36" cy="36" rx="24" ry="8.5" transform="rotate(120 36 36)"/>
-          <circle cx="36" cy="36" r="5.5" fill="#1e2bfa"/>
+        <svg viewBox="0 0 96 96" width="96" height="96" aria-hidden="true">
+          <circle cx="48" cy="48" r="46.75" fill="rgba(30,43,250,0.06)" stroke="#1e2bfa" stroke-width="2.5"/>
+          <g transform="rotate(-12 48 48)" fill="none">
+            <path d="M1.25 48 A46.75 13 0 0 1 94.75 48" stroke="rgba(30,43,250,0.45)" stroke-width="1.6"/>
+            <path d="M1.25 48 A46.75 13 0 0 0 94.75 48" stroke="#1e2bfa" stroke-width="2.2"/>
+          </g>
+          <path d="M48 48 L67.2 17.3" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round"/>
+          <path d="M72.2 9.2 L72.2 20.2 L62.9 14.4 Z" fill="#1e2bfa" stroke="#1e2bfa" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="48" cy="48" r="4.5" fill="#1e2bfa"/>
         </svg>
       </div>
+
+      <!-- the outsider -->
+      <div id="f07-gh">
+        <svg viewBox="0 0 110 110" width="110" height="110" aria-hidden="true">
+          <defs><clipPath id="f07-ghclip"><circle cx="55" cy="55" r="52"/></clipPath></defs>
+          <circle cx="55" cy="55" r="53.75" fill="rgba(138,134,122,0.08)" stroke="#8A867A" stroke-width="2.5" stroke-dasharray="3.4 1.6" pathLength="100"/>
+          <g clip-path="url(#f07-ghclip)" fill="rgba(138,134,122,0.10)" stroke="#8A867A" stroke-width="2.5" stroke-linejoin="round">
+            <circle cx="55" cy="43.5" r="18.3" stroke-dasharray="5 3" pathLength="96"/>
+            <path d="M18.3 112 C18.3 82.5 34.4 70 55 70 C75.6 70 91.7 82.5 91.7 112 Z" stroke-dasharray="6 4.5"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- the data packet at today (classical lock, swapped later for the planned post-quantum lock) -->
+      <div class="f07-tile" id="f07-pk">
+        <svg viewBox="0 0 132 172" width="132" height="172" aria-hidden="true">
+          <defs><clipPath id="f07-pkclip"><rect x="0" y="0" width="132" height="172" rx="10"/></clipPath></defs>
+          <rect x="0.75" y="0.75" width="130.5" height="170.5" rx="10" fill="#f4f2e8" stroke="rgba(30,43,250,0.24)" stroke-width="1.5"/>
+          <rect x="0" y="0" width="132" height="6" fill="#111111" clip-path="url(#f07-pkclip)"/>
+          <path d="M12 16 H22 L28 22 V36 H12 Z M22 16 V22 H28" fill="none" stroke="#6b6b6b" stroke-width="1.8" stroke-linejoin="round"/>
+          <rect x="36" y="18" width="76" height="7" rx="3.5" fill="#6b6b6b"/>
+          <rect x="36" y="31" width="52" height="6" rx="3" fill="#9a9a9a"/>
+          <rect x="14" y="160" width="104" height="6" rx="3" fill="#9a9a9a"/>
+        </svg>
+        <svg class="f07-lkc" id="f07-pk-old" viewBox="0 0 132 172" width="132" height="172" aria-hidden="true">
+          <path class="f07-shk" d="M40 92 V72 A26 26 0 0 1 92 72 V92"/>
+          <rect class="f07-body" x="24" y="90" width="84" height="62" rx="10"/>
+          <circle class="f07-hole" cx="66" cy="114" r="7"/>
+          <rect class="f07-hole" x="63" y="116" width="6" height="17" rx="3"/>
+        </svg>
+        <svg class="f07-lkq" id="f07-pk-pq" viewBox="0 0 132 172" width="132" height="172" aria-hidden="true">
+          <path class="f07-qshk" d="M40 92 V72 A26 26 0 0 1 92 72 V92"/>
+          <rect class="f07-qbody" x="24" y="90" width="84" height="62" rx="10"/>
+          <path class="f07-grid" d="M45 104 H87 M45 121 H87 M45 138 H87 M45 104 V138 M66 104 V138 M87 104 V138"/>
+          <circle class="f07-dot" cx="45" cy="104" r="4.2"/><circle class="f07-dot" cx="66" cy="104" r="4.2"/><circle class="f07-dot" cx="87" cy="104" r="4.2"/>
+          <circle class="f07-dot" cx="45" cy="121" r="4.2"/><circle class="f07-dot" cx="66" cy="121" r="4.2"/><circle class="f07-dot" cx="87" cy="121" r="4.2"/>
+          <circle class="f07-dot" cx="45" cy="138" r="4.2"/><circle class="f07-dot" cx="66" cy="138" r="4.2"/><circle class="f07-dot" cx="87" cy="138" r="4.2"/>
+        </svg>
+      </div>
+
+      <!-- stolen copy A: dashed duplicate wearing the classical lock (cracks in the future); stored in the right slot -->
+      <div class="f07-tile" id="f07-ca">
+        <svg viewBox="0 0 132 172" width="132" height="172" aria-hidden="true">
+          <defs><clipPath id="f07-caclip"><rect x="0" y="0" width="132" height="172" rx="10"/></clipPath></defs>
+          <rect x="1" y="1" width="130" height="170" rx="10" fill="#f6f3e2" stroke="#8A867A" stroke-width="2" stroke-dasharray="8 6"/>
+          <rect x="0" y="0" width="132" height="6" fill="#B9B4A2" clip-path="url(#f07-caclip)"/>
+          <path d="M12 16 H22 L28 22 V36 H12 Z M22 16 V22 H28" fill="none" stroke="#A29E90" stroke-width="1.8" stroke-linejoin="round"/>
+          <rect x="36" y="18" width="76" height="7" rx="3.5" fill="#A29E90"/>
+          <rect x="36" y="31" width="52" height="6" rx="3" fill="#C4BFAD"/>
+          <rect x="14" y="160" width="104" height="6" rx="3" fill="#C4BFAD"/>
+        </svg>
+        <svg class="f07-lkc" viewBox="0 0 132 172" width="132" height="172" aria-hidden="true">
+          <path class="f07-shk" id="f07-ca-shk" d="M40 92 V72 A26 26 0 0 1 92 72 V92"/>
+          <rect class="f07-body" id="f07-ca-body" x="24" y="90" width="84" height="62" rx="10"/>
+          <circle class="f07-hole" cx="66" cy="114" r="7"/>
+          <rect class="f07-hole" x="63" y="116" width="6" height="17" rx="3"/>
+          <path class="f07-crack" id="f07-crack" d="M27 105 L43 117 L54 108 L67 131 L79 121 L105 141"/>
+        </svg>
+      </div>
+
+      <!-- stolen copy B: dashed duplicate wearing the planned post-quantum lock (holds); stored in the left slot -->
+      <div class="f07-tile" id="f07-cb">
+        <svg viewBox="0 0 132 172" width="132" height="172" aria-hidden="true">
+          <defs><clipPath id="f07-cbclip"><rect x="0" y="0" width="132" height="172" rx="10"/></clipPath></defs>
+          <rect x="1" y="1" width="130" height="170" rx="10" fill="#f6f3e2" stroke="#8A867A" stroke-width="2" stroke-dasharray="8 6"/>
+          <rect x="0" y="0" width="132" height="6" fill="#B9B4A2" clip-path="url(#f07-cbclip)"/>
+          <path d="M12 16 H22 L28 22 V36 H12 Z M22 16 V22 H28" fill="none" stroke="#A29E90" stroke-width="1.8" stroke-linejoin="round"/>
+          <rect x="36" y="18" width="76" height="7" rx="3.5" fill="#A29E90"/>
+          <rect x="36" y="31" width="52" height="6" rx="3" fill="#C4BFAD"/>
+          <rect x="14" y="160" width="104" height="6" rx="3" fill="#C4BFAD"/>
+        </svg>
+        <svg class="f07-lkq" viewBox="0 0 132 172" width="132" height="172" aria-hidden="true">
+          <path class="f07-qshk" d="M40 92 V72 A26 26 0 0 1 92 72 V92"/>
+          <rect class="f07-qbody" x="24" y="90" width="84" height="62" rx="10"/>
+          <path class="f07-grid" d="M45 104 H87 M45 121 H87 M45 138 H87 M45 104 V138 M66 104 V138 M87 104 V138"/>
+          <circle class="f07-dot" cx="45" cy="104" r="4.2"/><circle class="f07-dot" cx="66" cy="104" r="4.2"/><circle class="f07-dot" cx="87" cy="104" r="4.2"/>
+          <circle class="f07-dot" cx="45" cy="121" r="4.2"/><circle class="f07-dot" cx="66" cy="121" r="4.2"/><circle class="f07-dot" cx="87" cy="121" r="4.2"/>
+          <circle class="f07-dot" cx="45" cy="138" r="4.2"/><circle class="f07-dot" cx="66" cy="138" r="4.2"/><circle class="f07-dot" cx="87" cy="138" r="4.2"/>
+        </svg>
+      </div>
+
+      <svg id="f07-fx" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+        <circle class="f07-wave" id="f07-w1" cx="1550" cy="248" r="50"/>
+        <circle class="f07-wave" id="f07-w2" cx="1550" cy="248" r="50"/>
+        <circle id="f07-shield" cx="1462" cy="438" r="64"/>
+      </svg>
+
+      <div id="f07-ok"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 
       <div class="f07-say" id="f07-ans"><span class="f07-line"><span class="f07-ph" id="f07-a1">การเข้ารหัสแบบใหม่</span> <span class="f07-ph" id="f07-a2">ที่<span class="f07-key">ทนทานต่อควอนตัม</span></span></span></div>
 
       <div id="f07-row"><span id="f07-note">เช่น มาตรฐาน NIST</span><span id="f07-chip">ML-KEM</span></div>
-
-      <svg id="f07-fx" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
-        <circle class="f07-wave" id="f07-w1" cx="1760" cy="354" r="40" pathLength="100"/>
-        <circle class="f07-wave" id="f07-w2" cx="1760" cy="354" r="40" pathLength="100"/>
-        <circle id="f07-shield" cx="1708.8" cy="488.8" r="36"/>
-      </svg>
-
-      <div id="f07-ok"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 
     </div>
   </div>
@@ -226,9 +230,12 @@
       var E3 = "power3.out";
       var tl = gsap.timeline({ paused: true });
 
-      /* geometry: copies start on the packet (centre 160,484) and land in the store's
-         right slot (centre 1708.8,476) at 0.8 scale; the right slot shifts 110px left later */
-      var DX = 1548.8, DY = -8, SC = 0.8, SHIFT = 110;
+      /* geometry (px offsets from CSS homes):
+         ghost home x 252 (beside the packet); at the store it stands at x 1222 (GX = 970), right edge 1332 < store 1340.
+         copies start on the packet (x 96, y 436); carried at the ghost's right (x +248, y -6), 92px right of the ghost;
+         at the store: copy carried to x 1314 (CX = 1218), then placed into a slot at y 339 (SY = -97):
+         copy A -> right slot x 1572 (AX = 1476), copy B -> left slot x 1396 (BX = 1300). */
+      var GX = 970, PX = 248, PY = -6, CX = PX + GX, SY = -97, AX = 1476, BX = 1300;
 
       /* ---------- Scene 1 (0.0-2.6): headline, timeline draw, end labels ---------- */
       var H = $$("#f07-h2 .f07-ph");
@@ -243,65 +250,76 @@
       tl.fromTo("#f07-lab0", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: E3 }, 1.2);
       tl.fromTo("#f07-lab1", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: E3 }, 1.6);
 
-      /* ---------- Scene 2 (2.6-4.4): packet, risk line 1, the outsider copies and carries ---------- */
+      /* ---------- Scene 2 (2.2-4.5): packet, risk line 1, the outsider walks in, takes a copy and carries it into its store ---------- */
+      var gh = $("#f07-gh"), ca = $("#f07-ca"), cb = $("#f07-cb");
       tl.fromTo("#f07-pk", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 2.2);
+      tl.fromTo(gh, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 2.3);
+      tl.fromTo(gh, { x: 240 }, { x: 0, duration: 0.45, ease: "power2.out" }, 2.3);
       tl.fromTo("#f07-r1a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 2.6);
       tl.fromTo("#f07-r1b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 2.78);
 
-      var tok = $("#f07-tok");
-      tl.fromTo(tok, { opacity: 0, x: 170 }, { opacity: 1, x: 0, duration: 0.32, ease: "expo.out" }, 2.48);
-      /* 2.8: pulls a dashed duplicate off the packet */
-      var ca = $("#f07-ca");
-      tl.fromTo(ca, { opacity: 0, x: 0, y: 0, scale: 1 }, { opacity: 1, x: 30, y: -6, scale: 1, duration: 0.22, ease: E3, transformOrigin: "50% 50%" }, 2.8);
-      tl.to(tok, { x: 30, duration: 0.22, ease: E3, immediateRender: false }, 2.8);
-      tl.fromTo("#f07-store", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.5, ease: E3, transformOrigin: "50% 50%" }, 2.95);
-      /* 3.0-4.0: carried along the timeline into the store */
-      tl.to(ca, { x: DX, y: DY, scale: SC, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 3.0);
-      tl.to(tok, { x: 1548, y: -8, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 3.0);
+      /* 2.8: a dashed duplicate is pulled off the packet into the outsider's hold */
+      tl.fromTo(ca, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, 2.8);
+      tl.fromTo(ca, { x: 0, y: 0 }, { x: PX, y: PY, duration: 0.25, ease: E3 }, 2.8);
+      tl.fromTo("#f07-store", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 3.0);
+      /* 3.05-4.05: one continuous carry along the timeline, ghost and copy together */
+      tl.fromTo(gh, { x: 0 }, { x: GX, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 3.05);
+      tl.fromTo(ca, { x: PX }, { x: CX, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 3.05);
+      /* 4.05-4.5: the outsider puts it into the store (right slot) */
+      tl.fromTo(ca, { x: CX, y: PY }, { x: AX, y: SY, duration: 0.45, ease: "power3.inOut", immediateRender: false }, 4.05);
 
-      /* ---------- Scene 3 (4.4-6.4): risk line 2, quantum glyph + ring, classical lock cracks ---------- */
+      /* ---------- Scene 3 (4.4-6.9): risk line 2, quantum glyph + ring, the classical lock cracks and holds ---------- */
       tl.fromTo("#f07-r2a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 4.4);
       tl.fromTo("#f07-r2b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 4.58);
-      tl.fromTo("#f07-qg", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", transformOrigin: "50% 50%" }, 4.4);
+      tl.fromTo("#f07-qg", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out", transformOrigin: "50% 50%" }, 4.4);
 
+      /* emitted ring: expands from the glyph down over the store; top stays >= y 170, sides x 1385-1715 */
       function wave(id, at) {
         var w = $(id);
-        tl.fromTo(w, { attr: { r: 40 } }, { attr: { r: 175 }, duration: 0.6, ease: "power2.out" }, at);
+        tl.fromTo(w, { attr: { r: 50, cy: 248 } }, { attr: { r: 165, cy: 340 }, duration: 0.6, ease: "power2.out" }, at);
         tl.fromTo(w, { opacity: 0 }, { opacity: 0.9, duration: 0.06, ease: "none" }, at);
-        tl.to(w, { opacity: 0, duration: 0.54, ease: "power2.in", immediateRender: false }, at + 0.06);
+        tl.fromTo(w, { opacity: 0.9 }, { opacity: 0, duration: 0.54, ease: "power2.in", immediateRender: false }, at + 0.06);
       }
       wave("#f07-w1", 4.6);
 
       var crack = $("#f07-crack");
-      var clen = prep(crack, 84);
+      var clen = prep(crack, 110);
       tl.fromTo(crack, { strokeDashoffset: clen + 6 }, { strokeDashoffset: 0, duration: 0.28, ease: "power2.out" }, 4.82);
       var shk = $("#f07-ca-shk");
-      gsap.set(shk, { svgOrigin: "28 68" });
-      tl.fromTo(shk, { y: 0, rotation: 0 }, { y: -5, rotation: -28, duration: 0.3, ease: E3 }, 4.92);
+      gsap.set(shk, { svgOrigin: "40 92" });
+      tl.fromTo(shk, { y: 0, rotation: 0 }, { y: -8, rotation: -28, duration: 0.3, ease: E3 }, 4.92);
 
-      /* ---------- Scene 4 (6.4-12.5): copy A recedes, lock swap, answer, second copy holds ---------- */
-      tl.to(ca, { opacity: 0.4, x: DX - SHIFT, duration: 0.4, ease: "power3.inOut", immediateRender: false }, 6.4);
+      /* 5.5-6.3: the outsider walks back to the packet (the cracked copy stays at full contrast) */
+      tl.fromTo(gh, { x: GX }, { x: 0, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 5.5);
 
-      /* scale-swap: classical lock out (power2.in), post-quantum lock in (power3.out, no overshoot) */
-      tl.fromTo("#f07-pk-old", { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.7, duration: 0.22, ease: "power2.in", transformOrigin: "46px 76px", immediateRender: false }, 6.4);
-      tl.fromTo("#f07-pk-pq", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.32, ease: E3, transformOrigin: "46px 76px" }, 6.5);
+      /* ---------- Scene 4 (6.4-12.5): planned PQ lock, answer, the second copy holds ---------- */
+      /* scale-swap: classical lock out (power2.in), dashed post-quantum lock in (power3.out, no overshoot) */
+      tl.fromTo("#f07-pk-old", { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.7, duration: 0.22, ease: "power2.in", transformOrigin: "66px 100px", immediateRender: false }, 6.4);
+      tl.fromTo("#f07-pk-pq", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.32, ease: E3, transformOrigin: "66px 100px" }, 6.5);
 
-      tl.fromTo("#f07-a1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 6.6);
-      tl.fromTo("#f07-a2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 6.78);
+      /* 6.9: the cracked copy recedes by recolouring its strokes (no opacity change) */
+      var GREY = "#8A867A";
+      tl.fromTo(shk, { stroke: "#3F3C35" }, { stroke: GREY, duration: 0.5, ease: "power2.out", immediateRender: false }, 6.9);
+      tl.fromTo("#f07-ca-body", { stroke: "#3F3C35" }, { stroke: GREY, duration: 0.5, ease: "power2.out", immediateRender: false }, 6.9);
+      tl.fromTo($$("#f07-ca .f07-hole"), { fill: "#3F3C35" }, { fill: GREY, duration: 0.5, ease: "power2.out", immediateRender: false }, 6.9);
+      tl.fromTo(crack, { stroke: "#9B2D27" }, { stroke: GREY, duration: 0.5, ease: "power2.out", immediateRender: false }, 6.9);
 
-      /* 6.9-7.6: the outsider copies the packet again into the store */
-      var cb = $("#f07-cb");
-      tl.to(tok, { scale: 1.14, duration: 0.16, ease: "power2.out", transformOrigin: "50% 50%", immediateRender: false }, 6.9);
-      tl.to(tok, { scale: 1, duration: 0.36, ease: E3, immediateRender: false }, 7.06);
-      tl.fromTo(cb, { opacity: 0, x: 0, y: 0, scale: 1 }, { opacity: 1, x: 30, y: -6, scale: 1, duration: 0.18, ease: E3, transformOrigin: "50% 50%" }, 6.9);
-      tl.to(cb, { x: DX, y: DY, scale: SC, duration: 0.55, ease: "power3.inOut", immediateRender: false }, 7.05);
+      tl.fromTo("#f07-a1", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 7.0);
+      tl.fromTo("#f07-a2", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 7.18);
 
-      /* 7.7 ring, 7.9 the lattice lock holds: cobalt ring + shared check */
-      wave("#f07-w2", 7.7);
-      tl.fromTo("#f07-shield", { opacity: 0, attr: { r: 50 } }, { opacity: 1, attr: { r: 36 }, duration: 0.5, ease: E3 }, 7.92);
-      tl.fromTo("#f07-ok", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out", transformOrigin: "50% 50%" }, 8.0);
+      /* 6.9-8.07: the outsider copies the packet again and carries it into the store (left slot) */
+      tl.fromTo(cb, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, 6.9);
+      tl.fromTo(cb, { x: 0, y: 0 }, { x: PX, y: PY, duration: 0.22, ease: E3 }, 6.9);
+      tl.fromTo(gh, { x: 0 }, { x: GX, duration: 0.65, ease: "power2.inOut", immediateRender: false }, 7.12);
+      tl.fromTo(cb, { x: PX }, { x: CX, duration: 0.65, ease: "power2.inOut", immediateRender: false }, 7.12);
+      tl.fromTo(cb, { x: CX, y: PY }, { x: BX, y: SY, duration: 0.3, ease: "power3.inOut", immediateRender: false }, 7.77);
 
-      /* 8.2 note, 8.4 chip; hold still from 9.2 */
+      /* 7.95 ring, 8.12 the lattice lock holds: cobalt ring + shared check */
+      wave("#f07-w2", 7.95);
+      tl.fromTo("#f07-shield", { opacity: 0, attr: { r: 80 } }, { opacity: 1, attr: { r: 64 }, duration: 0.5, ease: E3 }, 8.12);
+      tl.fromTo("#f07-ok", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out", transformOrigin: "50% 50%" }, 8.22);
+
+      /* 8.2 note, 8.4 chip; hold still from 8.85 */
       tl.fromTo("#f07-note", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: E3 }, 8.2);
       tl.fromTo("#f07-chip", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: E3, transformOrigin: "50% 50%" }, 8.4);
 
