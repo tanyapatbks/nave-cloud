@@ -372,20 +372,26 @@
         tl.to(el, Object.assign(toBox(i, chunkBar(i)), { duration: 0.42, ease: "power3.inOut" }), 3.62 + i * 0.04);
       });
 
-      // Embed (4.4–4.98): each card flips to a column of vector digits, which condenses into one point;
-      // the faint axes draw in and the four points settle as a cluster beside three other points (meaning as position)
+      // Embed (4.4–5.3): the faint axes draw in and 17 points drift from a loose spread into three tinted
+      // clusters over 0.8s (4.4–5.2); meanwhile each chunk card flips to a column of vector digits that
+      // condenses into one point, and the four points drift into the cobalt cluster (meaning as position)
+      tl.fromTo(axV, { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.3, ease: "power3.out" }, 4.42);
+      tl.fromTo(axH, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power3.out" }, 4.46);
+      cloud.forEach(function (el, j) {
+        var c = CLOUD[j], t0 = 4.4 + c.d;
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, t0);
+        tl.fromTo(el, { x: c.sx - c.p[0], y: c.sy - c.p[1] }, { x: 0, y: 0, duration: 0.72, ease: "power2.inOut" }, t0);
+      });
       tl.to(bars, { opacity: 0, duration: 0.08, ease: "power2.in" }, 4.42);
       tl.to(chunks, { scaleX: 0, duration: 0.1, ease: "power2.in", stagger: 0.02 }, 4.42);
       tl.fromTo(vecs, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.1, ease: "power2.out", stagger: 0.02 }, 4.5);
-      tl.fromTo(axV, { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.3, ease: "power3.out" }, 4.56);
-      tl.fromTo(axH, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power3.out" }, 4.6);
-      tl.to(vecs, { opacity: 0, scaleX: 0.5, scaleY: 0.1, duration: 0.14, ease: "power3.in", stagger: 0.02 }, 4.66);
+      tl.to(vecs, { opacity: 0, scaleX: 0.5, scaleY: 0.1, duration: 0.14, ease: "power3.in", stagger: 0.02 }, 4.62);
+      tl.fromTo(dots, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out", stagger: 0.02 }, 4.62);
       tl.fromTo(dots,
-        { opacity: 0, scale: 0.4, x: function (i) { return CHX[i] * S - PT_B[i][0]; }, y: function (i) { return -PT_B[i][1]; } },
-        { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.24, ease: "power3.out", stagger: 0.02 }, 4.7);
-      tl.fromTo(impA, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power3.out", stagger: 0.04 }, 4.78);
+        { x: function (i) { return CHX[i] * S - TOK[i][0]; }, y: function (i) { return -TOK[i][1]; } },
+        { x: 0, y: 0, duration: 0.52, ease: "power2.inOut", stagger: 0.02 }, 4.62);
 
-      // Index (5.2): the four points ride into the Index card with the token (camera move 4.98–5.26)
+      // Index (5.6): the four points ride into the Index card with the token (camera move 5.3–5.6)
 
       // ---- Scene 3 (6.0–9.0): the index inside the Index card; one point settles into each row; hold from 7.0 ----
       tl.fromTo(rows.map(function (r) { return r.track; }), { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out", stagger: 0.04 }, 6.0);
@@ -393,7 +399,7 @@
       dots.forEach(function (el, i) {
         var r = rows[i];
         var t0 = 6.08 + i * 0.1, land = t0 + 0.36;
-        tl.to(el, { x: (r.x - CX[5]) - PT_B[i][0], y: (r.y - CY) - PT_B[i][1], scale: MK / 10, duration: 0.36, ease: "power3.inOut" }, t0);
+        tl.to(el, { x: (r.x - CX[5]) - TOK[i][0], y: (r.y - CY) - TOK[i][1], scale: MK / PT, duration: 0.36, ease: "power3.inOut" }, t0);
         tl.to(el, { opacity: 0, duration: 0.08, ease: "power2.out" }, land);
         tl.fromTo(r.on, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, land);
         tl.fromTo(r.fill, { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "power3.out" }, land);
