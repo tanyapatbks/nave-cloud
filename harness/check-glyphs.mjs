@@ -25,7 +25,8 @@ const covered = (cp) => cp <= 0x7e || ranges.some(([a, b]) => cp >= a && cp <= b
 const dir = join(project, "compositions/frames");
 const files = [
   ...readdirSync(dir).filter((f) => f.endsWith(".html")).sort().map((f) => join(dir, f)),
-  join(project, "compositions/chrome.html"),
+  // persistent layers (chrome, roadmap rail, …)
+  ...readdirSync(join(project, "compositions")).filter((f) => f.endsWith(".html")).sort().map((f) => join(project, "compositions", f)),
 ];
 let bad = 0;
 for (const path of files) {

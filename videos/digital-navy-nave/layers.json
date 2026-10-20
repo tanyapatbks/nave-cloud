@@ -1,0 +1,20 @@
+{
+  "layers": [
+    {
+      "id": "chrome",
+      "src": "compositions/chrome.html",
+      "frames": ["02-challenge", "03-data", "04-turn", "05-nave", "06-mfa", "07-pqc", "08-workspace", "09-prompts", "10-roadmap", "11-stage1", "12-stage2", "13-stage3", "14-stage4", "15-stage5"],
+      "until": "16-close",
+      "tail": 0.6,
+      "track": 2
+    },
+    {
+      "id": "roadmap",
+      "src": "compositions/roadmap.html",
+      "frames": ["11-stage1", "12-stage2", "13-stage3", "14-stage4", "15-stage5"],
+      "until": "16-close",
+      "tail": 0.6,
+      "track": 3
+    }
+  ]
+}

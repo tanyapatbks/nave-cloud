@@ -7,6 +7,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 const sbPath = process.argv[2] ?? "videos/rtn-rag-explainer/STORYBOARD.md";
 const out = process.argv[3] ?? "qa/copy-deck.md";
 const md = readFileSync(sbPath, "utf8");
+// A project may supply its own deck intro and brief-point list next to its storyboard.
+const local = (name) => { try { return readFileSync(sbPath.replace(/STORYBOARD\.md$/, name), "utf8"); } catch { return null; } };
 
 const intro = `# Copy deck — RTN permission-aware RAG explainer (draft review)
 
@@ -49,5 +51,5 @@ for (const block of md.split(/^## Frame /m).slice(1)) {
   sections.push(lines.join("\n"));
   t += dur;
 }
-writeFileSync(out, [intro, ...sections, briefPoints].join("\n\n"));
+writeFileSync(out, [local("deck-intro.md") ?? intro, ...sections, local("deck-brief.md") ?? briefPoints].join("\n\n"));
 console.log(`wrote ${out}: ${sections.length} frames, ${t} s`);

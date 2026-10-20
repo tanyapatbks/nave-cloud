@@ -1,0 +1,12 @@
+{
+  "layers": [
+    {
+      "id": "chrome",
+      "src": "compositions/chrome.html",
+      "frames": ["02-ingest", "03-filename", "04-tags", "05-pipeline", "06-hybrid", "07-rerank", "08-two-people", "09-scope", "10-prefilter"],
+      "until": "11-close",
+      "tail": 0.6,
+      "track": 2
+    }
+  ]
+}

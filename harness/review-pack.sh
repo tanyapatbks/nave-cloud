@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Review pack decoded from a rendered MP4 (pixels only, never the preview):
 # per frame window, a 2 fps strip and a full-resolution settled still.
-# Usage: harness/review-pack.sh <video.mp4> <out_dir>
+# Usage: harness/review-pack.sh <video.mp4> <out_dir> [project_dir]
 set -euo pipefail
-mp4="$1"; out="$2"; mkdir -p "$out"
+mp4="$1"; out="$2"; project="${3:-$(dirname "$0")/../videos/rtn-rag-explainer}"; mkdir -p "$out"
 # id start duration (global seconds, fractional) cells rows, derived from STORYBOARD.md
-frames=$(python3 -I - "$(dirname "$0")/../videos/rtn-rag-explainer/STORYBOARD.md" <<'PY'
+frames=$(python3 -I - "$project/STORYBOARD.md" <<'PY'
 import re, sys
 md = open(sys.argv[1], encoding="utf-8").read()
 t = 0.0

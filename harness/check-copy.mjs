@@ -11,6 +11,9 @@ const BANNED = ["ผู้บังคับบัญชา", "ผู้ไม�
 
 const path = process.argv[2] ?? "STORYBOARD.md";
 const md = readFileSync(path, "utf8");
+// A storyboard may allow a listed word where it is the requester's own third-person phrase
+// (frontmatter `copy_allow: "word, word"`); it is then not treated as addressing the audience.
+const allow = (/^copy_allow:\s*"?([^"\n]*)"?$/m.exec(md)?.[1] ?? "").split(",").map((w) => w.trim()).filter(Boolean);
 const base = (s) => [...s.normalize("NFC")].filter((c) => !/\p{M}/u.test(c) && !/\s/.test(c)).length;
 
 let failures = 0, warnings = 0, totalChars = 0, totalSecs = 0;
@@ -24,7 +27,7 @@ for (const block of md.split(/^## Frame /m).slice(1)) {
   totalChars += chars; totalSecs += dur;
   const issues = [];
   for (const l of lines) if (base(l) > MAX_LINE) issues.push(`line > ${MAX_LINE} chars (${base(l)}): "${l}"`);
-  for (const w of BANNED) if (onscreen.includes(w)) issues.push(`banned audience word: ${w}`);
+  for (const w of BANNED) if (onscreen.includes(w) && !allow.some((a) => a.includes(w) || w.includes(a))) issues.push(`banned audience word: ${w}`);
   if (cps > MAX_CPS) issues.push(`cps ${cps.toFixed(1)} > ${MAX_CPS}`);
   const level = issues.length ? "FAIL" : cps > TARGET_CPS ? "WARN" : "ok";
   if (level === "FAIL") failures++; else if (level === "WARN") warnings++;
