@@ -10,7 +10,7 @@ music: none
 
 ## Video direction
 
-- **Story spine.** One example document (`ศซบ_สสท_2600000001_v02_2569_นโยบาย69.pdf`, the brief's own example) and one example question are followed through the whole system: archive → made readable → named → split and labelled → indexed → found by three kinds of search → ranked → and finally **found by one person and invisible to another**. Three chapters, shown by the persistent tracker: **① อ่านได้ (make it readable) · ② ค้นเจอ (find it) · ③ ตามสิทธิ์ (only what you may see)**. Close on the brief's own last line.
+- **Story spine.** One example document (`ศซบ_สสท_2600000001_v02_2569_นโยบาย69.pdf`, the brief's own example) and one example question are followed through the whole system: archive → made readable → named → split and labelled → indexed → found by three kinds of search → ranked → and finally **found by one person and invisible to another**. Three chapters, shown by the persistent tracker: **1 อ่านได้ (make it readable) · 2 ค้นเจอ (find it) · 3 ตามสิทธิ์ (only what you may see)** (numerals in a bold badge; circled digits are not in the fonts). Close on the brief's own last line.
 - **Palette** (from `frame.md`): cream ground; near-black headlines; **cobalt = the active thing** (the question, the AI's reach, the permission scope); greys = outside scope / not yet relevant; `positive` / `negative` only as small ✓ / ✗ chips, and `negative` only in frames 08 and 10. Atmosphere (concentric rings, dot grid) only on frames 01 and 11.
 - **No narration.** There is no voice-over and no caption track. Each frame's `onscreen:` lines are the visible copy — render exactly, revealed at their cue times (they replace VO cues). Plain Thai phrase first; the English technical term rides as a small mono chip (`term:` or inline chip). Never address the audience.
 - **Reading budget (harness-enforced).** ≤ 17 Thai chars/s hard ceiling; plan ~8–12; ≤ 35 base chars per line; ≤ 2 lines per block; every text block stays on screen until its frame ends (no text is removed mid-frame except where a Scene says so); final card holds ≥ 3 s.
@@ -34,7 +34,7 @@ music: none
 - blueprint: grid-card-assemble (Adapt)
 - focal: the "120+" numeral, then the question headline
 - roles: archive wall of ~40 document tiles = background (dimmed to ~40% once the question lands) · "120+" = foreground subject · kind chips = supporting · question headline = foreground subject (Scene 3) · chapter tracker = supporting (Scene 4)
-- onscreen: "120+" (0.3s) · "ปี ของข้อมูลกองทัพเรือ" (1.2s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (2.4s, staggered) · headline line 1 "แล้วเราจะจัดทำ RAG" + line 2 "ให้กับ ทร. ได้อย่างไร?" (4.6s) · chip under RAG "ค้นเอกสารจริงก่อน แล้วจึงตอบ" (6.0s) · tracker "① อ่านได้" "② ค้นเจอ" "③ ตามสิทธิ์" (7.3s)
+- onscreen: "120+" (0.3s) · "ปี ของข้อมูลกองทัพเรือ" (1.2s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (2.4s, staggered) · headline line 1 "แล้วเราจะจัดทำ RAG" + line 2 "ให้กับ ทร. ได้อย่างไร?" (4.6s) · chip under RAG "ค้นเอกสารจริงก่อน แล้วจึงตอบ" (6.0s) · tracker "1 อ่านได้" "2 ค้นเจอ" "3 ตามสิทธิ์" (7.3s)
 
 narrativeRole: Opens the gap — a huge, mixed archive and one plain question about it.
 keyMessage: The Navy has 120+ years of documents in many forms; the question is how to make an AI answer from them.
@@ -264,14 +264,14 @@ Scene 4 (7.4–10.0s): hold still (held read).
 - term: Pre-filter
 - focal: the right panel's untouched restricted tiles
 - roles: header/tracker = supporting (③ current) · left panel (wrong way) = foreground subject · right panel (right way) = foreground subject · search beam = supporting · residue marks = supporting · rule line = foreground subject (Scene 4)
-- onscreen: headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "✗ ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.0s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (4.2s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (6.4s)
+- onscreen: headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.0s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (4.2s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (6.4s)
 
 narrativeRole: The climax — shows why filtering after the search is unsafe and why the scope must be applied before searching.
 keyMessage: Never search the whole archive and filter afterwards; apply the permission scope first.
 
 Adapt: keep two equal panels from opposite wings (signature) but flat (no tilt) so the grids stay readable; the inner-edge badges become ✗ / ✓ labels.
 Scene 1 (0.0–1.0s): header present; headline per-phrase reveal; two equal panels enter from opposite wings (x 96–900 and 1020–1824, y 300–760), each containing the same 4×3 grid of document tiles with three restricted tiles (lock glyph).
-Scene 2 (1.0–4.2s): left panel only — label "✗ ค้นทั้งคลัง แล้วค่อยกรอง" (`negative` chip). A cobalt search beam sweeps the whole grid, including restricted tiles; one restricted tile lifts into a small "candidates → AI" tray beside the grid before a filter bar strikes it out — but three small red residue chips remain behind ("log", "จำนวนผล", "สรุป") at 3.0s: it was already seen.
+Scene 2 (1.0–4.2s): left panel only — label "× ค้นทั้งคลัง แล้วค่อยกรอง" (`negative` chip). A cobalt search beam sweeps the whole grid, including restricted tiles; one restricted tile lifts into a small "candidates → AI" tray beside the grid before a filter bar strikes it out — but three small red residue chips remain behind ("log", "จำนวนผล", "สรุป") at 3.0s: it was already seen.
 Scene 3 (4.2–6.4s): right panel — label "✓ ขอบเขตก่อน แล้วค่อยค้น" (`positive` chip). The permission scope boundary draws first around only the allowed tiles (`svg-path-draw`); restricted tiles grey to 35% outside it; then the search beam sweeps only inside the boundary. Nothing restricted moves, no residue.
 Scene 4 (6.4–10.0s): both panels dim slightly (light `depth-of-field-blur`) and the rule reveals centred at y≈820 in two authored lines, IBM Plex Sans Thai Looped 600 44px, "ไม่ได้" in cobalt weight in both lines. Hold still.
 

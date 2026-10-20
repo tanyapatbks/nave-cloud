@@ -1,0 +1,220 @@
+<template>
+  <style>
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-Medium.ttf") format("truetype");}
+
+    #root{position:absolute;inset:0;overflow:hidden}
+    [id^="f08-"],[class^="f08-"]{box-sizing:border-box}
+
+    /* ground: full-bleed cream + two faint side glows (left = scope/cobalt, right = neutral grey) */
+    #f08-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;overflow:hidden}
+    #f08-glowL{position:absolute;left:-58px;top:300px;width:1100px;height:600px;background:radial-gradient(closest-side,rgba(30,43,250,0.07),rgba(30,43,250,0))}
+    #f08-glowR{position:absolute;left:878px;top:300px;width:1100px;height:600px;background:radial-gradient(closest-side,rgba(107,107,107,0.06),rgba(107,107,107,0))}
+
+    /* shared header (static) */
+    #f08-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
+    #f08-hdr .f08-track{display:flex;gap:12px}
+    #f08-hdr .f08-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+    #f08-hdr .f08-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
+    #f08-hdr .f08-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
+    #f08-hdr .f08-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+
+    /* headline */
+    #f08-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111;letter-spacing:0}
+    #f08-h2 .f08-line{display:block;white-space:nowrap}
+    #f08-h2 .f08-ph{display:inline-block}
+
+    /* split stage: each side owns its own perspective box (full canvas, origin = canvas centre) */
+    .f08-side{position:absolute;left:0;top:0;width:1920px;height:1080px;perspective:1800px;perspective-origin:960px 540px}
+    .f08-card{position:absolute;top:420px;width:724px;height:440px;padding:32px 36px;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04);outline:3px solid rgba(253,250,231,0);outline-offset:0}
+    #f08-cardL{left:130px}
+    #f08-cardR{left:1066px}
+    .f08-id{display:flex;align-items:center;gap:24px;height:96px}
+    #f08-cardR .f08-id{flex-direction:row-reverse}
+    .f08-avatar{display:block;width:96px;height:96px;flex:none}
+    .f08-name{display:block;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;white-space:nowrap}
+    .f08-well{position:absolute;left:36px;right:36px;top:152px;bottom:32px;border-radius:12px;background:rgba(30,43,250,0.04);display:flex;align-items:center;justify-content:center}
+
+    /* inner-edge permission badges (on the flat parent, not inside the tilted card) */
+    .f08-badge{position:absolute;top:473px;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;padding:8px 22px;border-radius:100px;white-space:nowrap}
+    #f08-badgeL{left:779px;background:#1e2bfa;border:1.5px solid #1e2bfa;color:#fdfae7}
+    #f08-badgeR{left:1016px;background:linear-gradient(rgba(107,107,107,0.12),rgba(107,107,107,0.12)),#fdfae7;border:1.5px solid rgba(107,107,107,0.35);color:#6b6b6b}
+
+    /* left result: the example document tile + found chip */
+    #f08-resL{display:flex;align-items:center;gap:32px}
+    #f08-tile{position:relative;width:132px;height:172px;flex:none;border-radius:10px;border:2.5px solid #1e2bfa;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;overflow:hidden}
+    .f08-tile-band{position:absolute;left:0;top:0;width:100%;height:4px;background:#111111}
+    .f08-tile-glyph{position:absolute;left:14px;top:18px;display:block}
+    .f08-tile-bar{position:absolute;left:14px;height:6px;border-radius:3px;background:rgba(154,154,154,0.6)}
+    #f08-ok{display:block;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#059669;background:rgba(5,150,105,0.10);white-space:nowrap}
+
+    /* right result: nothing but the line */
+    #f08-resR .f08-line{display:block;white-space:nowrap;font-family:"IBM Plex Sans Thai Looped";font-weight:500;font-size:36px;line-height:1.5;color:#6b6b6b}
+    #f08-resR .f08-mph{display:inline-block}
+
+    /* the identical question + its two links */
+    #f08-links{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+    #f08-qwrap{position:absolute;left:0;top:270px;width:1920px;display:flex;justify-content:center}
+    #f08-q{display:flex;align-items:center;gap:16px;padding:20px 30px;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
+    #f08-q .f08-qicon{display:block;flex:none}
+    #f08-q .f08-qtext{display:block;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;white-space:nowrap}
+  </style>
+
+  <div id="root" data-composition-id="08-two-people" data-width="1920" data-height="1080">
+    <div id="f08-ground" class="clip" data-start="0" data-duration="9" data-track-index="0">
+      <div id="f08-glowL"></div>
+      <div id="f08-glowR"></div>
+    </div>
+
+    <div id="f08-hdr">
+      <div class="f08-track"><span class="f08-pill is-done">① อ่านได้</span><span class="f08-pill is-done">② ค้นเจอ</span><span class="f08-pill is-current">③ ตามสิทธิ์</span></div>
+      <span class="f08-term">Access Control</span>
+    </div>
+
+    <div id="f08-h2"><span class="f08-line"><span class="f08-ph">คำถามเดียวกัน</span> <span class="f08-ph">—</span> <span class="f08-ph">คำตอบตามสิทธิ์</span></span></div>
+
+    <!-- left side: กำลังพล ก -->
+    <div id="f08-sideL" class="f08-side">
+      <div id="f08-cardL" class="f08-card">
+        <div class="f08-id">
+          <svg class="f08-avatar f08-cin-L" viewBox="0 0 96 96" width="96" height="96">
+            <defs><clipPath id="f08-avclipL"><circle cx="48" cy="48" r="46.5"/></clipPath></defs>
+            <circle cx="48" cy="48" r="47.25" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/>
+            <g clip-path="url(#f08-avclipL)" fill="#9a9a9a">
+              <circle cx="48" cy="38" r="16"/>
+              <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
+            </g>
+          </svg>
+          <span class="f08-name f08-cin-L">กำลังพล ก</span>
+        </div>
+        <div id="f08-wellL" class="f08-well">
+          <div id="f08-resL">
+            <div id="f08-tile">
+              <div class="f08-tile-band"></div>
+              <svg class="f08-tile-glyph" viewBox="0 0 22 26" width="22" height="26">
+                <path d="M2 1.5 H13 L20 8.5 V24.5 H2 Z" fill="none" stroke="#6b6b6b" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M13 1.5 V8.5 H20" fill="none" stroke="#6b6b6b" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              <div class="f08-tile-bar" style="top:62px;width:99px"></div>
+              <div class="f08-tile-bar" style="top:82px;width:86px"></div>
+              <div class="f08-tile-bar" style="top:102px;width:99px"></div>
+              <div class="f08-tile-bar" style="top:122px;width:58px"></div>
+            </div>
+            <span id="f08-ok">✓ พบ: นโยบาย69</span>
+          </div>
+        </div>
+      </div>
+      <span id="f08-badgeL" class="f08-badge">มีสิทธิ์</span>
+    </div>
+
+    <!-- right side: กำลังพล ข -->
+    <div id="f08-sideR" class="f08-side">
+      <div id="f08-cardR" class="f08-card">
+        <div class="f08-id">
+          <svg class="f08-avatar f08-cin-R" viewBox="0 0 96 96" width="96" height="96">
+            <defs><clipPath id="f08-avclipR"><circle cx="48" cy="48" r="46.5"/></clipPath></defs>
+            <circle cx="48" cy="48" r="47.25" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.2)" stroke-width="1.5"/>
+            <g clip-path="url(#f08-avclipR)" fill="#9a9a9a">
+              <circle cx="48" cy="38" r="16"/>
+              <path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/>
+            </g>
+          </svg>
+          <span class="f08-name f08-cin-R">กำลังพล ข</span>
+        </div>
+        <div id="f08-wellR" class="f08-well">
+          <div id="f08-resR"><span class="f08-line"><span class="f08-mph">ไม่พบเอกสาร</span><span class="f08-mph">ในสิทธิ์ของท่าน</span></span></div>
+        </div>
+      </div>
+      <span id="f08-badgeR" class="f08-badge">ไม่มีสิทธิ์</span>
+    </div>
+
+    <!-- links from the one question to each person -->
+    <svg id="f08-links" viewBox="0 0 1920 1080" width="1920" height="1080">
+      <path id="f08-linkL" d="M 663 320 H 528 Q 492 320 492 356 V 412" pathLength="1" fill="none" stroke="#1e2bfa" stroke-opacity="0.6" stroke-width="2.5" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+      <path id="f08-linkR" d="M 1257 320 H 1392 Q 1428 320 1428 356 V 412" pathLength="1" fill="none" stroke="#1e2bfa" stroke-opacity="0.6" stroke-width="2.5" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+      <path id="f08-pulseL" class="f08-pulse" d="M 663 320 H 528 Q 492 320 492 356 V 412" pathLength="1" fill="none" stroke="#1e2bfa" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.12 1.2" stroke-dashoffset="0.12"/>
+      <path id="f08-pulseR" class="f08-pulse" d="M 1257 320 H 1392 Q 1428 320 1428 356 V 412" pathLength="1" fill="none" stroke="#1e2bfa" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.12 1.2" stroke-dashoffset="0.12"/>
+      <circle id="f08-dotL" class="f08-dot" cx="492" cy="416" r="6" fill="#1e2bfa"/>
+      <circle id="f08-dotR" class="f08-dot" cx="1428" cy="416" r="6" fill="#1e2bfa"/>
+    </svg>
+
+    <div id="f08-qwrap">
+      <div id="f08-q">
+        <svg class="f08-qicon" viewBox="0 0 34 34" width="34" height="34">
+          <circle cx="14" cy="14" r="10" fill="none" stroke="#1e2bfa" stroke-width="3"/>
+          <path d="M21.5 21.5 L31 31" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span class="f08-qtext">แนวทางปฏิบัติปี 69 ของ ศซบ.</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      var TILT = 12, OVER = 8, SLIDE = 380, AMP = 4;
+
+      /* ambient: the two side glows bloom in, then stay */
+      tl.fromTo(["#f08-glowL", "#f08-glowR"], { opacity: 0 }, { opacity: 1, duration: 1.6, ease: "power1.inOut" }, 0);
+
+      /* Scene 1 (0.0-2.4) — headline per phrase, slide-down settle */
+      tl.fromTo("#f08-h2 .f08-ph", { y: -28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.15 }, 0.3);
+
+      /* split-tilt entry: opposite wings, mirrored book-open tilt pivoting into place */
+      tl.fromTo("#f08-cardL", { x: -SLIDE, rotationY: TILT + OVER, scale: 0.86, opacity: 0 },
+        { x: 0, rotationY: TILT, scale: 1, opacity: 1, duration: 1.0, ease: "power3.out" }, 0.3);
+      tl.fromTo("#f08-cardR", { x: SLIDE, rotationY: -TILT - OVER, scale: 0.86, opacity: 0 },
+        { x: 0, rotationY: -TILT, scale: 1, opacity: 1, duration: 1.0, ease: "power3.out" }, 0.55);
+
+      /* card copy fades up during the settle; answer wells arrive empty and identical */
+      tl.fromTo("#f08-cardL .f08-cin-L", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out", stagger: 0.08 }, 0.8);
+      tl.fromTo("#f08-cardR .f08-cin-R", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out", stagger: 0.08 }, 1.1);
+      tl.fromTo("#f08-wellL", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 1.0);
+      tl.fromTo("#f08-wellR", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 1.3);
+
+      /* inner-edge permission badges: the one spring overshoot (left 1.2, right 1.6) */
+      tl.fromTo("#f08-badgeL", { scale: 0.3 }, { scale: 1, duration: 0.55, ease: "back.out(2.2)" }, 1.2);
+      tl.fromTo("#f08-badgeL", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 1.2);
+      tl.fromTo("#f08-badgeR", { scale: 0.3 }, { scale: 1, duration: 0.55, ease: "back.out(2.2)" }, 1.6);
+      tl.fromTo("#f08-badgeR", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 1.6);
+
+      /* counter-phase idle float (left sin, right -sin), settling to rest at 6.4 */
+      tl.fromTo("#f08-sideL", { y: 0 }, { y: -AMP, duration: 1.1, ease: "sine.inOut" }, 2.0);
+      tl.fromTo("#f08-sideL", { y: -AMP }, { y: AMP, duration: 2.2, ease: "sine.inOut", immediateRender: false }, 3.1);
+      tl.fromTo("#f08-sideL", { y: AMP }, { y: 0, duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.3);
+      tl.fromTo("#f08-sideR", { y: 0 }, { y: AMP, duration: 1.1, ease: "sine.inOut" }, 2.0);
+      tl.fromTo("#f08-sideR", { y: AMP }, { y: -AMP, duration: 2.2, ease: "sine.inOut", immediateRender: false }, 3.1);
+      tl.fromTo("#f08-sideR", { y: -AMP }, { y: 0, duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.3);
+
+      /* Scene 2 (2.4-4.0) — the one question drops in, two identical links draw to each side */
+      tl.fromTo("#f08-q", { y: -36, scale: 0.94, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "power3.out" }, 2.4);
+      tl.fromTo(["#f08-linkL", "#f08-linkR"], { attr: { "stroke-dashoffset": 1 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.6, ease: "power2.inOut" }, 2.85);
+      tl.fromTo(".f08-dot", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "power3.out" }, 3.38);
+      /* the same query travels both links at once */
+      tl.fromTo(".f08-pulse", { opacity: 0 }, { opacity: 1, duration: 0.08, ease: "none" }, 3.45);
+      tl.fromTo(".f08-pulse", { attr: { "stroke-dashoffset": 0.12 } }, { attr: { "stroke-dashoffset": -1 }, duration: 0.5, ease: "power2.inOut" }, 3.45);
+      tl.to(".f08-pulse", { opacity: 0, duration: 0.06, ease: "none" }, 3.9);
+      tl.to(".f08-dot", { scale: 1.35, duration: 0.12, ease: "power2.out" }, 3.9);
+      tl.to(".f08-dot", { scale: 1, duration: 0.25, ease: "power2.inOut" }, 4.02);
+
+      /* Scene 3 (4.0-5.0) — left answer fills in: the example document + found chip */
+      tl.fromTo("#f08-wellL", { backgroundColor: "rgba(30,43,250,0.04)" }, { backgroundColor: "rgba(30,43,250,0.08)", duration: 0.5, ease: "power1.out", immediateRender: false }, 4.0);
+      tl.fromTo("#f08-tile", { y: 18, scale: 0.9, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.55, ease: "power3.out" }, 4.0);
+      tl.fromTo("#f08-tile .f08-tile-bar", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 4.15);
+      tl.fromTo("#f08-ok", { x: -12, scale: 0.6 }, { x: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.25);
+      tl.fromTo("#f08-ok", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 4.25);
+
+      /* Scene 4 (5.0-9.0) — right answer fills in empty: only the line, per phrase; still from 6.4 */
+      tl.fromTo("#f08-resR .f08-mph", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.28 }, 5.0);
+
+      tl.set({}, {}, 9);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["08-two-people"] = tl;
+    })();
+  </script>
+</template>

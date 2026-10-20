@@ -26,7 +26,7 @@
 
     /* morph card: authored at the answer card's FINAL geometry (scale 1 = crisp text);
        it starts as the tray hugging the top three rows (scale S0, radius 24 apparent) */
-    #f07-card{position:absolute;left:960px;top:360px;width:864px;height:268.47px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:14px;background-color:rgba(30,43,250,0.04);overflow:hidden;transform-origin:0 0;z-index:1}
+    #f07-card{position:absolute;left:960px;top:420px;width:864px;height:268.47px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:14px;background-color:rgba(30,43,250,0.04);overflow:hidden;transform-origin:0 0;z-index:1}
     #f07-card .f07-new{position:absolute;left:0;top:0;right:0;bottom:0}
     #f07-card .f07-rule{position:absolute;left:0;top:0;bottom:0;width:5px;background:#1e2bfa}
     #f07-card .f07-ans{position:absolute;left:40px;top:36px;display:flex;align-items:center;gap:14px}
@@ -56,11 +56,11 @@
     .f07-fill{display:block;width:100%;height:100%;border-radius:6px;background:#1e2bfa;transform-origin:left center}
 
     /* cut line + label */
-    #f07-cut{position:absolute;left:88px;top:511px;width:696px;height:24px;overflow:visible;z-index:2}
-    #f07-top3{position:absolute;left:792px;top:497px;padding:7px 22px;border-radius:100px;background:#1e2bfa;color:#fdfae7;font-family:"IBM Plex Mono";font-weight:500;font-size:26px;line-height:1.45;white-space:nowrap;z-index:3}
+    #f07-cut{position:absolute;left:88px;top:511px;width:696px;height:24px;overflow:visible;z-index:25}
+    #f07-top3{position:absolute;left:792px;top:497px;padding:7px 22px;border-radius:100px;background:#1e2bfa;color:#fdfae7;font-family:"IBM Plex Mono";font-weight:500;font-size:26px;line-height:1.45;white-space:nowrap;z-index:26}
 
     /* consumer chip on the answer card's top edge */
-    #f07-llm{position:absolute;right:128px;top:333px;display:flex;align-items:center;gap:10px;padding:10px 22px 10px 16px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#ebe9e9;color:#1e2bfa;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;z-index:30}
+    #f07-llm{position:absolute;right:128px;top:391px;display:flex;align-items:center;gap:10px;padding:10px 22px 10px 16px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#ebe9e9;color:#1e2bfa;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;z-index:30}
     #f07-llm svg{width:24px;height:24px;flex:none}
   </style>
 
@@ -155,7 +155,7 @@
       // geometry (px, 1920x1080)
       var PITCH = 68, ROW_L = 96, ROW_T0 = 300, NUDGE = 36;
       var TRAY_L = 82, TRAY_T = 286, TRAY_W = 708, PAD = 14;
-      var CARD_L = 960, CARD_T = 360, CARD_W = 864;
+      var CARD_L = 960, CARD_T = 420, CARD_W = 864;
       var S0 = TRAY_W / CARD_W;            // tray apparent size = card x S0
       var R0 = 24 / S0;                    // tray apparent radius 24 (pre-scale units)
 

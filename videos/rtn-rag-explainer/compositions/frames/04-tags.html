@@ -1,0 +1,247 @@
+<template>
+  <style>
+    @font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+    @font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+  </style>
+  <style>
+    #f04-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
+    #f04-hdr .f04-track{display:flex;gap:12px}
+    #f04-hdr .f04-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+    #f04-hdr .f04-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
+    #f04-hdr .f04-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
+    #f04-hdr .f04-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    #f04-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+    #f04-h2 .f04-line{display:block;white-space:nowrap}
+  </style>
+  <style>
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"IBM Plex Sans Thai";}
+    #f04-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
+    #f04-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
+    #f04-h2 .f04-ph{display:inline-block;}
+
+    /* shared mini badge (frame.md component 7, mini form) + its empty slot */
+    .f04-bslot{position:relative;width:100px;height:32px;flex:none;}
+    .f04-slot{position:absolute;left:0;top:0;width:100px;height:32px;box-sizing:border-box;border:1.5px dashed rgba(30,43,250,0.35);border-radius:100px;}
+    .f04-badge{position:absolute;left:0;top:0;width:100px;height:32px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:8px;}
+    .f04-badge span{display:block;width:12px;height:12px;border-radius:50%;background:#1e2bfa;}
+
+    /* example document tile (component 3, enlarged; cobalt outline = the example document) */
+    #f04-doc{position:absolute;left:96px;top:440px;width:260px;height:340px;box-sizing:border-box;border:2.5px solid #1e2bfa;border-radius:10px;background:#f4f2e8;z-index:4;}
+    #f04-doc .f04-doc-band{position:absolute;left:0;top:0;right:0;height:8px;border-radius:7.5px 7.5px 0 0;background:#111111;}
+    #f04-doc .f04-doc-kind{position:absolute;left:20px;top:24px;width:26px;height:30px;overflow:visible;}
+    #f04-doc .f04-doc-kind path{fill:none;stroke:#6b6b6b;stroke-width:2;stroke-linejoin:round;}
+    #f04-doc .f04-doc-head{position:absolute;left:58px;top:34px;width:120px;height:10px;border-radius:5px;background:#6b6b6b;}
+    .f04-doc-blk{position:absolute;left:20px;display:flex;flex-direction:column;gap:10px;}
+    .f04-doc-blk span,.f04-cbars span{display:block;height:6px;border-radius:3px;background:#9a9a9a;}
+    #f04-doc .f04-doc-cuts{position:absolute;left:0;top:0;width:255px;height:335px;overflow:visible;}
+    #f04-doc .f04-doc-cuts path{fill:none;stroke:#1e2bfa;stroke-opacity:0.55;stroke-width:2;stroke-linecap:butt;}
+    #f04-doc .f04-bslot{position:absolute;right:18px;top:290px;}
+
+    /* chunk cards — center-outward-expansion from the document's centre (226, 610) */
+    #f04-burst{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:2;}
+    .f04-chunk{position:absolute;left:226px;top:610px;width:540px;height:84px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:12px;background:rgba(30,43,250,0.04);will-change:transform;}
+    .f04-lit{position:absolute;left:-1.5px;top:-1.5px;right:-1.5px;bottom:-1.5px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.4);border-radius:12px;background:rgba(30,43,250,0.04);}
+    .f04-cbars{position:absolute;left:28px;top:21.5px;display:flex;flex-direction:column;gap:10px;}
+    .f04-chunk .f04-bslot{position:absolute;right:24px;top:24.5px;}
+
+    /* metadata tag card (component 7) */
+    #f04-tag{position:absolute;left:436px;top:445px;box-sizing:border-box;padding:32px 40px 32px 36px;border:1.5px solid rgba(30,43,250,0.2);border-left:4px solid #1e2bfa;border-radius:10px;background:rgba(30,43,250,0.04);display:grid;grid-template-columns:14px max-content max-content max-content;column-gap:18px;row-gap:22px;align-items:center;z-index:2;}
+    .f04-row{display:contents;}
+    .f04-dot{display:block;width:14px;height:14px;border-radius:50%;background:#1e2bfa;}
+    .f04-q{display:block;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap;}
+    .f04-sep{display:block;font-family:"IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#9a9a9a;}
+    .f04-t{display:block;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
+
+    /* tree-node pills (section headings of the same document) */
+    .f04-node{position:absolute;top:280px;width:218px;height:60px;box-sizing:border-box;padding:0 14px 0 16px;display:flex;align-items:center;gap:10px;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#f4f2e8;z-index:3;}
+    .f04-node svg{display:block;width:24px;height:24px;flex:none;overflow:visible;}
+    .f04-node svg path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    .f04-node svg circle{fill:#1e2bfa;}
+    .f04-nbar{display:block;width:44px;height:8px;flex:none;border-radius:4px;background:#6b6b6b;}
+    #f04-nA{left:1082px;}
+    #f04-nB{left:1540px;}
+
+    /* connectors (svg-path-draw) */
+    #f04-rails{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;z-index:1;}
+    #f04-rails path{fill:none;stroke:#1e2bfa;stroke-opacity:0.45;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;}
+
+    /* English term chips */
+    .f04-cw{position:absolute;display:flex;justify-content:center;align-items:center;z-index:3;}
+    #f04-cw-chunk{left:1150px;top:375px;width:540px;height:49px;}
+    #f04-cw-tree{left:1300px;top:280px;width:240px;height:60px;}
+    .f04-chip{display:block;font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:7px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;}
+  </style>
+
+  <div id="root" data-composition-id="04-tags" data-width="1920" data-height="1080" data-start="0" data-duration="9">
+    <div id="f04-bg" class="clip" data-start="0" data-duration="9" data-track-index="0"></div>
+
+    <div id="f04-stage">
+      <div id="f04-hdr">
+        <div class="f04-track"><span class="f04-pill is-current">① อ่านได้</span><span class="f04-pill">② ค้นเจอ</span><span class="f04-pill">③ ตามสิทธิ์</span></div>
+        <span class="f04-term">Data Governance</span>
+      </div>
+
+      <div id="f04-h2"><span class="f04-line"><span class="f04-ph" id="f04-ph1">แบ่งเป็นชิ้น</span> <span class="f04-ph" id="f04-ph2">— ทุกชิ้นติดป้ายเดิม</span></span></div>
+
+      <!-- connectors: section A -> chunks 1,2 (left rail) · section B -> chunks 3,4 (right rail) -->
+      <svg id="f04-rails" viewBox="0 0 1920 1080" width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+        <path id="f04-railA" data-len="262" d="M1122 339 V567 Q1122 580 1135 580 H1151"/>
+        <path id="f04-tickA" data-len="29" d="M1122 482 H1151"/>
+        <path id="f04-railB" data-len="472" d="M1718 339 V777 Q1718 790 1705 790 H1689"/>
+        <path id="f04-tickB" data-len="29" d="M1718 692 H1689"/>
+      </svg>
+
+      <!-- four chunk cards: each card's bars repeat one block of the document -->
+      <div id="f04-burst">
+        <div class="f04-chunk" id="f04-ch1" data-target-x="1194" data-target-y="-128">
+          <div class="f04-lit"></div>
+          <div class="f04-cbars"><span style="width:360px"></span><span style="width:331px"></span><span style="width:216px"></span></div>
+          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+        </div>
+        <div class="f04-chunk" id="f04-ch2" data-target-x="1194" data-target-y="-30">
+          <div class="f04-lit"></div>
+          <div class="f04-cbars"><span style="width:346px"></span><span style="width:360px"></span><span style="width:259px"></span></div>
+          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+        </div>
+        <div class="f04-chunk" id="f04-ch3" data-target-x="1194" data-target-y="82">
+          <div class="f04-lit"></div>
+          <div class="f04-cbars"><span style="width:360px"></span><span style="width:310px"></span><span style="width:180px"></span></div>
+          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+        </div>
+        <div class="f04-chunk" id="f04-ch4" data-target-x="1194" data-target-y="180">
+          <div class="f04-lit"></div>
+          <div class="f04-cbars"><span style="width:324px"></span><span style="width:360px"></span><span style="width:230px"></span></div>
+          <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+        </div>
+      </div>
+
+      <!-- the example document -->
+      <div id="f04-doc">
+        <div class="f04-doc-band"></div>
+        <svg class="f04-doc-kind" viewBox="0 0 26 30" width="26" height="30" xmlns="http://www.w3.org/2000/svg"><path d="M2 2 H16 L24 10 V28 H2 Z"/><path d="M16 2 V10 H24"/></svg>
+        <div class="f04-doc-head"></div>
+        <div class="f04-doc-blk" style="top:70px"><span style="width:215px"></span><span style="width:198px"></span><span style="width:129px"></span></div>
+        <div class="f04-doc-blk" style="top:126px"><span style="width:206px"></span><span style="width:215px"></span><span style="width:155px"></span></div>
+        <div class="f04-doc-blk" style="top:182px"><span style="width:215px"></span><span style="width:185px"></span><span style="width:108px"></span></div>
+        <div class="f04-doc-blk" style="top:238px"><span style="width:194px"></span><span style="width:215px"></span><span style="width:138px"></span></div>
+        <svg class="f04-doc-cuts" viewBox="0 0 255 335" width="255" height="335" xmlns="http://www.w3.org/2000/svg">
+          <path class="f04-cut" data-len="231" d="M12 117 H243"/>
+          <path class="f04-cut" data-len="231" d="M12 173 H243"/>
+          <path class="f04-cut" data-len="231" d="M12 229 H243"/>
+        </svg>
+        <div class="f04-bslot" id="f04-doc-bs"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+      </div>
+
+      <!-- metadata tag card -->
+      <div id="f04-tag">
+        <div class="f04-row" id="f04-r1"><span class="f04-dot"></span><span class="f04-q">มาจากไหน?</span><span class="f04-sep">·</span><span class="f04-t">SourceID</span></div>
+        <div class="f04-row" id="f04-r2"><span class="f04-dot"></span><span class="f04-q">ฉบับไหน?</span><span class="f04-sep">·</span><span class="f04-t">Version</span></div>
+        <div class="f04-row" id="f04-r3"><span class="f04-dot"></span><span class="f04-q">ลับแค่ไหน?</span><span class="f04-sep">·</span><span class="f04-t">Classification</span></div>
+        <div class="f04-row" id="f04-r4"><span class="f04-dot"></span><span class="f04-q">ใครเห็นได้?</span><span class="f04-sep">·</span><span class="f04-t">Access</span></div>
+      </div>
+
+      <!-- tree nodes -->
+      <div class="f04-node" id="f04-nA">
+        <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M5 8 V19 H14 M5 11 H14"/><circle cx="5" cy="5" r="3.2"/><circle cx="17" cy="11" r="2.8"/><circle cx="17" cy="19" r="2.8"/></svg>
+        <span class="f04-nbar"></span>
+        <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+      </div>
+      <div class="f04-node" id="f04-nB">
+        <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M5 8 V19 H14 M5 11 H14"/><circle cx="5" cy="5" r="3.2"/><circle cx="17" cy="11" r="2.8"/><circle cx="17" cy="19" r="2.8"/></svg>
+        <span class="f04-nbar"></span>
+        <div class="f04-bslot"><div class="f04-slot"></div><div class="f04-badge"><span></span><span></span><span></span><span></span></div></div>
+      </div>
+
+      <div class="f04-cw" id="f04-cw-chunk"><span class="f04-chip" id="f04-chip-chunk">Chunk</span></div>
+      <div class="f04-cw" id="f04-cw-tree"><span class="f04-chip" id="f04-chip-tree">Tree Nodes</span></div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      var COMP = "04-tags";
+      var host = document.querySelector('[data-composition-id="' + COMP + '"]');
+      var $ = function (s) { return host.querySelector(s); };
+      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
+      var measure = function (p) {
+        var len = 0;
+        try { len = p.getTotalLength(); } catch (e) { len = 0; }
+        if (!(len > 0)) len = Number(p.getAttribute("data-len")) || 0;
+        return len * 1.02;
+      };
+
+      var tl = gsap.timeline({ paused: true });
+
+      // svg-path-draw: dasharray = measured length, dashoffset length -> 0
+      var draw = function (p, at, dur) {
+        var len = measure(p);
+        p.style.strokeDasharray = len + " " + len;
+        tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: dur, ease: "power2.out" }, at);
+      };
+
+      // stamp: the mini badge presses into its slot (short smooth settle, no overshoot)
+      var stamp = function (bslot, at, lit) {
+        var badge = bslot.querySelector(".f04-badge");
+        var slot = bslot.querySelector(".f04-slot");
+        tl.fromTo(badge, { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.32, ease: "power2.out" }, at);
+        tl.fromTo(slot, { opacity: 1 }, { opacity: 0, duration: 0.16, ease: "power1.out" }, at);
+        if (lit) tl.fromTo(lit, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, at);
+      };
+
+      // ---- Scene 1 (0.0–1.4s): document + headline per phrase ----
+      tl.fromTo("#f04-doc", { opacity: 0, y: 28, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.fromTo("#f04-ph1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.3);
+      tl.fromTo("#f04-ph2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.62);
+      // cut lines mark the four pieces just before the split
+      $$(".f04-cut").forEach(function (p, i) { draw(p, 1.08 + i * 0.07, 0.3); });
+
+      // ---- Scene 2 (1.4–2.8s): center-outward-expansion, ordered by index ----
+      var chunks = $$(".f04-chunk");
+      chunks.forEach(function (el, i) {
+        tl.fromTo(
+          el,
+          { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.6, opacity: 0 },
+          { x: Number(el.dataset.targetX), y: Number(el.dataset.targetY), scale: 1, opacity: 1, duration: 1.1, ease: "power3.out" },
+          1.4 + i * 0.07
+        );
+      });
+      tl.fromTo("#f04-chip-chunk", { opacity: 0, y: 10, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 1.45);
+
+      // ---- Scene 3 (2.8–6.0s): tag card, rows on cue, then the inheritance stamp ----
+      tl.fromTo("#f04-tag", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 2.7);
+      var ROW_AT = [2.8, 3.5, 4.2, 4.9];
+      ROW_AT.forEach(function (at, i) {
+        var row = $("#f04-r" + (i + 1));
+        tl.fromTo(row.querySelector(".f04-dot"), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, at);
+        tl.fromTo(row.querySelector(".f04-q"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at + 0.05);
+        tl.fromTo([row.querySelector(".f04-sep"), row.querySelector(".f04-t")], { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, at + 0.18);
+      });
+      // the four row dots ripple: the tag is about to be copied as a 4-dot badge
+      $$("#f04-tag .f04-dot").forEach(function (d, i) {
+        tl.to(d, { scale: 1.45, duration: 0.14, ease: "power2.out" }, 5.2 + i * 0.03);
+        tl.to(d, { scale: 1, duration: 0.28, ease: "power2.out" }, 5.34 + i * 0.03);
+      });
+      stamp($("#f04-doc-bs"), 5.32, null);
+      chunks.forEach(function (el, i) {
+        stamp(el.querySelector(".f04-bslot"), 5.44 + i * 0.12, el.querySelector(".f04-lit"));
+      });
+
+      // ---- Scene 4 (6.0–9.0s): tree nodes attach, receive the same badge; hold from 7.2s ----
+      tl.fromTo("#f04-nA", { opacity: 0, y: -16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 6.0);
+      tl.fromTo("#f04-nB", { opacity: 0, y: -16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 6.1);
+      draw($("#f04-railA"), 6.18, 0.5);
+      draw($("#f04-railB"), 6.28, 0.55);
+      draw($("#f04-tickA"), 6.56, 0.2);
+      draw($("#f04-tickB"), 6.7, 0.2);
+      tl.fromTo("#f04-chip-tree", { opacity: 0, y: 10, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 6.4);
+      stamp($("#f04-nA .f04-bslot"), 6.82, null);
+      stamp($("#f04-nB .f04-bslot"), 6.9, null);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[COMP] = tl;
+    })();
+  </script>
+</template>

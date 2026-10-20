@@ -17,6 +17,7 @@
   #fNN-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
   #fNN-hdr .fNN-track{display:flex;gap:12px}
   #fNN-hdr .fNN-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+  #fNN-hdr .fNN-n{font-weight:700;margin-right:10px}
   #fNN-hdr .fNN-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
   #fNN-hdr .fNN-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
   #fNN-hdr .fNN-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
@@ -24,7 +25,7 @@
   #fNN-h2 .fNN-line{display:block;white-space:nowrap}
 </style>
 <div id="fNN-hdr">
-  <div class="fNN-track"><span class="fNN-pill">① อ่านได้</span><span class="fNN-pill">② ค้นเจอ</span><span class="fNN-pill">③ ตามสิทธิ์</span></div>
+  <div class="fNN-track"><span class="fNN-pill"><b class="fNN-n">1</b>อ่านได้</span><span class="fNN-pill"><b class="fNN-n">2</b>ค้นเจอ</span><span class="fNN-pill"><b class="fNN-n">3</b>ตามสิทธิ์</span></div>
   <span class="fNN-term">TERM</span>
 </div>
 ```
@@ -32,4 +33,5 @@
   Frame 01 introduces the tracker in its last Scene with the same pill styles (all "upcoming", no term chip). Frame 11 has no header.
 - Headline: use `#fNN-h2` (above) for the frame's headline; reveal its phrases on their cues.
 - Do NOT run the hyperframes CLI, npm, npx, or any network command. Do not edit STORYBOARD.md, frame.md, index.html or any other frame's file. Your only output is your `src` file (a single bare `<template>…</template>` fragment).
+- Glyphs: only characters the shipped fonts contain. Never use circled digits (①②③), ✗, ✕, emoji or other dingbats as text: draw icons as inline SVG. Safe symbols: × ✓ → ← ↓ ↑ ≈ · — … (✓ is missing from Sarabun). `node ../../harness/check-glyphs.mjs .` is run on your file afterwards.
 - When done, reply with ≤ 8 lines: file written; each Scene window you implemented; any deviation from the packet and why; anything the orchestrator should check first (e.g. a long Thai line that might overflow).

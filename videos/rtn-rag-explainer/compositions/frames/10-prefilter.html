@@ -1,0 +1,282 @@
+<template>
+  <style>
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexMono-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Bold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-Medium.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThai-SemiBold.ttf") format("truetype");}
+@font-face{font-family:"IBM Plex Sans Thai Looped";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/IBMPlexSansThaiLooped-SemiBold.ttf") format("truetype");}
+  </style>
+  <style>
+  #f10-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
+  #f10-hdr .f10-track{display:flex;gap:12px}
+  #f10-hdr .f10-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+  #f10-hdr .f10-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
+  #f10-hdr .f10-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
+  #f10-hdr .f10-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+  #f10-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
+  #f10-h2 .f10-line{display:block;white-space:nowrap}
+  </style>
+  <style>
+    #root{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;font-family:"IBM Plex Sans Thai";color:#111111}
+    #f10-ground{position:absolute;inset:0;background:#fdfae7}
+    #f10-stage{position:absolute;inset:0}
+    #f10-h2 .f10-ph{display:inline-block}
+
+    /* split stage: two equal tinted panels, flat (no tilt), no shadow */
+    .f10-panel{position:absolute;top:300px;width:804px;height:460px;box-sizing:border-box;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04);--dof:0px;filter:blur(var(--dof));will-change:transform,filter,opacity}
+    #f10-L-panel{left:96px}
+    #f10-R-panel{left:1020px}
+    #f10-divider{position:absolute;left:959px;top:330px;width:2px;height:400px;border-radius:1px;background:rgba(30,43,250,0.2);transform-origin:50% 0%}
+
+    /* inner-edge ✗ / ✓ labels (badge pop) */
+    .f10-label{position:absolute;top:-29px;display:flex;align-items:center;gap:10px;padding:8px 24px 8px 18px;border-radius:100px;font-family:"IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;white-space:nowrap;z-index:10}
+    .f10-label span{display:block;white-space:nowrap}
+    .f10-label svg{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+    .f10-label-neg{right:28px;color:#dc2626;background:linear-gradient(rgba(220,38,38,0.10),rgba(220,38,38,0.10)),#fdfae7;transform-origin:100% 50%}
+    .f10-label-pos{left:28px;color:#059669;background:linear-gradient(rgba(5,150,105,0.10),rgba(5,150,105,0.10)),#fdfae7;transform-origin:0% 50%}
+
+    /* document tiles (component 3, scaled to fit a 4x3 grid) */
+    .f10-tile{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;overflow:hidden;z-index:1}
+    .f10-band{position:absolute;left:0;right:0;top:0;height:4px}
+    .f10-band-pdf{background:#111111}
+    .f10-band-scan{background:#6b6b6b}
+    .f10-band-img{background:rgba(30,43,250,0.4)}
+    .f10-kind{position:absolute;left:8px;top:10px;width:14px;height:14px}
+    .f10-ln{position:absolute;left:10px;height:6px;border-radius:3px;background:rgba(154,154,154,0.5)}
+    .f10-lock{position:absolute;left:21.5px;top:58px;width:34px;height:34px;box-sizing:border-box;border-radius:50%;background:#fdfae7;border:1.5px solid rgba(17,17,17,0.16);display:flex;align-items:center;justify-content:center}
+    .f10-lock svg{width:18px;height:18px;fill:none;stroke:#6b6b6b;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .f10-hit{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid rgba(30,43,250,0.85);background:rgba(30,43,250,0.10);opacity:0}
+    .f10-strike{position:absolute;left:0;top:0;width:100%;height:100%}
+    .f10-strike path{fill:none;stroke:#dc2626;stroke-width:4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
+    .f10-slot{position:absolute;width:80px;height:104px;box-sizing:border-box;border-radius:10px;border:1.5px dashed rgba(30,43,250,0.25);z-index:0}
+    #f10-L-t4,#f10-R-t7{z-index:6}
+
+    /* candidates -> AI zone (wordless: tray, arrow, AI node) */
+    .f10-tray{position:absolute;left:456px;top:150px;width:168px;height:184px;box-sizing:border-box;border-radius:12px;border:1.5px dashed rgba(30,43,250,0.28);background:rgba(30,43,250,0.03);z-index:2}
+    .f10-tray-lit{position:absolute;inset:-1.5px;border-radius:12px;border:1.5px solid rgba(30,43,250,0.55);background:rgba(30,43,250,0.06);opacity:0}
+    .f10-flow{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:2;pointer-events:none}
+    .f10-flow-ghost{fill:none;stroke:rgba(30,43,250,0.25);stroke-width:2;stroke-dasharray:4 6}
+    .f10-flow-lit{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
+    .f10-ai{position:absolute;left:694px;top:212px;width:60px;height:60px;box-sizing:border-box;border-radius:50%;border:1.5px solid rgba(30,43,250,0.25);display:flex;align-items:center;justify-content:center;z-index:3}
+    .f10-ai svg{width:28px;height:28px;fill:#9a9a9a}
+    .f10-ai-lit{background:#1e2bfa;border-color:#1e2bfa;opacity:0}
+    .f10-ai-lit svg{fill:#fdfae7}
+
+    /* search beam */
+    .f10-beamwrap{position:absolute;overflow:hidden;z-index:4;pointer-events:none}
+    #f10-L-beamwrap{left:30px;top:58px;width:390px;height:368px;border-radius:20px}
+    #f10-R-beamwrap{left:124px;top:58px;width:296px;height:368px;border-radius:28px}
+    .f10-beam{position:absolute;left:0;top:0;width:70px;height:100%;background:linear-gradient(90deg,rgba(30,43,250,0) 0%,rgba(30,43,250,0.10) 55%,rgba(30,43,250,0.28) 95%,#1e2bfa 95%,#1e2bfa 100%);opacity:0}
+
+    /* post-filter: filter bar + residue chips (negative, chip-sized only) */
+    #f10-filterbar{position:absolute;left:448px;top:143px;width:184px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
+    #f10-residue{position:absolute;left:456px;top:150px;width:168px;height:184px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:7;pointer-events:none}
+    .f10-res{display:block;font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:3px 16px;border-radius:100px;color:#dc2626;background:linear-gradient(rgba(220,38,38,0.10),rgba(220,38,38,0.10)),#fdfae7;white-space:nowrap}
+
+    /* permission scope (component 4): dashed cobalt outline, self-drawn through a mask */
+    .f10-scope{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:5;pointer-events:none}
+    .f10-scope-dash{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-dasharray:14 10}
+    #f10-scope-draw{fill:none;stroke:#ffffff;stroke-width:12;stroke-dasharray:100;stroke-dashoffset:100}
+
+    /* the rule (Scene 4) */
+    #f10-rule{position:absolute;left:0;top:764px;width:1920px;text-align:center;font-family:"IBM Plex Sans Thai Looped";font-weight:600;font-size:44px;line-height:1.45;color:#111111;z-index:20}
+    #f10-rule .f10-rline{display:block;white-space:nowrap}
+    #f10-rule .f10-rph{display:inline-block}
+    #f10-rule .f10-em{color:#1e2bfa}
+  </style>
+
+  <div id="root" data-composition-id="10-prefilter" data-width="1920" data-height="1080">
+    <div id="f10-ground" class="clip" data-start="0" data-duration="10" data-track-index="0"></div>
+
+    <div id="f10-stage" class="clip" data-start="0" data-duration="10" data-track-index="1">
+      <div id="f10-hdr">
+        <div class="f10-track"><span class="f10-pill is-done">① อ่านได้</span><span class="f10-pill is-done">② ค้นเจอ</span><span class="f10-pill is-current">③ ตามสิทธิ์</span></div>
+        <span class="f10-term">Pre-filter</span>
+      </div>
+
+      <div id="f10-h2"><span class="f10-line"><span class="f10-ph" id="f10-h-a">กำหนดขอบเขตก่อน</span> <span class="f10-ph" id="f10-h-b">แล้วค่อยค้น</span></span></div>
+
+      <i id="f10-divider"></i>
+
+      <!-- LEFT: search the whole archive, then filter (wrong way) -->
+      <div class="f10-panel" id="f10-L-panel">
+        <i class="f10-slot" style="left:44px;top:190px"></i>
+          <div class="f10-tile f10-tile-L f10-locked" id="f10-L-t0" data-col="0" style="left:44px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:45px"></i><i class="f10-ln" style="top:50px;width:36px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t1" data-col="1" style="left:138px;top:72px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:48px"></i><i class="f10-ln" style="top:50px;width:39px"></i><i class="f10-ln" style="top:64px;width:56px"></i><i class="f10-ln" style="top:78px;width:47px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t2" data-col="2" style="left:232px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:51px"></i><i class="f10-ln" style="top:50px;width:42px"></i><i class="f10-ln" style="top:64px;width:59px"></i><i class="f10-ln" style="top:78px;width:50px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t3" data-col="3" style="left:326px;top:72px"><i class="f10-band f10-band-scan"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="2.5" y="1.5" width="9" height="11" rx="1" fill="none" stroke="#6b6b6b" stroke-width="1.2"/><path d="M1.5 7h11" stroke="#6b6b6b" stroke-width="1.2"/></svg><i class="f10-ln" style="top:36px;width:54px"></i><i class="f10-ln" style="top:50px;width:45px"></i><i class="f10-ln" style="top:64px;width:36px"></i><i class="f10-ln" style="top:78px;width:53px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L f10-locked" id="f10-L-t4" data-col="0" style="left:44px;top:190px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:57px"></i><i class="f10-ln" style="top:50px;width:48px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i><svg class="f10-strike" viewBox="0 0 80 104"><path id="f10-strike-path" d="M12 16 L68 88" pathLength="100"/></svg></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t5" data-col="1" style="left:138px;top:190px"><i class="f10-band f10-band-scan"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="2.5" y="1.5" width="9" height="11" rx="1" fill="none" stroke="#6b6b6b" stroke-width="1.2"/><path d="M1.5 7h11" stroke="#6b6b6b" stroke-width="1.2"/></svg><i class="f10-ln" style="top:36px;width:34px"></i><i class="f10-ln" style="top:50px;width:51px"></i><i class="f10-ln" style="top:64px;width:42px"></i><i class="f10-ln" style="top:78px;width:59px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t6" data-col="2" style="left:232px;top:190px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:37px"></i><i class="f10-ln" style="top:50px;width:54px"></i><i class="f10-ln" style="top:64px;width:45px"></i><i class="f10-ln" style="top:78px;width:36px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t7" data-col="3" style="left:326px;top:190px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:40px"></i><i class="f10-ln" style="top:50px;width:57px"></i><i class="f10-ln" style="top:64px;width:48px"></i><i class="f10-ln" style="top:78px;width:39px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L f10-locked" id="f10-L-t8" data-col="0" style="left:44px;top:308px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:43px"></i><i class="f10-ln" style="top:50px;width:34px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t9" data-col="1" style="left:138px;top:308px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:46px"></i><i class="f10-ln" style="top:50px;width:37px"></i><i class="f10-ln" style="top:64px;width:54px"></i><i class="f10-ln" style="top:78px;width:45px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t10" data-col="2" style="left:232px;top:308px"><i class="f10-band f10-band-scan"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="2.5" y="1.5" width="9" height="11" rx="1" fill="none" stroke="#6b6b6b" stroke-width="1.2"/><path d="M1.5 7h11" stroke="#6b6b6b" stroke-width="1.2"/></svg><i class="f10-ln" style="top:36px;width:49px"></i><i class="f10-ln" style="top:50px;width:40px"></i><i class="f10-ln" style="top:64px;width:57px"></i><i class="f10-ln" style="top:78px;width:48px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-L" id="f10-L-t11" data-col="3" style="left:326px;top:308px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:52px"></i><i class="f10-ln" style="top:50px;width:43px"></i><i class="f10-ln" style="top:64px;width:34px"></i><i class="f10-ln" style="top:78px;width:51px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tray" id="f10-L-tray"><i class="f10-tray-lit" id="f10-L-traylit"></i></div>
+          <svg class="f10-flow" viewBox="0 0 804 460">
+            <path class="f10-flow-ghost" d="M634 242 H684"/>
+            <path class="f10-flow-lit" id="f10-L-arrow" d="M634 242 H684" pathLength="100"/>
+            <path class="f10-flow-lit" id="f10-L-head" d="M675 233 L685 242 L675 251" pathLength="100"/>
+          </svg>
+          <div class="f10-ai" id="f10-L-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
+          <div class="f10-ai f10-ai-lit" id="f10-L-ailit"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
+          <div class="f10-beamwrap" id="f10-L-beamwrap"><i class="f10-beam" id="f10-L-beam"></i></div>
+          <i id="f10-filterbar"></i>
+          <div id="f10-residue"><span class="f10-res" id="f10-res-0">log</span><span class="f10-res" id="f10-res-1">จำนวนผล</span><span class="f10-res" id="f10-res-2">สรุป</span></div>
+        <div class="f10-label f10-label-neg" id="f10-L-label"><svg viewBox="0 0 24 24" role="img" aria-label="✗"><path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5"/></svg><span>ค้นทั้งคลัง แล้วค่อยกรอง</span></div>
+      </div>
+
+      <!-- RIGHT: scope first, then search (right way) -->
+      <div class="f10-panel" id="f10-R-panel">
+        <i class="f10-slot" style="left:326px;top:190px"></i>
+          <div class="f10-tile f10-tile-R f10-locked" id="f10-R-t0" data-col="0" style="left:44px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:45px"></i><i class="f10-ln" style="top:50px;width:36px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t1" data-col="1" style="left:138px;top:72px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:48px"></i><i class="f10-ln" style="top:50px;width:39px"></i><i class="f10-ln" style="top:64px;width:56px"></i><i class="f10-ln" style="top:78px;width:47px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t2" data-col="2" style="left:232px;top:72px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:51px"></i><i class="f10-ln" style="top:50px;width:42px"></i><i class="f10-ln" style="top:64px;width:59px"></i><i class="f10-ln" style="top:78px;width:50px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t3" data-col="3" style="left:326px;top:72px"><i class="f10-band f10-band-scan"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="2.5" y="1.5" width="9" height="11" rx="1" fill="none" stroke="#6b6b6b" stroke-width="1.2"/><path d="M1.5 7h11" stroke="#6b6b6b" stroke-width="1.2"/></svg><i class="f10-ln" style="top:36px;width:54px"></i><i class="f10-ln" style="top:50px;width:45px"></i><i class="f10-ln" style="top:64px;width:36px"></i><i class="f10-ln" style="top:78px;width:53px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R f10-locked" id="f10-R-t4" data-col="0" style="left:44px;top:190px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:57px"></i><i class="f10-ln" style="top:50px;width:48px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t5" data-col="1" style="left:138px;top:190px"><i class="f10-band f10-band-scan"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="2.5" y="1.5" width="9" height="11" rx="1" fill="none" stroke="#6b6b6b" stroke-width="1.2"/><path d="M1.5 7h11" stroke="#6b6b6b" stroke-width="1.2"/></svg><i class="f10-ln" style="top:36px;width:34px"></i><i class="f10-ln" style="top:50px;width:51px"></i><i class="f10-ln" style="top:64px;width:42px"></i><i class="f10-ln" style="top:78px;width:59px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t6" data-col="2" style="left:232px;top:190px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:37px"></i><i class="f10-ln" style="top:50px;width:54px"></i><i class="f10-ln" style="top:64px;width:45px"></i><i class="f10-ln" style="top:78px;width:36px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t7" data-col="3" style="left:326px;top:190px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:40px"></i><i class="f10-ln" style="top:50px;width:57px"></i><i class="f10-ln" style="top:64px;width:48px"></i><i class="f10-ln" style="top:78px;width:39px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R f10-locked" id="f10-R-t8" data-col="0" style="left:44px;top:308px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:43px"></i><i class="f10-ln" style="top:50px;width:34px"></i><span class="f10-lock"><svg viewBox="0 0 18 18"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></svg></span><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t9" data-col="1" style="left:138px;top:308px"><i class="f10-band f10-band-pdf"></i><svg class="f10-kind" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4v8.5H3z M8.5 1.5V4H11" fill="none" stroke="#111111" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:46px"></i><i class="f10-ln" style="top:50px;width:37px"></i><i class="f10-ln" style="top:64px;width:54px"></i><i class="f10-ln" style="top:78px;width:45px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t10" data-col="2" style="left:232px;top:308px"><i class="f10-band f10-band-scan"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="2.5" y="1.5" width="9" height="11" rx="1" fill="none" stroke="#6b6b6b" stroke-width="1.2"/><path d="M1.5 7h11" stroke="#6b6b6b" stroke-width="1.2"/></svg><i class="f10-ln" style="top:36px;width:49px"></i><i class="f10-ln" style="top:50px;width:40px"></i><i class="f10-ln" style="top:64px;width:57px"></i><i class="f10-ln" style="top:78px;width:48px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tile f10-tile-R" id="f10-R-t11" data-col="3" style="left:326px;top:308px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:52px"></i><i class="f10-ln" style="top:50px;width:43px"></i><i class="f10-ln" style="top:64px;width:34px"></i><i class="f10-ln" style="top:78px;width:51px"></i><i class="f10-hit"></i></div>
+          <div class="f10-tray" id="f10-R-tray"><i class="f10-tray-lit" id="f10-R-traylit"></i></div>
+          <svg class="f10-flow" viewBox="0 0 804 460">
+            <path class="f10-flow-ghost" d="M634 242 H684"/>
+            <path class="f10-flow-lit" id="f10-R-arrow" d="M634 242 H684" pathLength="100"/>
+            <path class="f10-flow-lit" id="f10-R-head" d="M675 233 L685 242 L675 251" pathLength="100"/>
+          </svg>
+          <div class="f10-ai" id="f10-R-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
+          <div class="f10-ai f10-ai-lit" id="f10-R-ailit"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
+          <div class="f10-beamwrap" id="f10-R-beamwrap"><i class="f10-beam" id="f10-R-beam"></i></div>
+          <svg class="f10-scope" viewBox="0 0 804 460">
+            <defs>
+              <mask id="f10-scope-mask" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500">
+                <path id="f10-scope-draw" d="M152 58 H392 A28 28 0 0 1 420 86 V398 A28 28 0 0 1 392 426 H152 A28 28 0 0 1 124 398 V86 A28 28 0 0 1 152 58 Z" pathLength="100"/>
+              </mask>
+            </defs>
+            <path class="f10-scope-dash" d="M152 58 H392 A28 28 0 0 1 420 86 V398 A28 28 0 0 1 392 426 H152 A28 28 0 0 1 124 398 V86 A28 28 0 0 1 152 58 Z" mask="url(#f10-scope-mask)"/>
+          </svg>
+        <div class="f10-label f10-label-pos" id="f10-R-label"><svg viewBox="0 0 24 24" role="img" aria-label="✓"><path d="M5 12.5 L10 17.5 L19 7"/></svg><span>ขอบเขตก่อน แล้วค่อยค้น</span></div>
+      </div>
+
+      <div id="f10-rule">
+        <span class="f10-rline"><span class="f10-rph" id="f10-r1a">ถ้ากำลังพลเปิดเอกสาร</span><span class="f10-rph f10-em" id="f10-r1b">ไม่ได้</span></span>
+        <span class="f10-rline"><span class="f10-rph" id="f10-r2a">RAG ก็ต้องดึงเอกสารนั้น</span><span class="f10-rph f10-em" id="f10-r2b">ไม่ได้</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      var q = function (sel) { return gsap.utils.toArray(sel); };
+
+      // ---- geometry shared with the markup (panel-local px) ----
+      var GX = 44, PITCH_X = 94, BEAM_W = 70, HIT_INSET = 16;
+      // time the beam's leading edge reaches a tile's column (linear sweep)
+      function hitTime(start, dur, x0, x1, wrapLeft, col) {
+        var need = GX + col * PITCH_X + HIT_INSET - wrapLeft - BEAM_W;
+        return start + ((need - x0) / (x1 - x0)) * dur;
+      }
+
+      // ===== Scene 1 (0.0-1.0): headline slides down per phrase; panels arrive from opposite wings =====
+      tl.fromTo("#f10-h-a", { y: -26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.3);
+      tl.fromTo("#f10-h-b", { y: -26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.52);
+
+      tl.fromTo("#f10-L-panel", { x: -240, scale: 0.92, opacity: 0 }, { x: 0, scale: 1, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.1);
+      tl.fromTo("#f10-R-panel", { x: 240, scale: 0.92, opacity: 0 }, { x: 0, scale: 1, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.28);
+      tl.fromTo("#f10-divider", { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power2.out" }, 0.3);
+
+      q(".f10-tile-L").forEach(function (el, i) {
+        tl.fromTo(el, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.42 + i * 0.025);
+      });
+      q(".f10-tile-R").forEach(function (el, i) {
+        tl.fromTo(el, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.6 + i * 0.025);
+      });
+
+      // ===== Scene 2 (1.0-4.2): LEFT — search everything, then filter; residue remains =====
+      tl.fromTo("#f10-L-label", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 1.0);
+
+      var LB = { start: 1.3, dur: 0.8, x0: -72, x1: 392, wrap: 30 };
+      tl.fromTo("#f10-L-beam", { x: LB.x0 }, { x: LB.x1, duration: LB.dur, ease: "none" }, LB.start);
+      tl.fromTo("#f10-L-beam", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out" }, LB.start);
+      tl.to("#f10-L-beam", { opacity: 0, duration: 0.12, ease: "power1.in" }, LB.start + LB.dur - 0.12);
+      q(".f10-tile-L").forEach(function (el) {
+        var t = hitTime(LB.start, LB.dur, LB.x0, LB.x1, LB.wrap, Number(el.dataset.col));
+        var hit = el.querySelector(".f10-hit");
+        tl.fromTo(hit, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, t);
+        tl.to(hit, { opacity: 0, duration: 0.4, ease: "power1.out" }, t + 0.25);
+      });
+
+      // a restricted tile is lifted into the candidates tray (it reached the AI)
+      tl.to("#f10-L-t4", { x: 456, duration: 0.5, ease: "power2.inOut" }, 2.05);
+      tl.to("#f10-L-t4", { y: -40, scale: 1.08, duration: 0.24, ease: "power2.out" }, 2.05);
+      tl.to("#f10-L-t4", { y: 0, scale: 1, duration: 0.26, ease: "power2.in" }, 2.29);
+      tl.fromTo("#f10-L-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.3);
+      tl.fromTo("#f10-L-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 2.48);
+      tl.fromTo("#f10-L-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.12, ease: "power2.out" }, 2.64);
+      tl.fromTo("#f10-L-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" }, 2.68);
+
+      // post-filter bar sweeps the tray and strikes the tile out
+      tl.fromTo("#f10-filterbar", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 2.6);
+      tl.fromTo("#f10-filterbar", { y: 0 }, { y: 196, duration: 0.4, ease: "power1.inOut" }, 2.64);
+      tl.to("#f10-filterbar", { opacity: 0.35, duration: 0.3, ease: "power1.out" }, 3.1);
+      tl.fromTo("#f10-strike-path", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.17, ease: "power2.out" }, 2.78);
+      tl.to("#f10-L-t4", { opacity: 0, scale: 0.86, duration: 0.25, ease: "power2.in" }, 2.95);
+
+      // ...but the residue stays behind (3.0s)
+      ["#f10-res-0", "#f10-res-1", "#f10-res-2"].forEach(function (id, i) {
+        tl.fromTo(id, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 3.0 + i * 0.08);
+      });
+
+      // ===== Scene 3 (4.2-6.4): RIGHT — scope first, then search inside it =====
+      tl.fromTo("#f10-R-label", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 4.2);
+      tl.fromTo("#f10-scope-draw", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" }, 4.35);
+      q("#f10-R-t0, #f10-R-t4, #f10-R-t8").forEach(function (el) {
+        tl.to(el, { opacity: 0.35, duration: 0.4, ease: "power2.out" }, 4.95);
+      });
+
+      var RB = { start: 5.2, dur: 0.5, x0: -72, x1: 298, wrap: 124 };
+      tl.fromTo("#f10-R-beam", { x: RB.x0 }, { x: RB.x1, duration: RB.dur, ease: "none" }, RB.start);
+      tl.fromTo("#f10-R-beam", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, RB.start);
+      tl.to("#f10-R-beam", { opacity: 0, duration: 0.1, ease: "power1.in" }, RB.start + RB.dur - 0.1);
+      q(".f10-tile-R").forEach(function (el) {
+        var col = Number(el.dataset.col);
+        if (col === 0) return; // outside the scope: never touched
+        var t = hitTime(RB.start, RB.dur, RB.x0, RB.x1, RB.wrap, col);
+        var hit = el.querySelector(".f10-hit");
+        tl.fromTo(hit, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, t);
+        if (el.id !== "f10-R-t7") tl.to(hit, { opacity: 0, duration: 0.4, ease: "power1.out" }, t + 0.25);
+      });
+
+      // an allowed tile goes to the AI; nothing restricted moves
+      tl.to("#f10-R-t7", { x: 174, duration: 0.42, ease: "power2.inOut" }, 5.72);
+      tl.to("#f10-R-t7", { y: -26, scale: 1.06, duration: 0.2, ease: "power2.out" }, 5.72);
+      tl.to("#f10-R-t7", { y: 0, scale: 1, duration: 0.22, ease: "power2.in" }, 5.92);
+      tl.fromTo("#f10-R-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 5.95);
+      tl.fromTo("#f10-R-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 6.08);
+      tl.fromTo("#f10-R-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.1, ease: "power2.out" }, 6.22);
+      tl.fromTo("#f10-R-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" }, 6.24);
+
+      // ===== Scene 4 (6.4-10.0): light depth-of-field on both panels; the rule lands, then hold =====
+      tl.fromTo("#f10-L-panel", { "--dof": "0px", opacity: 1 }, { "--dof": "2.5px", opacity: 0.55, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 6.4);
+      tl.fromTo("#f10-R-panel", { "--dof": "0px", opacity: 1 }, { "--dof": "1.5px", opacity: 0.7, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 6.4);
+      tl.to("#f10-divider", { opacity: 0.5, duration: 0.8, ease: "power2.inOut" }, 6.4);
+
+      tl.fromTo("#f10-r1a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 6.55);
+      tl.fromTo("#f10-r1b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 6.8);
+      tl.fromTo("#f10-r2a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 7.2);
+      tl.fromTo("#f10-r2b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 7.45);
+
+      // hold still to the end of the 10s window
+      tl.set({}, {}, 10);
+
+      window.__timelines["10-prefilter"] = tl;
+    })();
+  </script>
+</template>
