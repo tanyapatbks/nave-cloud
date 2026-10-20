@@ -1,6 +1,6 @@
 ---
 format: 1920x1080
-duration: 111s
+duration: 124.5s
 message: "RAG ที่ใช้ได้จริงกับ ทร. เริ่มจากคลังที่พร้อมและสิทธิ์ที่ถูกต้อง ไม่ใช่แค่ Embedding"
 arc: concept-explainer with process
 audience: "กำลังพลและผู้บริหารของกองทัพเรือ ทั้งที่มีและไม่มีพื้นฐานเทคนิค"
