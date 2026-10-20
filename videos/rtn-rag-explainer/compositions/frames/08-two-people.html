@@ -30,16 +30,20 @@
     .f08-card{position:absolute;top:420px;width:724px;height:440px;padding:32px 36px;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04);outline:3px solid rgba(253,250,231,0);outline-offset:0}
     #f08-cardL{left:130px}
     #f08-cardR{left:1066px}
-    .f08-id{display:flex;align-items:center;gap:24px;height:96px}
+    .f08-id{display:flex;align-items:center;gap:0;height:96px}
     #f08-cardR .f08-id{flex-direction:row-reverse}
     .f08-avatar{display:block;width:96px;height:96px;flex:none}
+    #f08-cardL .f08-avatar{margin-right:24px}
+    #f08-cardR .f08-avatar{margin-left:24px}
     .f08-name{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111;white-space:nowrap}
     .f08-well{position:absolute;left:36px;right:36px;top:152px;bottom:32px;border-radius:12px;background:rgba(30,43,250,0.04);display:flex;align-items:center;justify-content:center}
 
-    /* inner-edge permission badges (on the flat parent, not inside the tilted card) */
-    .f08-badge{position:absolute;top:473px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;padding:8px 22px;border-radius:100px;white-space:nowrap}
-    #f08-badgeL{left:779px;background:#1e2bfa;border:1.5px solid #1e2bfa;color:#fdfae7}
-    #f08-badgeR{left:1016px;background:linear-gradient(rgba(107,107,107,0.12),rgba(107,107,107,0.12)),#fdfae7;border:1.5px solid rgba(107,107,107,0.35);color:#6b6b6b}
+    /* permission badges: inside each card, 16px from the name, equal weight */
+    .f08-badge{display:flex;align-items:center;gap:10px;flex:none;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;padding:8px 22px;border-radius:100px;white-space:nowrap;border:2px solid transparent}
+    .f08-badge .f08-btxt{display:block;white-space:nowrap}
+    .f08-badge svg{display:block;flex:none}
+    #f08-badgeL{margin-left:16px;background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
+    #f08-badgeR{margin-right:16px;padding-left:18px;background:#fdfae7;border-color:#3a3a3a;color:#3a3a3a}
 
     /* left result: the example document tile + found chip */
     #f08-resL{display:flex;align-items:center;gap:32px}
@@ -47,10 +51,14 @@
     .f08-tile-band{position:absolute;left:0;top:0;width:100%;height:4px;background:#111111}
     .f08-tile-glyph{position:absolute;left:14px;top:18px;display:block}
     .f08-tile-bar{position:absolute;left:14px;height:6px;border-radius:3px;background:rgba(154,154,154,0.6)}
-    #f08-ok{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#059669;background:rgba(5,150,105,0.10);white-space:nowrap}
+    #f08-ok{display:flex;align-items:center;gap:10px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;padding:8px 22px 8px 18px;border-radius:100px;color:#059669;background:rgba(5,150,105,0.10);white-space:nowrap}
+    #f08-ok svg{display:block;flex:none}
+    #f08-ok .f08-oktxt{display:block;white-space:nowrap}
 
-    /* right result: nothing but the line */
-    #f08-resR .f08-line{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:36px;line-height:1.5;color:#6b6b6b}
+    /* right result: nothing but the line (lock icon to its left) */
+    #f08-resR{display:flex;align-items:center;gap:16px}
+    #f08-resR .f08-rlock{display:block;flex:none}
+    #f08-resR .f08-line{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.5;color:#3a3a3a}
     #f08-resR .f08-mph{display:inline-block}
 
     /* the identical question + its two links */
@@ -81,6 +89,7 @@
             </g>
           </svg>
           <span class="f08-name f08-cin-L">กำลังพล ก</span>
+          <span id="f08-badgeL" class="f08-badge"><span class="f08-btxt">มีสิทธิ์</span></span>
         </div>
         <div id="f08-wellL" class="f08-well">
           <div id="f08-resL">
@@ -95,11 +104,10 @@
               <div class="f08-tile-bar" style="top:102px;width:99px"></div>
               <div class="f08-tile-bar" style="top:122px;width:58px"></div>
             </div>
-            <span id="f08-ok">✓ พบ: นโยบาย69</span>
+            <span id="f08-ok"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="f08-oktxt">พบ: นโยบาย69</span></span>
           </div>
         </div>
       </div>
-      <span id="f08-badgeL" class="f08-badge">มีสิทธิ์</span>
     </div>
 
     <!-- right side: กำลังพล ข -->
@@ -115,12 +123,12 @@
             </g>
           </svg>
           <span class="f08-name f08-cin-R">กำลังพล ข</span>
+          <span id="f08-badgeR" class="f08-badge"><svg viewBox="0 0 18 18" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></g></svg><span class="f08-btxt">ไม่มีสิทธิ์</span></span>
         </div>
         <div id="f08-wellR" class="f08-well">
-          <div id="f08-resR"><span class="f08-line"><span class="f08-mph">ไม่พบเอกสาร</span><span class="f08-mph">ในสิทธิ์ของท่าน</span></span></div>
+          <div id="f08-resR"><svg class="f08-rlock f08-rin" viewBox="0 0 18 18" width="32" height="32" aria-hidden="true"><g fill="none" stroke="#3a3a3a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8V6a3.5 3.5 0 0 1 7 0v2"/><rect x="3.5" y="8" width="11" height="8" rx="2"/><path d="M9 11.2v1.8"/></g></svg><span class="f08-line"><span class="f08-mph f08-rin">ไม่พบเอกสาร</span><span class="f08-mph f08-rin">ในสิทธิ์ของท่าน</span></span></div>
         </div>
       </div>
-      <span id="f08-badgeR" class="f08-badge">ไม่มีสิทธิ์</span>
     </div>
 
     <!-- links from the one question to each person -->
@@ -167,19 +175,25 @@
       tl.fromTo("#f08-wellL", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 1.0);
       tl.fromTo("#f08-wellR", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 1.3);
 
-      /* inner-edge permission badges: the one spring overshoot (left 1.2, right 1.6) */
-      tl.fromTo("#f08-badgeL", { scale: 0.3 }, { scale: 1, duration: 0.55, ease: "back.out(2.2)" }, 1.2);
+      /* permission badges inside each card, next to the name (left 1.2, right 1.6) */
+      tl.fromTo("#f08-badgeL", { scale: 0.6 }, { scale: 1, duration: 0.5, ease: "expo.out" }, 1.2);
       tl.fromTo("#f08-badgeL", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 1.2);
-      tl.fromTo("#f08-badgeR", { scale: 0.3 }, { scale: 1, duration: 0.55, ease: "back.out(2.2)" }, 1.6);
+      tl.fromTo("#f08-badgeR", { scale: 0.6 }, { scale: 1, duration: 0.5, ease: "expo.out" }, 1.6);
       tl.fromTo("#f08-badgeR", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 1.6);
 
-      /* counter-phase idle float (left sin, right -sin), settling to rest at 6.4 */
-      tl.fromTo("#f08-sideL", { y: 0 }, { y: -AMP, duration: 1.1, ease: "sine.inOut" }, 2.0);
-      tl.fromTo("#f08-sideL", { y: -AMP }, { y: AMP, duration: 2.2, ease: "sine.inOut", immediateRender: false }, 3.1);
-      tl.fromTo("#f08-sideL", { y: AMP }, { y: 0, duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.3);
-      tl.fromTo("#f08-sideR", { y: 0 }, { y: AMP, duration: 1.1, ease: "sine.inOut" }, 2.0);
-      tl.fromTo("#f08-sideR", { y: AMP }, { y: -AMP, duration: 2.2, ease: "sine.inOut", immediateRender: false }, 3.1);
-      tl.fromTo("#f08-sideR", { y: -AMP }, { y: 0, duration: 1.1, ease: "sine.inOut", immediateRender: false }, 5.3);
+      /* both cards resolve to exactly flat (rotation + skew 0) by 3.5, then hold flat */
+      tl.fromTo("#f08-cardL", { rotationY: TILT, rotationX: 0, skewX: 0, skewY: 0 },
+        { rotationY: 0, rotationX: 0, skewX: 0, skewY: 0, duration: 1.2, ease: "power2.inOut", immediateRender: false }, 2.3);
+      tl.fromTo("#f08-cardR", { rotationY: -TILT, rotationX: 0, skewX: 0, skewY: 0 },
+        { rotationY: 0, rotationX: 0, skewX: 0, skewY: 0, duration: 1.2, ease: "power2.inOut", immediateRender: false }, 2.3);
+
+      /* counter-phase idle float (left up first, right down first), settling to rest at 6.0 */
+      tl.fromTo("#f08-sideL", { y: 0 }, { y: -AMP, duration: 1.0, ease: "power2.inOut" }, 2.0);
+      tl.fromTo("#f08-sideL", { y: -AMP }, { y: AMP, duration: 2.0, ease: "power2.inOut", immediateRender: false }, 3.0);
+      tl.fromTo("#f08-sideL", { y: AMP }, { y: 0, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 5.0);
+      tl.fromTo("#f08-sideR", { y: 0 }, { y: AMP, duration: 1.0, ease: "power2.inOut" }, 2.0);
+      tl.fromTo("#f08-sideR", { y: AMP }, { y: -AMP, duration: 2.0, ease: "power2.inOut", immediateRender: false }, 3.0);
+      tl.fromTo("#f08-sideR", { y: -AMP }, { y: 0, duration: 1.0, ease: "power2.inOut", immediateRender: false }, 5.0);
 
       /* Scene 2 (2.4-4.0) — the one question drops in, two identical links draw to each side */
       tl.fromTo("#f08-q", { y: -36, scale: 0.94, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "power3.out" }, 2.4);
@@ -196,11 +210,11 @@
       tl.fromTo("#f08-wellL", { backgroundColor: "rgba(30,43,250,0.04)" }, { backgroundColor: "rgba(30,43,250,0.08)", duration: 0.5, ease: "power1.out", immediateRender: false }, 4.0);
       tl.fromTo("#f08-tile", { y: 18, scale: 0.9, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.55, ease: "power3.out" }, 4.0);
       tl.fromTo("#f08-tile .f08-tile-bar", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 4.15);
-      tl.fromTo("#f08-ok", { x: -12, scale: 0.6 }, { x: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.25);
+      tl.fromTo("#f08-ok", { x: -12, scale: 0.8 }, { x: 0, scale: 1, duration: 0.5, ease: "expo.out" }, 4.25);
       tl.fromTo("#f08-ok", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 4.25);
 
-      /* Scene 4 (5.0-9.0) — right answer fills in empty: only the line, per phrase; still from 6.4 */
-      tl.fromTo("#f08-resR .f08-mph", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.28 }, 5.0);
+      /* Scene 4 (5.0-9.0) — right answer fills in empty: lock + the line, per phrase; still from 6.0 */
+      tl.fromTo("#f08-resR .f08-rin", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.2 }, 5.0);
 
       tl.set({}, {}, 9);
 

@@ -37,7 +37,7 @@
     .f02-res{position:absolute;left:1202px;top:0;height:152px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:8px}
     .f02-res .f02-line{display:block;white-space:nowrap;font-weight:600;font-size:34px;line-height:1.45;color:#111111}
     .f02-plus{color:#1e2bfa}
-    .f02-chip{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:6px 20px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;letter-spacing:0.02em}
+    .f02-chip{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 20px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;letter-spacing:0.02em}
 
     .f02-abs{position:absolute;display:block}
     .f02-abs > svg{display:block;overflow:visible}
@@ -54,12 +54,12 @@
     #f02-outline{z-index:2}
     #f02-tree{fill:none;stroke:#1e2bfa;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
-    /* lane 2: the read-out card */
+    /* lane 2: the read-out card — seeded ASCII ink map that resolves per word into clean lines */
     #f02-read{left:854px;top:12px}
-    .f02-tline{position:absolute;left:14px;height:26px;display:flex;gap:12px;perspective:600px}
-    .f02-slot{position:relative;display:inline-block;height:26px;transform-origin:50% 100%;transform-style:preserve-3d}
-    .f02-gly{position:absolute;left:1px;top:0;height:26px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:22px;line-height:26px;color:#6b6b6b;white-space:nowrap}
-    .f02-wbar{position:absolute;left:2px;right:4px;top:9px;height:9px;border-radius:3px;background:rgba(17,17,17,0.82)}
+    .f02-tline{position:absolute;left:14px;height:26px;display:flex;gap:14px}
+    .f02-slot{position:relative;display:inline-block;height:26px}
+    .f02-gly{position:absolute;left:0;top:0;height:26px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:26px;color:#6b6b6b;white-space:nowrap}
+    .f02-wbar{position:absolute;left:2px;right:4px;top:9px;height:9px;border-radius:3px;background:rgba(17,17,17,0.82);transform-origin:0 50%}
     #f02-capimg{position:absolute;left:12px;top:100px;width:22px;height:20px}
     #f02-cappill{position:absolute;left:42px;top:100px;width:204px;height:20px;border-radius:10px;background:rgba(30,43,250,0.08);transform-origin:0 50%}
     #f02-capbar{position:absolute;left:10px;top:7px;width:150px;height:6px;border-radius:3px;background:#1e2bfa;opacity:0.75;transform-origin:0 50%}
@@ -327,123 +327,94 @@
       const phrases = (sel, at) =>
         tl.fromTo(sel, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.12 }, at);
       const tileIn = (sel, at) =>
-        tl.fromTo(sel, { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, at);
-      const activate = (n, at) => {
-        tl.fromTo("#f02-on" + n, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, at);
+        tl.fromTo(sel, { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, at);
+      // lane container + accent bar arrive WITH the label (container 0.1 s ahead), never pre-drawn
+      const laneIn = (n, at) => {
+        tl.fromTo("#f02-lane" + n + " .f02-frame", { opacity: 0, scale: 0.985 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, at - 0.1);
         tl.fromTo("#f02-rule" + n, { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power3.out" }, at);
       };
-      const arrow = (n, at) => { draw("f02-ar" + n, at, 0.45); draw("f02-ah" + n, at + 0.33, 0.2); };
+      const arrow = (n, at) => { draw("f02-ar" + n, at, 0.35); draw("f02-ah" + n, at + 0.25, 0.18); };
 
-      // ---------- Scene 1 (0.0–1.4): empty lanes + headline ----------
-      tl.fromTo(".f02-frame-off", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power1.out", stagger: 0.08 }, 0.05);
+      // ---------- Scene 1 (0.0–1.4): headline only ----------
       tl.fromTo("#f02-h2 .f02-ph", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.3);
 
-      // ---------- Scene 2 (1.4–4.2): lane 1, PDF → outline (scale-swap) ----------
-      activate(1, 1.4);
-      phrases("#f02-l1a", 1.45);
-      tileIn("#f02-pdfb", 1.65);
-      tileIn("#f02-pdf", 1.78);
-      arrow(1, 2.15);
+      // ---------- Scene 2 (1.4–4.2): lane 1, PDF → outline (scale-swap); result at 2.6 ----------
+      laneIn(1, 1.4);
+      phrases("#f02-l1a", 1.4);
+      tileIn("#f02-pdfb", 1.48);
+      tileIn("#f02-pdf", 1.58);
+      arrow(1, 1.75);
       // the page's content slides out of the page (outgoing state lands first)
-      tl.fromTo("#f02-raw", { opacity: 0, x: -40, scale: 0.92 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 2.45);
-      // swap: outgoing rushes away, incoming arrives with weight (OVERLAP 0.15)
-      tl.fromTo("#f02-raw", { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.72, duration: 0.35, ease: "power2.in", immediateRender: false }, 3.15);
-      tl.fromTo("#f02-outline", { opacity: 0, scale: 0.72 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 3.35);
-      draw("f02-tree", 3.75, 0.45);
-      phrases("#f02-r1a, #f02-r1b", 3.62);
+      tl.fromTo("#f02-raw", { opacity: 0, x: -40, scale: 0.92 }, { opacity: 1, x: 0, scale: 1, duration: 0.35, ease: "power3.out" }, 1.85);
+      // swap: outgoing rushes away, incoming arrives with weight (OVERLAP 0.1)
+      tl.fromTo("#f02-raw", { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.72, duration: 0.28, ease: "power2.in", immediateRender: false }, 2.25);
+      tl.fromTo("#f02-outline", { opacity: 0, scale: 0.72 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 2.43);
+      draw("f02-tree", 2.55, 0.4);
+      phrases("#f02-r1a, #f02-r1b", 2.6);
 
-      // ---------- Scene 3 (4.2–7.0): lane 2, scan/photo → read (hacker-flip per word) ----------
-      activate(2, 4.2);
-      phrases("#f02-l2a, #f02-l2b", 4.25);
-      tileIn("#f02-scan", 4.45);
-      tileIn("#f02-photo", 4.6);
-      arrow(2, 4.95);
-      tl.fromTo("#f02-read", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, 5.2);
+      // ---------- Scene 3 (4.2–7.0): lane 2, scan/photo → ink map → read lines; result at 5.4 ----------
+      laneIn(2, 4.2);
+      phrases("#f02-l2a, #f02-l2b", 4.2);
+      tileIn("#f02-scan", 4.28);
+      tileIn("#f02-photo", 4.36);
+      arrow(2, 4.48);
+      tl.fromTo("#f02-read", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 4.62);
 
-      const GLYPHS = "#%&@*+=?<>/~$XKQZW";
-      const pseudoGlyph = (seed) => GLYPHS[Math.floor((((seed * 9301 + 49297) % 233280) / 233280) * GLYPHS.length)];
-      const WORDS = [[5, 7, 4], [6, 4, 6], [7, 5]]; // glyph counts per word, three lines
-      const slots = [];
-      WORDS.forEach((line, li) => {
-        const row = $("f02-tl" + (li + 1));
+      // ink map: density glyph = fixed hash of (row, col); words = glyph runs, three lines
+      const DENS = " .:-=+*#";
+      const ink = (r, c) => {
+        let h = Math.imul(((r + 1) * 73856093) ^ ((c + 1) * 19349663), 0x5bd1e995);
+        h ^= h >>> 15;
+        return DENS[1 + ((h >>> 0) % 7)];
+      };
+      [[5, 7, 4], [6, 4, 6], [7, 5]].forEach((line, r) => {
+        let c = 0, html = "";
         line.forEach((n) => {
-          const slot = document.createElement("span");
-          slot.className = "f02-slot";
-          slot.style.width = (n * 13.2 + 2).toFixed(1) + "px";
-          const bar = document.createElement("span"); // the clean word: target + width-reserving ghost
-          bar.className = "f02-wbar";
-          const gly = document.createElement("span");
-          gly.className = "f02-gly";
-          slot.appendChild(bar);
-          slot.appendChild(gly);
-          row.appendChild(slot);
-          slots.push({ slot: slot, bar: bar, gly: gly, n: n });
+          let txt = "";
+          for (let j = 0; j < n; j++) txt += ink(r, c + j);
+          c += n + 1;
+          html += '<span class="f02-slot" style="width:' + (n * 14.4).toFixed(1) + 'px"><span class="f02-wbar"></span><span class="f02-gly">' + txt + "</span></span>";
         });
+        $("f02-tl" + (r + 1)).innerHTML = html;
       });
-      const FLIP = 0.8, STAG = 0.07, TH = 0.66, DEC_AT = 5.3;
-      slots.forEach((o, i) => {
-        let mode = "";
-        let lastStep = -1;
-        const paint = (p, lin) => {
-          if (p < TH) {
-            const step = Math.floor((lin * FLIP * 30) / 3); // one glyph swap every ~3 frames @30fps
-            if (mode !== "g") { mode = "g"; o.gly.style.opacity = "1"; o.bar.style.opacity = "0"; }
-            if (step !== lastStep) {
-              lastStep = step;
-              let txt = "";
-              for (let j = 0; j < o.n; j++) txt += pseudoGlyph((i * 16 + j) * 1000 + step * 7);
-              o.gly.textContent = txt;
-            }
-          } else if (mode !== "b") {
-            mode = "b"; lastStep = -1;
-            o.gly.textContent = "";
-            o.gly.style.opacity = "0"; o.bar.style.opacity = "1";
-          }
-          o.slot.style.transform = "rotateX(" + (90 - p * 90).toFixed(2) + "deg)";
-          o.slot.style.opacity = Math.min(1, p * 2).toFixed(3);
-        };
-        paint(0, 0);
-        const st = { p: 0 };
-        tl.fromTo(st, { p: 0 }, {
-          p: 1, duration: FLIP, ease: "power3.out",
-          onUpdate: function () { paint(st.p, this.progress()); },
-        }, DEC_AT + i * STAG);
-      });
-      tl.fromTo("#f02-capimg", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 6.15);
-      tl.fromTo("#f02-cappill", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 6.2);
-      tl.fromTo("#f02-capbar", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, 6.35);
-      phrases("#f02-r2a, #f02-r2b", 6.3);
-      tl.fromTo("#f02-chip2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 6.55);
+      // resolve per word, in reading order: ink fades as the clean word bar grows in
+      tl.fromTo("#f02-read .f02-gly", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.out", stagger: 0.04 }, 4.98);
+      tl.fromTo("#f02-read .f02-wbar", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.26, ease: "power3.out", stagger: 0.04 }, 5.02);
+      tl.fromTo("#f02-capimg", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 5.28);
+      tl.fromTo("#f02-cappill", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, 5.3);
+      tl.fromTo("#f02-capbar", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 5.42);
+      phrases("#f02-r2a, #f02-r2b", 5.4);
+      tl.fromTo("#f02-chip2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 5.62);
 
-      // ---------- Scene 4 (7.0–9.6): lane 3, chart/table → clean table + relationships ----------
-      activate(3, 7.0);
-      phrases("#f02-l3a, #f02-l3b", 7.05);
-      tileIn("#f02-chart", 7.22);
-      tileIn("#f02-grid", 7.34);
-      arrow(3, 7.55);
-      tl.fromTo("#f02-tbl", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }, 7.8);
+      // ---------- Scene 4 (7.0–8.6): lane 3, chart/table → clean table + relationships; result at 8.2 ----------
+      laneIn(3, 7.0);
+      phrases("#f02-l3a, #f02-l3b", 7.0);
+      tileIn("#f02-chart", 7.1);
+      tileIn("#f02-grid", 7.2);
+      arrow(3, 7.35);
+      tl.fromTo("#f02-tbl", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 7.5);
       // bars light up, lift off the chart, rotate flat and land as table rows
       const FLY = [{ dx: 601, dy: -43 }, { dx: 573, dy: 0 }, { dx: 545, dy: 22 }];
       FLY.forEach((f, i) => {
         const id = "#f02-fly" + (i + 1);
-        const lit = 7.85 + i * 0.08;
-        const go = 7.97 + i * 0.08;
-        const land = go + 0.7;
-        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, lit);
-        tl.fromTo(id, { x: 0, y: 0, rotation: 0 }, { x: f.dx, y: f.dy, rotation: 90, duration: 0.7, ease: "power2.inOut" }, go);
-        tl.fromTo(id, { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power1.out", immediateRender: false }, land);
-        tl.fromTo("#f02-rl" + (i + 1), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, land - 0.05);
-        tl.fromTo("#f02-v" + (i + 1), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, land - 0.05);
+        const lit = 7.52 + i * 0.06;
+        const go = 7.6 + i * 0.06;
+        const land = go + 0.5;
+        tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out" }, lit);
+        tl.fromTo(id, { x: 0, y: 0, rotation: 0 }, { x: f.dx, y: f.dy, rotation: 90, duration: 0.5, ease: "power2.inOut" }, go);
+        tl.fromTo(id, { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.out", immediateRender: false }, land);
+        tl.fromTo("#f02-rl" + (i + 1), { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, land - 0.05);
+        tl.fromTo("#f02-v" + (i + 1), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, land - 0.05);
       });
-      // relationships: row 2 linked to both column headers
-      tl.fromTo("#f02-rowhl", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 8.95);
-      tl.fromTo(["#f02-dA0", "#f02-dB0"], { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out", stagger: 0.08 }, 9.0);
-      draw("f02-lkA", 9.02, 0.35);
-      draw("f02-lkB", 9.1, 0.35);
-      tl.fromTo(["#f02-dA1", "#f02-dB1"], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out", stagger: 0.08 }, 9.33);
-      phrases("#f02-r3a, #f02-r3b", 8.9);
+      // relationships: row 2 linked to both column headers (lands with the second result phrase)
+      tl.fromTo("#f02-rowhl", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 8.25);
+      tl.fromTo(["#f02-dA0", "#f02-dB0"], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out", stagger: 0.07 }, 8.28);
+      draw("f02-lkA", 8.3, 0.3);
+      draw("f02-lkB", 8.37, 0.3);
+      tl.fromTo(["#f02-dA1", "#f02-dB1"], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out", stagger: 0.07 }, 8.57);
+      phrases("#f02-r3a, #f02-r3b", 8.2);
 
-      // ---------- Scene 5 (9.6–11.0): held read — nothing moves ----------
+      // ---------- Scene 5 (8.2–11.0): held read — nothing moves ----------
 
       window.__timelines = window.__timelines || {};
       window.__timelines["02-ingest"] = tl;
