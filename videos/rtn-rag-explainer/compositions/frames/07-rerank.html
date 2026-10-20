@@ -23,27 +23,27 @@
     #f07-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;container-type:size}
     #f07-h2 .f07-ph{display:inline-block}
 
-    /* ghost slots left behind by the top three */
-    .f07-ghost{position:absolute;left:96px;width:680px;height:56px;box-sizing:border-box;border:1.5px dashed rgba(30,43,250,0.28);border-radius:10px;z-index:0}
-
-    /* morph card: authored at the answer card's FINAL geometry (scale 1 = crisp text);
-       it starts as the tray hugging the top three rows (scale S0, radius 24 apparent) */
-    #f07-card{position:absolute;left:960px;top:420px;width:864px;height:268.47px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:14px;background-color:rgba(30,43,250,0.04);overflow:hidden;transform-origin:0 0;z-index:1}
-    #f07-card .f07-new{position:absolute;left:0;top:0;right:0;bottom:0}
+    /* answer card: static at its final geometry (x 962-1824, y 421-748) */
+    #f07-card{position:absolute;left:962px;top:421px;width:862px;height:327px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:14px;background-color:rgba(30,43,250,0.04);overflow:hidden;z-index:1}
     #f07-card .f07-rule{position:absolute;left:0;top:0;bottom:0;width:5px;background:#1e2bfa}
-    #f07-card .f07-ans{position:absolute;left:40px;top:36px;display:flex;align-items:center;gap:14px}
+    #f07-card .f07-ans{position:absolute;left:40px;top:96px;display:flex;align-items:center;gap:14px}
     #f07-card .f07-spark{width:30px;height:30px;flex:none}
     #f07-card .f07-ans-line{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:40px;line-height:1.45;color:#111111}
     #f07-card .f07-aph{display:inline-block}
     #f07-card .f07-sk{position:absolute;left:84px;height:10px;border-radius:6px;background:rgba(154,154,154,0.45);transform-origin:left center}
-    #f07-card .f07-sk1{top:112px;width:560px}
-    #f07-card .f07-sk2{top:132px;width:430px}
-    #f07-cite{position:absolute;left:84px;top:166px;display:flex;align-items:center;gap:12px;padding:10px 22px 10px 16px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap}
+    #f07-card .f07-sk1{top:172px;width:560px}
+    #f07-card .f07-sk2{top:192px;width:430px}
+    #f07-cite{position:absolute;left:84px;top:226px;display:flex;align-items:center;gap:12px;padding:10px 22px 10px 16px;border-radius:100px;background:rgba(30,43,250,0.08);color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;white-space:nowrap}
     #f07-cite .f07-cdoc{position:relative;width:20px;height:26px;flex:none;box-sizing:border-box;border:2px solid #1e2bfa;border-radius:4px;background:#fdfae7}
     #f07-cite .f07-cdoc span{position:absolute;left:3px;height:2px;border-radius:1px;background:rgba(30,43,250,0.55)}
 
+    /* consumer chip, fully inside the card's top-left (global x 1000, y 440) */
+    #f07-llm{position:absolute;left:36px;top:18px;display:flex;align-items:center;gap:10px;padding:4px 20px 4px 14px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#ebe9e9;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;white-space:nowrap}
+    #f07-llm svg{width:26px;height:26px;flex:none}
+
     /* candidate rows (opaque = card-bg over cream, so re-sort crossings stay clean) */
-    .f07-row{--dof:0px;position:absolute;left:96px;width:680px;height:56px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:10px;background:#f4f2e8;transform-origin:0 0;filter:blur(var(--dof));will-change:filter}
+    .f07-row{position:absolute;left:96px;width:680px;height:56px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:10px;background:#f4f2e8;transform-origin:0 0}
+    .f07-hl{position:absolute;left:-1.5px;top:-1.5px;right:-1.5px;bottom:-1.5px;box-sizing:border-box;border:2px solid #1e2bfa;border-radius:10px;background:#e6e7fb}
     .f07-tile{position:absolute;left:16px;top:5px;width:34px;height:44px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:6px;background:rgba(30,43,250,0.04);overflow:hidden}
     .f07-tile .f07-band{position:absolute;left:0;top:0;right:0;height:4px}
     .f07-tile .f07-tl{position:absolute;left:6px;height:3px;border-radius:2px;background:rgba(154,154,154,0.7)}
@@ -57,39 +57,30 @@
     .f07-bar{position:absolute;left:282px;top:17px;width:378px;height:20px;border-radius:6px;background:rgba(30,43,250,0.08);overflow:hidden}
     .f07-fill{display:block;width:100%;height:100%;border-radius:6px;background:#1e2bfa;transform-origin:left center}
 
-    /* cut line + label */
-    #f07-cut{position:absolute;left:88px;top:511px;width:696px;height:24px;overflow:visible;z-index:25}
-    #f07-top3{position:absolute;left:792px;top:497px;padding:7px 22px;border-radius:100px;background:#1e2bfa;color:#fdfae7;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:26px;line-height:1.45;white-space:nowrap;z-index:26}
-
-    /* consumer chip on the answer card's top edge */
-    #f07-llm{position:absolute;right:128px;top:391px;display:flex;align-items:center;gap:10px;padding:10px 22px 10px 16px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:#ebe9e9;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;z-index:30}
-    #f07-llm svg{width:24px;height:24px;flex:none}
+    /* cut line in the opened gap (absolute y = 522) + label + arrow to the card */
+    #f07-cut{position:absolute;left:88px;top:510px;width:696px;height:24px;overflow:visible;z-index:25}
+    #f07-top3{position:absolute;left:792px;top:495px;padding:7px 22px;border-radius:100px;background:#1e2bfa;color:#fdfae7;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;white-space:nowrap;z-index:26;transform-origin:0 50%}
+    #f07-arrow{position:absolute;left:920px;top:510px;width:44px;height:24px;overflow:visible;z-index:26}
   </style>
 
   <div id="root" data-composition-id="07-rerank" data-width="1920" data-height="1080" data-duration="8.5">
-    <div id="f07-bg" class="clip" data-start="0" data-duration="7.5" data-track-index="0"></div>
+    <div id="f07-bg" class="clip" data-start="0" data-duration="8.5" data-track-index="0"></div>
 
-    <div id="f07-stage" class="clip" data-start="0" data-duration="7.5" data-track-index="1">
+    <div id="f07-stage" class="clip" data-start="0" data-duration="8.5" data-track-index="1">
 
       <div id="f07-h2"><span class="f07-line"><span class="f07-ph">คัดตัวจริง</span> <span class="f07-ph">ก่อนส่งให้</span> <span class="f07-ph">AI ตอบ</span></span></div>
 
-      <!-- ghost slots (DOM first = lowest) -->
-      <div class="f07-ghost" style="top:300px"></div>
-      <div class="f07-ghost" style="top:368px"></div>
-      <div class="f07-ghost" style="top:436px"></div>
-
-      <!-- morph card: tray around the top three -> answer card (renders BEFORE the rows, so rows sit on top) -->
+      <!-- answer card (right half); the LLM chip sits inside its top-left -->
       <div id="f07-card">
-        <div class="f07-new">
-          <span class="f07-rule"></span>
-          <div class="f07-ans">
-            <svg class="f07-spark" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>
-            <span class="f07-ans-line"><span class="f07-aph">คำตอบ</span> <span class="f07-aph">พร้อมแหล่งอ้างอิง</span></span>
-          </div>
-          <span class="f07-sk f07-sk1"></span>
-          <span class="f07-sk f07-sk2"></span>
-          <div id="f07-cite"><span class="f07-cdoc"><span style="top:5px;width:10px"></span><span style="top:10px;width:8px"></span><span style="top:15px;width:10px"></span></span><span>อ้างอิง: นโยบาย69 · v02</span></div>
+        <span class="f07-rule"></span>
+        <div id="f07-llm"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3" fill="none" stroke="#1e2bfa" stroke-width="2"/><path d="M9.5 2.5v3M14.5 2.5v3M9.5 18.5v3M14.5 18.5v3M2.5 9.5h3M2.5 14.5h3M18.5 9.5h3M18.5 14.5h3" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round"/></svg><span>LLM / ระบบอื่น</span></div>
+        <div class="f07-ans">
+          <svg class="f07-spark" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>
+          <span class="f07-ans-line"><span class="f07-aph">คำตอบ</span> <span class="f07-aph">พร้อมแหล่งอ้างอิง</span></span>
         </div>
+        <span class="f07-sk f07-sk1"></span>
+        <span class="f07-sk f07-sk2"></span>
+        <div id="f07-cite"><span class="f07-cdoc"><span style="top:5px;width:10px"></span><span style="top:10px;width:8px"></span><span style="top:15px;width:10px"></span></span><span>อ้างอิง: นโยบาย69 · v02</span></div>
       </div>
 
       <!-- eight candidate rows, unsorted (initial slot = DOM index) -->
@@ -114,6 +105,7 @@
         <span class="f07-bar"><span class="f07-fill"></span></span>
       </div>
       <div class="f07-row f07-exrow" data-score="0.94" style="top:572px">
+        <span class="f07-hl"></span>
         <span class="f07-tile f07-k-pdf f07-ex"><span class="f07-band"></span><span class="f07-tl" style="top:11px;width:18px"></span><span class="f07-tl" style="top:18px;width:14px"></span><span class="f07-tl" style="top:25px;width:17px"></span></span>
         <span class="f07-title" style="width:176px"></span><span class="f07-meta" style="width:90px"></span>
         <span class="f07-bar"><span class="f07-fill"></span></span>
@@ -134,11 +126,10 @@
         <span class="f07-bar"><span class="f07-fill"></span></span>
       </div>
 
-      <!-- cut line under row 3 (absolute y = 523) + label -->
+      <!-- cut line in the gap under row 3 (absolute y = 522) + label + arrow -->
       <svg id="f07-cut" viewBox="0 0 696 24" aria-hidden="true"><line id="f07-cutline" x1="8" y1="12" x2="688" y2="12" stroke="#1e2bfa" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="680 720"/></svg>
       <div id="f07-top3">Top 3</div>
-
-      <div id="f07-llm"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3" fill="none" stroke="#1e2bfa" stroke-width="2"/><path d="M9.5 2.5v3M14.5 2.5v3M9.5 18.5v3M14.5 18.5v3M2.5 9.5h3M2.5 14.5h3M18.5 9.5h3M18.5 14.5h3" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round"/></svg><span>LLM / ระบบอื่น</span></div>
+      <svg id="f07-arrow" viewBox="0 0 44 24" aria-hidden="true"><line id="f07-arrline" x1="4" y1="12" x2="39" y2="12" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round" stroke-dasharray="35 60"/><path id="f07-arrhead" d="M33 6.5L39.5 12L33 17.5" fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
   </div>
 
@@ -148,14 +139,9 @@
       var ID = "07-rerank";
       var root = document.querySelector('[data-composition-id="07-rerank"]');
       var all = function (s) { return Array.prototype.slice.call(root.querySelectorAll(s)); };
-      var one = function (s) { return root.querySelector(s); };
 
       // geometry (px, 1920x1080)
-      var PITCH = 68, ROW_L = 96, ROW_T0 = 300, NUDGE = 36;
-      var TRAY_L = 82, TRAY_T = 286, TRAY_W = 708, PAD = 14;
-      var CARD_L = 960, CARD_T = 420, CARD_W = 864;
-      var S0 = TRAY_W / CARD_W;            // tray apparent size = card x S0
-      var R0 = 24 / S0;                    // tray apparent radius 24 (pre-scale units)
+      var PITCH = 68, GAP = 48;            // GAP: rows 4-8 open a gap centred on the cut line (y 522)
 
       var rows = all(".f07-row");
       var scores = rows.map(function (r) { return Number(r.getAttribute("data-score")); });
@@ -170,52 +156,39 @@
 
       var tl = gsap.timeline({ paused: true });
 
-      // ---- Scene 1 (0.0-1.0): rows arrive unsorted; headline per phrase ----
+      // ---- Scene 1 (0.0-1.0): rows arrive unsorted; headline per phrase; example row marked from 0.8 ----
       tl.fromTo(rows, { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out", stagger: 0.06 }, 0.1);
       tl.fromTo(all("#f07-h2 .f07-ph"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 0.3);
+      tl.fromTo(".f07-exrow .f07-hl", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.8);
 
-      // ---- Scene 2 (1.0-2.4): relevance fills (stat-bars-and-fills), then re-sort ----
+      // ---- Scene 2 (1.0-2.2): relevance fills (stat-bars-and-fills), then one 1.0s re-sort ----
       rows.forEach(function (r, i) {
-        tl.fromTo(r.querySelector(".f07-fill"), { scaleX: 0 }, { scaleX: scores[i], duration: 0.5, ease: "power2.out" }, 1.0 + i * 0.025);
+        tl.fromTo(r.querySelector(".f07-fill"), { scaleX: 0 }, { scaleX: scores[i], duration: 0.35, ease: "power2.out" }, 1.0 + i * 0.015);
       });
       rows.forEach(function (r, i) {
-        tl.fromTo(r, { y: 0 }, { y: sortedY(i), duration: 0.68, ease: "power3.inOut", immediateRender: false }, 1.72);
+        tl.fromTo(r, { y: 0 }, { y: sortedY(i), duration: 1.0, ease: "power3.inOut", immediateRender: false }, 1.2);
       });
 
-      // ---- Scene 3 (2.4-4.2): cut line under row 3, "Top 3", rows 4-8 defocus (depth-of-field-blur, light) ----
-      tl.fromTo("#f07-cutline", { strokeDashoffset: 692 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 2.4);
-      tl.fromTo("#f07-top3", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.38, ease: "power3.out" }, 2.62);
+      // ---- Scene 3 (2.2-3.0): rows 4-8 open a gap, the cut line draws into it, "Top 3" pops, rows 4-8 dim (no blur) ----
       rows.forEach(function (r, i) {
         if (rank[i] < 3) return;
-        var depth = rank[i] - 2; // 1..5
-        tl.fromTo(r, { y: sortedY(i) }, { y: sortedY(i) + NUDGE, duration: 0.6, ease: "power3.inOut", immediateRender: false }, 2.65);
-        tl.fromTo(r, { "--dof": "0px", opacity: 1 }, { "--dof": (0.7 + 0.5 * depth).toFixed(2) + "px", opacity: 0.35, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 2.65);
+        tl.fromTo(r, { y: sortedY(i) }, { y: sortedY(i) + GAP, duration: 0.25, ease: "power2.inOut", immediateRender: false }, 2.2);
+        tl.fromTo(r, { opacity: 1 }, { opacity: 0.35, duration: 0.5, ease: "power2.inOut", immediateRender: false }, 2.5);
       });
-      // tray (the morph card's shot-1 state) gathers the kept three
-      tl.fromTo("#f07-card",
-        { x: TRAY_L - CARD_L, y: TRAY_T - CARD_T, scale: S0, borderRadius: R0 + "px", backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.10)" },
-        { x: 0, y: 0, scale: 1, borderRadius: "14px", backgroundColor: "rgba(30,43,250,0.04)", borderColor: "rgba(30,43,250,0.2)", duration: 0.7, ease: "power2.inOut" },
-        4.2);
-      tl.fromTo("#f07-card", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 2.95);
+      tl.fromTo("#f07-cutline", { strokeDashoffset: 692 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 2.42);
+      tl.fromTo("#f07-top3", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 2.6);
 
-      // ---- Scene 4 (4.2-7.0): top three slide right inside the morphing card (card-morph-anchor) ----
-      var MORPH = 0.7, M0 = 4.2;
-      rows.forEach(function (r, i) {
-        var k = rank[i];
-        if (k >= 3) return;
-        var xf = CARD_L + PAD / S0 - ROW_L;
-        var yf = CARD_T + (PAD + k * PITCH) / S0 - (ROW_T0 + i * PITCH);
-        tl.fromTo(r, { x: 0, y: sortedY(i), scale: 1 }, { x: xf, y: yf, scale: 1 / S0, duration: MORPH, ease: "power2.inOut", immediateRender: false }, M0);
-        tl.fromTo(r, { opacity: 1 }, { opacity: 0, duration: MORPH * 0.45, ease: "power1.in", immediateRender: false }, M0);
-      });
-      tl.fromTo(all(".f07-ghost"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 4.4);
-      tl.fromTo("#f07-card .f07-new", { opacity: 0 }, { opacity: 1, duration: MORPH * 0.4, ease: "power1.out" }, M0 + MORPH * 0.6);
-      tl.fromTo(all("#f07-card .f07-aph"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.12 }, 4.6);
-      tl.fromTo(all("#f07-card .f07-sk"), { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out", stagger: 0.1 }, 4.78);
-      tl.fromTo("#f07-cite", { opacity: 0, y: 10, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 4.8);
-      tl.fromTo("#f07-llm", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 5.3);
-      // hold still from 5.8s to the end of the 7s slot
-      tl.set({}, {}, 7.0);
+      // ---- Scene 4 (3.0-8.0): top three stay filled in place; arrow -> card -> LLM chip -> answer -> citation ----
+      tl.fromTo("#f07-arrline", { strokeDashoffset: 35 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 3.0);
+      tl.fromTo("#f07-arrhead", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 3.14);
+      tl.fromTo("#f07-card", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 3.2);
+      tl.fromTo("#f07-llm", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 3.4);
+      tl.fromTo("#f07-card .f07-spark", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.8);
+      tl.fromTo(all("#f07-card .f07-aph"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.12 }, 3.8);
+      tl.fromTo(all("#f07-card .f07-sk"), { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.out", stagger: 0.1 }, 4.0);
+      tl.fromTo("#f07-cite", { opacity: 0, y: 10, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out" }, 4.3);
+      // hold still from 4.6s to the end of the 8.5s slot
+      tl.set({}, {}, 8.5);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[ID] = tl;

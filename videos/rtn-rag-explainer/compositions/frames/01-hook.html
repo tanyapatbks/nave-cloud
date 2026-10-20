@@ -27,14 +27,18 @@
     .f01-band{position:absolute;left:0;right:0;top:0;height:4px;}
     .f01-tin svg{position:absolute;left:0;top:0;width:129px;height:169px;}
     #f01-outline{position:absolute;box-sizing:border-box;inset:-1.5px;border:2.5px solid #1e2bfa;border-radius:10px;}
-    .f01-kchip{position:absolute;box-sizing:border-box;padding:6px 16px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;}
-    .f01-kchip.f01-mono{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";letter-spacing:0.02em;}
 
+    /* kind chips: ONE foreground row in the left column (outside the wall, never blurred) */
+    #f01-krow{position:absolute;left:96px;top:546px;display:flex;gap:12px;transform-origin:0 0;z-index:3;}
+    .f01-kchip{display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;padding:4px 18px 4px 14px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;white-space:nowrap;}
+    .f01-kchip.f01-mono{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";letter-spacing:0.02em;}
+    .f01-kchip svg{display:block;flex:none;width:28px;height:28px;}
+
+    /* hero group: "120+" + its subtitle share ONE transform (one origin) for the shrink */
+    #f01-hgrp{position:absolute;left:96px;top:222px;transform-origin:0 0;z-index:3;}
     /* hero numeral (Latin digits only: line-height 1.1 is safe here) */
-    #f01-num{position:absolute;left:96px;top:222px;height:242px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:220px;line-height:242px;color:#1e2bfa;white-space:nowrap;transform-origin:0 0;z-index:3;}
-    #f01-count{display:inline-block;width:396px;font-variant-numeric:tabular-nums;transform-origin:0 185px;}
-    #f01-plus{display:inline-block;}
-    #f01-label{position:absolute;left:96px;top:452px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111;white-space:nowrap;transform-origin:0 0;z-index:3;}
+    #f01-num{position:absolute;left:0;top:0;height:242px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:220px;line-height:242px;color:#1e2bfa;white-space:nowrap;transform-origin:0 185px;}
+    #f01-label{position:absolute;left:0;top:230px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;color:#111111;white-space:nowrap;}
     .f01-ph{display:inline-block;}
 
     /* question headline */
@@ -42,7 +46,8 @@
     #f01-q .f01-line{display:block;white-space:nowrap;}
     #f01-rag{position:relative;}
     #f01-uline{position:absolute;left:2px;right:2px;top:71px;height:4px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%;}
-    #f01-gloss{position:absolute;left:50%;top:196px;box-sizing:border-box;padding:8px 22px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;}
+    /* RAG definition chip: flush left under line 2 (y 525-585), 2px cobalt outline = the RAG underline */
+    #f01-gloss{position:absolute;left:0;top:182px;box-sizing:border-box;padding:5px 22px;border-radius:100px;border:2px solid #1e2bfa;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;white-space:nowrap;}
 
     /* chapter tracker (frame.md component 1, all upcoming) */
     #f01-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center;z-index:4;}
@@ -58,12 +63,23 @@
     <div id="f01-wall"></div>
     <div id="f01-hero"></div>
 
-    <div id="f01-num"><span id="f01-count">0</span><span id="f01-plus">+</span></div>
-    <div id="f01-label"><span class="f01-ph f01-lp">ปี</span> <span class="f01-ph f01-lp">ของข้อมูล</span><span class="f01-ph f01-lp">กองทัพเรือ</span></div>
+    <div id="f01-hgrp">
+      <div id="f01-num">120+</div>
+      <div id="f01-label"><span class="f01-ph f01-lp">ปี</span> <span class="f01-ph f01-lp">ของข้อมูล</span><span class="f01-ph f01-lp">กองทัพเรือ</span></div>
+    </div>
+
+    <div id="f01-krow">
+      <span class="f01-kchip f01-mono" id="f01-kc0" data-kind="pdf">PDF</span>
+      <span class="f01-kchip" id="f01-kc1" data-kind="scan">ภาพสแกน</span>
+      <span class="f01-kchip" id="f01-kc2" data-kind="image">รูปภาพ</span>
+      <span class="f01-kchip" id="f01-kc3" data-kind="chart">แผนภูมิ</span>
+      <span class="f01-kchip" id="f01-kc4" data-kind="table">ตาราง</span>
+    </div>
 
     <div id="f01-q">
-      <span class="f01-line"><span class="f01-ph f01-qp">แล้ว</span><span class="f01-ph f01-qp">เราจะ</span><span class="f01-ph f01-qp">จัดทำ</span> <span class="f01-ph f01-qp" id="f01-rag">RAG<span id="f01-uline"></span><span id="f01-gloss">ค้นเอกสารจริงก่อน แล้วจึงตอบ</span></span></span>
+      <span class="f01-line"><span class="f01-ph f01-qp">แล้ว</span><span class="f01-ph f01-qp">เราจะ</span><span class="f01-ph f01-qp">จัดทำ</span> <span class="f01-ph f01-qp" id="f01-rag">RAG<span id="f01-uline"></span></span></span>
       <span class="f01-line"><span class="f01-ph f01-qp">ให้กับ</span> <span class="f01-ph f01-qp">ทร.</span> <span class="f01-ph f01-qp">ได้อย่างไร?</span></span>
+      <span id="f01-gloss">ค้นเอกสารจริงก่อน แล้วจึงตอบ</span>
     </div>
 
     <div id="f01-hdr">
@@ -100,14 +116,9 @@
       /* ---------- archive wall: 8 x 5 document tiles, bleeding off top + right ---------- */
       var X0 = 808, Y0 = -56, PX = 146, PY = 188, COLS = 8, ROWS = 5;
       var HERO = 18; /* the example document (a PDF) */
-      var FORCED = { 8: "pdf", 25: "scan", 11: "image", 28: "chart", 22: "table", 18: "pdf" };
-      var CHIPS = [
-        { idx: 8, text: "PDF", mono: true },
-        { idx: 25, text: "ภาพสแกน" },
-        { idx: 11, text: "รูปภาพ" },
-        { idx: 28, text: "แผนภูมิ" },
-        { idx: 22, text: "ตาราง" }
-      ];
+      /* tiles that pulse as their kind chip lands (none sits under the chip row at y 546-603) */
+      var FORCED = { 8: "pdf", 26: "scan", 11: "image", 28: "chart", 22: "table", 18: "pdf" };
+      var CHIP_TILE = [8, 26, 11, 28, 22];
       var BAND = {
         pdf: "#111111",
         scan: "#6b6b6b",
@@ -182,12 +193,15 @@
         var html = tileHTML(i, kindOf(i), X0 + col * PX, Y0 + row * PY, i === HERO);
         if (i === HERO) heroHTML = html; else wallHTML += html;
       }
-      CHIPS.forEach(function (c, k) {
-        var col = c.idx % COLS, row = Math.floor(c.idx / COLS);
-        wallHTML += '<span class="f01-kchip' + (c.mono ? " f01-mono" : "") + '" id="f01-kc' + k + '" style="left:' + (X0 + col * PX + 66) + "px;top:" + (Y0 + row * PY + 108) + 'px">' + c.text + "</span>";
-      });
       $("f01-wall").innerHTML = wallHTML;
       $("f01-hero").innerHTML = heroHTML;
+
+      /* each kind chip carries its tile-kind glyph at 28px (same paths as the wall tiles) */
+      gsap.utils.toArray("#f01-krow .f01-kchip").forEach(function (el) {
+        el.insertAdjacentHTML("afterbegin",
+          '<svg viewBox="0 0 22 22" width="28" height="28" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+          GLYPH[el.getAttribute("data-kind")] + "</g></svg>");
+      });
 
       /* ---------- per-phrase sequencer (dynamic-content-sequencing): start times from content length ---------- */
       function sequence(texts, t0, base, perChar, pauses) {
@@ -201,25 +215,14 @@
 
       var tl = gsap.timeline({ paused: true });
 
-      /* ===== Scene 1 (0.0-2.4s): rings, count-up 0 -> 120, "+", label, wall cascade ===== */
+      /* ===== Scene 1 (0.0-2.4s): rings, "120+" whole (no count-up), label, wall cascade ===== */
       gsap.utils.toArray("#f01-rings .f01-ring").forEach(function (el, k) {
         tl.fromTo(el, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.05 + k * 0.12);
       });
 
-      var countEl = $("f01-count");
-      var state = { v: 0 };
-      var lastShown = -1;
-      var COUNT_AT = 0.3, COUNT_DUR = 1.5, COUNT_EASE = "power3.out";
-      tl.fromTo(countEl, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, COUNT_AT);
-      tl.fromTo(state, { v: 0 }, {
-        v: 120, duration: COUNT_DUR, ease: COUNT_EASE,
-        onUpdate: function () {
-          var n = Math.round(state.v);
-          if (n !== lastShown) { lastShown = n; countEl.textContent = String(n); }
-        }
-      }, COUNT_AT);
-      tl.fromTo(countEl, { scale: 0.5 }, { scale: 1, duration: COUNT_DUR, ease: COUNT_EASE }, COUNT_AT);
-      tl.fromTo("#f01-plus", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, COUNT_AT + COUNT_DUR);
+      /* "120+" appears whole, with its "+", from its first frame: fade in + smooth scale settle */
+      tl.fromTo("#f01-num", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.3);
+      tl.fromTo("#f01-num", { scale: 0.82 }, { scale: 1, duration: 1.2, ease: "power3.out" }, 0.3);
 
       var labelEls = gsap.utils.toArray("#f01-label .f01-lp");
       var labelAt = sequence(labelEls.map(function (e) { return e.textContent; }), 1.2, 0.12, 0.03);
@@ -233,21 +236,28 @@
         tl.fromTo($("f01-t" + t), { opacity: 0, y: 22, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, CASCADE_AT + t * CASCADE_GAP);
       }
 
-      /* ===== Scene 2 (2.4-4.6s): five kind chips settle onto representative tiles, one per 0.3s ===== */
-      CHIPS.forEach(function (c, k) {
-        tl.fromTo("#f01-kc" + k, { xPercent: -50, y: -26, opacity: 0 }, { xPercent: -50, y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 2.4 + k * 0.3);
+      /* ===== Scene 2 (2.4-4.6s): five kind chips land in ONE foreground row (0.15s stagger); each pulses its wall tile ===== */
+      var CHIP_AT = 2.4, CHIP_GAP = 0.15, PULSE_LAG = 0.2;
+      CHIP_TILE.forEach(function (idx, k) {
+        var at = CHIP_AT + k * CHIP_GAP;
+        tl.fromTo("#f01-kc" + k, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at);
+        /* tile pulse 1 -> 1.06 -> 1 over 0.3s (its cascade scale tween ended before 2.9s) */
+        tl.fromTo("#f01-t" + idx, { scale: 1 }, { scale: 1.06, duration: 0.15, ease: "power2.out", immediateRender: false }, at + PULSE_LAG);
+        tl.fromTo("#f01-t" + idx, { scale: 1.06 }, { scale: 1, duration: 0.15, ease: "power2.inOut", immediateRender: false }, at + PULSE_LAG + 0.15);
       });
 
-      /* ===== Scene 3 (4.6-7.3s): focal pull, numeral -> eyebrow, question per phrase, gloss chip ===== */
+      /* ===== Scene 3 (4.6-7.3s): focal pull, hero group -> eyebrow, chip row -> lower-left, question per phrase, gloss chip ===== */
       tl.fromTo("#f01-wall", { "--f01-dof": "0px", opacity: 1 }, { "--f01-dof": "4px", opacity: 0.4, duration: 0.8, ease: "power2.inOut" }, 4.6);
       tl.fromTo("#f01-outline", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 4.75);
       tl.fromTo("#f01-t" + HERO, { scale: 1 }, { scale: 1.05, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 4.6);
 
-      /* eyebrow row: "120+" at 60px (scale 0.2727) + label at 32px (scale 0.615), shared baseline y=268 */
-      /* the label's x leads and its rise lags a beat, so it slides in beside the numeral only once the numeral has shrunk out of that slot */
-      tl.fromTo("#f01-num", { x: 0, y: 0, scale: 1 }, { x: 0, y: -4.45, scale: 0.2727, duration: 0.6, ease: "expo.out" }, 4.6);
-      tl.fromTo("#f01-label", { x: 0 }, { x: 160, duration: 0.45, ease: "expo.out" }, 4.6);
-      tl.fromTo("#f01-label", { y: 0, scale: 1, color: "#111111" }, { y: -216.5, scale: 0.615, color: "#6b6b6b", duration: 0.75, ease: "expo.out" }, 4.68);
+      /* "120+" and its subtitle move as ONE group: a single transform tween, one origin (top-left), one ease.
+         scale 0.615 keeps the subtitle at 32px (52 x 0.615); group box lands at y 138-326, above the headline */
+      tl.fromTo("#f01-hgrp", { x: 0, y: 0, scale: 1 }, { x: 0, y: -84, scale: 0.615, duration: 0.6, ease: "expo.out" }, 4.6);
+      tl.fromTo("#f01-label", { color: "#111111" }, { color: "#6b6b6b", duration: 0.6, ease: "power2.out" }, 4.6);
+
+      /* chip row as one group: down to y 640-690 at 28px (32 x 0.875), 50px under the RAG chip */
+      tl.fromTo("#f01-krow", { y: 0, scale: 1 }, { y: 94, scale: 0.875, duration: 0.6, ease: "power3.out" }, 4.6);
 
       var qEls = gsap.utils.toArray("#f01-q .f01-qp");
       var qTexts = qEls.map(function (e) { return e.id === "f01-rag" ? "RAG" : e.textContent; });
@@ -256,8 +266,11 @@
         tl.fromTo(el, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, qAt[k]);
       });
 
-      tl.fromTo("#f01-uline", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 5.85);
-      tl.fromTo("#f01-gloss", { xPercent: -50, y: 14, opacity: 0 }, { xPercent: -50, y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 6.0);
+      /* RAG underline is fully drawn before the definition lands, then pulses on the chip's beat */
+      tl.fromTo("#f01-uline", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 5.5);
+      tl.fromTo("#f01-gloss", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.0);
+      tl.fromTo("#f01-uline", { opacity: 1 }, { opacity: 0.4, duration: 0.2, ease: "power2.out", immediateRender: false }, 6.05);
+      tl.fromTo("#f01-uline", { opacity: 0.4 }, { opacity: 1, duration: 0.2, ease: "power2.inOut", immediateRender: false }, 6.25);
 
       /* ===== Scene 4 (7.3-9.0s): chapter tracker assembles left to right (all upcoming), then held read ===== */
       gsap.utils.toArray("#f01-hdr .f01-pill").forEach(function (el, k) {
