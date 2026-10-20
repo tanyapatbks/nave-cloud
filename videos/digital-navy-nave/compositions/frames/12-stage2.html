@@ -240,7 +240,7 @@
 
       /* frame 03's question pops in exactly as it did there (2.0: tether stub grows up, chip springs from
          its bottom centre), holds legible to 3.6, then swaps in place for the answer (3.6-3.8):
-         discrete-text-sequence states (reverse search) + a velocity-matched upward cut (533 px/s both sides) */
+         discrete-text-sequence states (reverse search) + a velocity-matched upward cut (400 px/s both sides) */
       var QW = $("#f12-qw"), Q = $("#f12-q"), QN = $("#f12-qn"), A = $("#f12-ans");
       var SWAP = 3.72;
       var SEQ = [{ t: 0, s: 0 }, { t: 2.0, s: 1 }, { t: SWAP, s: 2 }];
@@ -259,9 +259,9 @@
       }, 0);
       tl.fromTo(QN, { scaleY: 0 }, { scaleY: 1, duration: 0.25, ease: "power2.out", transformOrigin: "50% 100%" }, 2.0);
       tl.fromTo(Q, { opacity: 0, scale: 0, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out", transformOrigin: "50% 100%" }, 2.0);
-      tl.fromTo(QW, { y: 0 }, { y: -16, duration: SWAP - 3.6, ease: "power4.in" }, 3.6);
-      tl.fromTo(QW, { opacity: 1 }, { opacity: 0, duration: SWAP - 3.62, ease: "power1.in" }, 3.62);
-      tl.fromTo(A, { opacity: 0.35, y: 24 }, { opacity: 1, y: 0, duration: 0.18, ease: "power4.out" }, SWAP);
+      tl.fromTo(QW, { y: 0 }, { y: -16, duration: SWAP - 3.6, ease: "power3.in" }, 3.6);
+      tl.fromTo(QW, { opacity: 1 }, { opacity: 0, duration: SWAP - 3.62, ease: "power2.in" }, 3.62);
+      tl.fromTo(A, { opacity: 0.35, y: 24 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, SWAP);
 
       /* messy stack drops in (3.9), then the Documents chip (4.4) and its label (4.8) */
       TILES.forEach(function (p, j) {

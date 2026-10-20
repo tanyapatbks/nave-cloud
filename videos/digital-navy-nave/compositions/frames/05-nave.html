@@ -17,12 +17,14 @@
     #f05-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
     #f05-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
 
-    /* Scene 1: eyebrow (y 148-206) + department split-highlight (y 214-382), left at x 96 */
-    #f05-eyebrow{position:absolute;left:96px;top:148px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#5F5B50;white-space:nowrap;}
+    /* Scene 1: eyebrow (y 140-198) + department split-highlight (y 202-366), both centred on x 960 */
+    #f05-eyebrow{position:absolute;left:0;top:140px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:40px;line-height:1.45;color:#5F5B50;white-space:nowrap;}
     #f05-eyebrow .f05-ph{display:inline-block;}
     #f05-eyebrow .f05-move{color:#1e2bfa;font-weight:700;}
-    #f05-dept{position:absolute;left:96px;top:214px;box-sizing:border-box;height:168px;padding:14px 44px 14px 32px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);}
-    #f05-dept .f05-dl{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:48px;line-height:1.45;color:#111111;}
+    #f05-deptrow{position:absolute;left:0;top:202px;width:1920px;display:flex;justify-content:center;}
+    /* accent-light fill; 4px rule + 40px inset on the left = 44px inset on the right, so the text centre is x 960 */
+    #f05-dept{flex:none;position:relative;box-sizing:border-box;min-width:900px;padding:18px 44px 18px 40px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);text-align:center;}
+    #f05-dept .f05-dl{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:44px;line-height:1.45;color:#111111;}
 
     /* Scene 2: lead line centred at y 400-464 */
     #f05-lead{position:absolute;left:0;top:400px;width:1920px;text-align:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;}
@@ -58,17 +60,17 @@
 
       <div id="f05-eyebrow"><span class="f05-ph" id="f05-eb1"><span class="f05-move">Move</span> นี้ของ ทร.</span> <span class="f05-ph" id="f05-eb2">นำโดย</span></div>
 
-      <div id="f05-dept">
+      <div id="f05-deptrow"><div id="f05-dept">
         <span class="f05-dl" id="f05-dl1">กรมการสื่อสารและเทคโนโลยีสารสนเทศ</span>
         <span class="f05-dl" id="f05-dl2">ทหารเรือ</span>
-      </div>
+      </div></div>
 
       <div id="f05-lead"><span class="f05-line"><span class="f05-ph" id="f05-ld1">เปลี่ยนผ่าน ทร.</span> <span class="f05-ph" id="f05-ld2">สู่ <span class="f05-en">Digital Navy</span> ด้วย</span></span></div>
 
       <div id="f05-pieces"></div>
 
       <div id="f05-wm">
-        <div id="f05-wm-en"><span class="f05-lt">N</span><span class="f05-lt">A</span><span class="f05-lt">V</span><span class="f05-lt">E</span></div>
+        <div id="f05-wm-en">NAVE</div>
         <div id="f05-wm-rule"></div>
         <div id="f05-wm-th">นาวี</div>
       </div>
