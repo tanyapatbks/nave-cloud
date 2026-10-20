@@ -53,11 +53,15 @@
     .f04-chunk .f04-bslot{position:absolute;right:24px;top:22.5px;}
 
     /* metadata tag card (component 7) */
-    #f04-tag{position:absolute;left:436px;top:445px;box-sizing:border-box;padding:32px 40px 32px 36px;border:1.5px solid rgba(30,43,250,0.2);border-left:4px solid #1e2bfa;border-radius:10px;background:rgba(30,43,250,0.04);display:grid;grid-template-columns:14px max-content max-content max-content;column-gap:18px;row-gap:22px;align-items:center;z-index:2;}
+    /* round 5: the longer questions (widest "หน่วยเจ้าของเอกสาร?" ≈ 318px at 34px bold) widen the card to ≈ 713px:
+       left 436 -> 396 (40px gap after the document), side padding 32/34, column gap 16, and the chunk/tree area
+       shifted right 32px, so the card (x 396-1109) clears the section-A rail (x 1154) and the chunk column (x 1182).
+       max-content columns keep the question · term columns aligned across the four rows. */
+    #f04-tag{position:absolute;left:396px;top:445px;box-sizing:border-box;padding:32px 34px 32px 32px;border:1.5px solid rgba(30,43,250,0.2);border-left:4px solid #1e2bfa;border-radius:10px;background:rgba(30,43,250,0.04);display:grid;grid-template-columns:14px max-content max-content max-content;column-gap:16px;row-gap:22px;align-items:center;z-index:2;}
     .f04-row{display:contents;}
     .f04-dot{display:block;width:14px;height:14px;border-radius:50%;background:#1e2bfa;}
     .f04-q{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap;}
-    /* question · term separator: 8px dot in the text-floor token #6B675C; 10px column keeps x≈702 / 725 */
+    /* question · term separator: 8px dot in the text-floor token #6B675C; 10px column (round 5: sep x≈796-806, terms from x≈822) */
     .f04-sep{display:block;width:8px;height:8px;margin:0 1px;border-radius:50%;background:#6B675C;}
     .f04-t{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
 
@@ -72,8 +76,8 @@
     .f04-toc{display:flex;flex-direction:column;gap:7px;width:60px;flex:none;}
     .f04-toc span{display:block;width:40px;height:6px;margin-left:12px;border-radius:3px;background:#8a8a8a;}
     .f04-toc .f04-toc-h{width:60px;height:8px;margin-left:0;border-radius:4px;background:#6b6b6b;}
-    #f04-nA{left:1056px;}
-    #f04-nB{left:1540px;}
+    #f04-nA{left:1088px;}
+    #f04-nB{left:1572px;}
 
     /* connectors (svg-path-draw) */
     #f04-rails{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;z-index:1;}
@@ -90,64 +94,64 @@
 
     /* English term chips (mono chip token: 28px, pill 48px, padding 12px 16px) */
     .f04-cw{position:absolute;display:flex;justify-content:center;align-items:center;z-index:3;}
-    #f04-cw-chunk{left:1150px;top:375px;width:540px;height:49px;}
+    #f04-cw-chunk{left:1182px;top:375px;width:540px;height:49px;}
     /* "สารบัญ" over "Tree Nodes": a label above the gap between the two pills (not a third node) */
     /* round 4: "สารบัญ" is a caption (28px medium, sub-label grey #5B574B), not a second headline; top 191.8 keeps
        the chip where it was (centre y 256.4, on the leaders) under the shorter 40.6px caption line box */
-    #f04-cw-tree{left:1310px;top:191.8px;width:220px;flex-direction:column;}
+    #f04-cw-tree{left:1342px;top:191.8px;width:220px;flex-direction:column;}
     .f04-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#5B574B;}
     .f04-chip{display:block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:48px;padding:0 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap;}
   </style>
 
   <div id="root" data-composition-id="04-tags" data-width="1920" data-height="1080" data-start="0" data-duration="10.5">
-    <div id="f04-bg" class="clip" data-start="0" data-duration="9.5" data-track-index="0"></div>
+    <div id="f04-bg" class="clip" data-start="0" data-duration="10.5" data-track-index="0"></div>
 
     <div id="f04-stage">
 
-      <div id="f04-h2"><span class="f04-line"><span class="f04-ph" id="f04-ph1">แบ่งเป็นชิ้น</span> <span class="f04-ph" id="f04-ph2">— ทุกชิ้นติดป้ายเดิม</span></span></div>
+      <div id="f04-h2"><span class="f04-line"><span class="f04-ph" id="f04-ph1">แบ่งเอกสาร</span><span class="f04-ph" id="f04-ph2">ออกเป็นชิ้น</span></span></div>
 
       <!-- connectors: section A -> chunks 1,2 (left rail) · section B -> chunks 3,4 (right rail) -->
       <svg id="f04-rails" viewBox="0 0 1920 1080" width="1920" height="1080">
-        <path id="f04-railA" data-len="250" d="M1122 351 V567 Q1122 580 1135 580 H1151"/>
-        <path id="f04-tickA" data-len="29" d="M1122 482 H1151"/>
-        <path id="f04-railB" data-len="460" d="M1718 351 V777 Q1718 790 1705 790 H1689"/>
-        <path id="f04-tickB" data-len="29" d="M1718 692 H1689"/>
+        <path id="f04-railA" data-len="250" d="M1154 351 V567 Q1154 580 1167 580 H1183"/>
+        <path id="f04-tickA" data-len="29" d="M1154 482 H1183"/>
+        <path id="f04-railB" data-len="460" d="M1750 351 V777 Q1750 790 1737 790 H1721"/>
+        <path id="f04-tickB" data-len="29" d="M1750 692 H1721"/>
         <!-- inheritance trunk: doc bottom edge (275.5, 780) -> y 860 run below the tag card and chunk 4 ->
-             x 1604.5 (badge column) -> chunk 4 slot; then slot-to-slot segments up to chunk 1.
+             x 1636.5 (badge column; round 5: chunk/tree area +32px) -> chunk 4 slot; then slot-to-slot segments up to chunk 1.
              This SVG sits UNDER the (opaque) chunk cards, so only the gaps between cards show it;
              the whole group fades out once the last chunk badge lands. -->
         <g id="f04-trunk">
-          <path class="f04-link" id="f04-link" data-len="1449" d="M275.5 780 V846 Q275.5 860 289.5 860 H1590.5 Q1604.5 860 1604.5 846 V808"/>
-          <path class="f04-link" id="f04-sp3" data-len="62" d="M1604.5 772 V710"/>
-          <path class="f04-link" id="f04-sp2" data-len="76" d="M1604.5 674 V598"/>
-          <path class="f04-link" id="f04-sp1" data-len="62" d="M1604.5 562 V500"/>
+          <path class="f04-link" id="f04-link" data-len="1481" d="M275.5 780 V846 Q275.5 860 289.5 860 H1622.5 Q1636.5 860 1636.5 846 V808"/>
+          <path class="f04-link" id="f04-sp3" data-len="62" d="M1636.5 772 V710"/>
+          <path class="f04-link" id="f04-sp2" data-len="76" d="M1636.5 674 V598"/>
+          <path class="f04-link" id="f04-sp1" data-len="62" d="M1636.5 562 V500"/>
         </g>
       </svg>
 
-      <!-- leaders from the "Tree Nodes" chip (x 1320-1520, centre y 256.4) down to each pill's top edge (y 280) -->
+      <!-- leaders from the "Tree Nodes" chip (x 1352-1552, centre y 256.4) down to each pill's top edge (y 280) -->
       <svg id="f04-leaders" viewBox="0 0 1920 1080" width="1920" height="1080">
-        <path id="f04-leadA" data-len="94" d="M1320 256.5 H1250.5 V280"/>
-        <path id="f04-leadB" data-len="94" d="M1520 256.5 H1589.5 V280"/>
+        <path id="f04-leadA" data-len="94" d="M1352 256.5 H1282.5 V280"/>
+        <path id="f04-leadB" data-len="94" d="M1552 256.5 H1621.5 V280"/>
       </svg>
 
       <!-- four chunk cards: each card mirrors one block of the document -->
       <div id="f04-burst">
-        <div class="f04-chunk" id="f04-ch1" data-target-x="1194" data-target-y="-128">
+        <div class="f04-chunk" id="f04-ch1" data-target-x="1226" data-target-y="-128">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:340px"></span><span style="width:313px"></span><span style="width:204px"></span></div>
           <div class="f04-bslot"><div class="f04-slot"></div></div>
         </div>
-        <div class="f04-chunk" id="f04-ch2" data-target-x="1194" data-target-y="-30">
+        <div class="f04-chunk" id="f04-ch2" data-target-x="1226" data-target-y="-30">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:327px"></span><span style="width:340px"></span><span style="width:245px"></span></div>
           <div class="f04-bslot"><div class="f04-slot"></div></div>
         </div>
-        <div class="f04-chunk" id="f04-ch3" data-target-x="1194" data-target-y="82">
+        <div class="f04-chunk" id="f04-ch3" data-target-x="1226" data-target-y="82">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:340px"></span><span style="width:293px"></span><span style="width:170px"></span></div>
           <div class="f04-bslot"><div class="f04-slot"></div></div>
         </div>
-        <div class="f04-chunk" id="f04-ch4" data-target-x="1194" data-target-y="180">
+        <div class="f04-chunk" id="f04-ch4" data-target-x="1226" data-target-y="180">
           <div class="f04-lit"></div>
           <div class="f04-cbars"><span style="width:306px"></span><span style="width:340px"></span><span style="width:217px"></span></div>
           <div class="f04-bslot"><div class="f04-slot"></div></div>
@@ -173,10 +177,10 @@
 
       <!-- metadata tag card -->
       <div id="f04-tag">
-        <div class="f04-row" id="f04-r1"><span class="f04-dot"></span><span class="f04-q">มาจากไหน?</span><span class="f04-sep"></span><span class="f04-t">SourceID</span></div>
-        <div class="f04-row" id="f04-r2"><span class="f04-dot"></span><span class="f04-q">ฉบับไหน?</span><span class="f04-sep"></span><span class="f04-t">Version</span></div>
-        <div class="f04-row" id="f04-r3"><span class="f04-dot"></span><span class="f04-q">ลับแค่ไหน?</span><span class="f04-sep"></span><span class="f04-t">Classification</span></div>
-        <div class="f04-row" id="f04-r4"><span class="f04-dot"></span><span class="f04-q">ใครเห็นได้?</span><span class="f04-sep"></span><span class="f04-t">Access</span></div>
+        <div class="f04-row" id="f04-r1"><span class="f04-dot"></span><span class="f04-q">หน่วยเจ้าของเอกสาร?</span><span class="f04-sep"></span><span class="f04-t">SourceID</span></div>
+        <div class="f04-row" id="f04-r2"><span class="f04-dot"></span><span class="f04-q">เอกสารฉบับไหน?</span><span class="f04-sep"></span><span class="f04-t">Version</span></div>
+        <div class="f04-row" id="f04-r3"><span class="f04-dot"></span><span class="f04-q">ชั้นความลับ?</span><span class="f04-sep"></span><span class="f04-t">Classification</span></div>
+        <div class="f04-row" id="f04-r4"><span class="f04-dot"></span><span class="f04-q">ใครสามารถเข้าถึงได้?</span><span class="f04-sep"></span><span class="f04-t">Access</span></div>
       </div>
 
       <!-- tree nodes -->
@@ -270,7 +274,7 @@
       // 5.3–6.05s: one at a time, top to bottom (0.15s apart, 0.30s flight), each row bullet emits its dot;
       // the four dots travel into the document's mini badge, which is how the 4-dot badge gets its meaning.
       // The last dot still lands at 6.05s, when the first copy leaves the doc badge.
-      // Row bullet centres (stage px): x 483; y 503.15 / 574.45 / 645.75 / 717.05 (tag card grid, fixed line boxes).
+      // Row bullet centres (stage px): x 439 (round 5: card left 396 + 4 border + 32 padding + 7); y 503.15 / 574.45 / 645.75 / 717.05 (tag card grid, fixed line boxes).
       // Doc badge dot centres: x 239.5 / 263.5 / 287.5 / 311.5, y 748.5 (badge x 215.5-335.5, y 730.5-766.5).
       var ROW_Y = [503.15, 574.45, 645.75, 717.05];
       var EMIT_AT = [5.3, 5.45, 5.6, 5.75];
@@ -282,7 +286,7 @@
         var bullet = $("#f04-r" + (i + 1) + " .f04-dot");
         // the emitted dot starts exactly on its row bullet (14px bullet = 18px dot x 14/18)
         tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, at);
-        tl.fromTo(d, { x: 483 - (239.5 + 24 * i), y: ROW_Y[i] - 748.5, scale: 14 / 18 }, { x: 0, y: 0, scale: 1, duration: FLY, ease: "power2.inOut" }, at);
+        tl.fromTo(d, { x: 439 - (239.5 + 24 * i), y: ROW_Y[i] - 748.5, scale: 14 / 18 }, { x: 0, y: 0, scale: 1, duration: FLY, ease: "power2.inOut" }, at);
         // round 4: the row text stays at full opacity; only the bullet signals the departure,
         // a scale pulse 1.0 -> 1.4 -> 1.0 over 0.3s (later tweens on the bullet's scale: immediateRender false)
         tl.fromTo(bullet, { scale: 1 }, { scale: 1.4, duration: 0.15, ease: "power2.out", immediateRender: false }, at);
@@ -301,12 +305,12 @@
 
       // 6.05–6.8s: a copy of the doc's badge travels the trunk to each chunk (0.35s each, 0.13s stagger).
       // Path of the copy's top-left: doc badge (215.5, 730.5) -> down to the y 860 run (top 842) -> right to the
-      // badge column (x 1544.5) -> up to the chunk's slot. One power2.inOut over the whole path, split into
+      // badge column (x 1576.5) -> up to the chunk's slot. One power2.inOut over the whole path, split into
       // three tweens at their arc-length fractions so the speed stays continuous through the corners.
       var E2 = function (t) { return t < 0.5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t); };
       var E2inv = function (f) { return f < 0.5 ? Math.sqrt(f / 2) : 1 - Math.sqrt((1 - f) / 2); };
       var part = function (t0, t1, f0, f1) { return function (u) { return (E2(t0 + u * (t1 - t0)) - f0) / (f1 - f0); }; };
-      var CP_X0 = 215.5, CP_Y0 = 730.5, RUN_Y = 842, SLOT_X = 1544.5;
+      var CP_X0 = 215.5, CP_Y0 = 730.5, RUN_Y = 842, SLOT_X = 1576.5;
       var SLOT_Y = [464, 562, 674, 772];
       var COPY_AT = [6.05, 6.18, 6.31, 6.45];
       var TRAVEL = 0.35;
