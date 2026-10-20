@@ -181,8 +181,11 @@
         return len > 0 ? len : fallback;
       };
 
-      var INK = "#3A3832";   // round-3: token text, never dimmed (10.7:1 on the rest pill)
-      var PILL_REST = "rgba(30,43,250,0.04)";
+      var INK = "#3A3832";   // round-3: token text, never dimmed (≈9:1 on the rest pill)
+      // round-6: neutral (rest) pills are a solid warm grey with a 1.5px border, so every field reads
+      // as a bounded shape on a projector; only the owner token "สสท" is emphasised (cobalt) later.
+      var PILL_REST = "#ECE8DA";
+      var PILL_REST_BORDER = "#CFCAB8";
 
       var tl = gsap.timeline({ paused: true });
 
@@ -196,6 +199,9 @@
       tl.fromTo($$("#f03-strip .f03-sep"),
         { opacity: 0 },
         { opacity: 0.3, duration: 0.5, ease: "power2.out", stagger: 0.05 }, 0.4);
+      // round-6: the example-document glyph fades in with the empty slots (0.5s, 0.3s), so nothing at the
+      // strip's far left moves at the 7.6s owner beat
+      tl.fromTo($("#f03-doc"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.5);
 
       // ── Scene 2 (1.4–7.2s): tokens snap into their slots on cue (dynamic-content-sequencing) ──
       // Content array → flat TIMELINE of absolute windows, computed once at build.
@@ -244,7 +250,7 @@
         }
 
         // the arriving token is the active (cobalt) one; it relaxes to ink when its window ends
-        tl.to(tok, { backgroundColor: PILL_REST, color: INK, duration: 0.35, ease: "power2.out" }, e.end);
+        tl.to(tok, { backgroundColor: PILL_REST, borderColor: PILL_REST_BORDER, color: INK, duration: 0.35, ease: "power2.out" }, e.end);
 
         // tick draws down to the label (svg-path-draw), then the two label lines rise in
         var tick = col.querySelector(".f03-tick path");
@@ -258,15 +264,8 @@
         }
       });
 
-      // ── Scene 3 (7.2–7.6s): the example-document glyph draws at the strip's left end ──
-      var outline = $("#f03-doc-outline");
-      var olen = measure(outline, 280);
-      outline.style.strokeDasharray = olen + " " + olen;
-      tl.fromTo(outline, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none" }, SCENE3);
-      tl.fromTo(outline, { strokeDashoffset: olen }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, SCENE3);
-      tl.fromTo($$("#f03-doc .f03-doc-in"),
-        { opacity: 0 },
-        { opacity: 1, duration: 0.35, ease: "power2.out", stagger: 0.06 }, SCENE3 + 0.35);
+      // ── Scene 3 (7.2–7.6s): round-6 — the document glyph is already in place (faded in at 0.5s); the
+      //    finished strip simply holds until the owner beat ──
 
       // ── Scene 4 (7.6–12.0s): the bridge block, its padlock and first phrase fade in together
       //    (never an empty box); the second phrase follows; hold still ──
@@ -279,7 +278,7 @@
       // cobalt connector drops from the label to the bridge chip's padlock. Text never dims.
       var own = $("#f03-c2 .f03-tok");
       tl.fromTo($("#f03-own-ring"), { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, B);
-      tl.to(own, { backgroundColor: "rgba(30,43,250,0.10)", color: "#1e2bfa", duration: 0.35, ease: "power2.out", immediateRender: false }, B);
+      tl.to(own, { backgroundColor: "rgba(30,43,250,0.10)", borderColor: "#1e2bfa", color: "#1e2bfa", duration: 0.35, ease: "power2.out", immediateRender: false }, B);
       tl.to($$("#f03-c2 .f03-l1, #f03-c2 .f03-l2"), { color: "#1e2bfa", duration: 0.35, ease: "power2.out", immediateRender: false }, B);
       tl.fromTo($("#f03-conn"),
         { clipPath: "inset(0% 0% 100% 0%)" },
@@ -288,10 +287,8 @@
       tl.fromTo($("#f03-lock"), { scale: 1 }, { scale: 1.12, duration: 0.2, ease: "power2.out", transformOrigin: "50% 50%", immediateRender: false }, B + 0.5);
       tl.to($("#f03-lock"), { scale: 1, duration: 0.2, ease: "power2.inOut", immediateRender: false }, B + 0.7);
 
-      // No text dims: once the bridge has finished (8.5s) only the OTHER token pills' fill + border step
-      // back to 60%, so the cobalt owner token stays the one lit slot.
-      tl.to($$("#f03-strip .f03-col:not(#f03-c2) .f03-tok"),
-        { backgroundColor: "rgba(30,43,250,0.024)", borderColor: "rgba(30,43,250,0.12)", duration: 0.4, ease: "power2.out", immediateRender: false }, 8.5);
+      // round-6: the neutral pills keep their #ECE8DA fill + #CFCAB8 border to the end (the round-3 8.5s
+      // step-back is removed: it faded them into the ground); the cobalt owner token is the one lit slot.
 
       tl.set({}, {}, 12);
 
