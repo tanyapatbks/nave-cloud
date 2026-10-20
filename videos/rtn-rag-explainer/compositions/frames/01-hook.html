@@ -30,7 +30,8 @@
 
     /* kind chips: ONE foreground row in the left column (outside the wall, never blurred) */
     #f01-krow{position:absolute;left:96px;top:546px;display:flex;gap:12px;transform-origin:0 0;z-index:3;}
-    .f01-kchip{display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;padding:4px 18px 4px 14px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;white-space:nowrap;}
+    /* the 32px row (~880px) reaches past the wall's left edge (x 808): a 6px cream knockout ring keeps it a clean foreground layer */
+    .f01-kchip{display:inline-flex;align-items:center;gap:8px;box-sizing:border-box;padding:4px 18px 4px 14px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);outline:6px solid #fdfae7;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;white-space:nowrap;}
     .f01-kchip.f01-mono{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";letter-spacing:0.02em;}
     .f01-kchip svg{display:block;flex:none;width:28px;height:28px;}
 
