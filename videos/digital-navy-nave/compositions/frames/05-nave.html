@@ -93,7 +93,6 @@
       gsap.registerPlugin(MotionPathPlugin);
       var host = document.querySelector('[data-composition-id="' + COMP + '"]');
       var $ = function (s) { return host.querySelector(s); };
-      var $$ = function (s) { return Array.prototype.slice.call(host.querySelectorAll(s)); };
 
       // Fixed seeded noise: a pure function of an integer index.
       var rnd = function (n) {
@@ -103,13 +102,12 @@
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
       };
       var r2 = function (i, k) { return rnd(i * 97 + k * 13 + 5); };
-      var lerp = function (a, b, p) { return a + (b - a) * p; };
 
-      // ---------- piece artwork (the film's own objects, small) ----------
+      // ---------- piece artwork (the film's own objects, drawn at 1.5x) ----------
       var BAND = ["#111111", "#6b6b6b", "rgba(30,43,250,0.4)"];
       var art = {
         doc: function (i) {
-          return '<svg viewBox="0 0 44 58" width="44" height="58" aria-hidden="true">' +
+          return '<svg viewBox="0 0 44 58" width="66" height="87" aria-hidden="true">' +
             '<rect x="0.75" y="0.75" width="42.5" height="56.5" rx="6" fill="rgba(30,43,250,0.05)" stroke="rgba(30,43,250,0.35)" stroke-width="1.5"/>' +
             '<path d="M1.5 7 Q1.5 1.5 7 1.5 H37 Q42.5 1.5 42.5 7 V8 H1.5 Z" fill="' + BAND[i % 3] + '"/>' +
             '<rect x="8" y="18" width="28" height="3.5" rx="1.75" fill="#9a9a9a"/>' +
@@ -118,78 +116,82 @@
             '<rect x="8" y="42" width="16" height="3.5" rx="1.75" fill="#9a9a9a"/></svg>';
         },
         person: function (i) {
-          return '<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">' +
+          return '<svg viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">' +
             '<defs><clipPath id="f05-pclip-' + i + '"><circle cx="24" cy="24" r="22.5"/></clipPath></defs>' +
             '<circle cx="24" cy="24" r="23.25" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.3)" stroke-width="1.5"/>' +
             '<g clip-path="url(#f05-pclip-' + i + ')" fill="#9a9a9a"><circle cx="24" cy="19" r="8"/>' +
             '<path d="M8 48 C8 36 15 30.5 24 30.5 C33 30.5 40 36 40 48 Z"/></g></svg>';
         },
         unit: function () {
-          return '<svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          return '<svg viewBox="0 0 44 44" width="66" height="66" aria-hidden="true" fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
             '<rect x="16" y="5" width="12" height="9" rx="2"/><path d="M22 14 V21 M9 21 H35 M9 21 V27 M22 21 V27 M35 21 V27"/>' +
             '<rect x="4" y="27" width="10" height="9" rx="2"/><rect x="17" y="27" width="10" height="9" rx="2"/><rect x="30" y="27" width="10" height="9" rx="2"/></svg>';
         },
         app: function () {
-          return '<svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true">' +
+          return '<svg viewBox="0 0 44 44" width="66" height="66" aria-hidden="true">' +
             '<rect x="0.75" y="0.75" width="42.5" height="42.5" rx="11" fill="rgba(30,43,250,0.12)" stroke="rgba(30,43,250,0.35)" stroke-width="1.5"/>' +
             '<rect x="11" y="11" width="9" height="9" rx="2.5" fill="#1e2bfa"/><rect x="24" y="11" width="9" height="9" rx="2.5" fill="#1e2bfa"/>' +
             '<rect x="11" y="24" width="9" height="9" rx="2.5" fill="#1e2bfa"/><rect x="24" y="24" width="9" height="9" rx="2.5" fill="#1e2bfa" fill-opacity="0.45"/></svg>';
         },
         spark: function () {
-          return '<svg viewBox="0 0 30 30" width="28" height="28" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>';
+          return '<svg viewBox="0 0 30 30" width="42" height="42" aria-hidden="true"><path d="M15 0C16 9 21 14 30 15C21 16 16 21 15 30C14 21 9 16 0 15C9 14 14 9 15 0Z" fill="#1e2bfa"/></svg>';
         },
         dot: function () {
-          return '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1e2bfa"/></svg>';
+          return '<svg viewBox="0 0 16 16" width="24" height="24" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1e2bfa"/></svg>';
         }
       };
-      // hand-ordered type mix so no kind clusters in one corner
-      var KIND_L = ["doc", "person", "app", "spark", "unit", "doc", "dot", "person", "app", "unit", "spark", "doc"];
-      var KIND_R = ["person", "doc", "unit", "app", "spark", "doc", "person", "dot", "app", "doc", "unit", "spark"];
 
-      // ---------- layout: 24 pieces in two edge bands (x 40-440 / 1480-1880, y 450-830) ----------
-      // centre of the lockup (stage px)
+      // ---------- layout: 12 pieces per side at mid-distance ----------
+      // Start centres (stage px) are hand-placed so every piece box (with its seeded jitter of
+      // +-8 x / +-4 y, scale <= 1.06 and tilt <= 8 deg) stays inside x 300-1620, y 470-860 and clear of the
+      // lockup's final box (wordmark x ~643-1277, y 498-672; chip x ~830-1090, y 690-743).
+      // Each side is listed in launch order (farthest travel first); left pieces merge into the
+      // letters of NAVE (index into LETTER_X), right pieces into the rule and the Thai word (offset from CX).
       var CX = 960, CY = 585;
-      // target column centres (offsets from CX) for the letters N A V E, and the Thai word span
       var LETTER_X = [-262, -152, -75, -1];
-      var TH_X0 = 120, TH_X1 = 295;
-      var COLS = [100, 235, 370];
-      var ROWS = [480, 585, 690, 798];
+      var LEFT = [
+        [348, 830, "spark", 0], [610, 812, "unit", 3], [350, 640, "unit", 0], [374, 748, "person", 0],
+        [452, 636, "doc", 1], [352, 530, "doc", 0], [500, 742, "app", 1], [470, 522, "person", 1],
+        [566, 662, "spark", 2], [626, 742, "dot", 2], [578, 548, "app", 2], [760, 800, "doc", 3]
+      ];
+      var RIGHT = [
+        [1572, 826, "dot", 285], [1316, 812, "app", 90], [1570, 640, "app", 270], [1546, 748, "doc", 240],
+        [1468, 636, "person", 215], [1568, 530, "person", 255], [1420, 742, "unit", 180], [1450, 526, "doc", 200],
+        [1354, 662, "spark", 140], [1294, 736, "spark", 110], [1342, 548, "unit", 160], [1160, 800, "doc", 80]
+      ];
 
+      // launch order interleaves the sides: L0 R0 L1 R1 ... (k = 0..23)
       var pieces = [];
       var wrap = $("#f05-pieces");
-      for (var i = 0; i < 24; i++) {
-        var right = i >= 12;
-        var j = right ? i - 12 : i;
-        var col = Math.floor(j / 4), row = j % 4;
-        var bx = COLS[col] + (r2(i, 1) - 0.5) * 50;
-        var by = ROWS[row] + (r2(i, 2) - 0.5) * 44;
-        var sx = right ? 1920 - bx : bx;
-        var sy = by;
+      for (var k = 0; k < 24; k++) {
+        var right = (k % 2) === 1;
+        var slot = right ? RIGHT[k >> 1] : LEFT[k >> 1];
+        var sx = slot[0] + (r2(k, 1) - 0.5) * 16;
+        var sy = slot[1] + (r2(k, 2) - 0.5) * 8;
         var tx, ty;
         if (!right) {
-          tx = LETTER_X[Math.floor(j / 3)] + (r2(i, 3) - 0.5) * 36;
-          ty = (r2(i, 4) - 0.5) * 90;
+          tx = LETTER_X[slot[3]] + (r2(k, 3) - 0.5) * 32;
+          ty = (r2(k, 4) - 0.5) * 80;
         } else {
-          tx = lerp(TH_X0, TH_X1, (j + 0.5) / 12) + (r2(i, 3) - 0.5) * 30;
-          ty = (r2(i, 4) - 0.5) * 70 + 12;
+          tx = slot[3] + (r2(k, 3) - 0.5) * 24;
+          ty = (r2(k, 4) - 0.5) * 64 + 12;
         }
-        var kind = right ? KIND_R[j] : KIND_L[j];
         var el = document.createElement("div");
         el.className = "f05-pc";
-        el.id = "f05-pc-" + i;
-        el.innerHTML = art[kind](i);
+        el.id = "f05-pc-" + k;
+        el.innerHTML = art[slot[2]](k);
         wrap.appendChild(el);
         var ox = sx - CX, oy = sy - CY;
         // quadratic control point inside the start/target hull: travel mostly sideways first,
-        // then swoop into the letter (keeps every path inside y 450-830, clear of the lead line)
+        // then swoop into the mark (keeps every path inside y 470-860, clear of the lead line)
         var cx = tx + (ox - tx) * 0.5;
         var cy = oy + (ty - oy) * 0.15;
         pieces.push({
           el: el,
           ox: ox, oy: oy, cx: cx, cy: cy, tx: tx, ty: ty,
-          op: 0.4 + r2(i, 5) * 0.2,
-          sc: 0.9 + r2(i, 6) * 0.25,
-          rot: (r2(i, 7) - 0.5) * 32
+          op: 0.75 + r2(k, 5) * 0.15,
+          sc: 0.94 + r2(k, 6) * 0.12,
+          rot: (r2(k, 7) - 0.5) * 16
         });
       }
 
@@ -200,8 +202,8 @@
         { opacity: 0, y: 18 },
         { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.18 }, 0.3);
       tl.fromTo("#f05-dept",
-        { opacity: 0, x: -16 },
-        { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.82);
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.82);
       tl.fromTo("#f05-dl1",
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.9);
@@ -214,12 +216,14 @@
         { opacity: 0, y: 18 },
         { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.18 }, 3.4);
 
-      // pieces: appear at the edges from 3.6s (stagger 0.03s), converge on curved paths, fade as they merge
+      // pieces: launch from 3.6s (0.02s stagger, sides interleaved) and land together over 4.3-4.6s;
+      // they fade in at mid-distance, converge on curved paths and fade as they merge
       pieces.forEach(function (p, k) {
-        var s = 3.6 + k * 0.03;
-        var D = k < 12 ? 0.75 : 0.8;
+        var s = 3.6 + k * 0.02;
+        var land = 4.3 + 0.3 * k / 23;
+        var D = land - s;
         gsap.set(p.el, { xPercent: -50, yPercent: -50, x: p.ox, y: p.oy });
-        tl.fromTo(p.el, { opacity: 0 }, { opacity: p.op, duration: 0.25, ease: "power2.out" }, s);
+        tl.fromTo(p.el, { opacity: 0 }, { opacity: p.op, duration: 0.18, ease: "power2.out" }, s);
         tl.fromTo(p.el,
           { scale: p.sc, rotation: p.rot },
           { scale: p.sc * 0.45, rotation: 0, duration: D, ease: "power3.inOut" }, s);
@@ -229,16 +233,13 @@
         }, s);
         tl.fromTo(p.el,
           { opacity: p.op },
-          { opacity: 0, duration: D * 0.5, ease: "power2.in", immediateRender: false }, s + D * 0.5);
+          { opacity: 0, duration: 0.24, ease: "power2.in", immediateRender: false }, land - 0.22);
       });
 
-      // the wordmark resolves out of the pieces: N A V E build left to right and settle at 4.6s
+      // the wordmark resolves out of the pieces: NAVE fades in as one word over 4.5-4.8s
       tl.fromTo("#f05-wm-en",
-        { y: 16, scale: 0.97 },
-        { y: 0, scale: 1, duration: 0.42, ease: "power3.out" }, 4.18);
-      tl.fromTo($$("#f05-wm-en .f05-lt"),
-        { opacity: 0 },
-        { opacity: 1, duration: 0.25, ease: "power2.out", stagger: 0.058 }, 4.18);
+        { opacity: 0, y: 12, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power2.out" }, 4.5);
       // the cobalt rule draws (from its centre), then the Thai word lands at 5.0s
       tl.fromTo("#f05-wm-rule",
         { scaleY: 0 },

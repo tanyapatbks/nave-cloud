@@ -259,8 +259,9 @@
           var tlen = 0;
           try { tlen = tp.getTotalLength(); } catch (e) { tlen = 0; }
           if (!(tlen > 0)) tlen = 64;
+          /* gap longer than the path, offset into the gap: no anti-aliased sliver before the draw starts */
           tp.style.strokeDasharray = tlen + " " + (tlen + 12);
-          tl.fromTo(tp, { strokeDashoffset: tlen }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, q.at);
+          tl.fromTo(tp, { strokeDashoffset: tlen + 6 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, q.at);
           var J = q.at + 0.22 + k * 0.05;
           PILES[col].forEach(function (p, j) {
             var jx = (rnd(p.seed, 40) - 0.5) * 12 * S;

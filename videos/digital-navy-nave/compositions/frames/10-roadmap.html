@@ -18,17 +18,22 @@
     #f10-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
 
     /* ---- Roadmap rail: an exact copy of compositions/roadmap.html (frame.md component 10),
-       ids/classes prefixed f10-. Hidden at local 12.0 when the persistent layer takes over. ---- */
+       ids/classes prefixed f10-. Hidden at local 11.0 when the persistent layer takes over. ---- */
     #f10-rail{position:absolute;left:0;top:0;width:1920px;height:300px}
     #f10-track{position:absolute;left:0;top:0;overflow:visible}
     .f10-halo{position:absolute;top:150px;width:68px;height:68px;margin-left:-34px;border-radius:50%;background:rgba(30,43,250,0.15);opacity:0}
-    .f10-node{position:absolute;top:160px;width:48px;height:48px;margin-left:-24px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:26px;line-height:1;background:#fdfae7;border:2px solid rgba(30,43,250,0.35);color:#5F5B50}
+    .f10-halo.f10-future{background:#ECE8DA}
+    .f10-node{position:absolute;top:160px;width:48px;height:48px;margin-left:-24px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1;background:#fdfae7;border:2px solid rgba(30,43,250,0.35);color:#5F5B50}
     .f10-node span{display:block;position:relative;top:1px}
     #f10-n1{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
     .f10-label{position:absolute;top:222px;width:360px;margin-left:-180px;text-align:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:40px;color:#5F5B50;white-space:nowrap}
-    #f10-pin{position:absolute;left:346px;top:146px;width:28px;height:38px;overflow:visible}
+    .f10-label span{display:inline-block;border-bottom:3px solid rgba(17,17,17,0);line-height:34px}
+    #f10-pin{position:absolute;left:316px;top:130px;width:40px;height:54px;overflow:visible}
     #f10-plus{position:absolute;left:1372px;top:152px;width:24px;height:24px;border-radius:50%;background:#1e2bfa;opacity:0}
-    #f10-here{position:absolute;left:360px;top:222px;transform:translateX(-50%);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1.45;padding:4px 18px 2px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    #f10-here{position:absolute;left:336px;top:222px;transform:translateX(-50%);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:28px;line-height:1.45;padding:4px 14px 2px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+
+    /* the one cobalt ring that pulses from the pin tip (336, 184); sits behind the rail */
+    #f10-ring{position:absolute;left:286px;top:134px;width:100px;height:100px;overflow:visible;visibility:hidden}
 
     /* ---- Scene 1: headline (y 316-403) + subline (y 420-472) ---- */
     #f10-hl{position:absolute;left:96px;top:316px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111;}
@@ -37,52 +42,60 @@
     .f10-ph{display:inline-block;}
     .f10-cob{color:#1e2bfa;}
 
-    /* ---- Scene 3: the "where we stand" band behind cards 1-2 ---- */
-    #f10-band{position:absolute;left:84px;top:526px;width:638px;height:198px;border-radius:28px;background:rgba(30,43,250,0.08);}
+    /* ---- Scene 3: the "where we stand" band, behind card 1 only (card 96-422 x 540-750) ---- */
+    #f10-band{position:absolute;left:84px;top:526px;width:350px;height:238px;border-radius:28px;background:rgba(30,43,250,0.08);}
 
-    /* ---- Scene 2: gloss cards, 300x170 at y 540-710 ---- */
-    .f10-card{position:absolute;top:540px;width:300px;height:170px;}
-    .f10-skin{position:absolute;left:0;top:0;width:300px;height:170px;box-sizing:border-box;border-radius:14px;}
-    .f10-on{background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);}
+    /* ---- Scene 2: five equal gloss cards 326x210, 24px gaps (x 96/446/796/1146/1496, y 540-750);
+       the glyph and the first gloss line sit at the same y in every card ---- */
+    .f10-card{position:absolute;top:540px;width:326px;height:210px;}
+    .f10-skin{position:absolute;left:0;top:0;width:326px;height:210px;box-sizing:border-box;border-radius:14px;}
+    .f10-base{background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);}
+    .f10-reach{background:rgba(30,43,250,0.08);border:2px solid #1e2bfa;opacity:0;}
+    .f10-prog{background:#fdfae7;border:2px dashed #1e2bfa;opacity:0;}
     .f10-off{background:transparent;border:1.5px dashed #B9B4A2;opacity:0;}
-    .f10-cc{position:absolute;left:0;top:0;width:300px;height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+    .f10-cc{position:absolute;left:0;top:0;width:326px;height:210px;box-sizing:border-box;padding-top:38px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;}
     .f10-gly{display:block;flex:none;width:36px;height:36px;overflow:visible;color:#1e2bfa;}
     .f10-gly .f10-s{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
     .f10-gly .f10-f{fill:currentColor;stroke:none;}
     .f10-gl{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#3F3C35;text-align:center;}
     .f10-gl .f10-line{display:block;white-space:nowrap;}
+    /* reached: the shared check (frame.md component 8) in a cobalt disc, card 1 top-right */
+    #f10-ok{position:absolute;right:14px;top:14px;width:32px;height:32px;border-radius:50%;background:#1e2bfa;color:#fdfae7;display:flex;align-items:center;justify-content:center;}
+    #f10-ok svg{display:block;width:20px;height:20px;}
   </style>
 
   <div id="root" data-composition-id="10-roadmap" data-width="1920" data-height="1080" data-start="0" data-duration="11.5">
-    <div id="f10-bg" class="clip" data-start="0" data-duration="12" data-track-index="0"></div>
+    <div id="f10-bg" class="clip" data-start="0" data-duration="11.5" data-track-index="0"></div>
 
     <div id="f10-stage">
+
+      <svg id="f10-ring" viewBox="0 0 100 100" aria-hidden="true"><circle id="f10-ring-c" cx="50" cy="50" r="8" fill="none" stroke="#1e2bfa" stroke-width="2"/></svg>
 
       <div id="f10-rail">
         <svg id="f10-track" width="1920" height="300" viewBox="0 0 1920 300" aria-hidden="true">
           <defs><clipPath id="f10-tclip"><rect id="f10-tclip-r" x="160" y="0" width="0" height="300"/></clipPath></defs>
           <g id="f10-dash" clip-path="url(#f10-tclip)">
-            <line x1="360" y1="184" x2="1760" y2="184" stroke="#B9B4A2" stroke-width="3" stroke-dasharray="12 10" stroke-linecap="butt"/>
-            <line id="f10-dash0" x1="160" y1="184" x2="360" y2="184" stroke="#B9B4A2" stroke-width="3" stroke-dasharray="12 10" stroke-linecap="butt"/>
+            <line x1="336" y1="184" x2="1760" y2="184" stroke="#B9B4A2" stroke-width="3" stroke-dasharray="12 10" stroke-linecap="butt"/>
+            <line id="f10-dash0" x1="160" y1="184" x2="336" y2="184" stroke="#B9B4A2" stroke-width="3" stroke-dasharray="12 10" stroke-linecap="butt"/>
           </g>
-          <line id="f10-solid" x1="160" y1="184" x2="360" y2="184" stroke="#1e2bfa" stroke-width="4" stroke-linecap="round"/>
+          <line id="f10-solid" x1="160" y1="184" x2="336" y2="184" stroke="#1e2bfa" stroke-width="4" stroke-linecap="round"/>
         </svg>
         <div class="f10-halo" id="f10-h1" style="left:160px"></div>
         <div class="f10-halo" id="f10-h2" style="left:560px"></div>
-        <div class="f10-halo" id="f10-h3" style="left:960px"></div>
-        <div class="f10-halo" id="f10-h4" style="left:1360px"></div>
-        <div class="f10-halo" id="f10-h5" style="left:1760px"></div>
+        <div class="f10-halo f10-future" id="f10-h3" style="left:960px"></div>
+        <div class="f10-halo f10-future" id="f10-h4" style="left:1360px"></div>
+        <div class="f10-halo f10-future" id="f10-h5" style="left:1760px"></div>
         <div class="f10-node" id="f10-n1" style="left:160px"><span>1</span></div>
         <div class="f10-node" id="f10-n2" style="left:560px"><span>2</span></div>
         <div class="f10-node" id="f10-n3" style="left:960px"><span>3</span></div>
         <div class="f10-node" id="f10-n4" style="left:1360px"><span>4</span></div>
         <div class="f10-node" id="f10-n5" style="left:1760px"><span>5</span></div>
-        <div class="f10-label" id="f10-l1" style="left:160px">Demo</div>
-        <div class="f10-label" id="f10-l2" style="left:560px">Foundation</div>
-        <div class="f10-label" id="f10-l3" style="left:960px">Core Production</div>
-        <div class="f10-label" id="f10-l4" style="left:1360px">Specialized</div>
-        <div class="f10-label" id="f10-l5" style="left:1760px">Elite</div>
-        <svg id="f10-pin" viewBox="0 0 28 38" aria-hidden="true"><path d="M14 38C14 38 1 22.5 1 13.5A13 13 0 0 1 27 13.5C27 22.5 14 38 14 38Z" fill="#1e2bfa"/><circle cx="14" cy="13.5" r="5" fill="#fdfae7"/></svg>
+        <div class="f10-label" id="f10-l1" style="left:160px"><span>Demo</span></div>
+        <div class="f10-label" id="f10-l2" style="left:560px"><span>Foundation</span></div>
+        <div class="f10-label" id="f10-l3" style="left:960px"><span>Core Production</span></div>
+        <div class="f10-label" id="f10-l4" style="left:1360px"><span>Specialized</span></div>
+        <div class="f10-label" id="f10-l5" style="left:1760px"><span>Elite</span></div>
+        <svg id="f10-pin" viewBox="0 0 40 54" aria-hidden="true"><path d="M20 54C20 54 1.5 32 1.5 19.5A18.5 18.5 0 0 1 38.5 19.5C38.5 32 20 54 20 54Z" fill="#1e2bfa"/><circle cx="20" cy="19.5" r="7" fill="#fdfae7"/></svg>
         <div id="f10-here">เราอยู่ตรงนี้</div>
         <svg id="f10-plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5V17.5M6.5 12H17.5" stroke="#fdfae7" stroke-width="2.6" stroke-linecap="round"/></svg>
       </div>
@@ -93,7 +106,7 @@
       <div id="f10-band"></div>
 
       <div class="f10-card" id="f10-c1" style="left:96px">
-        <div class="f10-skin f10-on"></div><div class="f10-skin f10-off"></div>
+        <div class="f10-skin f10-base"></div><div class="f10-skin f10-reach"></div>
         <div class="f10-cc">
           <svg class="f10-gly" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
             <rect class="f10-s" x="4" y="6" width="28" height="19" rx="3"/>
@@ -102,10 +115,11 @@
           </svg>
           <div class="f10-gl"><span class="f10-line">ระบบสาธิต</span></div>
         </div>
+        <div id="f10-ok"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
 
-      <div class="f10-card" id="f10-c2" style="left:410px">
-        <div class="f10-skin f10-on"></div><div class="f10-skin f10-off"></div>
+      <div class="f10-card" id="f10-c2" style="left:446px">
+        <div class="f10-skin f10-base"></div><div class="f10-skin f10-prog"></div>
         <div class="f10-cc">
           <svg class="f10-gly" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
             <rect class="f10-s" x="4" y="25" width="28" height="6" rx="1.5"/>
@@ -117,8 +131,8 @@
         </div>
       </div>
 
-      <div class="f10-card" id="f10-c3" style="left:810px">
-        <div class="f10-skin f10-on"></div><div class="f10-skin f10-off"></div>
+      <div class="f10-card" id="f10-c3" style="left:796px">
+        <div class="f10-skin f10-base"></div><div class="f10-skin f10-off"></div>
         <div class="f10-cc">
           <svg class="f10-gly" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
             <rect class="f10-s" x="6" y="5" width="24" height="7.5" rx="2"/>
@@ -133,8 +147,8 @@
         </div>
       </div>
 
-      <div class="f10-card" id="f10-c4" style="left:1210px">
-        <div class="f10-skin f10-on"></div><div class="f10-skin f10-off"></div>
+      <div class="f10-card" id="f10-c4" style="left:1146px">
+        <div class="f10-skin f10-base"></div><div class="f10-skin f10-off"></div>
         <div class="f10-cc">
           <svg class="f10-gly" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
             <path class="f10-s" d="M4 31.5H32"/>
@@ -146,8 +160,8 @@
         </div>
       </div>
 
-      <div class="f10-card" id="f10-c5" style="left:1524px">
-        <div class="f10-skin f10-on"></div><div class="f10-skin f10-off"></div>
+      <div class="f10-card" id="f10-c5" style="left:1496px">
+        <div class="f10-skin f10-base"></div><div class="f10-skin f10-off"></div>
         <div class="f10-cc">
           <svg class="f10-gly" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
             <path class="f10-s" d="M18 4L29 8V17C29 24 24.2 29.4 18 32C11.8 29.4 7 24 7 17V8Z"/>
@@ -207,40 +221,66 @@
         { backgroundColor: CREAM, borderColor: "rgba(30,43,250,0.35)", color: "#5F5B50" },
         { backgroundColor: COBALT, borderColor: COBALT, color: CREAM, duration: 0.35, ease: "power2.out" }, 1.7);
 
-      /* Scene 3 (4.4-7.0s): the pin drops onto the track at x 360 (expo.out, no bounce; the
-         short drop keeps it below the y 130 header keep-out) */
+      /* Scene 3 (4.4-7.0s), ordered so the eye is led to 'here':
+         (a) the travelled fill draws x 160 -> 336 over the dashed piece (4.6-5.2s, power3.inOut) */
+      var solid = $("#f10-solid");
+      var LEN = 176;
+      solid.style.strokeDasharray = LEN + " " + (LEN + 10);
+      tl.fromTo(solid, { strokeDashoffset: LEN + 5 }, { strokeDashoffset: 0, duration: 0.6, ease: "power3.inOut" }, 4.6);
+      /* fill complete: hide the dashed piece under it; the solid line returns to plain markup */
+      tl.set($("#f10-dash0"), { autoAlpha: 0, immediateRender: false }, 5.2);
+      tl.set(solid, { strokeDasharray: "none", immediateRender: false }, 5.2);
+
+      /* (b) the pin lands at the fill's head (5.1-5.6s): 16px drop + scale 0.8 -> 1 about its tip.
+         Its rest top is y 130, so while it drops the rail is clipped at y 130 (keeps the header
+         band y < 130 empty); the clip is removed once it has landed. */
+      var rail = $("#f10-rail");
+      tl.set(rail, { clipPath: "inset(130px 0px 0px 0px)", immediateRender: false }, 5.1);
       tl.fromTo($("#f10-pin"),
         { opacity: 0, y: -16, scale: 0.8 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "expo.out", transformOrigin: "50% 100%" }, 4.8);
-      /* its label under it at 5.4s (opacity only: the label is centred by a CSS translate) */
-      tl.fromTo($("#f10-here"), { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 5.4);
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", transformOrigin: "50% 100%" }, 5.1);
+      tl.set(rail, { clipPath: "none", immediateRender: false }, 5.6);
 
-      /* travelled segment x 160 -> 360 fills solid cobalt over the dashed piece (5.4-6.0s) */
-      var solid = $("#f10-solid");
-      var LEN = 200;
-      solid.style.strokeDasharray = LEN + " " + (LEN + 10);
-      tl.fromTo(solid, { strokeDashoffset: LEN + 5 }, { strokeDashoffset: 0, duration: 0.6, ease: "power3.inOut" }, 5.4);
-      /* fill complete: hide the dashed piece under it, and the solid line returns to plain markup */
-      tl.set($("#f10-dash0"), { autoAlpha: 0, immediateRender: false }, 6.0);
-      tl.set(solid, { strokeDasharray: "none", immediateRender: false }, 6.0);
+      /* (c) one cobalt ring pulses from the tip (r 8 -> 40, 2px, opacity 0.6 -> 0, 0.6s) at 5.45s */
+      var ring = $("#f10-ring");
+      tl.set(ring, { visibility: "visible", immediateRender: false }, 5.45);
+      tl.fromTo($("#f10-ring-c"),
+        { attr: { r: 8 }, opacity: 0.6 },
+        { attr: { r: 40 }, opacity: 0, duration: 0.6, ease: "power2.out" }, 5.45);
+      tl.set(ring, { visibility: "hidden", immediateRender: false }, 6.05);
 
-      /* cards 3-5 recolour to "not yet" (6.0-6.4s): solid tinted skin hands over to the dashed
-         transparent skin; text and glyph recolour (no opacity dimming on text) */
+      /* (d) the label under the pin at 5.6s (opacity only: it is centred by a CSS translate) */
+      tl.fromTo($("#f10-here"), { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 5.6);
+
+      /* Honest card states (6.0-6.4s); the neutral skin hands over to each state skin.
+         Card 1 = reached: accent-light fill, 2px cobalt border, the shared check top-right. */
+      var SWAP = { duration: 0.4, ease: "power2.inOut", immediateRender: false };
+      [1, 2, 3, 4, 5].forEach(function (n) {
+        var card = $("#f10-c" + n);
+        tl.fromTo(card.querySelector(".f10-base"), { opacity: 1 }, Object.assign({ opacity: 0 }, SWAP), 6.0);
+        tl.fromTo(card.querySelector(".f10-skin:not(.f10-base)"), { opacity: 0 }, Object.assign({ opacity: 1 }, SWAP), 6.0);
+      });
+      tl.fromTo($("#f10-ok"),
+        { opacity: 0, scale: 0.6 },
+        { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", transformOrigin: "50% 50%" }, 6.0);
+      /* card 2 = in progress: cream fill, 2px dashed cobalt border, text #111 */
+      tl.fromTo($("#f10-c2 .f10-gl"), { color: "#3F3C35" }, Object.assign({ color: "#111111" }, SWAP), 6.0);
+      /* cards 3-5 = not yet: transparent, dashed #B9B4A2, text and glyph #6B675C (no opacity on text) */
       [3, 4, 5].forEach(function (n) {
         var card = $("#f10-c" + n);
-        tl.fromTo(card.querySelector(".f10-on"), { opacity: 1 }, { opacity: 0, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 6.0);
-        tl.fromTo(card.querySelector(".f10-off"), { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 6.0);
-        tl.fromTo(card.querySelector(".f10-gl"), { color: "#3F3C35" }, { color: NOT_YET, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 6.0);
-        tl.fromTo(card.querySelector(".f10-gly"), { color: COBALT }, { color: NOT_YET, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 6.0);
+        tl.fromTo(card.querySelector(".f10-gl"), { color: "#3F3C35" }, Object.assign({ color: NOT_YET }, SWAP), 6.0);
+        tl.fromTo(card.querySelector(".f10-gly"), { color: COBALT }, Object.assign({ color: NOT_YET }, SWAP), 6.0);
       });
-      /* the accent-light band eases in behind cards 1-2 */
+      /* the accent-light band eases in behind card 1 only */
       tl.fromTo($("#f10-band"),
         { opacity: 0, scale: 0.97 },
         { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", transformOrigin: "50% 50%" }, 6.0);
 
-      /* Scene 4 (7.0-12.0s): held checkpoint, no motion. At the frame's last instant the rail
-         hides: the persistent roadmap.html layer (identical pixels) takes over at global 121.0. */
-      tl.set($("#f10-rail"), { autoAlpha: 0, immediateRender: false }, 12.0);
+      /* Scene 4 (6.4-11.0s): held checkpoint, no motion. At the frame's last instant (local 11.0 =
+         global 119.1) the rail hides: the persistent roadmap.html layer (identical pixels) takes
+         over at that moment; headline, subline, cards and band slide out with the frame. */
+      tl.set(rail, { autoAlpha: 0, immediateRender: false }, 11.0);
+      tl.to({}, { duration: 11.5 }, 0);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;

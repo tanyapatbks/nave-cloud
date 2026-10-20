@@ -17,31 +17,36 @@
     #f15-ground{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7}
 
     /* stage header (component 12): eyebrow + English stage name on one baseline (y 300-380),
-       Thai purpose line below (y 384-434). The rail band above (y < 290) belongs to roadmap.html. */
+       Thai purpose line below (y 384-448, 600 44px #111, key phrase cobalt). The rail band above (y < 290) belongs to roadmap.html. */
     #f15-head{position:absolute;left:96px;top:300px;height:80px;box-sizing:border-box;padding-top:6px;display:flex;align-items:baseline;white-space:nowrap}
     #f15-eyebrow{display:block;margin-right:20px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:40px;line-height:1.45;color:#1e2bfa;white-space:nowrap}
     #f15-title{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:52px;line-height:1.3;color:#111111;white-space:nowrap}
-    #f15-purpose{position:absolute;left:96px;top:384px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:34px;line-height:1.45;color:#5F5B50;white-space:nowrap}
+    #f15-purpose{position:absolute;left:96px;top:384px;display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:44px;line-height:1.45;color:#111111;white-space:nowrap}
     .f15-ph{display:inline-block;white-space:nowrap}
+    .f15-key{color:#1e2bfa}
 
-    /* Scene 3 loop: a rounded rect through the four card centres, drawn UNDER the cards */
+    /* Scene 3 loop: a rounded rect through the four card centres (366/1554, 525/805), drawn UNDER the cards */
     #f15-loop-svg{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;pointer-events:none}
     #f15-loop{fill:none;stroke:#1e2bfa;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
     .f15-chev{fill:none;stroke:#1e2bfa;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
-    #f15-dot{position:absolute;left:0;top:0;width:28px;height:28px;box-sizing:border-box;border-radius:50%;background:#1e2bfa;border:4px solid #fdfae7}
+    /* the dot's fading trail: stacked dashes of one path, all ending at the dot, so they overlap (darker) near it */
+    .f15-trail{fill:none;stroke:#1e2bfa;stroke-linecap:butt;stroke-linejoin:round}
+    #f15-dot{position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#1e2bfa}
 
-    /* Scene 2: four outcome cards 500x150, opaque backing (4% cobalt tint pre-composited on cream) */
-    .f15-card{position:absolute;width:500px;height:150px;box-sizing:border-box;border-radius:14px;background:#F4F2E8;border:1.5px solid rgba(30,43,250,0.2)}
+    /* Scene 2: four outcome cards 540x150 (widened from 500 so the 32px "Human-in-the-Loop Approval" fits),
+       opaque backing (4% cobalt tint pre-composited on cream); outer edges stay at x 96 / 1824 */
+    .f15-card{position:absolute;width:540px;height:150px;box-sizing:border-box;border-radius:14px;background:#F4F2E8;border:1.5px solid rgba(30,43,250,0.2)}
+    /* clockwise from top-left: KPIs -> Human-in-the-Loop Approval -> Adoption Metrics -> Executive Dashboards */
     #f15-c1{left:96px;top:450px}
-    #f15-c2{left:1324px;top:450px}
-    #f15-c3{left:96px;top:730px}
-    #f15-c4{left:1324px;top:730px}
-    .f15-viz{position:absolute;left:0;right:0;top:24px;height:48px;display:flex;align-items:center;justify-content:center;gap:12px}
+    #f15-c2{left:1284px;top:450px}
+    #f15-c3{left:1284px;top:730px}
+    #f15-c4{left:96px;top:730px}
+    .f15-viz{position:absolute;left:0;right:0;top:22px;height:64px;display:flex;align-items:center;justify-content:center;gap:16px}
     .f15-viz svg{display:block;flex:none;overflow:visible}
-    .f15-name{position:absolute;left:0;right:0;top:85px;display:block;text-align:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#111111;white-space:nowrap}
+    .f15-name{position:absolute;left:0;right:0;top:90px;display:block;text-align:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#111111;white-space:nowrap}
 
     /* approval mini-visual: frame 09's approval card in small (approver + success pill, no text) */
-    #f15-pill{display:flex;flex:none;align-items:center;justify-content:center;width:84px;height:40px;border-radius:100px;background:#0B6A45;color:#ffffff}
+    #f15-pill{display:flex;flex:none;align-items:center;justify-content:center;width:112px;height:52px;border-radius:100px;background:#0B6A45;color:#ffffff}
     #f15-pill svg{display:block}
 
     /* centre label of the loop: x ~ 580-1340, y 628-703, with a spark either side */
@@ -56,22 +61,32 @@
 
     <!-- Scene 1: stage header -->
     <div id="f15-head"><span id="f15-eyebrow">ขั้นที่ 5</span><span id="f15-title">Elite NAVE</span></div>
-    <span id="f15-purpose"><span id="f15-p1" class="f15-ph">ระบบ NAVE</span> <span id="f15-p2" class="f15-ph">ที่ให้ผลลัพธ์เชื่อถือได้</span></span>
+    <span id="f15-purpose"><span id="f15-p1" class="f15-ph">ระบบ NAVE</span> <span id="f15-p2" class="f15-ph">ที่ให้ผลลัพธ์<span class="f15-key">เชื่อถือได้</span></span></span>
 
-    <!-- Scene 3 (drawn under the cards): the improvement loop, its direction chevrons and the travelling dot -->
+    <!-- Scene 3 (drawn under the cards): the improvement loop, its direction chevrons, the dot's trail and the travelling dot -->
     <svg id="f15-loop-svg" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true" data-layout-ignore>
-      <path id="f15-loop" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M 596 525 H 1514 A 60 60 0 0 1 1574 585 V 745 A 60 60 0 0 1 1514 805 H 406 A 60 60 0 0 1 346 745 V 585 A 60 60 0 0 1 406 525 Z"/>
-      <path id="f15-chev1" class="f15-chev" d="M 951 513 L 963 525 L 951 537"/>
-      <path id="f15-chev2" class="f15-chev" d="M 1562 656 L 1574 668 L 1586 656"/>
-      <path id="f15-chev3" class="f15-chev" d="M 969 793 L 957 805 L 969 817"/>
-      <path id="f15-chev4" class="f15-chev" d="M 334 674 L 346 662 L 358 674"/>
+      <path id="f15-loop" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M 636 525 H 1494 A 60 60 0 0 1 1554 585 V 745 A 60 60 0 0 1 1494 805 H 426 A 60 60 0 0 1 366 745 V 585 A 60 60 0 0 1 426 525 Z"/>
+      <path id="f15-chev1" class="f15-chev" d="M 954 513 L 966 525 L 954 537"/>
+      <path id="f15-chev2" class="f15-chev" d="M 1542 659 L 1554 671 L 1566 659"/>
+      <path id="f15-chev3" class="f15-chev" d="M 966 793 L 954 805 L 966 817"/>
+      <path id="f15-chev4" class="f15-chev" d="M 354 671 L 366 659 L 378 671"/>
+      <g id="f15-trail">
+        <path class="f15-trail" pathLength="1"/>
+        <path class="f15-trail" pathLength="1"/>
+        <path class="f15-trail" pathLength="1"/>
+        <path class="f15-trail" pathLength="1"/>
+        <path class="f15-trail" pathLength="1"/>
+        <path class="f15-trail" pathLength="1"/>
+        <path class="f15-trail" pathLength="1"/>
+        <path class="f15-trail" pathLength="1"/>
+      </g>
     </svg>
     <div id="f15-dot" data-layout-ignore></div>
 
-    <!-- Scene 2: four outcome cards -->
+    <!-- Scene 2: four outcome cards (clockwise: top-left, top-right, bottom-right, bottom-left) -->
     <div id="f15-c1" class="f15-card">
       <div class="f15-viz">
-        <svg id="f15-gauge" viewBox="0 0 88 48" width="88" height="48" aria-hidden="true">
+        <svg id="f15-gauge" viewBox="0 0 88 48" width="117" height="64" aria-hidden="true">
           <path d="M 8 43 A 36 36 0 0 1 80 43" fill="none" stroke="rgba(30,43,250,0.15)" stroke-width="6" stroke-linecap="round"/>
           <path id="f15-gval" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M 8 43 A 36 36 0 0 1 80 43" fill="none" stroke="#1e2bfa" stroke-width="6" stroke-linecap="round"/>
           <line id="f15-needle" x1="44" y1="43" x2="44" y2="15" stroke="#111111" stroke-width="3" stroke-linecap="round"/>
@@ -83,15 +98,15 @@
 
     <div id="f15-c2" class="f15-card">
       <div class="f15-viz">
-        <svg id="f15-av" viewBox="0 0 96 96" width="48" height="48" aria-hidden="true"><defs><clipPath id="f15-avclip"><circle cx="48" cy="48" r="46.5"/></clipPath></defs><circle cx="48" cy="48" r="46.5" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.2)" stroke-width="3"/><g clip-path="url(#f15-avclip)" fill="#9a9a9a"><circle cx="48" cy="38" r="16"/><path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/></g></svg>
-        <span id="f15-pill"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path id="f15-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <svg id="f15-av" viewBox="0 0 96 96" width="64" height="64" aria-hidden="true"><defs><clipPath id="f15-avclip"><circle cx="48" cy="48" r="46.5"/></clipPath></defs><circle cx="48" cy="48" r="46.5" fill="rgba(30,43,250,0.06)" stroke="rgba(30,43,250,0.2)" stroke-width="3"/><g clip-path="url(#f15-avclip)" fill="#9a9a9a"><circle cx="48" cy="38" r="16"/><path d="M16 96 C16 72 30 61 48 61 C66 61 80 72 80 96 Z"/></g></svg>
+        <span id="f15-pill"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path id="f15-ck" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
       <span class="f15-name">Human-in-the-Loop Approval</span>
     </div>
 
     <div id="f15-c3" class="f15-card">
       <div class="f15-viz">
-        <svg id="f15-bars" viewBox="0 0 64 48" width="64" height="48" aria-hidden="true">
+        <svg id="f15-bars" viewBox="0 0 64 48" width="85" height="64" aria-hidden="true">
           <rect class="f15-bar" x="3" y="28" width="14" height="18" rx="3" fill="#1e2bfa" fill-opacity="0.45"/>
           <rect class="f15-bar" x="25" y="16" width="14" height="30" rx="3" fill="#1e2bfa" fill-opacity="0.7"/>
           <rect class="f15-bar" x="47" y="3" width="14" height="43" rx="3" fill="#1e2bfa"/>
@@ -103,7 +118,7 @@
 
     <div id="f15-c4" class="f15-card">
       <div class="f15-viz">
-        <svg id="f15-dash" viewBox="0 0 78 48" width="78" height="48" aria-hidden="true">
+        <svg id="f15-dash" viewBox="0 0 78 48" width="104" height="64" aria-hidden="true">
           <g class="f15-dp">
             <rect x="1" y="1" width="36" height="21" rx="4" fill="rgba(30,43,250,0.08)" stroke="#1e2bfa" stroke-width="2"/>
             <path d="M 7 16 L 13 11 L 19 13 L 25 7 L 31 9" fill="none" stroke="#1e2bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -158,14 +173,14 @@
         { opacity: 0, y: 14 },
         { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.25 }, 0.8);
 
-      /* Scene 2 (1.8-5.0): four outcome cards land on their cues, each mini-visual animates in after */
+      /* Scene 2 (1.8-5.0): four outcome cards land clockwise on their cues, each mini-visual animates in after */
       function land(card, at) {
         tl.fromTo(card,
           { opacity: 0, y: 24, scale: 0.97 },
           { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out" }, at);
       }
 
-      /* KPIs (2.0): the gauge value arc sweeps, the needle swings up to it */
+      /* KPIs (2.0, top-left): the gauge value arc sweeps, the needle swings up to it */
       land($("#f15-c1"), 2.0);
       tl.fromTo($("#f15-gval"),
         { attr: { "stroke-dashoffset": 1 } },
@@ -174,7 +189,7 @@
         { rotation: -84, svgOrigin: "44 43" },
         { rotation: 36, svgOrigin: "44 43", duration: 0.85, ease: "power3.out" }, 2.2);
 
-      /* Human-in-the-Loop Approval (2.6): the success pill lands beside the approver, the check draws */
+      /* Human-in-the-Loop Approval (2.6, top-right): the success pill lands beside the approver, the check draws */
       land($("#f15-c2"), 2.6);
       tl.fromTo($("#f15-pill"),
         { opacity: 0, scale: 0.6, transformOrigin: "0% 50%" },
@@ -183,19 +198,26 @@
         { attr: { "stroke-dashoffset": 1 } },
         { attr: { "stroke-dashoffset": 0 }, duration: 0.35, ease: "power2.out" }, 3.0);
 
-      /* Adoption Metrics (3.2): the bar trio rises left to right */
+      /* Adoption Metrics (3.2, bottom-right): the bar trio rises left to right */
       land($("#f15-c3"), 3.2);
       tl.fromTo($$(".f15-bar"),
         { scaleY: 0, transformOrigin: "50% 100%" },
         { scaleY: 1, transformOrigin: "50% 100%", duration: 0.5, ease: "power3.out", stagger: 0.1 }, 3.4);
 
-      /* Executive Dashboards (3.8): the 2x2 panel grid fills panel by panel */
+      /* Executive Dashboards (3.8, bottom-left): the 2x2 panel grid fills panel by panel */
       land($("#f15-c4"), 3.8);
       tl.fromTo($$(".f15-dp"),
         { opacity: 0, scale: 0.7, transformOrigin: "50% 50%" },
         { opacity: 1, scale: 1, transformOrigin: "50% 50%", duration: 0.4, ease: "power3.out", stagger: 0.08 }, 4.0);
 
-      /* Scene 3 (5.0-11.0): the loop self-draws clockwise under the cards (5.0-6.2) */
+      /* Loop geometry (px): rounded rect through the card centres x 366 / 1554, y 525 / 805, corner radius 60.
+         Straight runs: top/bottom 1068, sides 160; Q = one quarter arc. Total length 2456 + 4Q (~2833). */
+      var Q = Math.PI * 30;
+      var LEN = 2456 + 4 * Q;
+      /* inverse of power2.inOut (GSAP power2 = cubic): progress -> time fraction */
+      var inv = function (f) { return f < 0.5 ? Math.cbrt(f / 4) : 1 - Math.cbrt(2 * (1 - f)) / 2; };
+
+      /* Scene 3 (5.0-11.0): the loop self-draws clockwise under the cards (5.0-6.2), starting at the KPIs card's right edge (x 636) */
       var DRAW_AT = 5.0, DRAW_DUR = 1.2;
       var loop = $("#f15-loop");
       tl.fromTo(loop, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power2.out" }, DRAW_AT);
@@ -203,14 +225,12 @@
         { attr: { "stroke-dashoffset": 1 } },
         { attr: { "stroke-dashoffset": 0 }, duration: DRAW_DUR, ease: "power2.inOut" }, DRAW_AT);
 
-      /* each direction chevron appears as the drawing head passes it: invert power2.inOut
-         for the chevron's fraction of the loop (1/8, 3/8, 5/8, 7/8 of its length) */
-      var inv = function (f) { return f < 0.5 ? Math.cbrt(f / 4) : 1 - Math.cbrt(2 * (1 - f)) / 2; };
-      [0.125, 0.375, 0.625, 0.875].forEach(function (f, i) {
+      /* each direction chevron appears as the drawing head passes it (segment midpoints, as arc length from x 636) */
+      [324, 938 + Q, 1552 + 2 * Q, 2166 + 3 * Q].forEach(function (s, i) {
         tl.fromTo($("#f15-chev" + (i + 1)),
           { opacity: 0, scale: 0.5, transformOrigin: "50% 50%" },
           { opacity: 1, scale: 1, transformOrigin: "50% 50%", duration: 0.3, ease: "power3.out" },
-          DRAW_AT + DRAW_DUR * inv(f) - 0.02);
+          DRAW_AT + DRAW_DUR * inv(s / LEN) - 0.02);
       });
 
       /* centre label lands at 5.4, word by word; the two sparks follow */
@@ -221,27 +241,47 @@
         { opacity: 0, scale: 0.4, rotation: -45, transformOrigin: "50% 50%" },
         { opacity: 1, scale: 1, rotation: 0, transformOrigin: "50% 50%", duration: 0.5, ease: "power3.out" }, 5.65);
 
-      /* one dot travels the loop once (6.4-7.8): it leaves from under the KPIs card and returns
-         beneath it, so its constant-speed start and stop are both hidden by the card */
-      var DOT_PATH = "M 346 585 A 60 60 0 0 1 406 525 H 1514 A 60 60 0 0 1 1574 585 V 745 A 60 60 0 0 1 1514 805 H 406 A 60 60 0 0 1 346 745 V 585";
+      /* one 20px dot laps the loop once (6.2-8.2, power2.inOut over the whole path). It sets off from just right of
+         the KPIs card (x 666, in the open), passes Approval -> Adoption -> Dashboards -> KPIs, and comes to rest
+         where it started. A ~130px fading trail rides behind it: 8 dashes of the same path, all ending at the dot,
+         shorter ones wider, so their overlap darkens toward the dot. */
+      var DOT_AT = 6.2, DOT_DUR = 2.0, TRAIL = 130;
+      var DOT_PATH = "M 666 525 H 1494 A 60 60 0 0 1 1554 585 V 745 A 60 60 0 0 1 1494 805 H 426 A 60 60 0 0 1 366 745 V 585 A 60 60 0 0 1 426 525 H 666";
+      var trail = $$(".f15-trail");
+      var N = trail.length;
+      trail.forEach(function (el, i) {
+        var k = i + 1;
+        var Lk = (TRAIL / LEN) * (k / N);
+        el.setAttribute("d", DOT_PATH);
+        gsap.set(el, { attr: { "stroke-width": 12 - (k - 1) * 0.7, "stroke-opacity": 0.17, "stroke-dasharray": Lk + " 2", "stroke-dashoffset": Lk } });
+        tl.fromTo(el,
+          { attr: { "stroke-dashoffset": Lk } },
+          { attr: { "stroke-dashoffset": Lk - 1 }, duration: DOT_DUR, ease: "power2.inOut" }, DOT_AT);
+      });
+      var trailG = $("#f15-trail");
+      tl.fromTo(trailG, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power2.out" }, DOT_AT);
+      tl.fromTo(trailG, { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, 7.95);
+
       var dot = $("#f15-dot");
-      gsap.set(dot, { xPercent: -50, yPercent: -50, x: 346, y: 585 });
-      tl.fromTo(dot, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, 6.4);
-      tl.to(dot, { motionPath: { path: DOT_PATH }, duration: 1.4, ease: "none" }, 6.4);
+      gsap.set(dot, { xPercent: -50, yPercent: -50, x: 666, y: 525 });
+      tl.fromTo(dot, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, DOT_AT);
+      tl.to(dot, { motionPath: { path: DOT_PATH }, duration: DOT_DUR, ease: "power2.inOut" }, DOT_AT);
 
-      /* each card pulses lightly as the dot passes beneath it (scale + border), settled by 8.0 */
-      function pulse(card, at, down) {
-        tl.fromTo(card, { scale: 1 }, { scale: 1.025, duration: 0.14, ease: "power2.out", immediateRender: false }, at);
-        tl.fromTo(card, { scale: 1.025 }, { scale: 1, duration: down, ease: "power3.out", immediateRender: false }, at + 0.14);
-        tl.fromTo(card, { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,0.65)", duration: 0.14, ease: "power2.out", immediateRender: false }, at);
-        tl.fromTo(card, { borderColor: "rgba(30,43,250,0.65)" }, { borderColor: "rgba(30,43,250,0.2)", duration: down, ease: "power3.out", immediateRender: false }, at + 0.14);
+      /* each card pulses lightly (scale + border) as the dot passes beneath it: the pulse starts as the dot
+         slides under the card (arc length from x 666 where it enters the card's box) and peaks mid-pass */
+      var passAt = function (s) { return DOT_AT + DOT_DUR * inv(s / LEN); };
+      function pulse(card, at) {
+        tl.fromTo(card, { scale: 1 }, { scale: 1.025, duration: 0.12, ease: "power2.out", immediateRender: false }, at);
+        tl.fromTo(card, { scale: 1.025 }, { scale: 1, duration: 0.34, ease: "power3.out", immediateRender: false }, at + 0.12);
+        tl.fromTo(card, { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,0.65)", duration: 0.12, ease: "power2.out", immediateRender: false }, at);
+        tl.fromTo(card, { borderColor: "rgba(30,43,250,0.65)" }, { borderColor: "rgba(30,43,250,0.2)", duration: 0.34, ease: "power3.out", immediateRender: false }, at + 0.12);
       }
-      pulse($("#f15-c2"), 6.86, 0.36);
-      pulse($("#f15-c4"), 6.99, 0.36);
-      pulse($("#f15-c3"), 7.52, 0.34);
-      pulse($("#f15-c1"), 7.62, 0.24);
+      pulse($("#f15-c2"), passAt(618) - 0.03);           /* Approval, top-right: enters at x 1284 (~6.93) */
+      pulse($("#f15-c3"), passAt(973 + Q) - 0.03);       /* Adoption, bottom-right: enters at y 730 (~7.08) */
+      pulse($("#f15-c4"), passAt(1846 + 2 * Q) - 0.03);  /* Dashboards, bottom-left: enters at x 636 (~7.34) */
+      pulse($("#f15-c1"), passAt(2201 + 3 * Q) - 0.03);  /* KPIs, top-left: enters at y 600 (~7.54), last pulse settles ~8.0 */
 
-      /* hold still from 8.0 to the end */
+      /* hold still from 8.4 to the end (the trail has faded by 8.3; the dot rests beside KPIs) */
       tl.set({}, {}, 11);
 
       window.__timelines = window.__timelines || {};
