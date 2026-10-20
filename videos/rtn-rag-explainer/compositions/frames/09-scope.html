@@ -32,7 +32,7 @@
   .f09-chip{display:inline-block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;letter-spacing:0.02em;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
 
   /* identity badge card */
-  #f09-id{left:96px;top:356px;width:600px;height:170px;padding:0 28px;display:flex;align-items:center;gap:28px}
+  #f09-id{left:96px;top:356px;width:680px;height:170px;padding:0 28px;display:flex;align-items:center;gap:28px}
   /* frame-08 avatar component (ring + grey figure) at 110px; ring stroke cobalt = active */
   #f09-avatar{flex:none;width:110px;height:110px}
   #f09-avatar svg{display:block;width:110px;height:110px}
@@ -40,15 +40,15 @@
   .f09-idbar{display:block;height:14px;border-radius:6px;background:rgba(154,154,154,0.5);transform-origin:0 50%}
   .f09-idbar.f09-strong{height:18px;background:rgba(107,107,107,0.45)}
   #f09-chip-id{position:absolute;top:20px;right:20px}
-  /* round 3: the 'Identity' / 'ACL' chips carry the same 3px cobalt underline as their headline words (drawn in sync) */
+  /* round 3: the 'Identity' / 'Access Control List (ACL)' chips carry the same 3px cobalt underline as their headline words (drawn in sync) */
   .f09-cul{position:absolute;left:16px;right:16px;bottom:6px;height:3px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%}
 
   /* registry ledger card */
-  #f09-ledger{left:96px;top:560px;width:600px;height:300px;padding:22px 24px}
+  #f09-ledger{left:96px;top:560px;width:680px;height:300px;padding:22px 24px}
   .f09-led-head{display:flex;align-items:center;gap:14px;height:51px}
   .f09-led-ico{flex:none;width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .f09-led-title{display:block;width:150px;height:14px;border-radius:6px;background:rgba(107,107,107,0.45)}
-  #f09-chip-acl{margin-left:auto;position:relative}
+  .f09-led-title{display:block;width:90px;height:14px;border-radius:6px;background:rgba(107,107,107,0.45)}
+  #f09-chip-acl{flex:none;margin-left:auto;position:relative}
   .f09-table{margin-top:12px;box-sizing:border-box;border:1px solid rgba(154,154,154,0.45);border-radius:8px;overflow:hidden}
   .f09-row{position:relative;display:flex;box-sizing:border-box;height:38px;border-bottom:1px solid rgba(154,154,154,0.35)}
   .f09-row:last-child{border-bottom:none}
@@ -92,7 +92,7 @@
   <!-- headline, revealed per phrase -->
   <div id="f09-h2">
     <span class="f09-line"><span class="f09-ph">สิทธิ์จริง</span><span class="f09-ph">มาจาก</span></span>
-    <span class="f09-line"><span id="f09-w-id" class="f09-ph f09-em">ตัวตน<span id="f09-ul-id" class="f09-ul"></span></span> <span class="f09-ph">+</span> <span id="f09-w-acl" class="f09-ph f09-em">ทะเบียนเอกสาร<span id="f09-ul-acl" class="f09-ul"></span></span></span>
+    <span class="f09-line"><span id="f09-w-id" class="f09-ph f09-em">ตัวตนผู้ใช้<span id="f09-ul-id" class="f09-ul"></span></span> <span class="f09-ph">+</span> <span id="f09-w-acl" class="f09-ph f09-em">สิทธิการเข้าถึงเอกสาร<span id="f09-ul-acl" class="f09-ul"></span></span></span>
   </div>
 
   <!-- identity badge card -->
@@ -125,7 +125,7 @@
         <path d="M9 7h7M9 11h5"/>
       </svg>
       <span class="f09-led-title"></span>
-      <span id="f09-chip-acl" class="f09-chip">ACL<span id="f09-cul-acl" class="f09-cul"></span></span>
+      <span id="f09-chip-acl" class="f09-chip">Access Control List (ACL)<span id="f09-cul-acl" class="f09-cul"></span></span>
     </div>
     <div class="f09-table">
       <div class="f09-row f09-row-h">
@@ -167,10 +167,10 @@
     </defs>
     <rect id="f09-scope-fill" x="980" y="330" width="844" height="530" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
     <rect id="f09-scope-dash" x="980" y="330" width="844" height="530" rx="28" ry="28" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f09-scope-mask)"/>
-    <path id="f09-link-id" class="f09-link" d="M 696 441 C 846 441, 846 595, 980 595"/>
-    <path id="f09-link-acl" class="f09-link" d="M 696 740 C 846 740, 846 595, 980 595"/>
-    <circle id="f09-dot-id" cx="696" cy="441" r="5" fill="#1e2bfa"/>
-    <circle id="f09-dot-acl" cx="696" cy="740" r="5" fill="#1e2bfa"/>
+    <path id="f09-link-id" class="f09-link" d="M 776 441 C 878 441, 878 595, 980 595"/>
+    <path id="f09-link-acl" class="f09-link" d="M 776 740 C 878 740, 878 595, 980 595"/>
+    <circle id="f09-dot-id" cx="776" cy="441" r="5" fill="#1e2bfa"/>
+    <circle id="f09-dot-acl" cx="776" cy="740" r="5" fill="#1e2bfa"/>
     <circle id="f09-node" cx="980" cy="595" r="8" fill="#1e2bfa" stroke="#fdfae7" stroke-width="3"/>
   </svg>
 
@@ -244,14 +244,14 @@
     return len;
   }
   var HALF = 2 * 237 + 788 + Math.PI * 28;                       // straight runs + two quarter arcs
-  var L_ID  = prep("f09-link-id",  bezLen([696,441],[846,441],[846,595],[980,595]));
-  var L_ACL = prep("f09-link-acl", bezLen([696,740],[846,740],[846,595],[980,595]));
+  var L_ID  = prep("f09-link-id",  bezLen([776,441],[878,441],[878,595],[980,595]));
+  var L_ACL = prep("f09-link-acl", bezLen([776,740],[878,740],[878,595],[980,595]));
   var L_TOP = prep("f09-mtop", HALF);
   var L_BOT = prep("f09-mbot", HALF);
 
   // svg circles scale about their own centre (set once, before any transform is applied)
   gsap.set(["#f09-dot-id", "#f09-dot-acl", "#f09-node"], { transformOrigin: "50% 50%" });
-  // headline words pulse from their left edge (keeps 'ตัวตน' inside x >= 96 and clear of the '+')
+  // headline words pulse from their left edge (keeps 'ตัวตนผู้ใช้' inside x >= 96 and clear of the '+')
   gsap.set(["#f09-w-id", "#f09-w-acl"], { transformOrigin: "0% 50%" });
   gsap.set(["#f09-chip-id", "#f09-chip-acl"], { transformOrigin: "50% 50%" });
 
@@ -268,7 +268,7 @@
   tl.fromTo("#f09-avatar", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.25);
   tl.fromTo(".f09-idbar", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out", stagger: 0.07 }, 1.32);
   tl.fromTo("#f09-chip-id", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 1.40);
-  // 'Identity' -> one 3px underline under 'ตัวตน' AND under the chip, drawn together (held to the end)
+  // 'Identity' -> one 3px underline under 'ตัวตนผู้ใช้' AND under the chip, drawn together (held to the end)
   tl.fromTo(["#f09-ul-id", "#f09-cul-id"], { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 1.40);
   // on landing (1.70) the word and its chip pulse together: 1 -> 1.06 -> 1 over 0.3s
   tl.fromTo(["#f09-w-id", "#f09-chip-id"], { scale: 1 }, { scale: 1.06, duration: 0.15, ease: "power2.out", immediateRender: false }, 1.70);
@@ -277,7 +277,7 @@
   tl.fromTo("#f09-ledger", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.95);
   tl.fromTo("#f09-ledger .f09-row", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 2.05);
   tl.fromTo("#f09-chip-acl", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 2.20);
-  // 'ACL' -> one 3px underline under 'ทะเบียนเอกสาร' AND under the chip, drawn together (held to the end)
+  // 'Access Control List (ACL)' -> one 3px underline under 'สิทธิการเข้าถึงเอกสาร' AND under the chip, drawn together (held to the end)
   tl.fromTo(["#f09-ul-acl", "#f09-cul-acl"], { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 2.20);
   // on landing (2.50) the word and its chip pulse together: 1 -> 1.06 -> 1 over 0.3s
   tl.fromTo(["#f09-w-acl", "#f09-chip-acl"], { scale: 1 }, { scale: 1.06, duration: 0.15, ease: "power2.out", immediateRender: false }, 2.50);
