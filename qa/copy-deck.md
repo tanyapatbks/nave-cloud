@@ -26,7 +26,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 ## Frame 05 — จากไฟล์ สู่ดัชนีที่ค้นได้  ·  41.0–50.0 s
 - term chip: Ingest → Index
-- on-screen copy (local cue times): headline "จากไฟล์ สู่ดัชนีที่ค้นได้" (0.3s) · stations in order, each Thai + English: "รับเข้า · Ingest" (1.0s) "แยกส่วน · Parse" (1.8s) "ทำความสะอาด · Clean" (2.6s) with micro "๒๕๖๙ → 2569" (2.9s) "ตัดเป็นชิ้น · Chunk" (3.6s) "แปลงเป็นความหมาย · Embed" (4.4s) "ทำดัชนี · Index" (5.2s)
+- on-screen copy (local cue times): headline "จากไฟล์ สู่ดัชนีที่ค้นได้" (0.3s) · stations in order, each Thai + English: "รับเข้า · Ingest" (1.0s) "แยกส่วน · Parse" (1.8s) "ทำความสะอาด · Clean" (2.6s) with micro "๒๕๖๙ → 2569" (2.9s) "ตัดเป็นชิ้น · Chunk" (3.6s) "แปลงเป็นความหมาย · Embed" (4.4s) "ทำดัชนี · Index" (5.6s)
 - must teach: Ingest → Parse → Clean → Chunk → Embed → Index turns a file into indexes that can be searched.
 
 ## Frame 06 — ค้นหา 3 ทางพร้อมกัน  ·  50.0–62.0 s

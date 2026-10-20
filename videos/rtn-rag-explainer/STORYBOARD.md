@@ -154,7 +154,7 @@ Round-3 revisions: the inheritance trunk sits behind the chunk cards and fades o
 - term: Ingest → Index
 - focal: the travelling document token at the current station
 - roles: header/tracker = supporting (① current) · six station cards = foreground subject (one lit at a time) · travelling token = foreground subject · index stack = foreground subject (Scene 3) · connector line = supporting
-- onscreen: headline "จากไฟล์ สู่ดัชนีที่ค้นได้" (0.3s) · stations in order, each Thai + English: "รับเข้า · Ingest" (1.0s) "แยกส่วน · Parse" (1.8s) "ทำความสะอาด · Clean" (2.6s) with micro "๒๕๖๙ → 2569" (2.9s) "ตัดเป็นชิ้น · Chunk" (3.6s) "แปลงเป็นความหมาย · Embed" (4.4s) "ทำดัชนี · Index" (5.2s)
+- onscreen: headline "จากไฟล์ สู่ดัชนีที่ค้นได้" (0.3s) · stations in order, each Thai + English: "รับเข้า · Ingest" (1.0s) "แยกส่วน · Parse" (1.8s) "ทำความสะอาด · Clean" (2.6s) with micro "๒๕๖๙ → 2569" (2.9s) "ตัดเป็นชิ้น · Chunk" (3.6s) "แปลงเป็นความหมาย · Embed" (4.4s) "ทำดัชนี · Index" (5.6s)
 
 narrativeRole: Names the whole processing line once, in order, with a visible effect at each step, so the later search makes sense.
 keyMessage: Ingest → Parse → Clean → Chunk → Embed → Index turns a file into indexes that can be searched.
