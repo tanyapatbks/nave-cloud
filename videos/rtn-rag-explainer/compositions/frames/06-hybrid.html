@@ -41,9 +41,11 @@
     /* the ring is an overlay (no margin, no layout effect): the question flows exactly as in frame 08 */
     #f06-qw-mean{isolation:isolate}
     .f06-ul{position:absolute;left:0;right:0;bottom:4px;height:3px;border-radius:1px;background:#1e2bfa;transform-origin:0 50%}
-    /* a highlight band behind the word (no stroke crosses the next glyph), sized from the word's ink box:
-       left edge 4 px before the ink of 'แ', right edge just past 'ติ' and before 'ปี'; radius 10 px */
-    #f06-ring{display:block;position:absolute;left:-5px;top:-8px;width:calc(100% + 5px);height:calc(100% + 16px);border-radius:10px;background:rgba(30,43,250,0.13);z-index:-1;pointer-events:none}
+    /* a highlight band behind the word (no stroke crosses the next glyph), sized from the word's measured ink
+       box (span starts at x 177.5; ink of 'แ' starts at x 180, ink of 'ติ' ends at x 425, 'ปี' starts at x 427):
+       left edge x 176 (4 px before 'แ'), right edge x 426.5 (past 'ติ', before 'ปี'); radius 10 px; the ink
+       (y 404-449) sits entirely in the straight part, clear of the corner arcs */
+    #f06-ring{display:block;position:absolute;left:-1.5px;top:-8px;width:250.5px;height:calc(100% + 16px);border-radius:10px;background:rgba(30,43,250,0.13);z-index:-1;pointer-events:none}
 
     /* three lanes (x 790-1559), all inside the scope */
     .f06-lane{position:absolute;left:790px;width:769px;height:156px;box-sizing:border-box;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04)}
