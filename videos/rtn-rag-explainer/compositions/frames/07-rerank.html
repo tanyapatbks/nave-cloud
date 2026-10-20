@@ -44,6 +44,8 @@
     /* candidate rows (opaque = card-bg over cream, so re-sort crossings stay clean) */
     .f07-row{position:absolute;left:96px;width:680px;height:56px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:10px;background:#f4f2e8;transform-origin:0 0}
     .f07-hl{position:absolute;left:-1.5px;top:-1.5px;right:-1.5px;bottom:-1.5px;box-sizing:border-box;border:2px solid #1e2bfa;border-radius:10px;background:#e6e7fb}
+    /* Top-3 group border for ranks 2-3 (lands with the cut line at 3.2): 2px cut-line blue at 50%, border only */
+    .f07-sel{position:absolute;left:-1.5px;top:-1.5px;right:-1.5px;bottom:-1.5px;box-sizing:border-box;border:2px solid rgba(30,43,250,0.5);border-radius:10px;background:transparent;opacity:0}
     .f07-tile{position:absolute;left:16px;top:5px;width:34px;height:44px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:6px;background:rgba(30,43,250,0.04);overflow:hidden}
     .f07-tile .f07-band{position:absolute;left:0;top:0;right:0;height:4px}
     .f07-tile .f07-tl{position:absolute;left:6px;height:3px;border-radius:2px;background:rgba(154,154,154,0.7)}
@@ -119,11 +121,13 @@
         <span class="f07-tile f07-k-scan"><span class="f07-band"></span><span class="f07-tl" style="top:12px;width:16px"></span><span class="f07-tl" style="top:19px;width:20px"></span><span class="f07-tl" style="top:26px;width:15px"></span></span>
         <span class="f07-title" style="width:132px"></span><span class="f07-meta" style="width:78px"></span>
         <span class="f07-bar"><span class="f07-fill"></span></span>
+        <span class="f07-sel"></span>
       </div>
       <div class="f07-row" data-score="0.71" style="top:776px">
         <span class="f07-tile f07-k-img"><span class="f07-band"></span><span class="f07-tl" style="top:12px;width:19px"></span><span class="f07-tl" style="top:19px;width:13px"></span><span class="f07-tl" style="top:26px;width:18px"></span></span>
         <span class="f07-title" style="width:160px"></span><span class="f07-meta" style="width:92px"></span>
         <span class="f07-bar"><span class="f07-fill"></span></span>
+        <span class="f07-sel"></span>
       </div>
 
       <!-- cut line in the gap under row 3 (absolute y = 522) + label + arrow -->
@@ -143,7 +147,7 @@
       // geometry (px, 1920x1080)
       var PITCH = 68, GAP = 48;            // GAP: rows 4-8 open a gap centred on the cut line (y 522)
       var PILE = 4;                        // pile layer offset (px), back layers step up-right like the 06 stack
-      var LIFT_X = 40;                     // rows moving up travel on a +40px x track (lift, not at rest)
+      var TRACK_X = 720;                   // winners' clear right-hand track: x 96-776 -> 816-1496 (empty until 3.2)
       var SH_UP = "0px 8px 20px 0px rgba(17,17,17,0.2)";
       var SH_REST = "0px 0px 0px 0px rgba(17,17,17,0)";
 
@@ -167,44 +171,45 @@
 
       var tl = gsap.timeline({ paused: true });
 
-      // ---- Scene 1 (0.0-1.0): the merged results arrive as ONE pile at row 1's slot (x 96-776, y 300-356),
-      //      then are dealt down to their slots 0.4-0.9 (0.035 s stagger, farthest slot first so no two cross);
-      //      relevance bars fill 0.5-0.8 (stat-bars-and-fills) as the rows land; the scored, unsorted list holds still to 1.0 ----
+      // ---- Scene 1 (0.0-0.5, during the 0.5 s push-slide in): the merged results arrive as ONE pile at row 1's
+      //      slot (x 96-776, y 300-356) and are dealt down to their slots 0.06-0.40 (0.02 s stagger, farthest slot
+      //      first so no two cross); relevance bars fill 0.24-0.45 (stat-bars-and-fills); the example row's
+      //      highlight lands 0.30-0.45; the headline phrases finish by 0.50. The scored, UNSORTED list (row 5 has
+      //      the longest bar) then holds completely still 0.45-1.4 ----
       rows.forEach(function (r, i) {
         var k = layer[i];
-        var at = 0.4 + (rows.length - 1 - i) * 0.035;
-        tl.fromTo(r, { x: PILE * k, y: -i * PITCH - PILE * k }, { x: 0, y: 0, duration: 0.25, ease: "power3.out" }, at);
-        tl.fromTo(r.querySelector(".f07-fill"), { scaleX: 0 }, { scaleX: scores[i], duration: 0.16, ease: "power2.out" }, 0.5 + (rows.length - 1 - i) * 0.02);
+        var at = 0.06 + (rows.length - 1 - i) * 0.02;
+        tl.fromTo(r, { x: PILE * k, y: -i * PITCH - PILE * k }, { x: 0, y: 0, duration: 0.2, ease: "power3.out" }, at);
+        tl.fromTo(r.querySelector(".f07-fill"), { scaleX: 0 }, { scaleX: scores[i], duration: 0.13, ease: "power2.out" }, 0.24 + (rows.length - 1 - i) * 0.012);
       });
-      tl.fromTo(all("#f07-h2 .f07-ph"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 0.3);
-      tl.fromTo(".f07-exrow .f07-hl", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 0.8);
+      tl.fromTo(all("#f07-h2 .f07-ph"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.13, ease: "power3.out", stagger: 0.035 }, 0.3);
+      tl.fromTo(".f07-exrow .f07-hl", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, 0.3);
 
-      // ---- Scene 2 (1.0-3.0): the re-sort, power2.inOut. Each row starts 0.06 s after the previous one in
-      //      final-rank order (rank k at 1.0 + 0.06k) and every row settles at 3.0 (duration 2.0 - 0.06k).
-      //      Rows moving up (the three winners) step onto a +40px x track over 0.25 s with a soft shadow, above
-      //      every other row, and return to x 0 over their last 0.3 s. Rows moving down (ranks 4-8) stay at x 0
-      //      at 60% opacity and sink straight to their slot below the cut (the cut gap is part of their travel).
-      //      Checked: same-track rows never come closer than 58.9px centre-to-centre (rows are 56px), so no
-      //      same-track overlap; no row is within reach of another while it changes track. ----
-      var SORT0 = 1.0, SORT1 = 3.0, STEP = 0.06, BACK = 0.3;
-      order.forEach(function (idx, k) {
-        var r = rows[idx], at = SORT0 + k * STEP, dur = SORT1 - at;
-        if (k < 3) {
-          tl.fromTo(r, { x: 0, boxShadow: SH_REST }, { x: LIFT_X, boxShadow: SH_UP, duration: 0.25, ease: "power2.out", immediateRender: false }, at);
-          tl.fromTo(r, { y: 0 }, { y: sortedY(idx), duration: dur, ease: "power2.inOut", immediateRender: false }, at);
-          tl.fromTo(r, { x: LIFT_X, boxShadow: SH_UP }, { x: 0, boxShadow: SH_REST, duration: BACK, ease: "power2.inOut", immediateRender: false }, SORT1 - BACK);
-        } else {
-          tl.fromTo(r, { opacity: 1 }, { opacity: 0.6, duration: 0.25, ease: "power2.out", immediateRender: false }, at);
-          tl.fromTo(r, { y: 0 }, { y: sortedY(idx) + GAP, duration: dur, ease: "power2.inOut", immediateRender: false }, at);
-        }
+      // ---- Scene 2 (1.4-3.1): the re-sort in four moves that never put two rows on the same spot:
+      //      (1) 1.40-1.75 the three winners slide right 720px onto the clear track (x 816-1496), soft lift shadow;
+      //      (2) 1.75-2.35 the five others close up into slots 4-8 (+GAP for the cut) on the left track and dim to 35%;
+      //      (3) 2.35-2.75 the winners rise on the right track to the heights of slots 1-3;
+      //      (4) 2.75-3.10 the winners slide left into slots 1-3 at x 96 (shadow off).
+      //      Within each move the rows on one track keep their order and share one ease/duration, so the pitch
+      //      interpolates monotonically (others: 136->68 / 68->68; winners: 136->68 / 68->68) and never drops
+      //      below the 56px row height. The tracks are 40px apart in x, so nothing crosses between them. ----
+      var MV1 = 1.4, MV2 = 1.75, MV3 = 2.35, MV4 = 2.75, SORT1 = 3.1, WSTEP = 0.025;
+      winners.forEach(function (idx, k) {
+        var r = rows[idx];
+        tl.fromTo(r, { x: 0, boxShadow: SH_REST }, { x: TRACK_X, boxShadow: SH_UP, duration: (MV2 - MV1) - 2 * WSTEP, ease: "power2.inOut", immediateRender: false }, MV1 + k * WSTEP);
+        tl.fromTo(r, { y: 0 }, { y: sortedY(idx), duration: MV4 - MV3, ease: "power2.inOut", immediateRender: false }, MV3);
+        tl.fromTo(r, { x: TRACK_X, boxShadow: SH_UP }, { x: 0, boxShadow: SH_REST, duration: (SORT1 - MV4) - 2 * WSTEP, ease: "power2.inOut", immediateRender: false }, MV4 + k * WSTEP);
       });
-
-      // ---- Scene 3 (3.2-3.8): the cut line draws into the open gap with "Top 3" (3.2); rows 4-8 dim 60% -> 35% (no blur) ----
       others.forEach(function (idx) {
-        tl.fromTo(rows[idx], { opacity: 0.6 }, { opacity: 0.35, duration: 0.5, ease: "power2.inOut", immediateRender: false }, 3.3);
+        var r = rows[idx];
+        tl.fromTo(r, { y: 0, opacity: 1 }, { y: sortedY(idx) + GAP, opacity: 0.35, duration: MV3 - MV2, ease: "power2.inOut", immediateRender: false }, MV2);
       });
+
+      // ---- Scene 3 (3.2-3.5): the cut line draws into the open gap with "Top 3" (3.2); ranks 2-3 take a 2px
+      //      50% cut-line-blue border at the same moment so the Top 3 read as one group (rank 1 keeps its fill) ----
       tl.fromTo("#f07-cutline", { strokeDashoffset: 692 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 3.2);
       tl.fromTo("#f07-top3", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 3.2);
+      tl.fromTo(winners.slice(1).map(function (idx) { return rows[idx].querySelector(".f07-sel"); }), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.2);
 
       // ---- Scene 4 (3.6-8.0): top three stay filled in place; arrow -> card -> LLM chip (4.0) -> answer (4.4) -> citation (4.9) ----
       tl.fromTo("#f07-arrline", { strokeDashoffset: 35 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 3.6);
