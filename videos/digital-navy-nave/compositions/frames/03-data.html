@@ -30,19 +30,21 @@
     .f03-unit{position:absolute;top:468px;width:56px;height:56px;box-sizing:border-box;border:2px solid #6B675C;border-radius:12px;background:#ECE8DA;display:flex;align-items:center;justify-content:center;gap:6px;}
     .f03-unit span{display:block;flex:none;width:6px;height:22px;border-radius:3px;background:#6B675C;}
 
-    /* document tile (component 3) at 0.55 scale: 72 x 94; opaque 4% cobalt-on-cream body so a pile reads as stacked paper */
-    .f03-tile{position:absolute;top:553px;width:72px;height:94px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.24);border-radius:8px;background:#f4f2e8;overflow:hidden;}
-    .f03-tile svg{position:absolute;left:0;top:0;width:69px;height:91px;display:block;}
+    /* document tile (component 3) at 0.5 scale: 66 x 86 (round 2: piles ~0.9 of draft 1); opaque 4% cobalt-on-cream body so a pile reads as stacked paper */
+    .f03-tile{position:absolute;top:573px;width:66px;height:86px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.24);border-radius:7px;background:#f4f2e8;overflow:hidden;}
+    .f03-tile svg{position:absolute;left:0;top:0;width:63px;height:83px;display:block;}
 
-    /* question chips (card-tinted speech chips) + their 2px tethers down to the unit marks */
-    .f03-teth{position:absolute;top:408px;width:2px;height:36px;margin-left:-1px;background:rgba(30,43,250,0.4);}
-    .f03-qw{position:absolute;top:344px;width:800px;margin-left:-400px;display:flex;justify-content:center;}
+    /* question chips (card-tinted speech chips) in one row, equal gaps across x 132-1795, top 368;
+       2px tethers fan from each chip's bottom edge (y 432) down to its unit marks (y 468); chip 3 serves columns 3 and 4 */
+    #f03-teth{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible;}
+    #f03-teth path{fill:none;stroke:rgba(30,43,250,0.4);stroke-width:2;stroke-linecap:butt;}
+    #f03-qrow{position:absolute;left:132px;top:368px;width:1663px;display:flex;justify-content:space-between;align-items:flex-start;}
     .f03-q{box-sizing:border-box;height:64px;padding:0 28px;display:flex;align-items:center;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111;white-space:nowrap;}
 
     /* level bracket (cobalt hairline) + its label */
-    #f03-brk{position:absolute;left:0;top:690px;width:1920px;height:40px;overflow:visible;}
+    #f03-brk{position:absolute;left:0;top:696px;width:1920px;height:40px;overflow:visible;}
     #f03-brk path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-    #f03-lvw{position:absolute;left:0;top:724px;width:1920px;display:flex;justify-content:center;}
+    #f03-lvw{position:absolute;left:0;top:730px;width:1920px;display:flex;justify-content:center;}
     #f03-lv{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;color:#5F5B50;}
     #f03-lv .f03-ph{display:inline-block;}
 
@@ -74,20 +76,28 @@
 
       <div id="f03-h2"><span class="f03-line"><span class="f03-ph">นอกจากปรับองค์กร</span><span class="f03-ph">ให้เท่าทัน AI แล้ว</span></span><span class="f03-line"><span class="f03-ph">ยังมีปัญหาสำคัญ</span><span class="f03-ph">คือการจัดการ<span class="f03-key">ข้อมูล</span>ภายใน ทร.</span></span></div>
 
+      <!-- tethers, one per column, drawn from the unit mark (y 468, column centre) up to a point on its chip's bottom edge (y 432);
+           the visible run is y 432-468, each end runs 3px further along the same line, hidden under the opaque mark and chip.
+           Chip boxes (equal 173.7px gaps): q1 132-444 · q2 617.7-805.7 · q4 979.3-1329.3 · q5 1503-1795.
+           t1 288 -> 288 · t2 624 -> 652 · t3 960 -> 1000 and t4 1296 -> 1256 (fanned from chip q4) · t5 1632 -> 1632 -->
+      <svg id="f03-teth" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+        <path id="f03-t1" d="M288 471 L288 429"/>
+        <path id="f03-t2" d="M621.67 471 L654.33 429"/>
+        <path id="f03-t3" d="M956.67 471 L1003.33 429"/>
+        <path id="f03-t4" d="M1299.33 471 L1252.67 429"/>
+        <path id="f03-t5" d="M1632 471 L1632 429"/>
+      </svg>
+
       <!-- unit columns: marks + tile piles are built by the script (seeded, deterministic) -->
       <div id="f03-units"></div>
 
-      <!-- tethers sit at the column centres (x 288 / 624 / 1296 / 1632) -->
-      <div class="f03-teth" id="f03-t1" style="left:288px"></div>
-      <div class="f03-teth" id="f03-t2" style="left:624px"></div>
-      <div class="f03-teth" id="f03-t4" style="left:1296px"></div>
-      <div class="f03-teth" id="f03-t5" style="left:1632px"></div>
-
-      <!-- question chips: centred on their anchors; chips 4 and 5 are eased apart so they never touch -->
-      <div class="f03-qw" style="left:288px"><div class="f03-q" id="f03-q1">เริ่มจากตรงไหน?</div></div>
-      <div class="f03-qw" style="left:624px"><div class="f03-q" id="f03-q2">ทำอะไร?</div></div>
-      <div class="f03-qw" style="left:1262px"><div class="f03-q" id="f03-q4">จัดการไฟล์อย่างไร?</div></div>
-      <div class="f03-qw" style="left:1650px"><div class="f03-q" id="f03-q5">จัดเก็บอย่างไร?</div></div>
+      <!-- question chips: one row, equal gaps across x 132-1795 -->
+      <div id="f03-qrow">
+        <div class="f03-q" id="f03-q1">เริ่มจากตรงไหน?</div>
+        <div class="f03-q" id="f03-q2">ทำอะไร?</div>
+        <div class="f03-q" id="f03-q4">จัดการไฟล์อย่างไร?</div>
+        <div class="f03-q" id="f03-q5">จัดเก็บอย่างไร?</div>
+      </div>
 
       <!-- level bracket under all five columns: end ticks up, a small centre notch down to the label -->
       <svg id="f03-brk" viewBox="0 0 1920 40" width="1920" height="40" aria-hidden="true">
