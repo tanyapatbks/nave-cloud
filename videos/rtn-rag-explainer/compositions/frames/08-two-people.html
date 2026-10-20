@@ -59,10 +59,11 @@
     #f08-ok .f08-oktxt{display:block;white-space:nowrap}
 
     /* right result: a neutral 'no result' pill, same height as the found badge
-       (34px x 1.45 + 3+3px padding + 2+2px border = 59.3px, as #f08-ok's 49.3 + 5+5) */
-    #f08-resR{display:flex;align-items:center;gap:12px;padding:3px 28px 3px 22px;border-radius:100px;border:2px solid #8A867A;background:#E4E2DA;white-space:nowrap}
+       (34px x 1.45 + 6+0px padding + 2+2px border = 59.3px, as #f08-ok's 49.3 + 5+5);
+       content sits 3px (+1px text) low so the stacked marks of สิทธิ์ clear the top border */
+    #f08-resR{display:flex;align-items:center;gap:12px;padding:6px 28px 0 22px;border-radius:100px;border:2px solid #8A867A;background:#E4E2DA;white-space:nowrap}
     #f08-resR .f08-rnone{display:block;flex:none}
-    #f08-resR .f08-line{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#2A2925}
+    #f08-resR .f08-line{position:relative;top:1px;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#2A2925}
     #f08-resR .f08-mph{display:inline-block}
 
     /* the identical question + its two links */

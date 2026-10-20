@@ -23,11 +23,13 @@
     #f04-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:1;}
     #f04-h2 .f04-ph{display:inline-block;}
 
-    /* shared mini badge (frame.md component 7, mini form) + its empty slot */
-    .f04-bslot{position:relative;width:100px;height:32px;flex:none;}
-    .f04-slot{position:absolute;left:0;top:0;width:100px;height:32px;box-sizing:border-box;border:1.5px dashed rgba(30,43,250,0.35);border-radius:100px;}
-    .f04-badge{position:absolute;left:0;top:0;width:100px;height:32px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:8px;}
-    .f04-badge span{display:block;width:12px;height:12px;border-radius:50%;background:#1e2bfa;}
+    /* shared mini badge (frame.md component 7, mini form) + its empty slot.
+       Canonical badge (round 3): pill 120x36, border-box, 1.5px border rgba(30,43,250,0.2), fill rgba(30,43,250,0.08),
+       radius 100px; four #1e2bfa dots 18px with 6px gaps (90px run), centred. */
+    .f04-bslot{position:relative;width:120px;height:36px;flex:none;}
+    .f04-slot{position:absolute;left:0;top:0;width:120px;height:36px;box-sizing:border-box;border:1.5px dashed rgba(30,43,250,0.35);border-radius:100px;}
+    .f04-badge{position:absolute;left:0;top:0;width:120px;height:36px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:6px;}
+    .f04-badge span{display:block;width:18px;height:18px;flex:none;border-radius:50%;background:#1e2bfa;}
 
     /* example document tile (component 3, enlarged; cobalt outline = the example document) */
     #f04-doc{position:absolute;left:96px;top:440px;width:260px;height:340px;box-sizing:border-box;border:2.5px solid #1e2bfa;border-radius:10px;background:#f4f2e8;z-index:4;}
@@ -39,7 +41,7 @@
     .f04-doc-blk span,.f04-cbars span{display:block;height:6px;border-radius:3px;background:#9a9a9a;}
     #f04-doc .f04-doc-cuts{position:absolute;left:0;top:0;width:255px;height:335px;overflow:visible;}
     #f04-doc .f04-doc-cuts path{fill:none;stroke:#1e2bfa;stroke-opacity:0.55;stroke-width:2;stroke-linecap:butt;}
-    #f04-doc .f04-bslot{position:absolute;right:18px;top:290px;}
+    #f04-doc .f04-bslot{position:absolute;right:18px;top:288px;}
 
     /* chunk cards — center-outward-expansion from the document's centre (226, 610) */
     #f04-burst{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:2;}

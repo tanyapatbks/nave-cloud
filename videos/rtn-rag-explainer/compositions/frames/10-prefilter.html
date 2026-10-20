@@ -55,13 +55,15 @@
     .f10-lk-k{fill:#fdfae7}
     .f10-hit{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid rgba(30,43,250,0.85);background:rgba(30,43,250,0.10);opacity:0}
     .f10-alarm{position:absolute;inset:0;box-sizing:border-box;border-radius:8.5px;border:2px solid #b42318;opacity:0}
-    /* ghost of the filtered-out doc: a small dashed locked tile pinned over the box's top-right corner (48x61 local = 44x56 on screen) */
-    .f10-ghost{position:absolute;left:636px;top:114px;width:48px;height:61px;box-sizing:border-box;border-radius:8px;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;z-index:5;opacity:0;pointer-events:none}
-    .f10-ghost-ink{position:absolute;inset:0;box-sizing:border-box;border-radius:8px;border:2px dashed #b42318;opacity:0.55}
-    .f10-ghost .f10-lk{position:absolute;left:11px;top:17.5px;width:26px;height:26px;opacity:0.55}
-    /* residue trails: 2px red dots, self-drawn through masks (ghost -> each chip, then along the arrow into the AI node) */
+    /* ghost of the filtered-out doc = the locked source of the leak: a dashed locked tile pinned over the box's
+       top-right corner, centre (660,144.5) local; 70x88 local = ~64x81 on screen, padlock 30.5 local = 28px on screen */
+    .f10-ghost{position:absolute;left:625px;top:100.5px;width:70px;height:88px;box-sizing:border-box;border-radius:9px;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;z-index:5;opacity:0;pointer-events:none}
+    .f10-ghost-ink{position:absolute;inset:0;box-sizing:border-box;border-radius:9px;border:2.5px dashed #b42318;opacity:0.8}
+    .f10-ghost .f10-lk{position:absolute;left:19.75px;top:27.6px;width:30.5px;height:30.5px;opacity:0.8}
+    /* residue trails: 3px red 4/6 dashes on screen (panel scale 0.92 -> 3.26 / 4.35 6.52 local), full opacity,
+       self-drawn through masks (ghost -> each chip, then along the arrow into the AI node); dashes crawl 4.5-5.3 */
     .f10-trails{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:4;pointer-events:none}
-    .f10-trail{fill:none;stroke:#b42318;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0 6.5}
+    .f10-trail{fill:none;stroke:#B3261E;stroke-width:3.26;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:4.35 6.52;stroke-dashoffset:0;opacity:1}
     .f10-trail-mp{fill:none;stroke:#ffffff;stroke-width:10;stroke-dasharray:100;stroke-dashoffset:100}
     .f10-strike{position:absolute;left:0;top:0;width:100%;height:100%}
     .f10-strike path{fill:none;stroke:#b42318;stroke-width:4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
@@ -90,7 +92,7 @@
     #f10-filterbar{position:absolute;left:424px;top:131px;width:250px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
     /* 19px local padding = 17px on screen (>= 16px clear of the red border) */
     #f10-residue{position:absolute;left:432px;top:138px;width:234px;height:208px;box-sizing:border-box;padding:19px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;z-index:7;pointer-events:none}
-    .f10-res{display:flex;align-items:center;gap:5px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 12px 2px 8px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap;transform-origin:100% 50%}
+    .f10-res{display:flex;align-items:center;gap:9px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 12px 2px 8px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap;transform-origin:100% 50%}
     /* OPEN padlock (shackle raised and offset): the trace got out */
     .f10-res .f10-lk-open{display:block;width:26px;height:26px;flex:none;overflow:visible}
 
@@ -144,14 +146,14 @@
         </div>
           <svg class="f10-trails" viewBox="0 0 804 460" aria-hidden="true">
             <defs>
-              <mask id="f10-trail-m0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d0" d="M652 168 C616 168 590 181.5 532 181.5" pathLength="100"/></mask>
-              <mask id="f10-trail-m1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d1" d="M648 160 V234 Q648 242 640 242 H614" pathLength="100"/></mask>
-              <mask id="f10-trail-m2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d2" d="M648 238 V294.5 Q648 302.5 640 302.5 H542" pathLength="100"/></mask>
+              <mask id="f10-trail-m0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d0" d="M652 168 C616 168 594 181.5 536 181.5" pathLength="100"/></mask>
+              <mask id="f10-trail-m1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d1" d="M648 160 V234 Q648 242 640 242 H618" pathLength="100"/></mask>
+              <mask id="f10-trail-m2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d2" d="M648 238 V294.5 Q648 302.5 640 302.5 H546" pathLength="100"/></mask>
               <mask id="f10-trail-m3" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d3" d="M648 264 H731" pathLength="100"/></mask>
             </defs>
-            <path class="f10-trail" d="M652 168 C616 168 590 181.5 532 181.5" mask="url(#f10-trail-m0)"/>
-            <path class="f10-trail" d="M648 160 V234 Q648 242 640 242 H614" mask="url(#f10-trail-m1)"/>
-            <path class="f10-trail" d="M648 238 V294.5 Q648 302.5 640 302.5 H542" mask="url(#f10-trail-m2)"/>
+            <path class="f10-trail" d="M652 168 C616 168 594 181.5 536 181.5" mask="url(#f10-trail-m0)"/>
+            <path class="f10-trail" d="M648 160 V234 Q648 242 640 242 H618" mask="url(#f10-trail-m1)"/>
+            <path class="f10-trail" d="M648 238 V294.5 Q648 302.5 640 302.5 H546" mask="url(#f10-trail-m2)"/>
             <path class="f10-trail" d="M648 264 H727" mask="url(#f10-trail-m3)"/>
           </svg>
           <div class="f10-ghost" id="f10-L-ghost"><i class="f10-ghost-ink"></i><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></div>
@@ -232,7 +234,7 @@
         tl.fromTo(el, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.6 + i * 0.025);
       });
 
-      // ===== Scene 2 (1.0-4.6): LEFT - search everything, then filter; residue remains =====
+      // ===== Scene 2 (1.0-5.3): LEFT - search everything, then filter; residue remains =====
       tl.fromTo("#f10-L-label", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 1.0);
 
       // sweep 1.2-2.0 over all 12 docs, restricted ones included
@@ -265,7 +267,7 @@
       tl.fromTo("#f10-filterbar", { y: 0 }, { y: 220, duration: 0.4, ease: "power2.inOut" }, 3.02);
       tl.fromTo("#f10-filterbar", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power2.out", immediateRender: false }, 3.4);
       tl.fromTo("#f10-strike-path", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.14, ease: "power2.out" }, 3.16);
-      tl.fromTo("#f10-L-t4", { x: 465, y: 0, scale: 1, opacity: 1 }, { x: 576, y: -97.5, scale: 0.6, opacity: 0, duration: 0.22, ease: "power2.inOut", immediateRender: false }, 3.28);
+      tl.fromTo("#f10-L-t4", { x: 465, y: 0, scale: 1, opacity: 1 }, { x: 576, y: -97.5, scale: 0.85, opacity: 0, duration: 0.22, ease: "power2.inOut", immediateRender: false }, 3.28);
       tl.fromTo("#f10-L-ghost", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 3.3);
 
       // hold 3.5-3.8; residue chips 3.8 / 4.1 / 4.4, each fed by a red dotted trail drawn from the ghost
@@ -275,15 +277,18 @@
       });
       // after the last chip, the trail continues along the arrow into the AI node
       tl.fromTo("#f10-trail-d3", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 4.66);
+      // 4.5-5.3: the leak reads as motion - the dashes crawl from the locked source to each chip and on into the AI
+      // (6 dash periods; settles still before the right-hand path starts at 5.3)
+      tl.fromTo(q(".f10-trail"), { strokeDashoffset: 0 }, { strokeDashoffset: -65.2, duration: 0.8, ease: "power2.inOut" }, 4.5);
 
-      // ===== Scene 3 (4.6-6.4): RIGHT - scope first, then search inside it =====
-      tl.fromTo("#f10-R-label", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 4.6);
-      tl.fromTo("#f10-scope-draw", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 4.8);
+      // ===== Scene 3 (5.3-7.4): RIGHT - scope first, then search inside it (residue holds alone 3.8-5.3) =====
+      tl.fromTo("#f10-R-label", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 5.3);
+      tl.fromTo("#f10-scope-draw", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 5.7);
       q("#f10-R-t0, #f10-R-t4, #f10-R-t8").forEach(function (el) {
-        tl.fromTo(el, { opacity: 1 }, { opacity: 0.35, duration: 0.35, ease: "power2.out", immediateRender: false }, 5.0);
+        tl.fromTo(el, { opacity: 1 }, { opacity: 0.35, duration: 0.35, ease: "power2.out", immediateRender: false }, 5.9);
       });
 
-      var RB = { start: 5.3, dur: 0.45, x0: -72, x1: 298, wrap: 124 };
+      var RB = { start: 6.2, dur: 0.45, x0: -72, x1: 298, wrap: 124 };
       tl.fromTo("#f10-R-beam", { x: RB.x0 }, { x: RB.x1, duration: RB.dur, ease: "none" }, RB.start);
       tl.fromTo("#f10-R-beam", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, RB.start);
       tl.fromTo("#f10-R-beam", { opacity: 1 }, { opacity: 0, duration: 0.1, ease: "power2.in", immediateRender: false }, RB.start + RB.dur - 0.1);
@@ -296,25 +301,25 @@
         if (el.id !== "f10-R-t7") tl.fromTo(hit, { opacity: 1 }, { opacity: 0, duration: 0.4, ease: "power2.out", immediateRender: false }, t + 0.25);
       });
 
-      // an allowed doc goes to the AI; nothing restricted moves
-      tl.fromTo("#f10-R-t7", { x: 0 }, { x: 183, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 5.74);
-      tl.fromTo("#f10-R-t7", { y: 0, scale: 1 }, { y: -26, scale: 1.06, duration: 0.2, ease: "power2.out", immediateRender: false }, 5.74);
-      tl.fromTo("#f10-R-t7", { y: -26, scale: 1.06 }, { y: 0, scale: 1, duration: 0.2, ease: "power2.in", immediateRender: false }, 5.94);
-      tl.fromTo("#f10-R-slot", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 5.78);
-      tl.fromTo("#f10-R-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 5.92);
-      tl.fromTo("#f10-R-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.16, ease: "power2.out" }, 6.0);
-      tl.fromTo("#f10-R-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.08, ease: "power2.out" }, 6.12);
-      tl.fromTo("#f10-R-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power3.out" }, 6.16);
+      // the result (6.7): an allowed doc goes to the AI; nothing restricted moves
+      tl.fromTo("#f10-R-t7", { x: 0 }, { x: 183, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 6.7);
+      tl.fromTo("#f10-R-t7", { y: 0, scale: 1 }, { y: -26, scale: 1.06, duration: 0.2, ease: "power2.out", immediateRender: false }, 6.7);
+      tl.fromTo("#f10-R-t7", { y: -26, scale: 1.06 }, { y: 0, scale: 1, duration: 0.2, ease: "power2.in", immediateRender: false }, 6.9);
+      tl.fromTo("#f10-R-slot", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 6.74);
+      tl.fromTo("#f10-R-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 6.88);
+      tl.fromTo("#f10-R-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.16, ease: "power2.out" }, 6.96);
+      tl.fromTo("#f10-R-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.08, ease: "power2.out" }, 7.08);
+      tl.fromTo("#f10-R-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power3.out" }, 7.12);
 
-      // ===== Scene 4 (6.4-12.0): NO blur, NO resize. Only the wrong path's documents + tray dim to 50% (6.4-6.8);
+      // ===== Scene 4 (7.1-12.0): NO blur, NO resize. Only the wrong path's documents + tray dim to 50% (7.1-7.5);
       // its x label, ghost, trails and residue chips (outside #f10-L-body) and the whole right panel stay at 100% =====
-      tl.fromTo("#f10-L-body", { opacity: 1 }, { opacity: 0.5, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 6.4);
+      tl.fromTo("#f10-L-body", { opacity: 1 }, { opacity: 0.5, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 7.1);
 
-      // the rule: line 1 at 6.8, line 2 at 7.3; fully legible by 7.7, then hold still
-      tl.fromTo("#f10-r1a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.8);
-      tl.fromTo("#f10-r1b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 6.92);
-      tl.fromTo("#f10-r2a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 7.3);
-      tl.fromTo("#f10-r2b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 7.4);
+      // the rule: line 1 at 7.6, line 2 at 8.1; fully legible by 8.46 (3.54s before the 12.0s exit), then hold still
+      tl.fromTo("#f10-r1a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 7.6);
+      tl.fromTo("#f10-r1b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 7.72);
+      tl.fromTo("#f10-r2a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 8.1);
+      tl.fromTo("#f10-r2b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 8.16);
 
       // hold still through the 12s window (+0.6s blur-crossfade)
       tl.set({}, {}, 12.6);
