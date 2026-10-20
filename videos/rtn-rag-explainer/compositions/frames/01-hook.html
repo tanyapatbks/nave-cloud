@@ -76,10 +76,10 @@
 
     <div id="f01-ygrp">
       <div id="f01-eyes">
-        <span class="f01-eye" id="f01-e1">จากวันนั้น...</span>
-        <span class="f01-eye" id="f01-e2">จนวันนี้...</span>
+        <span class="f01-eye" id="f01-e1" data-layout-allow-overlap>จากวันนั้น...</span>
+        <span class="f01-eye" id="f01-e2" data-layout-allow-overlap>จนวันนี้...</span>
       </div>
-      <div id="f01-year"></div>
+      <div id="f01-year" data-layout-allow-overflow data-layout-allow-occlusion></div> <!-- masked digit reels: off-window digits are hidden by design -->
     </div>
 
     <div id="f01-era">
@@ -251,8 +251,8 @@
         }
       }
       $("f01-year").innerHTML = slots.map(function (sl, s) {
-        return '<div class="f01-slot"><div class="f01-reel" id="f01-reel' + s + '">' +
-          sl.seq.map(function (d) { return '<span class="f01-dig">' + d + "</span>"; }).join("") + "</div></div>";
+        return '<div class="f01-slot" data-layout-allow-overflow data-layout-allow-occlusion><div class="f01-reel" id="f01-reel' + s + '" data-layout-allow-overflow data-layout-allow-occlusion>' +
+          sl.seq.map(function (d) { return '<span class="f01-dig" data-layout-allow-occlusion data-layout-allow-overflow data-layout-allow-overlap>' + d + "</span>"; }).join("") /* off-window digits are clipped by the slot by design */ + "</div></div>";
       }).join("");
 
       var tl = gsap.timeline({ paused: true });
