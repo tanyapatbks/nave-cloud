@@ -37,7 +37,7 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="119"
+      data-duration="124.5"
       data-width="1920"
       data-height="1080"
     >
@@ -47,7 +47,7 @@
         data-composition-id="01-hook"
         data-composition-src="compositions/frames/01-hook.html"
         data-start="0"
-        data-duration="12.5"
+        data-duration="14"
         data-track-index="0"
       ></div>
 
@@ -56,7 +56,7 @@
         class="scene"
         data-composition-id="02-ingest"
         data-composition-src="compositions/frames/02-ingest.html"
-        data-start="12"
+        data-start="13.5"
         data-duration="11.5"
         data-track-index="1"
       ></div>
@@ -66,7 +66,7 @@
         class="scene"
         data-composition-id="03-filename"
         data-composition-src="compositions/frames/03-filename.html"
-        data-start="23"
+        data-start="24.5"
         data-duration="12.5"
         data-track-index="0"
       ></div>
@@ -76,7 +76,7 @@
         class="scene"
         data-composition-id="04-tags"
         data-composition-src="compositions/frames/04-tags.html"
-        data-start="35"
+        data-start="36.5"
         data-duration="10.5"
         data-track-index="1"
       ></div>
@@ -86,7 +86,7 @@
         class="scene"
         data-composition-id="05-pipeline"
         data-composition-src="compositions/frames/05-pipeline.html"
-        data-start="45"
+        data-start="46.5"
         data-duration="9.5"
         data-track-index="0"
       ></div>
@@ -96,8 +96,8 @@
         class="scene"
         data-composition-id="06-hybrid"
         data-composition-src="compositions/frames/06-hybrid.html"
-        data-start="54"
-        data-duration="12.5"
+        data-start="55.5"
+        data-duration="13.5"
         data-track-index="1"
       ></div>
 
@@ -106,7 +106,7 @@
         class="scene"
         data-composition-id="07-rerank"
         data-composition-src="compositions/frames/07-rerank.html"
-        data-start="66"
+        data-start="68.5"
         data-duration="8.5"
         data-track-index="0"
       ></div>
@@ -116,7 +116,7 @@
         class="scene"
         data-composition-id="08-two-people"
         data-composition-src="compositions/frames/08-two-people.html"
-        data-start="74"
+        data-start="76.5"
         data-duration="9.5"
         data-track-index="1"
       ></div>
@@ -126,7 +126,7 @@
         class="scene"
         data-composition-id="09-scope"
         data-composition-src="compositions/frames/09-scope.html"
-        data-start="83"
+        data-start="85.5"
         data-duration="10.5"
         data-track-index="0"
       ></div>
@@ -136,7 +136,7 @@
         class="scene"
         data-composition-id="10-prefilter"
         data-composition-src="compositions/frames/10-prefilter.html"
-        data-start="93"
+        data-start="95.5"
         data-duration="12.6"
         data-track-index="1"
       ></div>
@@ -146,8 +146,8 @@
         class="scene"
         data-composition-id="11-close"
         data-composition-src="compositions/frames/11-close.html"
-        data-start="105"
-        data-duration="14"
+        data-start="107.5"
+        data-duration="17"
         data-track-index="0"
       ></div>
 
@@ -156,8 +156,8 @@
         class="scene"
         data-composition-id="chrome"
         data-composition-src="compositions/chrome.html"
-        data-start="12"
-        data-duration="93.6"
+        data-start="13.5"
+        data-duration="94.6"
         data-track-index="2"
       ></div>
 
@@ -168,37 +168,37 @@
       window.__timelines["main"] = gsap.timeline({ paused: true });
       // ── frame transitions (injected by transitions.mjs) ──
       (function () { var tl = window.__timelines["main"];
-        tl.to("#el-01-hook", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 12);
-        tl.fromTo("#el-02-ingest", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 12);
-        tl.addLabel("hf:transition:01-hook:02-ingest:crossfade", 12);
-        tl.to("#el-02-ingest", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 23);
-        tl.fromTo("#el-03-filename", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 23);
-        tl.addLabel("hf:transition:02-ingest:03-filename:push-slide", 23);
-        tl.to("#el-03-filename", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 35);
-        tl.fromTo("#el-04-tags", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 35);
-        tl.addLabel("hf:transition:03-filename:04-tags:push-slide", 35);
-        tl.to("#el-04-tags", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 45);
-        tl.fromTo("#el-05-pipeline", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 45);
-        tl.addLabel("hf:transition:04-tags:05-pipeline:push-slide", 45);
-        tl.to("#el-05-pipeline", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 54);
-        tl.fromTo("#el-06-hybrid", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 54);
-        tl.addLabel("hf:transition:05-pipeline:06-hybrid:crossfade", 54);
-        tl.to("#el-06-hybrid", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 66);
-        tl.fromTo("#el-07-rerank", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 66);
-        tl.addLabel("hf:transition:06-hybrid:07-rerank:push-slide", 66);
-        tl.to("#el-07-rerank", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 74);
-        tl.fromTo("#el-08-two-people", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 74);
-        tl.addLabel("hf:transition:07-rerank:08-two-people:crossfade", 74);
-        tl.to("#el-08-two-people", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 83);
-        tl.fromTo("#el-09-scope", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 83);
-        tl.addLabel("hf:transition:08-two-people:09-scope:push-slide", 83);
-        tl.to("#el-09-scope", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 93);
-        tl.fromTo("#el-10-prefilter", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 93);
-        tl.addLabel("hf:transition:09-scope:10-prefilter:push-slide", 93);
-        tl.to("#el-10-prefilter", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 105);
-        tl.fromTo("#el-11-close", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 105);
-        tl.addLabel("hf:transition:10-prefilter:11-close:blur-crossfade", 105);
-        tl.to({}, { duration: 119 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+        tl.to("#el-01-hook", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 13.5);
+        tl.fromTo("#el-02-ingest", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 13.5);
+        tl.addLabel("hf:transition:01-hook:02-ingest:crossfade", 13.5);
+        tl.to("#el-02-ingest", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 24.5);
+        tl.fromTo("#el-03-filename", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 24.5);
+        tl.addLabel("hf:transition:02-ingest:03-filename:push-slide", 24.5);
+        tl.to("#el-03-filename", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 36.5);
+        tl.fromTo("#el-04-tags", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 36.5);
+        tl.addLabel("hf:transition:03-filename:04-tags:push-slide", 36.5);
+        tl.to("#el-04-tags", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 46.5);
+        tl.fromTo("#el-05-pipeline", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 46.5);
+        tl.addLabel("hf:transition:04-tags:05-pipeline:push-slide", 46.5);
+        tl.to("#el-05-pipeline", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 55.5);
+        tl.fromTo("#el-06-hybrid", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 55.5);
+        tl.addLabel("hf:transition:05-pipeline:06-hybrid:crossfade", 55.5);
+        tl.to("#el-06-hybrid", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 68.5);
+        tl.fromTo("#el-07-rerank", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 68.5);
+        tl.addLabel("hf:transition:06-hybrid:07-rerank:push-slide", 68.5);
+        tl.to("#el-07-rerank", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 76.5);
+        tl.fromTo("#el-08-two-people", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 76.5);
+        tl.addLabel("hf:transition:07-rerank:08-two-people:crossfade", 76.5);
+        tl.to("#el-08-two-people", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 85.5);
+        tl.fromTo("#el-09-scope", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 85.5);
+        tl.addLabel("hf:transition:08-two-people:09-scope:push-slide", 85.5);
+        tl.to("#el-09-scope", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 95.5);
+        tl.fromTo("#el-10-prefilter", { x: 1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 95.5);
+        tl.addLabel("hf:transition:09-scope:10-prefilter:push-slide", 95.5);
+        tl.to("#el-10-prefilter", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 107.5);
+        tl.fromTo("#el-11-close", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 107.5);
+        tl.addLabel("hf:transition:10-prefilter:11-close:blur-crossfade", 107.5);
+        tl.to({}, { duration: 124.5 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
       })();
     </script>
   </body>

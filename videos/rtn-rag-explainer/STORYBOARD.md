@@ -17,7 +17,7 @@ music: none
 - **Reading budget (harness-enforced).** ≤ 17 Thai chars/s hard ceiling; plan ~8–12; ≤ 35 base chars per line; ≤ 2 lines per block; every text block stays on screen until its frame ends (no text is removed mid-frame except where a Scene says so); final card holds ≥ 3 s; every frame's payoff holds ≥ 2.5 s fully legible.
 - **Type floor (projection).** English term labels and chips ≥ 28px (cap height ≥ 20px); Thai labels and sublines ≥ 32px wherever the layout allows and never below 28px; headlines ~60px.
 - **Motion grammar.** Smooth long-tail settles (`power3` default, `expo.out` for fast arrivals); **no bounce / back / elastic**. Reveal each piece on its cue across the shot, especially the back half; never front-load. Entrances are `fromTo`. Thai text reveals per word/phrase, never per character. The only aliveness during holds is subtle jitter on at most one element; prefer stillness. One camera move per frame at most; no slow back-half pans or pushes. Within-frame seams follow `cut-catalog.md`.
-- **Rhythm / stillness allocation.** Held beats: end of 04 (labels read), 07 (the cut line), 10 (the rule — the film's core sentence, held still ~3.5 s; `PLANNED_HOLDS=101-105.5` for `harness/qa-mp4.sh`), 11 (final card ≥ 3 s). Busiest frames: 02, 05, 06, 10 — keep their elements few and large.
+- **Rhythm / stillness allocation.** Held beats: end of 04 (labels read), 07 (the cut line), 10 (the rule — the film's core sentence, held still ~3.5 s; `PLANNED_HOLDS=103-108` for `harness/qa-mp4.sh`), 11 (final card ≥ 3 s). Busiest frames: 02, 05, 06, 10 — keep their elements few and large.
 - **Continuity.** The document tile (frame.md component 3) is the recurring object; the example document is the cobalt-outlined tile in every frame it appears. The permission scope (component 4: dashed cobalt outline + shield pill) first appears in 06 as the boundary that every search lane runs inside (drawn before any lane searches), is shown being built from identity + ACL in 09, and frames the whole archive in 11. The 4-dot mini badge is defined in 04 (one dot per tag row) and reused unchanged on every doc, chunk and tile in 09 and 11.
 - **Negative list.** No ships, anchors, waves, naval insignia, the RTN emblem, flags, uniforms or people photos. No stock "AI" purple-blue gradients, no bokeh, no glows. No invented numbers, page counts, or document contents (example values are illustrative and marked `ตัวอย่าง`). No genuine-looking classified stamps. Both motion failure modes are banned: slideshow (dump then freeze) and screensaver (many things floating). No `Math.random`, no CSS transitions/keyframes, no `repeat`/`yoyo`.
 - **Transitions.** Three types only: `crossfade` (chapter changes), `push-slide LEFT` (consecutive steps inside a chapter), `blur-crossfade` (into the close).
@@ -26,7 +26,7 @@ music: none
 
 - scene: A year counter rolls from 2449 to 2569 while the archive wall grows behind it — then the question lands
 - voiceover:
-- duration: 12s
+- duration: 13.5s
 - transition_in: cut
 - status: outline
 - src: compositions/frames/01-hook.html
@@ -36,7 +36,7 @@ music: none
 - blueprint: grid-card-assemble (Adapt)
 - focal: the rolling year, then the question headline
 - roles: archive wall = background (grows while the years roll; dimmed to ~40% once the question lands) · year block = foreground subject · era line + kind chips = supporting · question headline = foreground subject (Scene 4) · chapter tracker = supporting (Scene 5)
-- onscreen: "จากวันนั้น..." (0.3s) · year "2449" (0.3s) rolling year by year to "2569" (0.8–3.6s) · "จนวันนี้..." replaces "จากวันนั้น..." (3.9s) · era line "ยุคสมัยที่เปลี่ยนผ่าน ข้อมูลต่างๆมากมาย" + "ถูกจัดเก็บในหลากหลายรูปแบบ" (4.4s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (5.6s, staggered) · headline "แล้ววันนี้..." (8.2s) + "หากเราจะเริ่มจัดทำ RAG" + "ให้กับ ทร.ได้อย่างไร" (8.8s) · tracker "1 จัดการ" "2 ค้นหา" "3 สิทธิการเข้าถึง" (11.0s)
+- onscreen: "จากวันนั้น..." (0.3s) · year "2449" (0.3s) rolling year by year to "2569" (0.8–3.6s) · "จนวันนี้..." replaces "จากวันนั้น..." (3.9s) · era line "ยุคสมัยที่เปลี่ยนผ่าน ข้อมูลต่างๆมากมาย" + "ถูกจัดเก็บในหลากหลายรูปแบบ" (4.4s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (5.6s, staggered) · headline "แล้ววันนี้..." (9.6s) + "หากเราจะเริ่มจัดทำ RAG" + "ให้กับ ทร.ได้อย่างไร" (10.2s) · tracker "1 จัดการ" "2 ค้นหา" "3 สิทธิการเข้าถึง" (12.4s)
 
 narrativeRole: Opens the gap — from the Navy's founding year to today, data built up in many forms; one plain question about it.
 keyMessage: From 2449 until today the Navy's data has been stored in many forms; the question is how to begin building RAG for the RTN now.
@@ -47,6 +47,8 @@ Scene 2 (3.9–4.8s): "จากวันนั้น..." fades out (0.3s) and "
 Scene 3 (4.4–7.8s): the era line reveals per phrase under the year (Chulabhorn Likit Text 500 40px, #3a3a3a, two authored lines "ยุคสมัยที่เปลี่ยนผ่าน ข้อมูลต่างๆมากมาย" / "ถูกจัดเก็บในหลากหลายรูปแบบ"). At 5.6s the five kind chips land at their final place (x 96, y≈656, 28px, 0.15s stagger), each pulsing its matching wall tile; they never move afterwards.
 Scene 4 (7.8–11.0s): the era line fades out (7.8s, 0.3s); the year block ("จนวันนี้..." + "2569") shrinks as one group into a small eyebrow at the top-left (7.8–8.4s); the wall dims to ~40% with light blur (8.0–8.4s) while the example-document tile keeps its cobalt outline. The headline enters per phrase centre-left (Chulabhorn Likit Text 700 60px): "แล้ววันนี้..." (8.2s), then "หากเราจะเริ่มจัดทำ RAG" / "ให้กับ ทร.ได้อย่างไร" (8.8s), "RAG" underlined in cobalt. No definition chip and no bracket connector.
 Scene 5 (11.0–12.0s): the tracker pills fade in at 11.0 / 11.1 / 11.2s (0.25s each, settled by 11.45s) with the persistent chrome's exact geometry and colours ("1 จัดการ" "2 ค้นหา" "3 สิทธิการเข้าถึง"); hold to the end.
+
+Round-6 revisions (final): frame is 13.5s. Roll eases in-and-out (power2.inOut) over 0.8–3.6s so the first years tick visibly; the eyebrow ('จากวันนั้น...' / 'จนวันนี้...') is 40px semibold #3A372E with 16px to the year, and the left text stack sits 24px lower; the era line stays on screen 4.4–9.2s; era out 9.2s, year block shrink 9.2–9.8s, wall dim 9.4–9.8s; headline 9.6s / 10.2s; tracker 12.4 / 12.5 / 12.6s.
 
 ## Frame 2 — ทำให้ AI อ่านเอกสารได้
 
@@ -111,6 +113,8 @@ Round-4 revisions: the filename row (and its labels) is centred on x 960 and the
 
 Requester copy revision (after round 4; supersedes the Round-2–4 notes about the bracket, the struck padlock and the ledger icon): the headline is two authored lines "ทุกหน่วยตั้งชื่อไฟล์ด้วย Pattern" / "แบบเดียวกันทุกไฟล์" with "Pattern" in cobalt; the bridge reads "สิทธิการเข้าถึง ขึ้นอยู่กับเจ้าของเอกสาร" with a cobalt closed-padlock icon in its left padding. As the bridge enters (7.6s), the owner token "สสท" and its label "เจ้าของ · หน่วยขึ้นตรง" turn cobalt (pill outline + label colour) and a 2px dashed cobalt connector drops from that label to the bridge chip: the document's owner decides who may access it. Remove the full-row bracket and the struck padlock. Keep all text dark and legible (no dimming); keep the group high (bridge bottom ≤ y 780).
 
+Round-6 revisions (final): neutral token pills #ECE8DA with a 1.5px #CFCAB8 border (สสท stays the only emphasised token); the example-doc icon fades in at 0.5s with the empty token slots, so only the owner tie moves at 7.6s.
+
 ## Frame 4 — ทุกชิ้นติดป้ายเดิม
 
 - scene: The example document splits into chunks and tree nodes; one metadata tag is stamped onto every piece
@@ -144,6 +148,8 @@ Round-4 revisions: tag rows stay at full opacity while their dots leave (each bu
 
 Requester copy revision (after round 4): headline "แบ่งเอกสารออกเป็นชิ้น"; the tag rows' questions are now "หน่วยเจ้าของเอกสาร?" "เอกสารฉบับไหน?" "ชั้นความลับ?" "ใครสามารถเข้าถึงได้?" (terms unchanged); widen the tag card as needed so each row stays on one line with the question · term columns aligned, and keep the bullets/dots, badge travel and timing.
 
+Round-6 revisions (final): the four bullet-to-dot flights stagger at 5.0 / 5.3 / 5.6 / 5.9s (0.3s each), each row's English term brightens to full cobalt while its dot flies; the full badge holds to 6.3s, then copies to the chunks over 6.3–6.9s; สารบัญ / Tree Nodes stays at 7.0s.
+
 ## Frame 5 — จากไฟล์ สู่ดัชนีที่ค้นได้
 
 - scene: The example document rides a six-station line; each station visibly changes it; it ends in the index
@@ -175,11 +181,13 @@ Round-3 revisions: Embed glyph is 18–24 points in three tinted clusters (~180�
 
 Round-4 revisions: the four-dot badge rides on each chunk tile (at 3.6s) and on each Index row (at 5.6s), so the labels visibly survive into the index.
 
+Round-6 revisions (final): the five gaps widen so the Index card's right edge lands at x 1823; Embed shows the four chunk cards shrinking into 10px dots that fly into the Embed box (two to the cobalt cluster, two to the grey), no axes; Index stays at 5.6s.
+
 ## Frame 6 — ค้นหา 3 ทางพร้อมกัน
 
 - scene: One question runs through three searches at once; each catches different pieces; their results merge
 - voiceover:
-- duration: 12s
+- duration: 13s
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/06-hybrid.html
@@ -190,7 +198,7 @@ Round-4 revisions: the four-dot badge rides on each chunk tile (at 3.6s) and on 
 - term: Hybrid Search
 - focal: the question card, then the merge
 - roles: question card = foreground subject · permission scope boundary = foreground subject (Scene 1) · three lanes = foreground subject · result markers (squares / circles / filter chips) = supporting · merge bracket + stack = foreground subject (Scene 5)
-- onscreen: headline "ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (9.4s)
+- onscreen: headline "ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (10.4s)
 
 narrativeRole: Explains why vector search alone is not enough: exact names/IDs, meaning, and filters each catch what the others miss.
 keyMessage: Hybrid search combines keyword, vector and metadata filters; together they find what one method alone misses.
@@ -208,6 +216,8 @@ Round-3 revisions: a filled square legend inside the Keyword chip and a filled c
 Round-4 revisions: after the Metadata chips land (6.4–6.8s), the unit filter's connector strikes the other-unit column FIRST, while those tiles are still grey and unmarked (6.9–7.3s, connector kept at 60% to the end); then the remaining hits light together in both lanes (7.4–7.7s); then the keyword-only table + its missed slot (7.8–8.5s); then the vector-only scan + its missed slot (8.6–9.3s); one struck style in both lanes; the eight-sheet fan sits without overlaps and its five plain sheets slide out from behind the shared column-1 hits (9.0–9.4s).
 
 Requester copy revision (after round 4): headline "ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน" with "Hybrid" in cobalt.
+
+Round-6 revisions (final): frame is 13s; everything below the headline moves down 48px; the other-unit strike is a 6px #5A564A diagonal on both column-3 tiles (35% opacity) fed by a 3px #5A564A connector from 'หน่วย สสท./ศซบ.' (neutral grey: this exclusion is a metadata filter, not a permission denial — never red or a lock); retime: strike 7.4s, hits 8.1 / 8.4s, keyword-only table + its missed slot 8.9s, vector-only scan + its missed slot 9.5s, card flight 10.0s, รวมผล 10.4s, settled by 10.9s; corner badges 24px with a 2px cream outline, chip glyphs 20px; the highlight band behind 'แนวทางปฏิบัติ' fully covers 'ติ' (right edge just before 'ปี', radius ≤ 12px).
 
 ## Frame 7 — คัดตัวจริง ก่อนส่งให้ AI ตอบ
 
@@ -239,6 +249,8 @@ Round-2 revisions: the eight rows are dealt from one pile (the merged results) a
 Round-3 revisions: the re-sort holds the scored-but-unsorted list still until 1.0s, then sorts 1.0–3.0s (power2.inOut, 0.06s stagger in final-rank order): rows moving up travel on a +40px x track above the others with a soft shadow and return over the last 0.3s; rows moving down stay at x 0 at 60% opacity; no two rows overlap on the same track; the LLM chip uses the same ✦ spark as the answer line and frame 10's AI node.
 
 Round-4 revisions: rows and bars fully drawn by 0.5s and held completely still to 1.4s; re-sort 1.4–3.1s in four non-overlapping moves (winners slide right onto a clear track, losers close up and dim, winners rise on the right track, winners slide back into slots 1–3); at 3.2s rows 2–3 get a 50% cut-line-blue border so the Top 3 read as one group.
+
+Round-6 revisions (final): the scored list holds still to 1.6s; the right→up→left re-sort runs 1.6–3.0s inside x 790–1500; all three rows above the cut share one fill (#E6E6F7) and a 2px cobalt border; rank 1 keeps its dark-top-bar doc icon as the cited document.
 
 ## Frame 8 — คำถามเดียวกัน คำตอบตามสิทธิ์
 
@@ -305,6 +317,8 @@ Round-3 revisions: the 'Identity' and 'ACL' chips get the same 3px underline as 
 
 Requester copy revision (after round 4): headline line 2 "ตัวตนผู้ใช้ + สิทธิการเข้าถึงเอกสาร" (the two nouns in cobalt weight); the ledger chip reads "Access Control List (ACL)" (28px mono, widen the chip/card as needed); the synced underlines now pair "ตัวตนผู้ใช้" with Identity and "สิทธิการเข้าถึงเอกสาร" with the ACL chip.
 
+Round-6 revisions (final): everything below the headline moves down 32px (content ends ≤ y 892); the ACL ledger's highlighted row shows the frame-03 padlock glyph at its left (instead of the doc glyph) and a 4px cobalt left border, matching frame 03's bridge chip.
+
 ## Frame 10 — กำหนดขอบเขตก่อน แล้วค่อยค้น
 
 - scene: Split screen — searching everything then filtering leaves residue; scoping first never touches what is off-limits
@@ -339,11 +353,13 @@ Round-4 revisions: the locked source box sits fully above the residue box; trail
 
 Requester copy revision (after round 4): in both rule lines, "ไม่ได้" is red (#b42318, same weight) instead of cobalt.
 
+Round-6 revisions (final): panels and labels move down 24px and the rule 16px (line 2 ends ≤ y 850); residue chips at 3.8 / 4.2 / 4.6s, then one 12px #9B2D27 dot travels from the locked source down the collector into the AI node over 4.7–5.2s (one leak event) before the right label at 5.3s; the leak route is a 3px dashed line (10 on / 6 off) in #9B2D27 with the arrowhead offset 12px from the collector and its tip touching the AI ring.
+
 ## Frame 11 — สู่ Digital Navy
 
 - scene: The closing thesis; the untidy archive wall settles into an ordered, labelled lattice inside the permission scope as the payoff lands
 - voiceover:
-- duration: 14s
+- duration: 17s
 - transition_in: blur-crossfade
 - status: outline
 - src: compositions/frames/11-close.html
@@ -353,7 +369,7 @@ Requester copy revision (after round 4): in both rule lines, "ไม่ได้
 - blueprint: titlecard-reveal (Adapt)
 - focal: the three-word payoff
 - roles: archive lattice = background (callback, behind a cream backing plate) · lines 1–3 = foreground subject · three payoff words = foreground subject · concentric rings = background atmosphere
-- onscreen: line 1 "การจะเปลี่ยนผ่านไปสู่ Digital Navy" (0.4s) · line 2 "ส่วนที่ยากที่สุดไม่ใช่ AI RAG EMBEDDING" (2.0s) · line 3 "แต่คือการ เชื่อมโยง และ จัดการ" (3.6s) + "ข้อมูลของทร.ทั้งหมด อย่างเป็นระบบ" (4.6s) + "ให้กลายเป็นชุดข้อมูลที่" (5.6s) · payoff "Reliable" (8.0s) "Searchable" (8.4s) "Permission-aware" (8.8s) · chips under them "เชื่อถือได้" "ค้นหาได้" "แบ่งตามสิทธิการเข้าถึงข้อมูลได้" (9.2s)
+- onscreen: line 1 "การจะเปลี่ยนผ่านไปสู่ Digital Navy" (0.4s) · line 2 "ส่วนที่ยากที่สุดไม่ใช่ AI RAG EMBEDDING" (2.4s) · line 3 "แต่คือการ เชื่อมโยง และ จัดการ" (4.4s) + "ข้อมูลของทร.ทั้งหมด อย่างเป็นระบบ" (5.6s) + "ให้กลายเป็นชุดข้อมูลที่" (6.8s) · payoff "Reliable" (9.6s) "Searchable" (10.0s) "Permission-aware" (10.4s) · chips under them "เชื่อถือได้" "ค้นหาได้" "แบ่งตามสิทธิการเข้าถึงข้อมูลได้" (10.8s)
 
 narrativeRole: Lands the thesis — moving to a Digital Navy is hard not because of AI, RAG or embeddings, but because all of the Navy's data must be connected and managed systematically into one dataset.
 keyMessage: To become a Digital Navy, the hardest part is not AI/RAG/embeddings but connecting and managing all RTN data systematically into a reliable, searchable, permission-aware dataset.
@@ -364,3 +380,5 @@ Scene 2 (2.2–4.4s): line 2 per phrase, centred, y≈345 (Chulabhorn Likit Text
 Scene 3 (4.4–7.0s): line 3 per phrase, centred, three authored lines at y≈415 / 470 / 525 (Chulabhorn Likit Text 500 44px, #3a3a3a; "เชื่อมโยง" and "จัดการ" in cobalt weight 700).
 Scene 4 (8.0–9.6s): the payoff English words, big and near-black (Chulabhorn Likit Text 700, 64px — larger than line 1 — on one centred row at y≈620 on a widened backing plate (x≈330–1590) that covers the outer tile columns behind it), slide up one by one; under each, a small Thai chip in the light-blue band (accent-light fill, cobalt text, 28px), centred under its word: "เชื่อถือได้" "ค้นหาได้" "แบ่งตามสิทธิการเข้าถึงข้อมูลได้". As "Reliable" lands (8.0–8.8s) the background tiles settle into the aligned, tagged grid behind the plate.
 Scene 5 (9.6–14.0s): hold still. The film ends on this card (no fade-out): a briefing presenter can pause on it.
+
+Round-6 revisions (final): frame is 17s; line 2 at 2.4s, line 3 rows at 4.4 / 5.6 / 6.8s, payoff 9.6 / 10.0 / 10.4s, Thai chips 10.8s (chip text 32px, chips 50px tall, centred under their words), background settle 9.6–10.4s; the cream veil is one uniform layer over the dashed frame's whole interior (no internal edge, no tile split), and from 9.6s tile borders and ●●●● pills inside the payoff band (x 340–1580, y 600–760) drop to ≤ 5% opacity; hold to the end.

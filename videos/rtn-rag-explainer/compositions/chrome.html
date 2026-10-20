@@ -17,7 +17,7 @@
     .ch-term span{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
   </style>
 
-  <div id="root" data-composition-id="chrome" data-width="1920" data-height="1080" data-start="0" data-duration="93.6">
+  <div id="root" data-composition-id="chrome" data-width="1920" data-height="1080" data-start="0" data-duration="94.6">
     <div id="ch-hdr">
       <div id="ch-track"><span class="ch-pill" id="ch-p1"><b class="ch-n">1</b>จัดการ</span><span class="ch-pill" id="ch-p2"><b class="ch-n">2</b>ค้นหา</span><span class="ch-pill" id="ch-p3"><b class="ch-n">3</b>สิทธิการเข้าถึง</span></div>
       <div class="ch-term" id="ch-t02"><span>Ingestion Pipeline</span></div>
@@ -41,8 +41,8 @@
       var tl = gsap.timeline({ paused: true });
 
       /* frame starts in chrome-local seconds (global minus 9.0); keep in sync with STORYBOARD */
-      var starts = { "02": 0, "03": 11, "04": 23, "05": 33, "06": 42, "07": 54, "08": 62, "09": 71, "10": 81 };
-      var END = 93; /* frame 11 starts: the chrome leaves with the blur-crossfade */
+      var starts = { "02": 0, "03": 11, "04": 23, "05": 33, "06": 42, "07": 55, "08": 63, "09": 72, "10": 82 };
+      var END = 94; /* frame 11 starts: the chrome leaves with the blur-crossfade */
 
       var UPCOMING = { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0.2)", color: "#6b675c" };
       var CURRENT = { backgroundColor: "rgba(30,43,250,1)", borderColor: "rgba(30,43,250,1)", color: "#fdfae7" };
@@ -72,7 +72,7 @@
         tl.fromTo(el, { opacity: 1 }, { opacity: 0, duration: 0.15, ease: "power1.in", immediateRender: false }, out + (out === END ? 0 : 0.2));
       });
       tl.fromTo($("#ch-track"), { opacity: 1 }, { opacity: 0, duration: 0.5, ease: "power2.inOut", immediateRender: false }, END);
-      tl.to({}, { duration: 93.6 }, 0);
+      tl.to({}, { duration: 94.6 }, 0);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;
