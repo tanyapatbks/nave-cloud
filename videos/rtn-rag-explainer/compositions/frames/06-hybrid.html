@@ -25,14 +25,14 @@
     /* permission scope (component 4, same as frame 09) + wires: question -> lanes connectors + the merge bracket */
     #f06-scope,#f06-wires,#f06-top{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
     .f06-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
-    #f06-scope-pill{position:absolute;left:824px;top:239px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
+    #f06-scope-pill{position:absolute;left:824px;top:231px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:6px 24px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
     #f06-wires path,#f06-top rect{fill:none;stroke:#1e2bfa;stroke-linecap:round;stroke-linejoin:round}
     #f06-wires .f06-wire{stroke-width:3}
     #f06-wires .f06-brace{stroke-width:4}
     #f06-top rect{stroke-width:2.5}
 
     /* question card (component 5, compact: search glyph + question) */
-    #f06-q{position:absolute;left:96px;top:320px;width:626px;box-sizing:border-box;display:flex;align-items:center;gap:22px;padding:28px 24px;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
+    #f06-q{position:absolute;left:96px;top:320px;width:648px;box-sizing:border-box;display:flex;align-items:center;gap:22px;padding:28px 24px;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
     #f06-qicon{display:block;flex:none}
     #f06-qline{display:block;flex:none;white-space:nowrap;font-weight:600;font-size:40px;line-height:1.45;color:#111111}
     .f06-qw{display:inline-block;position:relative}
@@ -50,7 +50,7 @@
     .f06-lab-sub{display:block;margin-top:4px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:28px;line-height:1.45;color:#6b6b6b;white-space:nowrap}
 
     /* document tiles (component 3) */
-    .f06-tg{position:absolute;width:72px;height:94px}
+    .f06-tg{position:absolute;width:68px;height:89px}
     .f06-tile{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:1.5px solid rgba(30,43,250,0.2);background:#fdfae7;overflow:hidden}
     .f06-tile svg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
     .f06-hl{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:2px solid #1e2bfa;opacity:0}
@@ -60,8 +60,8 @@
     .f06-mk-near{background:#9a9a9a}
 
     /* metadata filter chips: one row, light in place */
-    #f06-filters{position:absolute;left:1180px;top:696px;display:flex;flex-direction:row;align-items:center;gap:12px}
-    .f06-fc{display:block;font-weight:500;font-size:28px;line-height:1.45;padding:0 14px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2);white-space:nowrap}
+    #f06-filters{position:absolute;left:1178px;top:696px;display:flex;flex-direction:row;align-items:center;gap:12px}
+    .f06-fc{display:block;font-weight:500;font-size:28px;line-height:1.45;padding:0 12px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2);white-space:nowrap}
 
     /* merge: result stack */
     #f06-merge-label{position:absolute;left:1656px;top:372px;font-weight:600;font-size:38px;line-height:1.45;color:#111111;white-space:nowrap}
@@ -76,18 +76,18 @@
     <svg id="f06-scope" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
       <defs>
         <mask id="f06-scope-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
-          <path id="f06-mtop" class="f06-mask-path" d="M 776 538 L 776 292 A 28 28 0 0 1 804 264 L 1545 264 A 28 28 0 0 1 1573 292 L 1573 538"/>
-          <path id="f06-mbot" class="f06-mask-path" d="M 776 538 L 776 784 A 28 28 0 0 0 804 812 L 1545 812 A 28 28 0 0 0 1573 784 L 1573 538"/>
+          <path id="f06-mtop" class="f06-mask-path" d="M 776 536 L 776 288 A 28 28 0 0 1 804 260 L 1545 260 A 28 28 0 0 1 1573 288 L 1573 536"/>
+          <path id="f06-mbot" class="f06-mask-path" d="M 776 536 L 776 784 A 28 28 0 0 0 804 812 L 1545 812 A 28 28 0 0 0 1573 784 L 1573 536"/>
         </mask>
       </defs>
-      <rect id="f06-scope-fill" x="776" y="264" width="797" height="548" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
-      <rect id="f06-scope-dash" x="776" y="264" width="797" height="548" rx="28" ry="28" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f06-scope-mask)"/>
+      <rect id="f06-scope-fill" x="776" y="260" width="797" height="552" rx="28" ry="28" fill="rgba(30,43,250,0.03)"/>
+      <rect id="f06-scope-dash" x="776" y="260" width="797" height="552" rx="28" ry="28" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-dasharray="14 10" mask="url(#f06-scope-mask)"/>
     </svg>
 
     <svg id="f06-wires" viewBox="0 0 1920 1080" width="1920" height="1080">
-      <path id="f06-p1" class="f06-wire" d="M 722 378 H 790"/>
-      <path id="f06-p2" class="f06-wire" d="M 756 378 V 532 Q 756 548 772 548 H 790"/>
-      <path id="f06-p3" class="f06-wire" d="M 756 532 V 702 Q 756 718 772 718 H 790"/>
+      <path id="f06-p1" class="f06-wire" d="M 744 378 H 790"/>
+      <path id="f06-p2" class="f06-wire" d="M 760 378 V 536 Q 760 548 772 548 H 790"/>
+      <path id="f06-p3" class="f06-wire" d="M 760 536 V 706 Q 760 718 772 718 H 790"/>
       <path id="f06-brace-a" class="f06-brace" d="M 1596 302 C 1610 302 1618 308 1618 322 L 1618 526 C 1618 540 1626 548 1640 548"/>
       <path id="f06-brace-b" class="f06-brace" d="M 1596 794 C 1610 794 1618 788 1618 774 L 1618 570 C 1618 556 1626 548 1640 548"/>
     </svg>
@@ -122,16 +122,16 @@
     </div>
 
     <!-- keyword lane: columns = the same four documents in every lane (1 example pdf, 2 table, 3 other-unit pdf, 4 scan) -->
-    <div class="f06-tg" id="f06-k1" style="left:1202px;top:331px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-    <div class="f06-tg" id="f06-k2" style="left:1290px;top:331px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-    <div class="f06-tg" id="f06-k3" style="left:1378px;top:331px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-    <div class="f06-tg" id="f06-k4" style="left:1466px;top:331px"><div class="f06-tile" data-kind="scan" data-bars="3"></div></div>
+    <div class="f06-tg" id="f06-k1" style="left:1218px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+    <div class="f06-tg" id="f06-k2" style="left:1302px;top:334px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+    <div class="f06-tg" id="f06-k3" style="left:1386px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+    <div class="f06-tg" id="f06-k4" style="left:1470px;top:334px"><div class="f06-tile" data-kind="scan" data-bars="3"></div></div>
 
     <!-- vector lane -->
-    <div class="f06-tg" id="f06-v1" style="left:1202px;top:501px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
-    <div class="f06-tg" id="f06-v2" style="left:1290px;top:501px"><div class="f06-tile" data-kind="table" data-bars="1"></div></div>
-    <div class="f06-tg" id="f06-v3" style="left:1378px;top:501px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-mk f06-mk-ci f06-mk-near"></div></div>
-    <div class="f06-tg" id="f06-v4" style="left:1466px;top:501px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
+    <div class="f06-tg" id="f06-v1" style="left:1218px;top:503px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
+    <div class="f06-tg" id="f06-v2" style="left:1302px;top:503px"><div class="f06-tile" data-kind="table" data-bars="1"></div></div>
+    <div class="f06-tg" id="f06-v3" style="left:1386px;top:503px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-mk f06-mk-ci f06-mk-near"></div></div>
+    <div class="f06-tg" id="f06-v4" style="left:1470px;top:503px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
 
     <!-- metadata filter: two chips in one row, lit in place -->
     <div id="f06-filters">
@@ -228,12 +228,12 @@
       tl.fromTo($("#f06-qicon"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: P3 }, 1.1);
       tl.fromTo($$(".f06-qw"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3, stagger: 0.08 }, 1.15);
 
-      var HALF = 2 * 246 + 741 + Math.PI * 28;               /* straight runs + two quarter arcs */
+      var HALF = 2 * 248 + 741 + Math.PI * 28;               /* straight runs + two quarter arcs */
       draw($("#f06-mtop"), 1.5, 0.9, HALF);
       draw($("#f06-mbot"), 1.5, 0.9, HALF);
       tl.fromTo($("#f06-scope-pill"), { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: P3 }, 1.6);
       tl.fromTo($("#f06-scope-fill"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: P2 }, 2.2);
-      draw($("#f06-p1"), 2.1, 0.35, 68);
+      draw($("#f06-p1"), 2.1, 0.35, 46);
       draw($("#f06-p2"), 2.3, 0.4, 200);
       draw($("#f06-p3"), 2.3, 0.4, 200);
 
@@ -251,7 +251,7 @@
       draw($("#f06-ring-p"), 5.15, 0.45);
       hit(V[0], 5.5);
       hit(V[3], 5.6);
-      tl.fromTo(V[2].querySelector(".f06-mk"), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: P3 }, 5.7);
+      tl.fromTo(V[2].querySelector(".f06-mk-near"), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: P3 }, 5.7);
       fade(V[1], 5.7, 0.55, 0.3);
 
       /* Scene 4 (6.4-8.4): metadata lane — two filter chips light in place; the other-unit column greys to 30% */
@@ -269,12 +269,12 @@
       draw($("#f06-brace-a"), 8.4, 0.6);
       draw($("#f06-brace-b"), 8.4, 0.6);
       tl.fromTo($("#f06-merge-label"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: P3 }, 8.4);
-      var S = 72 / 132;
+      var S = 68 / 132;
       [
-        ["#f06-g-fa", K[0], 1202, 331, 1656, 478],
-        ["#f06-g-fb", V[0], 1202, 501, 1656, 478],
-        ["#f06-g-mid", K[1], 1290, 331, 1672, 462],
-        ["#f06-g-back", V[3], 1466, 501, 1688, 446]
+        ["#f06-g-fa", K[0], 1218, 334, 1656, 478],
+        ["#f06-g-fb", V[0], 1218, 503, 1656, 478],
+        ["#f06-g-mid", K[1], 1302, 334, 1672, 462],
+        ["#f06-g-back", V[3], 1470, 503, 1688, 446]
       ].forEach(function (g, i) {
         var el = $(g[0]), at = 8.55 + i * 0.08;
         tl.fromTo(el, { x: g[2] - g[4], y: g[3] - g[5], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.5, ease: IO }, at);
