@@ -231,15 +231,12 @@
       tl.set($("#f10-dash0"), { autoAlpha: 0, immediateRender: false }, 5.2);
       tl.set(solid, { strokeDasharray: "none", immediateRender: false }, 5.2);
 
-      /* (b) the pin lands at the fill's head (5.1-5.6s): 16px drop + scale 0.8 -> 1 about its tip.
-         Its rest top is y 130, so while it drops the rail is clipped at y 130 (keeps the header
-         band y < 130 empty); the clip is removed once it has landed. */
-      var rail = $("#f10-rail");
-      tl.set(rail, { clipPath: "inset(130px 0px 0px 0px)", immediateRender: false }, 5.1);
+      /* (b) the pin lands at the fill's head (5.1-5.6s): 12px drop + scale 0.8 -> 1 about its tip.
+         At scale 0.8 the pin is 43px tall, so its top starts at y 184 - 43 - 12 = 129 and never
+         reaches the tracker pills (y <= 116): no clipping needed. */
       tl.fromTo($("#f10-pin"),
-        { opacity: 0, y: -16, scale: 0.8 },
+        { opacity: 0, y: -12, scale: 0.8 },
         { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", transformOrigin: "50% 100%" }, 5.1);
-      tl.set(rail, { clipPath: "none", immediateRender: false }, 5.6);
 
       /* (c) one cobalt ring pulses from the tip (r 8 -> 40, 2px, opacity 0.6 -> 0, 0.6s) at 5.45s */
       var ring = $("#f10-ring");
