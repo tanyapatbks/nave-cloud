@@ -26,6 +26,38 @@ Installed 2026-10-20.
 | `motion-art-direction` | iart-ai/motion-design-skills @ 3c129f769d90a1328c209c386492333c9ac62312 | `skills/motion-art-direction` | MIT | Same note |
 | `shot-composition` | iart-ai/motion-design-skills @ 3c129f769d90a1328c209c386492333c9ac62312 | `skills/shot-composition` | MIT | Same note |
 
+| `hyperframes` (router), `hyperframes-core`, `hyperframes-animation`, `hyperframes-keyframes`, `hyperframes-creative`, `hyperframes-cli`, `faceless-explainer` | heygen-com/hyperframes @ d898ad89eef52e12ebd4fd90f03c1cdb53ba143c (skills v0.8.181) | `skills/<name>` | Apache-2.0 | Security neutralisation (see below); local notes |
+| `video-storytelling` | nateherkai/hyperframes-student-kit @ 10511e5af86fc47756ea89803b397422e2d89284 | `.claude/skills/video-storytelling` | MIT | Install note (advice only; its QA scripts are not shipped) |
+
+### HyperFrames neutralisation
+
+Upstream HyperFrames skills instruct the agent to run commands that are out of scope for
+this project. Each instruction was replaced with an explicit "Removed locally" note:
+
+- `npx hyperframes usage --json` (`hyperframes/SKILL.md`, `hyperframes-cli/SKILL.md`,
+  `hyperframes-cli/references/upgrade-info-misc.md`): it reads the Claude Code OAuth token
+  (and Codex/Grok tokens) and queries vendor usage APIs. **High severity in review.**
+- `hyperframes skills update` / `npx skills add` (router, capability menu, lifecycle
+  reference, `faceless-explainer`, `hyperframes-animation/adapters/animate-text.md`):
+  unreviewed self-updates into global skill folders.
+- `npx hyperframes feedback` (`hyperframes-cli/SKILL.md`, `references/preview-render.md`):
+  reports to a public channel / telemetry.
+- `media-use` sourcing in `faceless-explainer`: not installed (catalog/web media, torch +
+  MusicGen auto-install, telemetry). The video is silent-first with local assets only.
+
+Always run the CLI through `scripts/hf`, which sets `HYPERFRAMES_SKIP_SKILLS=1`,
+`HYPERFRAMES_NO_TELEMETRY=1`, `DO_NOT_TRACK=1`, `HYPERFRAMES_NO_UPDATE_CHECK=1` and
+`HYPERFRAMES_BROWSER_PATH` (local headless shell, so no Chrome download). Fonts must be
+local `@font-face` woff2 files in each composition: the renderer otherwise fetches Google
+Fonts at compile time and bundles no Thai face.
+
+### Engines (npm, pinned in package.json)
+
+`hyperframes` 0.8.181 (Apache-2.0, renderer/CLI), `gsap` 3.15.0 (free standard licence,
+animation engine), `lottie-web` 5.13.0 (MIT, optional for icons; never for Thai text).
+Remotion is not installed in this project (licence question above); its scaffold remains
+available under `vendor/whaleyxbt-claude-motion/` for reference.
+
 ### Session-only (not in this repo)
 
 `remotion-best-practices` from remotion-dev/skills @ 039e8a2fc78b67efc228d5645367838b85818a1c
@@ -72,8 +104,9 @@ not-for-profit organisations; others need a company licence).
 | iart-ai skills other than the three above | Broad-trigger web/AE/beat-sync skills not needed; non-deterministic snippets (`Math.random`, CSS keyframes) |
 | remotion-dev/skills except `remotion-best-practices` | The router already embeds the needed parts; maps/saas/captions/upgrade skipped (API keys, model downloads, unreviewed self-update) |
 
-Pending review: heygen-com/hyperframes, Sunwood-ai-labs/hyperframes-motion-reel-skill,
-nateherkai/hyperframes-student-kit.
+| Sunwood-ai-labs/hyperframes-motion-reel-skill | Safe, but a 15 s 120 BPM showreel skill; its `back.out`/`elastic` defaults contradict the explainer doctrine. Gotchas copied into project notes instead |
+| nateherkai/hyperframes-student-kit (rest of kit) | Talking-head editing workspace; its vendored `hyperframes*` skills are stale (0.7.x) and collide with upstream names; cut tools need FFmpeg 7+ |
+| heygen-com/hyperframes (other skills) | `media-use` (web/catalog media, torch auto-install, telemetry), `general-video` (runs `usage`), and workflows not needed (music-to-video, pr-to-video, captions, talking-head, product-launch, slideshow, figma, studio, registry, audio) |
 
 Libraries (installed via npm when the build starts, pinned): GSAP 3.15.0 (primary
 animation engine; free "standard no-charge" licence), lottie-web 5.13.0 (optional,

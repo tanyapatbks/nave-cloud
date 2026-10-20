@@ -1,0 +1,14 @@
+{
+  "name": "nave-cloud",
+  "private": true,
+  "description": "RTN permission-aware RAG explainer motion (HyperFrames + GSAP)",
+  "license": "UNLICENSED",
+  "scripts": {
+    "hf": "scripts/hf"
+  },
+  "devDependencies": {
+    "gsap": "3.15.0",
+    "hyperframes": "0.8.181",
+    "lottie-web": "5.13.0"
+  }
+}
