@@ -18,3 +18,4 @@ videos/*/assets/fonts/ChulabhornLikit*
 
 # per-project review packs and MP4 QA sheets (regenerated from renders)
 videos/*/qa/review-*/
+__pycache__/
