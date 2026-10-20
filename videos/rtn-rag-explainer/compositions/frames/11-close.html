@@ -18,7 +18,9 @@
     #f11-ground{position:absolute;inset:0;background:#fdfae7}
     #f11-lattice{position:absolute;inset:0;opacity:0.4}
     #f11-backing{position:absolute;inset:0}
-    #f11-plate{position:absolute;left:401px;top:229px;width:1118px;height:540px;border-radius:24px;background:rgba(253,248,230,0.92)}
+    /* round 5: plate grown to hold the five text rows + payoff chips (y 208-750, ~29px clear above line 1's tone
+       marks and below the chips), still inside the scope frame and covering only the inner tile columns (x 401-1519) */
+    #f11-plate{position:absolute;left:401px;top:208px;width:1118px;height:542px;border-radius:24px;background:rgba(253,248,230,0.92)}
     #f11-rings{position:absolute;inset:0}
     #f11-rings svg{position:absolute;left:0;top:0;width:1920px;height:1080px}
     #f11-stage{position:absolute;inset:0}
@@ -34,7 +36,9 @@
     /* round 2: every tile behind the title block (screen x 421-1498, all rows: columns 2-9) drops to
        0.6 x the 0.4 lattice = 0.24 effective opacity; the outer columns keep the ~40% callback */
     #f11-grid .f11-tile{opacity:0.6}
-    #f11-grid .f11-tile:nth-child(10n+1),#f11-grid .f11-tile:nth-child(10n){opacity:1}
+    /* round 5 (r4 P1): the outer columns keep the ~40% callback only in rows 1-2; in rows 3-4 (screen y 499-867,
+       beside the payoff row) they drop to the inner tiles' 0.24 effective opacity */
+    #f11-grid .f11-tile:nth-child(10n+1):nth-child(-n+20),#f11-grid .f11-tile:nth-child(10n):nth-child(-n+20){opacity:1}
     .f11-band{position:absolute;left:0;right:0;top:0;height:4px}
     .f11-glyph{position:absolute;left:12px;top:14px;width:20px;height:20px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
     .f11-ln{position:absolute;left:14px;height:6px;border-radius:3px;background:#9a9a9a}
@@ -50,44 +54,39 @@
     .f11-badge{position:absolute;left:14px;bottom:12px;display:flex;gap:4px;transform-origin:left center}
     .f11-badge i{display:block;width:8px;height:8px;border-radius:50%;background:#1e2bfa}
 
-    /* ---- title copy ---- */
-    .f11-line{position:absolute;left:0;right:0;display:block;white-space:nowrap;text-align:center}
+    /* ---- title copy (round 5 requester rewrite): five centred rows, each authored line its own nowrap block ---- */
+    .f11-line{position:absolute;left:0;right:0;display:block;white-space:nowrap;text-align:center;letter-spacing:0}
     .f11-ph{display:inline-block;white-space:nowrap}
-    #f11-l1{top:262px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:52px;line-height:1.45;letter-spacing:0;color:#111111}
-    #f11-emb{color:#5F5B57}
-    /* round 3: callback to frame 05's Embed point-scatter: its 21 points in three clusters on a faint L of axes,
-       copied at 05's coordinates (196x140 field) and drawn 48px tall in grey #5C584F, the clusters' tint order
-       kept as grey opacity (05 grey 0.45 / accent-mid 0.7 / cobalt 1); inline 16px left of 'Embedding' (no copy) */
-    #f11-embg{display:inline-block;width:66.67px;height:48px;margin-right:16px;vertical-align:-6px;fill:#5C584F;overflow:visible}
-    #f11-l2a,#f11-l2b{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:44px;line-height:1.45;letter-spacing:0;color:#3a3a3a}
-    #f11-l2a{top:388px}
-    #f11-l2b{top:452px}
-    #f11-num{font-weight:600;color:#1e2bfa}
+    #f11-l1{top:222px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:56px;line-height:1.45;color:#111111}
+    .f11-cb{color:#1e2bfa}
+    #f11-l2,#f11-l3a,#f11-l3b,#f11-l3c{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:44px;line-height:1.45;color:#3a3a3a}
+    #f11-l2{top:316px}
+    /* de-emphasised in a darker grey at the same weight, never struck through */
+    #f11-ai{color:#5F5B57}
+    #f11-l3a{top:388px}
+    #f11-l3b{top:452px}
+    #f11-l3c{top:516px}
+    .f11-em{font-weight:700;color:#1e2bfa}
 
-    /* round 3: payoff columns spaced so both visible word gaps are 160px with 'ค้นหาได้' centred at 960:
-       words at x 405-675 / 835-1085 / 1245-1416, so column centres x 540 / 960 / 1330.5 (each .f11-col is a
-       zero-width anchor at its centre); word and chip are centred on the anchor; each chip is content-width */
-    #f11-pay{position:absolute;left:0;top:568px;width:1920px;height:170px}
-    .f11-col{position:absolute;top:0;width:0;height:0}
-    #f11-c1{left:540px}
-    #f11-c2{left:960px}
-    #f11-c3{left:1330.5px}
-    .f11-word{position:absolute;left:-200px;top:0;width:400px;text-align:center;display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:72px;line-height:1.45;color:#111111}
-    .f11-chipwrap{position:absolute;left:-165px;top:116px;width:330px;display:flex;justify-content:center}
-    /* mono chip token: 28px, 48px pill, padding 12px 16px */
-    .f11-chip{display:block;box-sizing:border-box;width:auto;height:48px;padding:12px 20px;text-align:center;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;letter-spacing:0.02em;white-space:nowrap}
-    /* cobalt dots at the midpoints of the 160px gaps between neighbouring words: centres x 755 and x 1165 */
-    .f11-dot{position:absolute;top:47px;display:block;width:14px;height:14px;border-radius:50%;background:#1e2bfa}
-    #f11-d1{left:748px}
-    #f11-d2{left:1158px}
+    /* ---- payoff (round 5): three near-black English words with cobalt dots between, one flex row centred on
+       x 960; a small Thai chip (accent-light, cobalt, 28px) centred under each word.
+       Size: 48px is the largest that keeps >= 60px clear of both outer tile columns (screen x 284-397 and
+       1522-1636): the words measure 18.6em together (1192px at 64px); at 48px the row (words + two 46px dot gaps)
+       measures ~997px, spanning x ~461-1458 (~63px clear each side). 64-72px cannot fit that band on one row. ---- */
+    #f11-pay{position:absolute;left:0;top:600px;width:1920px;display:flex;justify-content:center;align-items:flex-start}
+    .f11-col{flex:none;display:flex;flex-direction:column;align-items:center}
+    .f11-word{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:48px;line-height:1.45;letter-spacing:0;color:#111111}
+    .f11-chip{display:block;margin-top:4px;padding:3px 22px 4px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;letter-spacing:0;white-space:nowrap}
+    /* dots centred on the words' cap-height midpoint (y ~634); 17px side margins keep the row >= 60px off the columns */
+    .f11-dot{flex:none;display:block;width:12px;height:12px;margin:28px 17px 0;border-radius:50%;background:#1e2bfa}
   </style>
 
-  <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080">
+  <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080" data-duration="14">
     <!-- track 0: cream ground -->
-    <div id="f11-ground" class="clip" data-start="0" data-duration="10" data-track-index="0"></div>
+    <div id="f11-ground" class="clip" data-start="0" data-duration="14" data-track-index="0"></div>
 
     <!-- track 1: archive lattice, dimmed ~40% (background callback) -->
-    <div id="f11-lattice" class="clip" data-start="0" data-duration="10" data-track-index="1">
+    <div id="f11-lattice" class="clip" data-start="0" data-duration="14" data-track-index="1">
       <div id="f11-drift">
         <svg id="f11-scope" viewBox="0 0 1920 1080" aria-hidden="true">
           <defs>
@@ -143,10 +142,10 @@
     </div>
 
     <!-- track 2: cream backing plate behind the title block (keeps every line off the tile lines) -->
-    <div id="f11-backing" class="clip" data-start="0" data-duration="10" data-track-index="2"><div id="f11-plate"></div></div>
+    <div id="f11-backing" class="clip" data-start="0" data-duration="14" data-track-index="2"><div id="f11-plate"></div></div>
 
     <!-- track 3: faint concentric closing rings (atmosphere) -->
-    <div id="f11-rings" class="clip" data-start="0" data-duration="10" data-track-index="3">
+    <div id="f11-rings" class="clip" data-start="0" data-duration="14" data-track-index="3">
       <svg viewBox="0 0 1920 1080" aria-hidden="true">
         <circle cx="960" cy="490" r="150" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.11"/>
         <circle cx="960" cy="490" r="230" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.09"/>
@@ -155,17 +154,19 @@
       </svg>
     </div>
 
-    <!-- track 4: the closing title -->
-    <div id="f11-stage" class="clip" data-start="0" data-duration="10" data-track-index="4">
-      <div id="f11-l1" class="f11-line"><span class="f11-ph">ส่วนที่ยากที่สุด</span> <span class="f11-ph">ไม่ใช่การสร้าง</span> <svg id="f11-embg" viewBox="-100 -72 200 144" width="66.67" height="48" aria-hidden="true"><path class="f11-embax" d="M-98 -70V70H98" fill="none" stroke="#5C584F" stroke-opacity="0.35" stroke-width="4"/><g class="f11-cl-a" fill-opacity="0.45"><circle cx="-46" cy="18" r="8"/><circle cx="-64" cy="12" r="8"/><circle cx="-81" cy="21" r="8"/><circle cx="-55" cy="34" r="8"/><circle cx="-73" cy="38" r="8"/><circle cx="-38" cy="44" r="8"/><circle cx="-66" cy="54" r="8"/></g><g class="f11-cl-b" fill-opacity="0.7"><circle cx="6" cy="-54" r="8"/><circle cx="12" cy="-36" r="8"/><circle cx="3" cy="-19" r="8"/><circle cx="-10" cy="-45" r="8"/><circle cx="-14" cy="-27" r="8"/><circle cx="-20" cy="-62" r="8"/><circle cx="-30" cy="-34" r="8"/></g><g class="f11-cl-c" fill-opacity="1"><circle cx="44" cy="2" r="8"/><circle cx="79" cy="5" r="8"/><circle cx="36" cy="28" r="8"/><circle cx="62" cy="-4" r="8"/><circle cx="53" cy="18" r="8"/><circle cx="71" cy="22" r="8"/><circle cx="64" cy="38" r="8"/></g></svg><span class="f11-ph" id="f11-emb">Embedding</span></div>
-      <div id="f11-l2a" class="f11-line"><span class="f11-ph">แต่คือ</span><span class="f11-ph">การเปลี่ยนข้อมูล</span><span class="f11-ph">กว่า <span id="f11-num">120</span> ปี</span></div>
-      <div id="f11-l2b" class="f11-line"><span class="f11-ph">ให้เป็น</span><span class="f11-ph">ความรู้ที่</span></div>
+    <!-- track 4: the closing title (round 5 requester rewrite) -->
+    <div id="f11-stage" class="clip" data-start="0" data-duration="14" data-track-index="4">
+      <div id="f11-l1" class="f11-line"><span class="f11-ph">การจะ</span><span class="f11-ph">เปลี่ยนผ่าน</span><span class="f11-ph">ไปสู่</span> <span class="f11-ph f11-cb">Digital Navy</span></div>
+      <div id="f11-l2" class="f11-line"><span class="f11-ph">ส่วนที่ยากที่สุด</span><span class="f11-ph">ไม่ใช่</span> <span class="f11-ph" id="f11-ai">AI RAG EMBEDDING</span></div>
+      <div id="f11-l3a" class="f11-line"><span class="f11-ph">แต่คือการ</span> <span class="f11-ph f11-em">เชื่อมโยง</span> <span class="f11-ph">และ</span> <span class="f11-ph f11-em">จัดการ</span></div>
+      <div id="f11-l3b" class="f11-line"><span class="f11-ph">ข้อมูลของทร.ทั้งหมด</span> <span class="f11-ph">อย่างเป็นระบบ</span></div>
+      <div id="f11-l3c" class="f11-line"><span class="f11-ph">ให้กลายเป็น</span><span class="f11-ph">ชุดข้อมูลที่</span></div>
       <div id="f11-pay">
-        <div class="f11-col" id="f11-c1"><span class="f11-word" id="f11-w1">เชื่อถือได้</span><span class="f11-chipwrap"><span class="f11-chip">Reliable</span></span></div>
+        <div class="f11-col" id="f11-c1"><span class="f11-word" id="f11-w1">Reliable</span><span class="f11-chip">เชื่อถือได้</span></div>
         <span class="f11-dot" id="f11-d1"></span>
-        <div class="f11-col" id="f11-c2"><span class="f11-word" id="f11-w2">ค้นหาได้</span><span class="f11-chipwrap"><span class="f11-chip">Searchable</span></span></div>
+        <div class="f11-col" id="f11-c2"><span class="f11-word" id="f11-w2">Searchable</span><span class="f11-chip">ค้นหาได้</span></div>
         <span class="f11-dot" id="f11-d2"></span>
-        <div class="f11-col" id="f11-c3"><span class="f11-word" id="f11-w3">รู้สิทธิ์</span><span class="f11-chipwrap"><span class="f11-chip">Permission-aware</span></span></div>
+        <div class="f11-col" id="f11-c3"><span class="f11-word" id="f11-w3">Permission-aware</span><span class="f11-chip">แบ่งตามสิทธิการเข้าถึงข้อมูลได้</span></div>
       </div>
     </div>
   </div>
@@ -176,35 +177,49 @@
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
 
-      // Scene 1, round 3: the archive wall fades in place, already ordered, inside the 10->11 blur-crossfade
-      // (global 101.0-101.6). The frame clock starts at the crossfade's start (local 0 = 101.0 s), so the
-      // fade runs local 0.0-0.4 s and the wall is still before line 1 starts at 0.4 s (no fly-in under it).
+      // Seeded untidy pose per tile index (integer hash, no Math.random): rotation 1.2-3 deg and offsets
+      // 2-7 grid px (about 2-6 px on screen after the grid's 0.86 scale), signs from separate hash streams.
+      function hash(i, k) {
+        var x = Math.imul((i + 1) * 374761393 + k * 668265263, 1274126177);
+        x = Math.imul(x ^ (x >>> 13), 1103515245);
+        x ^= x >>> 16;
+        return (x >>> 0) / 4294967296;
+      }
+      function sgn(i, k) { return hash(i, k) < 0.5 ? -1 : 1; }
+      function untidyRot(i) { return sgn(i, 1) * (1.2 + 1.8 * hash(i, 2)); }
+      function untidyX(i) { return sgn(i, 3) * (2 + 5 * hash(i, 4)); }
+      function untidyY(i) { return sgn(i, 5) * (2 + 5 * hash(i, 6)); }
+
+      // Scene 1 (0.0-2.2s): the archive wall fades in place, untidy and untagged, inside the 10->11
+      // blur-crossfade (local 0 = global 105.0 s); the scope outline self-draws around it.
       tl.fromTo("#f11-grid", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
-      // Permission scope outline self-draws around the still lattice.
       tl.fromTo("#f11-scope-reveal", { strokeDashoffset: 4160 }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 0.95);
-      // Each tile gains its metadata badge (the lattice becomes labelled).
-      tl.fromTo("#f11-grid .f11-badge", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out", stagger: 0.006 }, 1.85);
+      // Line 1 per phrase from 0.4s ("Digital Navy" in cobalt).
+      tl.fromTo("#f11-l1 .f11-ph", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.3 }, 0.4);
 
-      // Line 1 per phrase from 0.4s; "Embedding" stays grey #5F5B57 (de-emphasised, never struck through).
-      tl.fromTo("#f11-l1 .f11-ph", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.35 }, 0.4);
-      // round 3: the Embed scatter glyph fades in with line 1 from 0.4s, fully in as 'Embedding' settles (1.65s).
-      tl.fromTo("#f11-embg", { opacity: 0 }, { opacity: 1, duration: 1.25, ease: "power2.inOut" }, 0.4);
+      // Scene 2 (2.2-4.4s): line 2 per phrase; "AI RAG EMBEDDING" de-emphasised grey, never struck through.
+      tl.fromTo("#f11-l2 .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.35 }, 2.2);
 
-      // Scene 2 (2.8-4.6s): line 2 per phrase, two authored lines.
-      tl.fromTo("#f11-l2a .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.28 }, 2.8);
-      tl.fromTo("#f11-l2b .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", stagger: 0.25 }, 3.72);
+      // Scene 3 (4.4-7.0s): line 3 per phrase across its three authored lines.
+      tl.fromTo("#f11-l3a .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.25 }, 4.4);
+      tl.fromTo("#f11-l3b .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.3 }, 5.5);
+      tl.fromTo("#f11-l3c .f11-ph", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", stagger: 0.3 }, 6.1);
 
-      // Scene 3 (4.6-6.2s): the three payoff words slide up one by one; cobalt dots; mono chips.
-      tl.fromTo("#f11-w1", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 4.6);
-      tl.fromTo("#f11-d1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 4.92);
-      tl.fromTo("#f11-w2", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 5.0);
-      tl.fromTo("#f11-d2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 5.32);
-      tl.fromTo("#f11-w3", { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 5.4);
-      tl.fromTo("#f11-pay .f11-chip", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power3.out", stagger: 0.05 }, 5.8);
+      // Scene 4 (7.0-8.6s): the payoff words slide up one by one, cobalt dots between, Thai chips at 8.2s.
+      tl.fromTo("#f11-w1", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 7.0);
+      tl.fromTo("#f11-d1", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 7.25);
+      tl.fromTo("#f11-w2", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 7.4);
+      tl.fromTo("#f11-d2", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 7.65);
+      tl.fromTo("#f11-w3", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 7.8);
+      tl.fromTo("#f11-pay .f11-chip", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out", stagger: 0.05 }, 8.2);
 
-      // Scene 4 (6.2-10.0s): held card. Only the dimmed lattice keeps a barely-perceptible
-      // settle drift underneath (starts as the ordering move ends); the title stays still.
-      /* no back-half drift: held reads stay still (motion doctrine rule 3) */
+      // As the first payoff word lands (7.0-7.8s) the wall settles, behind the plate, into the aligned grid
+      // (one smooth move, rippling out from the centre) and every tile gains its 4-dot tag badge. No text moves.
+      tl.fromTo("#f11-grid .f11-tile", { rotation: untidyRot, x: untidyX, y: untidyY }, { rotation: 0, x: 0, y: 0, duration: 0.6, ease: "power3.inOut", stagger: { amount: 0.2, grid: [4, 10], from: "center" } }, 7.0);
+      tl.fromTo("#f11-grid .f11-badge", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out", stagger: { amount: 0.2, grid: [4, 10], from: "center" } }, 7.2);
+
+      // Scene 5 (8.6-14.0s): still hold; the film ends on this card (no fade-out).
+      tl.set({}, {}, 14);
 
       window.__timelines["11-close"] = tl;
     })();

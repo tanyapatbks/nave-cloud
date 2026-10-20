@@ -21,6 +21,7 @@
     #f06-h2{position:absolute;left:96px;top:148px;max-width:1500px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:60px;line-height:1.45;color:#111111}
     #f06-h2 .f06-line{display:block;white-space:nowrap}
     #f06-h2 .f06-w{display:inline-block}
+    #f06-h2 .f06-hy{color:#1e2bfa}
 
     /* permission scope (component 4, same as frame 09) + wires: question -> lanes connectors + the merge bracket */
     #f06-scope,#f06-wires,#f06-top{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
@@ -61,6 +62,9 @@
     .f06-row{position:absolute;left:0;top:0;width:0;height:0;isolation:isolate}
     .f06-tg{position:absolute;width:64px;height:88px}
     .f06-tg.f06-solo{z-index:2}
+    /* the shared column-1 hits stay lit through the one-method beats: keep their corner markers above the
+       neighbour's 1.2x ring / 1.15x dashed-slot pulse */
+    #f06-k1,#f06-v1{z-index:3}
     .f06-tile{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:1.5px solid rgba(30,43,250,0.2);background:#fdfae7;overflow:hidden}
     .f06-tile svg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
     .f06-hl{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:2px solid #1e2bfa;opacity:0}
@@ -72,10 +76,10 @@
     .f06-mk{position:absolute;box-sizing:border-box;width:20px;height:20px;right:-10px;top:-10px;border:2px solid #fdfae7;background:#1e2bfa}
     .f06-mk-sq{border-radius:4px}
     .f06-mk-ci{border-radius:50%}
-    .f06-mk-near{background:#9a9a9a}
-    /* metadata strike across the other-unit column */
+    /* metadata strike across the other-unit column: one struck style in both lanes (tile 40%, no marker,
+       a 2 px slash in the unit chip's lit outline blue, the same blue as the connector) */
     #f06-strikes{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
-    #f06-strikes path{fill:none;stroke:#6B675C;stroke-width:3;stroke-linecap:round}
+    #f06-strikes path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:round}
 
     /* metadata filter chips: the lane-3 sub-label row, light in place; the row ends at x 1437 so the tether
        (a flex item) starts exactly at the unit chip's right end and stops under the column-3 tiles (x 1436) */
@@ -85,12 +89,12 @@
     #f06-tether svg{position:absolute;right:0;top:0;width:2px;height:2px;overflow:visible}
     #f06-tether path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:butt}
 
-    /* merge: a fan of eight sheets. Front (fully visible, lane markers kept): table, example document, scan;
-       five plain sheets behind the middle slot in 6 px steps up-right */
-    #f06-merge-label{position:absolute;left:1668px;top:244px;font-weight:600;font-size:38px;line-height:1.45;color:#111111;white-space:nowrap}
+    /* merge: a fan of eight sheets. Front (fully visible, lane markers kept): table, example document, scan,
+       36 px apart; five plain sheets behind the middle slot in +6/+6 px steps down-right (never above its top) */
+    #f06-merge-label{position:absolute;left:1668px;top:236px;font-weight:600;font-size:38px;line-height:1.45;color:#111111;white-space:nowrap}
     .f06-ghost{position:absolute;width:100px;height:138px;transform-origin:0 0;opacity:0}
     .f06-ghost .f06-tile{border-radius:10px;border:2px solid rgba(30,43,250,0.55);background:#e6e7fb}
-    .f06-plain{position:absolute;width:100px;height:138px;box-sizing:border-box;border-radius:10px;border:1.5px solid rgba(30,43,250,0.55);background:#f4f2ea;opacity:0}
+    .f06-plain{position:absolute;width:100px;height:138px;box-sizing:border-box;border-radius:10px;border:1.5px solid rgba(30,43,250,0.55);background:#f4f2ea;transform-origin:0 0;opacity:0}
     .f06-gmk{position:absolute;box-sizing:border-box;width:24px;height:24px;right:-12px;top:-12px;border:2.5px solid #fdfae7;background:#1e2bfa}
     .f06-gmk.f06-mk-sq{border-radius:4px}
     .f06-gmk-2{right:18px}
@@ -123,7 +127,7 @@
       <path id="f06-brace-b" class="f06-brace" d="M 1596 794 C 1610 794 1618 788 1618 774 L 1618 570 C 1618 556 1626 548 1640 548"/>
     </svg>
 
-    <div id="f06-h2"><span class="f06-line"><span class="f06-w">ค้นหา</span> <span class="f06-w">3 ทาง</span><span class="f06-w">พร้อมกัน</span></span></div>
+    <div id="f06-h2"><span class="f06-line"><span class="f06-w">ค้นหาแบบ</span> <span class="f06-w f06-hy">Hybrid</span> <span class="f06-w">3 รูปแบบ</span><span class="f06-w">พร้อมกัน</span></span></div>
 
     <div id="f06-q">
       <svg id="f06-qicon" viewBox="0 0 34 34" width="34" height="34">
@@ -153,11 +157,20 @@
       </div>
     </div>
 
-    <!-- keyword lane: columns = the same four documents in every lane (1 example pdf, 2 table, 3 other-unit pdf, 4 scan) -->
+    <!-- merge fan: five plain sheets, painted BEHIND the lane tiles so they can slide out from behind the shared
+         column-1 hits (9.0-9.4) into the fan. Rest positions: middle slot (1668,479) + k*(6,6), k = 5..1 (back -> front) -->
+    <div class="f06-plain" id="f06-pl-5" style="left:1698px;top:509px"></div>
+    <div class="f06-plain" id="f06-pl-4" style="left:1692px;top:503px"></div>
+    <div class="f06-plain" id="f06-pl-3" style="left:1686px;top:497px"></div>
+    <div class="f06-plain" id="f06-pl-2" style="left:1680px;top:491px"></div>
+    <div class="f06-plain" id="f06-pl-1" style="left:1674px;top:485px"></div>
+
+    <!-- keyword lane: columns = the same four documents in every lane (1 example pdf, 2 table, 3 other-unit pdf, 4 scan).
+         Column 3 (other unit) is struck by the metadata filter before any hit and never gets a marker. -->
     <div class="f06-row" id="f06-krow">
       <div class="f06-tg" id="f06-k1" style="left:1252px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
       <div class="f06-tg f06-solo" id="f06-k2" style="left:1328px;top:334px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-sq"></div></div>
-      <div class="f06-tg" id="f06-k3" style="left:1404px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+      <div class="f06-tg" id="f06-k3" style="left:1404px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div></div>
       <div class="f06-tg" id="f06-k4" style="left:1480px;top:334px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-dash"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M 3 3 L 25 25 M 25 3 L 3 25"/></svg></div></div>
     </div>
 
@@ -165,7 +178,7 @@
     <div class="f06-row" id="f06-vrow">
       <div class="f06-tg" id="f06-v1" style="left:1252px;top:504px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
       <div class="f06-tg" id="f06-v2" style="left:1328px;top:504px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-dash"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M 3 3 L 25 25 M 25 3 L 3 25"/></svg></div></div>
-      <div class="f06-tg" id="f06-v3" style="left:1404px;top:504px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-mk f06-mk-ci f06-mk-near"></div></div>
+      <div class="f06-tg" id="f06-v3" style="left:1404px;top:504px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div></div>
       <div class="f06-tg f06-solo" id="f06-v4" style="left:1480px;top:504px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-ci"></div></div>
     </div>
 
@@ -175,18 +188,13 @@
       <path id="f06-sv3" d="M 1411 585 L 1461 511"/>
     </svg>
 
-    <!-- merge: a fan of eight sheets, static from 9.9 s to the cut (no reorder). DOM back -> front:
-         five plain sheets stepping up-right behind the middle slot (1668,479); then the table (Keyword only, top
-         slot 1668,323), the scan (Vector only, bottom slot 1668,635) and the example document (both lanes, middle
-         slot, cobalt outline). -->
+    <!-- merge: a fan of eight sheets, static from 9.9 s to the cut (no reorder). The five plain sheets (above,
+         behind the lane rows) step down-right behind the middle slot (1668,479); then the table (Keyword only, top
+         slot 1668,305: 36 px above the middle), the scan (Vector only, bottom slot 1668,683: 36 px below the
+         fan's lowest sheet) and the example document (both lanes, middle slot, cobalt outline). -->
     <div id="f06-merge-label">รวมผล</div>
-    <div class="f06-plain" style="left:1698px;top:449px"></div>
-    <div class="f06-plain" style="left:1692px;top:455px"></div>
-    <div class="f06-plain" style="left:1686px;top:461px"></div>
-    <div class="f06-plain" style="left:1680px;top:467px"></div>
-    <div class="f06-plain" style="left:1674px;top:473px"></div>
-    <div class="f06-ghost" id="f06-g-k2" style="left:1668px;top:323px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-gmk f06-mk-sq"></div></div>
-    <div class="f06-ghost" id="f06-g-v4" style="left:1668px;top:635px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-gmk f06-mk-ci"></div></div>
+    <div class="f06-ghost" id="f06-g-k2" style="left:1668px;top:305px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-gmk f06-mk-sq"></div></div>
+    <div class="f06-ghost" id="f06-g-v4" style="left:1668px;top:683px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-gmk f06-mk-ci"></div></div>
     <div class="f06-ghost" id="f06-g-k1" style="left:1668px;top:479px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-sq"></div></div>
     <div class="f06-ghost" id="f06-g-v1" style="left:1668px;top:479px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-ci f06-gmk-2"></div><div class="f06-gmk f06-mk-sq" id="f06-g-v1-sq"></div></div>
     <svg id="f06-top" viewBox="0 0 1920 1080" width="1920" height="1080">
@@ -252,11 +260,13 @@
         el.style.strokeDasharray = SEG + " " + (L + SEG + 2000);
         tl.fromTo(el, { strokeDashoffset: SEG + 8 }, { strokeDashoffset: -(L + 8), duration: dur, ease: IO }, at);
       }
-      function laneReveal(lane, at) {
+      /* sub = optional {at, dur, y} override for the sub row (the Metadata lane's filter-chip row lands by 6.8) */
+      function laneReveal(lane, at, sub) {
+        sub = sub || { at: at + 0.2, dur: 0.45, y: 10 };
         tl.fromTo(lane, { opacity: 0.45 }, { opacity: 1, duration: 0.35, ease: P2, immediateRender: false }, at);
         tl.fromTo(lane.querySelector(".f06-lab-name"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, at);
         tl.fromTo(lane.querySelector(".f06-chip"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4, ease: P3 }, at + 0.1);
-        tl.fromTo(lane.querySelector(".f06-lab-sub"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, at + 0.2);
+        tl.fromTo(lane.querySelector(".f06-lab-sub"), { opacity: 0, y: sub.y }, { opacity: 1, y: 0, duration: sub.dur, ease: P3 }, sub.at);
       }
       /* a hit: solid cobalt outline, accent-light fill, 20px marker, full opacity */
       function hit(g, at) {
@@ -302,54 +312,60 @@
       tl.fromTo(V, { opacity: 0, y: 12 }, { opacity: 0.55, y: 0, duration: 0.4, ease: P2, stagger: 0.07 }, 4.9);
       tl.fromTo($("#f06-ring-p"), { opacity: 0 }, { opacity: 1, duration: 0.45, ease: P2 }, 5.15);
 
-      /* Scene 4 (6.4-8.4): metadata lane title/chip + its two filter chips (unlit) */
-      laneReveal(lanes[2], 6.4);
-      tl.fromTo($$(".f06-fc"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: P3, stagger: 0.12 }, 6.6);
-
-      /* 7.0: ONE pulse from the question card along all three connectors; every lane lights within 7.0-7.3 */
-      var QCARD = $("#f06-q");
-      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,1)", duration: 0.1, ease: P2 }, 6.92);
-      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,1)" }, { borderColor: "rgba(30,43,250,0.2)", duration: 0.35, ease: P2, immediateRender: false }, 7.15);
-      pulse($("#f06-q1"), 7.0, 0.18, 46);
-      pulse($("#f06-q2"), 7.0, 0.18, 211);
-      pulse($("#f06-q3"), 7.0, 0.18, 381);
-      var HIT = 7.12;
-      [0, 1, 2].forEach(function (c) { hit(K[c], HIT); });           /* Keyword squares: docs 1-3 */
-      hit(V[0], HIT); hit(V[3], HIT);                                /* Vector circles: docs 1 and 4 */
-      tl.fromTo(V[2].querySelector(".f06-mk-near"), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.18, ease: P3 }, HIT);
+      /* Scene 4, one group at a time after the Metadata cue (6.4):
+         (a) 6.4-6.8  the lane title/chip and BOTH filter chips land fully opaque, outlines lit
+         (b) 6.9-7.3  the unit filter acts first: a 2 px connector (the chip's lit-outline blue) runs from the
+                      unit chip's right end across to the column-3 x and up to the Vector and Keyword column-3
+                      tiles (doc 3, other unit), which are slashed while still grey and unmarked (-> 40%);
+                      the chip pulses 1 -> 1.08 -> 1; the connector then stays at 60% to the end
+         (c) 7.4-7.7  the remaining hits light together (Keyword cols 1-2 squares, Vector cols 1 and 4 circles)
+         (d) 7.8-8.5  the keyword-only table + the Vector col-2 dashed slot
+         (e) 8.6-9.3  the vector-only scan + the Keyword col-4 dashed slot */
+      laneReveal(lanes[2], 6.4, { at: 6.45, dur: 0.35, y: 0 });
+      var FC = $$(".f06-fc");
+      tl.fromTo(FC, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.28, ease: P3, stagger: 0.07 }, 6.45);
       var LIT_FROM = { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)" };
       var LIT_TO = { backgroundColor: "rgba(30,43,250,0.15)", borderColor: "rgba(30,43,250,1)", duration: 0.18, ease: P2 };
-      tl.fromTo($$(".f06-fc"), LIT_FROM, LIT_TO, HIT);                /* Metadata value-chip outlines */
-      fade(K[3], HIT, 0.55, 0.3, 0.18);                              /* misses sit at 30% */
-      fade(V[1], HIT, 0.55, 0.3, 0.18);
+      tl.fromTo(FC, LIT_FROM, LIT_TO, 6.62);                          /* filter-chip outlines lit by 6.8 */
 
-      /* 7.0-7.6: the metadata filter acts. A 2px tether runs from the unit chip's right end along lane 3, up
-         the inside of the lane boxes to the column-3 tiles (doc 3, other unit); each is struck with a 3px grey
-         diagonal while it fades to 25%; the tether fades out at 7.6 */
-      var TETH = $("#f06-tether");
-      tl.fromTo(TETH, { scaleX: 0 }, { scaleX: 1, duration: 0.14, ease: P2 }, 7.0);
-      draw($("#f06-up-a"), 7.14, 0.1, 153);
-      draw($("#f06-up-b"), 7.24, 0.07, 82);
-      draw($("#f06-sv3"), 7.2, 0.25, 90);
-      fade(V[2], 7.2, 0.55, 0.25, 0.4);
-      draw($("#f06-sk3"), 7.3, 0.25, 90);
-      fade(K[2], 7.3, 1, 0.25, 0.3);
-      tl.fromTo(TETH, { opacity: 1 }, { opacity: 0, duration: 0.25, ease: P2, immediateRender: false }, 7.6);
+      /* 6.8: ONE pulse from the question card along all three connectors: the query reaches every lane */
+      var QCARD = $("#f06-q");
+      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,1)", duration: 0.1, ease: P2 }, 6.72);
+      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,1)" }, { borderColor: "rgba(30,43,250,0.2)", duration: 0.35, ease: P2, immediateRender: false }, 6.95);
+      pulse($("#f06-q1"), 6.8, 0.18, 46);
+      pulse($("#f06-q2"), 6.8, 0.18, 211);
+      pulse($("#f06-q3"), 6.8, 0.18, 381);
 
-      /* 7.3-9.3: what one method alone misses. Every lane tile but the two unique hits sits at 30%.
-         7.3-8.3: the table (Keyword only) grows to 1.2x with a 4px ring; the slot below it in lane 2 turns into
-         an empty dashed slot and pulses; the underlines under "69" and the unit thicken 3 -> 6px.
-         8.3-9.3: the same for the scan (Vector only), the slot above it in lane 1 and the ring round the
-         meaning phrase */
-      var BEAT = 7.3;
-      fade(K[0], BEAT, 1, 0.3, 0.3);
-      fade(V[0], BEAT, 1, 0.3, 0.3);
+      /* (b) 6.9-7.3 the metadata filter strikes the other-unit column BEFORE any hit */
+      var TETH = $("#f06-tether"), FCU = $("#f06-fc-unit");
+      tl.fromTo(FCU, { scale: 1 }, { scale: 1.08, duration: 0.2, ease: P2 }, 6.9);
+      tl.fromTo(FCU, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: IO, immediateRender: false }, 7.1);
+      tl.fromTo(TETH, { scaleX: 0 }, { scaleX: 1, duration: 0.14, ease: P2 }, 6.9);
+      draw($("#f06-up-a"), 7.04, 0.07, 153);
+      draw($("#f06-sv3"), 7.08, 0.14, 90);
+      fade(V[2], 7.08, 0.55, 0.4, 0.2);
+      draw($("#f06-up-b"), 7.12, 0.05, 82);
+      draw($("#f06-sk3"), 7.16, 0.14, 90);
+      fade(K[2], 7.16, 0.55, 0.4, 0.14);
+      tl.fromTo(TETH, { opacity: 1 }, { opacity: 0.6, duration: 0.12, ease: P2, immediateRender: false }, 7.28);
+
+      /* (c) 7.4-7.7 the remaining hits light together; the misses sit at 30% */
+      var HIT = 7.42;
+      function hitAt(g) { hit(g, HIT); }
+      [K[0], K[1], V[0], V[3]].forEach(hitAt);
+      fade(K[3], HIT, 0.55, 0.3, 0.25);
+      fade(V[1], HIT, 0.55, 0.3, 0.25);
+
+      /* (d)/(e) what one method alone misses: the unique hit grows to 1.2x with a 4px ring while the slot
+         opposite turns into an empty dashed slot and pulses; the matching question-card mark thickens.
+         The shared column-1 hits stay lit (the fan sheets slide out from behind them at 9.0). */
+      var SOLO = 0.7;
       function solo(g, at) {
         var ring = g.querySelector(".f06-ring3");
-        tl.fromTo(g, { scale: 1 }, { scale: 1.2, duration: 0.35, ease: P3 }, at);
-        tl.fromTo(ring, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.35, ease: P3 }, at);
-        tl.fromTo(g, { scale: 1.2 }, { scale: 1, duration: 0.35, ease: P3, immediateRender: false }, at + 1.0);
-        tl.fromTo(ring, { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2, immediateRender: false }, at + 1.0);
+        tl.fromTo(g, { scale: 1 }, { scale: 1.2, duration: 0.3, ease: P3 }, at);
+        tl.fromTo(ring, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.3, ease: P3 }, at);
+        tl.fromTo(g, { scale: 1.2 }, { scale: 1, duration: 0.3, ease: P3, immediateRender: false }, at + SOLO - 0.3);
+        tl.fromTo(ring, { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2, immediateRender: false }, at + SOLO - 0.3);
       }
       function missed(g, at) {
         fade(g, at, 0.3, 1, 0.25);
@@ -359,30 +375,44 @@
         tl.fromTo(g, { scale: 1.15 }, { scale: 1, duration: 0.4, ease: P3, immediateRender: false }, at + 0.3);
       }
       var ULS = [$("#f06-ul-69"), $("#f06-ul-unit")];
-      solo(K[1], BEAT);
-      missed(V[1], BEAT);
-      tl.fromTo(ULS, { height: 3 }, { height: 6, duration: 0.25, ease: P2 }, BEAT);
-      tl.fromTo(ULS, { height: 6 }, { height: 3, duration: 0.25, ease: P2, immediateRender: false }, BEAT + 1.0);
       var RING = $("#f06-ring-p");
-      solo(V[3], BEAT + 1.0);
-      missed(K[3], BEAT + 1.0);
-      tl.fromTo(RING, { fill: "rgba(30,43,250,0.13)" }, { fill: "rgba(30,43,250,0.30)", duration: 0.25, ease: P2 }, BEAT + 1.0);
-      tl.fromTo(RING, { fill: "rgba(30,43,250,0.30)" }, { fill: "rgba(30,43,250,0.13)", duration: 0.25, ease: P2, immediateRender: false }, BEAT + 2.0);
+      var D_AT = 7.8, E_AT = 8.6;
+      solo(K[1], D_AT);
+      missed(V[1], D_AT);
+      tl.fromTo(ULS, { height: 3 }, { height: 6, duration: 0.25, ease: P2 }, D_AT);
+      tl.fromTo(ULS, { height: 6 }, { height: 3, duration: 0.25, ease: P2, immediateRender: false }, D_AT + SOLO - 0.25);
+      solo(V[3], E_AT);
+      missed(K[3], E_AT);
+      tl.fromTo(RING, { fill: "rgba(30,43,250,0.13)" }, { fill: "rgba(30,43,250,0.30)", duration: 0.25, ease: P2 }, E_AT);
+      tl.fromTo(RING, { fill: "rgba(30,43,250,0.30)" }, { fill: "rgba(30,43,250,0.13)", duration: 0.25, ease: P2, immediateRender: false }, E_AT + SOLO - 0.25);
 
-      /* Scene 5 (9.3-12.0): the bracket self-draws; the merged label and a fan of eight sheets arrive at 9.4:
-         the found thumbnails fly in at full opacity with their lane markers (doc 1 from both lanes into the
-         middle, the table only from Keyword to the top, the scan only from Vector to the bottom) and five plain
-         sheets settle behind. The lane hits drop to 50% as their copies leave. Static from 9.9 to the cut. */
+      /* 9.0-9.4: the five plain sheets slide out from behind the shared column-1 hits of both lanes (they are
+         painted behind the lane tiles, hidden under the lit column-1 tiles until they move) into the fan */
+      var S = 64 / 100;
+      [
+        ["#f06-pl-5", 1252, 334, 1698, 509, 9.00],
+        ["#f06-pl-4", 1252, 504, 1692, 503, 9.02],
+        ["#f06-pl-3", 1252, 334, 1686, 497, 9.04],
+        ["#f06-pl-2", 1252, 504, 1680, 491, 9.06],
+        ["#f06-pl-1", 1252, 334, 1674, 485, 9.08]
+      ].forEach(function (p) {
+        var el = $(p[0]);
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: P2 }, p[5]);
+        tl.fromTo(el, { x: p[1] - p[3], y: p[2] - p[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.32, ease: IO }, p[5]);
+      });
+
+      /* Scene 5 (9.3-12.0): the bracket self-draws; the merged label arrives at 9.4 and the found thumbnails fly
+         in at full opacity with their lane markers (doc 1 from both lanes into the middle, the table only from
+         Keyword to the top, the scan only from Vector to the bottom), in front of the fan. The lane hits drop
+         to 50% as their copies leave. Static from 9.9 to the cut. */
       draw($("#f06-brace-a"), 9.3, 0.45);
       draw($("#f06-brace-b"), 9.3, 0.45);
       tl.fromTo($("#f06-merge-label"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 9.4);
-      tl.fromTo($$(".f06-plain"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.38, ease: P3, stagger: 0.03 }, 9.4);
-      var S = 64 / 100;
       [
-        ["#f06-g-k2", 1328, 334, 1668, 323, 9.40],
+        ["#f06-g-k2", 1328, 334, 1668, 305, 9.40],
         ["#f06-g-k1", 1252, 334, 1668, 479, 9.43],
         ["#f06-g-v1", 1252, 504, 1668, 479, 9.43],
-        ["#f06-g-v4", 1480, 504, 1668, 635, 9.46]
+        ["#f06-g-v4", 1480, 504, 1668, 683, 9.46]
       ].forEach(function (g) {
         var el = $(g[0]);
         tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.44, ease: "expo.out" }, g[5]);
@@ -391,8 +421,8 @@
       /* doc 1 was found by both lanes: once both copies have landed it carries both markers + its cobalt outline */
       tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: P3 }, 9.7);
       draw($("#f06-ex-outline"), 9.62, 0.28);
-      fade(K[0], 9.45, 0.3, 0.5, 0.4);
-      fade(V[0], 9.45, 0.3, 0.5, 0.4);
+      fade(K[0], 9.45, 1, 0.5, 0.4);
+      fade(V[0], 9.45, 1, 0.5, 0.4);
       fade(K[1], 9.45, 1, 0.5, 0.4);
       fade(V[3], 9.45, 1, 0.5, 0.4);
 
