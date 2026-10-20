@@ -88,11 +88,11 @@
 
     /* post-filter: filter bar + residue chips (negative, chip-sized only) */
     #f10-filterbar{position:absolute;left:424px;top:131px;width:250px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
-    /* 18px local padding = 16px on screen between the chips and the red border */
-    #f10-residue{position:absolute;left:432px;top:138px;width:234px;height:208px;box-sizing:border-box;padding:18px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;z-index:7;pointer-events:none}
+    /* 19px local padding = 17px on screen (>= 16px clear of the red border) */
+    #f10-residue{position:absolute;left:432px;top:138px;width:234px;height:208px;box-sizing:border-box;padding:19px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;z-index:7;pointer-events:none}
     .f10-res{display:flex;align-items:center;gap:5px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 12px 2px 8px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap;transform-origin:100% 50%}
     /* OPEN padlock (shackle raised and offset): the trace got out */
-    .f10-res .f10-lk-open{display:block;width:24px;height:24px;flex:none;overflow:visible}
+    .f10-res .f10-lk-open{display:block;width:26px;height:26px;flex:none;overflow:visible}
 
     /* permission scope (component 4): dashed cobalt outline, self-drawn through a mask */
     .f10-scope{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:5;pointer-events:none}
@@ -144,18 +144,18 @@
         </div>
           <svg class="f10-trails" viewBox="0 0 804 460" aria-hidden="true">
             <defs>
-              <mask id="f10-trail-m0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d0" d="M652 168 C616 168 590 180.5 532 180.5" pathLength="100"/></mask>
-              <mask id="f10-trail-m1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d1" d="M646 160 V234 Q646 242 638 242 H614" pathLength="100"/></mask>
-              <mask id="f10-trail-m2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d2" d="M646 238 V295.6 Q646 303.6 638 303.6 H542" pathLength="100"/></mask>
-              <mask id="f10-trail-m3" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d3" d="M646 264 H731" pathLength="100"/></mask>
+              <mask id="f10-trail-m0" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d0" d="M652 168 C616 168 590 181.5 532 181.5" pathLength="100"/></mask>
+              <mask id="f10-trail-m1" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d1" d="M648 160 V234 Q648 242 640 242 H614" pathLength="100"/></mask>
+              <mask id="f10-trail-m2" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d2" d="M648 238 V294.5 Q648 302.5 640 302.5 H542" pathLength="100"/></mask>
+              <mask id="f10-trail-m3" maskUnits="userSpaceOnUse" x="-20" y="-20" width="844" height="500"><path class="f10-trail-mp" id="f10-trail-d3" d="M648 264 H731" pathLength="100"/></mask>
             </defs>
-            <path class="f10-trail" d="M652 168 C616 168 590 180.5 532 180.5" mask="url(#f10-trail-m0)"/>
-            <path class="f10-trail" d="M646 160 V234 Q646 242 638 242 H614" mask="url(#f10-trail-m1)"/>
-            <path class="f10-trail" d="M646 238 V295.6 Q646 303.6 638 303.6 H542" mask="url(#f10-trail-m2)"/>
-            <path class="f10-trail" d="M646 264 H727" mask="url(#f10-trail-m3)"/>
+            <path class="f10-trail" d="M652 168 C616 168 590 181.5 532 181.5" mask="url(#f10-trail-m0)"/>
+            <path class="f10-trail" d="M648 160 V234 Q648 242 640 242 H614" mask="url(#f10-trail-m1)"/>
+            <path class="f10-trail" d="M648 238 V294.5 Q648 302.5 640 302.5 H542" mask="url(#f10-trail-m2)"/>
+            <path class="f10-trail" d="M648 264 H727" mask="url(#f10-trail-m3)"/>
           </svg>
           <div class="f10-ghost" id="f10-L-ghost"><i class="f10-ghost-ink"></i><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></div>
-          <div id="f10-residue"><span class="f10-res" id="f10-res-0"><svg class="f10-lk-open" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>log</span></span><span class="f10-res" id="f10-res-1"><svg class="f10-lk-open" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>จำนวนผล</span></span><span class="f10-res" id="f10-res-2"><svg class="f10-lk-open" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>สรุป</span></span></div>
+          <div id="f10-residue"><span class="f10-res" id="f10-res-0"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>log</span></span><span class="f10-res" id="f10-res-1"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>จำนวนผล</span></span><span class="f10-res" id="f10-res-2"><svg class="f10-lk-open" viewBox="2 2 28 28" aria-hidden="true"><path class="f10-lk-sh" d="M17 15V9.5a5.5 5.5 0 0 1 11 0v3"/><rect class="f10-lk-b" x="3" y="15" width="19" height="14" rx="3"/><circle class="f10-lk-k" cx="12.5" cy="21" r="2.3"/><rect class="f10-lk-k" x="11.5" y="21.5" width="2" height="4.4" rx="1"/></svg><span>สรุป</span></span></div>
         <div class="f10-label f10-label-neg" id="f10-L-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5"/></svg><span>ค้นทั้งคลัง แล้วค่อยกรอง</span></div>
       </div>
 
