@@ -40,13 +40,15 @@
   .f09-idbar{display:block;height:14px;border-radius:6px;background:rgba(154,154,154,0.5);transform-origin:0 50%}
   .f09-idbar.f09-strong{height:18px;background:rgba(107,107,107,0.45)}
   #f09-chip-id{position:absolute;top:20px;right:20px}
+  /* round 3: the 'Identity' / 'ACL' chips carry the same 3px cobalt underline as their headline words (drawn in sync) */
+  .f09-cul{position:absolute;left:16px;right:16px;bottom:6px;height:3px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%}
 
   /* registry ledger card */
   #f09-ledger{left:96px;top:560px;width:600px;height:300px;padding:22px 24px}
   .f09-led-head{display:flex;align-items:center;gap:14px;height:51px}
   .f09-led-ico{flex:none;width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .f09-led-title{display:block;width:150px;height:14px;border-radius:6px;background:rgba(107,107,107,0.45)}
-  #f09-chip-acl{margin-left:auto}
+  #f09-chip-acl{margin-left:auto;position:relative}
   .f09-table{margin-top:12px;box-sizing:border-box;border:1px solid rgba(154,154,154,0.45);border-radius:8px;overflow:hidden}
   .f09-row{position:relative;display:flex;box-sizing:border-box;height:38px;border-bottom:1px solid rgba(154,154,154,0.35)}
   .f09-row:last-child{border-bottom:none}
@@ -75,8 +77,9 @@
   .f09-ico svg{width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .f09-obj-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111}
   .f09-obj .f09-chip{margin-top:4px}
-  .f09-badge{flex:none;width:100px;height:32px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:8px}
-  .f09-badge span{display:block;flex:none;width:12px;height:12px;border-radius:50%;background:#1e2bfa}
+  /* canonical 4-dot badge (frame 04, round 3): pill 120x36, four 18px dots, 6px gaps, centred */
+  .f09-badge{flex:none;width:120px;height:36px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:6px}
+  .f09-badge span{display:block;flex:none;width:18px;height:18px;border-radius:50%;background:#1e2bfa}
 </style>
 
 <div id="root" data-composition-id="09-scope" data-width="1920" data-height="1080" data-duration="10.5">
@@ -89,7 +92,7 @@
   <!-- headline, revealed per phrase -->
   <div id="f09-h2">
     <span class="f09-line"><span class="f09-ph">สิทธิ์จริง</span><span class="f09-ph">มาจาก</span></span>
-    <span class="f09-line"><span class="f09-ph f09-em">ตัวตน<span id="f09-ul-id" class="f09-ul"></span></span> <span class="f09-ph">+</span> <span class="f09-ph f09-em">ทะเบียนเอกสาร<span id="f09-ul-acl" class="f09-ul"></span></span></span>
+    <span class="f09-line"><span id="f09-w-id" class="f09-ph f09-em">ตัวตน<span id="f09-ul-id" class="f09-ul"></span></span> <span class="f09-ph">+</span> <span id="f09-w-acl" class="f09-ph f09-em">ทะเบียนเอกสาร<span id="f09-ul-acl" class="f09-ul"></span></span></span>
   </div>
 
   <!-- identity badge card -->
@@ -110,7 +113,7 @@
       <span class="f09-idbar" style="width:188px"></span>
       <span class="f09-idbar" style="width:132px"></span>
     </div>
-    <span id="f09-chip-id" class="f09-chip">Identity</span>
+    <span id="f09-chip-id" class="f09-chip">Identity<span id="f09-cul-id" class="f09-cul"></span></span>
   </div>
 
   <!-- document registry ledger card -->
@@ -122,7 +125,7 @@
         <path d="M9 7h7M9 11h5"/>
       </svg>
       <span class="f09-led-title"></span>
-      <span id="f09-chip-acl" class="f09-chip">ACL</span>
+      <span id="f09-chip-acl" class="f09-chip">ACL<span id="f09-cul-acl" class="f09-cul"></span></span>
     </div>
     <div class="f09-table">
       <div class="f09-row f09-row-h">
@@ -248,6 +251,9 @@
 
   // svg circles scale about their own centre (set once, before any transform is applied)
   gsap.set(["#f09-dot-id", "#f09-dot-acl", "#f09-node"], { transformOrigin: "50% 50%" });
+  // headline words pulse from their left edge (keeps 'ตัวตน' inside x >= 96 and clear of the '+')
+  gsap.set(["#f09-w-id", "#f09-w-acl"], { transformOrigin: "0% 50%" });
+  gsap.set(["#f09-chip-id", "#f09-chip-acl"], { transformOrigin: "50% 50%" });
 
   var tl = gsap.timeline({ paused: true });
 
@@ -261,15 +267,21 @@
   tl.fromTo("#f09-id", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.15);
   tl.fromTo("#f09-avatar", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.25);
   tl.fromTo(".f09-idbar", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out", stagger: 0.07 }, 1.32);
-  tl.fromTo("#f09-chip-id", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 1.40);
-  // 'Identity' -> underline under 'ตัวตน' (held to the end)
-  tl.fromTo("#f09-ul-id", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 1.40);
+  tl.fromTo("#f09-chip-id", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 1.40);
+  // 'Identity' -> one 3px underline under 'ตัวตน' AND under the chip, drawn together (held to the end)
+  tl.fromTo(["#f09-ul-id", "#f09-cul-id"], { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 1.40);
+  // on landing (1.70) the word and its chip pulse together: 1 -> 1.06 -> 1 over 0.3s
+  tl.fromTo(["#f09-w-id", "#f09-chip-id"], { scale: 1 }, { scale: 1.06, duration: 0.15, ease: "power2.out", immediateRender: false }, 1.70);
+  tl.fromTo(["#f09-w-id", "#f09-chip-id"], { scale: 1.06 }, { scale: 1, duration: 0.15, ease: "power2.inOut", immediateRender: false }, 1.85);
 
   tl.fromTo("#f09-ledger", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.95);
   tl.fromTo("#f09-ledger .f09-row", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 2.05);
-  tl.fromTo("#f09-chip-acl", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 2.20);
-  // 'ACL' -> underline under 'ทะเบียนเอกสาร' (held to the end)
-  tl.fromTo("#f09-ul-acl", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 2.20);
+  tl.fromTo("#f09-chip-acl", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 2.20);
+  // 'ACL' -> one 3px underline under 'ทะเบียนเอกสาร' AND under the chip, drawn together (held to the end)
+  tl.fromTo(["#f09-ul-acl", "#f09-cul-acl"], { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 2.20);
+  // on landing (2.50) the word and its chip pulse together: 1 -> 1.06 -> 1 over 0.3s
+  tl.fromTo(["#f09-w-acl", "#f09-chip-acl"], { scale: 1 }, { scale: 1.06, duration: 0.15, ease: "power2.out", immediateRender: false }, 2.50);
+  tl.fromTo(["#f09-w-acl", "#f09-chip-acl"], { scale: 1.06 }, { scale: 1, duration: 0.15, ease: "power2.inOut", immediateRender: false }, 2.65);
   // the example document's row lights up cobalt
   tl.fromTo("#f09-row-hi", { backgroundColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", duration: 0.35, ease: "power2.out" }, 2.55);
   tl.fromTo(".f09-hi-bar", { backgroundColor: "rgba(154,154,154,0.5)" }, { backgroundColor: "rgba(30,43,250,1)", duration: 0.35, ease: "power2.out" }, 2.55);
