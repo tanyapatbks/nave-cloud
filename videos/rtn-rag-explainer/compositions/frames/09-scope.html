@@ -24,14 +24,17 @@
   #f09-h2 .f09-ph{display:inline-block;position:relative}
   #f09-h2 .f09-em{color:#1e2bfa}
   /* round 2: 3px cobalt underline ties each Thai noun to its English chip (drawn on the chip's cue) */
-  #f09-h2 .f09-ul{position:absolute;left:0;right:0;bottom:7px;height:3px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%}
+  #f09-h2 .f09-ul{position:absolute;left:0;right:0;bottom:-6px;height:3px;border-radius:2px;background:#1e2bfa;transform-origin:0 50%}
+
+  /* round 5: underline sits below the line box (bottom:-6px) so it clears the below-vowel in 'ผู้'; the '+' gets 6px side margins so the 1.06 word pulse never touches it */
+  #f09-h2 .f09-plus{margin:0 6px}
 
   /* shared card + chip atoms */
   .f09-card{position:absolute;box-sizing:border-box;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);border-radius:14px}
   /* mono chip token (round 2): 28px mono, cap ~20px, pill height 48px, padding 12px 16px */
   .f09-chip{display:inline-block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;letter-spacing:0.02em;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
 
-  /* identity badge card */
+  /* identity badge card (round 5: both left cards 680px wide so the ledger header fits the 466px ACL chip) */
   #f09-id{left:96px;top:356px;width:680px;height:170px;padding:0 28px;display:flex;align-items:center;gap:28px}
   /* frame-08 avatar component (ring + grey figure) at 110px; ring stroke cobalt = active */
   #f09-avatar{flex:none;width:110px;height:110px}
@@ -92,7 +95,7 @@
   <!-- headline, revealed per phrase -->
   <div id="f09-h2">
     <span class="f09-line"><span class="f09-ph">สิทธิ์จริง</span><span class="f09-ph">มาจาก</span></span>
-    <span class="f09-line"><span id="f09-w-id" class="f09-ph f09-em">ตัวตนผู้ใช้<span id="f09-ul-id" class="f09-ul"></span></span> <span class="f09-ph">+</span> <span id="f09-w-acl" class="f09-ph f09-em">สิทธิการเข้าถึงเอกสาร<span id="f09-ul-acl" class="f09-ul"></span></span></span>
+    <span class="f09-line"><span id="f09-w-id" class="f09-ph f09-em">ตัวตนผู้ใช้<span id="f09-ul-id" class="f09-ul"></span></span> <span class="f09-ph f09-plus">+</span> <span id="f09-w-acl" class="f09-ph f09-em">สิทธิการเข้าถึงเอกสาร<span id="f09-ul-acl" class="f09-ul"></span></span></span>
   </div>
 
   <!-- identity badge card -->
