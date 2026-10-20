@@ -26,7 +26,7 @@
 
   /* shared card + chip atoms */
   .f09-card{position:absolute;box-sizing:border-box;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);border-radius:14px}
-  .f09-chip{display:inline-block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;letter-spacing:0.02em;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+  .f09-chip{display:inline-block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;letter-spacing:0.02em;padding:6px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
 
   /* identity badge card */
   #f09-id{left:96px;top:356px;width:600px;height:170px;padding:0 28px;display:flex;align-items:center;gap:28px}
@@ -53,6 +53,7 @@
   .f09-vbar{display:block;height:10px;border-radius:6px;background:rgba(154,154,154,0.5)}
   .f09-vbar.f09-dark{height:12px;background:rgba(107,107,107,0.5)}
   .f09-mdoc{flex:none;display:block;width:14px;height:18px;box-sizing:border-box;border:2px solid rgba(154,154,154,0.8);border-radius:3px}
+  #f09-hi-doc{flex:none;display:block;width:19px;height:24px;overflow:visible}
   #f09-hi-ring{position:absolute;left:0;top:0;right:0;bottom:0;border:2px solid #1e2bfa;border-radius:4px}
 
   /* connectors + permission scope (one canvas-space svg) */
@@ -61,7 +62,7 @@
   .f09-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
 
   /* scope label pill (component 4) */
-  #f09-scope-pill{position:absolute;left:1028px;top:305px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
+  #f09-scope-pill{position:absolute;left:1028px;top:301px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:6px 24px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
 
   /* four object cards inside the scope */
   .f09-obj{position:absolute;width:370px;height:216px;box-sizing:border-box;padding:22px 24px;border-radius:14px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);display:flex;flex-direction:column;align-items:flex-start}
@@ -70,8 +71,8 @@
   .f09-ico svg{width:32px;height:32px;fill:none;stroke:#1e2bfa;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .f09-obj-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:36px;line-height:1.45;color:#111111}
   .f09-obj .f09-chip{margin-top:4px;padding:6px 16px}
-  .f09-badge{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:100px;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2)}
-  .f09-badge span{display:block;width:9px;height:9px;border-radius:50%;background:#1e2bfa}
+  .f09-badge{flex:none;width:100px;height:32px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.2);border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;justify-content:center;gap:8px}
+  .f09-badge span{display:block;flex:none;width:12px;height:12px;border-radius:50%;background:#1e2bfa}
 </style>
 
 <div id="root" data-composition-id="09-scope" data-width="1920" data-height="1080" data-duration="10.5">
@@ -125,7 +126,12 @@
         <div class="f09-cell f09-b"><span class="f09-vbar" style="width:72px"></span><span class="f09-vbar" style="width:48px"></span></div>
       </div>
       <div class="f09-row" id="f09-row-hi">
-        <div class="f09-cell f09-a"><span class="f09-mdoc" id="f09-hi-doc"></span><span class="f09-vbar f09-hi-bar" style="width:196px"></span></div>
+        <div class="f09-cell f09-a"><svg id="f09-hi-doc" viewBox="0 0 19 24" width="19" height="24" aria-hidden="true">
+          <defs><clipPath id="f09-hi-doc-clip"><rect x="1" y="1" width="17" height="22" rx="3" ry="3"/></clipPath></defs>
+          <g clip-path="url(#f09-hi-doc-clip)"><rect x="0" y="0" width="19" height="24" fill="#fdfae7"/><rect x="0" y="0" width="19" height="4.5" fill="#111111"/></g>
+          <rect x="4.5" y="9" width="10" height="2" rx="1" fill="#9a9a9a"/><rect x="4.5" y="13" width="8" height="2" rx="1" fill="#9a9a9a"/><rect x="4.5" y="17" width="10" height="2" rx="1" fill="#9a9a9a"/>
+          <rect id="f09-hi-doc-outline" x="1" y="1" width="17" height="22" rx="3" ry="3" fill="none" stroke="#1e2bfa" stroke-width="2"/>
+        </svg><span class="f09-vbar f09-hi-bar" style="width:196px"></span></div>
         <div class="f09-cell f09-b"><span class="f09-vbar f09-hi-bar" style="width:64px"></span><span class="f09-vbar f09-hi-bar" style="width:88px"></span></div>
         <div id="f09-hi-ring"></div>
       </div>
@@ -247,27 +253,27 @@
   tl.fromTo("#f09-id", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.15);
   tl.fromTo("#f09-avatar", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.25);
   tl.fromTo(".f09-idbar", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out", stagger: 0.07 }, 1.32);
-  tl.fromTo("#f09-chip-id", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 1.40);
+  tl.fromTo("#f09-chip-id", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 1.40);
 
   tl.fromTo("#f09-ledger", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.95);
   tl.fromTo("#f09-ledger .f09-row", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 2.05);
-  tl.fromTo("#f09-chip-acl", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 2.20);
+  tl.fromTo("#f09-chip-acl", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, 2.20);
   // the example document's row lights up cobalt
-  tl.fromTo("#f09-row-hi", { backgroundColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", duration: 0.35, ease: "power1.out" }, 2.55);
-  tl.fromTo(".f09-hi-bar", { backgroundColor: "rgba(154,154,154,0.5)" }, { backgroundColor: "rgba(30,43,250,1)", duration: 0.35, ease: "power1.out" }, 2.55);
-  tl.fromTo("#f09-hi-doc", { borderColor: "rgba(154,154,154,0.8)" }, { borderColor: "rgba(30,43,250,1)", duration: 0.35, ease: "power1.out" }, 2.55);
-  tl.fromTo("#f09-hi-ring", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 2.55);
+  tl.fromTo("#f09-row-hi", { backgroundColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", duration: 0.35, ease: "power2.out" }, 2.55);
+  tl.fromTo(".f09-hi-bar", { backgroundColor: "rgba(154,154,154,0.5)" }, { backgroundColor: "rgba(30,43,250,1)", duration: 0.35, ease: "power2.out" }, 2.55);
+  tl.fromTo("#f09-hi-doc-outline", { stroke: "#9a9a9a" }, { stroke: "#1e2bfa", duration: 0.35, ease: "power2.out" }, 2.55);
+  tl.fromTo("#f09-hi-ring", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 2.55);
 
   // ---- Scene 2 (3.0–4.8): two cobalt lines converge at x=980, scope self-draws, label pill ----
   tl.fromTo(["#f09-dot-id", "#f09-dot-acl"], { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", stagger: 0.1 }, 3.00);
   tl.fromTo("#f09-link-id",  { strokeDashoffset: L_ID + 2 },  { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 3.00);
   tl.fromTo("#f09-link-acl", { strokeDashoffset: L_ACL + 2 }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 3.10);
-  tl.fromTo("#f09-node", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 3.55);
+  tl.fromTo("#f09-node", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 3.55);
   // boundary draws both ways from the junction and closes on the far edge
   tl.fromTo("#f09-mtop", { strokeDashoffset: L_TOP + 2 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 3.62);
   tl.fromTo("#f09-mbot", { strokeDashoffset: L_BOT + 2 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 3.62);
   tl.fromTo("#f09-scope-pill", { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 3.80);
-  tl.fromTo("#f09-scope-fill", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 4.40);
+  tl.fromTo("#f09-scope-fill", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 4.40);
 
   // ---- Scene 3 (4.8–7.4): four governed objects assemble into the 2x2 grid on their cues ----
   var cues = [4.8, 5.4, 6.0, 6.6];
@@ -275,7 +281,7 @@
     var card = "#f09-obj-" + (k + 1), t = cues[k];
     tl.fromTo(card, { opacity: 0, y: 22, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, t);
     tl.fromTo(card + " .f09-chip", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, t + 0.12);
-    tl.fromTo(card + " .f09-badge", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, t + 0.22);
+    tl.fromTo(card + " .f09-badge", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }, t + 0.22);
   }
 
   // ---- Scene 4 (7.4–10.0): held read — no motion; pad the timeline to the frame length ----

@@ -62,7 +62,7 @@
     #f10-L-t4,#f10-R-t7{z-index:6}
 
     /* candidates -> AI zone (wordless: tray, arrow, AI node) */
-    .f10-tray{position:absolute;left:456px;top:150px;width:168px;height:184px;box-sizing:border-box;border-radius:12px;border:1.5px dashed rgba(30,43,250,0.28);background:rgba(30,43,250,0.03);z-index:2}
+    .f10-tray{position:absolute;left:444px;top:150px;width:192px;height:184px;box-sizing:border-box;border-radius:12px;border:1.5px dashed rgba(30,43,250,0.28);background:rgba(30,43,250,0.03);z-index:2}
     .f10-tray-lit{position:absolute;inset:-1.5px;border-radius:12px;border:1.5px solid rgba(30,43,250,0.55);background:rgba(30,43,250,0.06);opacity:0}
     .f10-tray-lit.f10-tray-neg{border:2px solid #b42318;background:rgba(180,35,24,0.04)}
     .f10-flow{position:absolute;left:0;top:0;width:804px;height:460px;overflow:visible;z-index:2;pointer-events:none}
@@ -80,9 +80,9 @@
     .f10-beam{position:absolute;left:0;top:0;width:70px;height:100%;background:linear-gradient(90deg,rgba(30,43,250,0) 0%,rgba(30,43,250,0.10) 55%,rgba(30,43,250,0.28) 95%,#1e2bfa 95%,#1e2bfa 100%);opacity:0}
 
     /* post-filter: filter bar + residue chips (negative, chip-sized only) */
-    #f10-filterbar{position:absolute;left:448px;top:143px;width:184px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
-    #f10-residue{position:absolute;left:456px;top:150px;width:168px;height:184px;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;z-index:7;pointer-events:none}
-    .f10-res{display:flex;align-items:center;gap:5px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 12px 2px 9px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap}
+    #f10-filterbar{position:absolute;left:436px;top:143px;width:208px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
+    #f10-residue{position:absolute;left:444px;top:150px;width:192px;height:184px;box-sizing:border-box;padding-left:8px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-evenly;z-index:7;pointer-events:none}
+    .f10-res{display:flex;align-items:center;gap:5px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 11px 2px 9px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap}
     .f10-res .f10-lk{width:16px;height:16px;flex:none}
 
     /* permission scope (component 4): dashed cobalt outline, self-drawn through a mask */
@@ -124,8 +124,8 @@
           <div class="f10-tile f10-tile-L" id="f10-L-t11" data-col="3" style="left:326px;top:308px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:52px"></i><i class="f10-ln" style="top:50px;width:43px"></i><i class="f10-ln" style="top:64px;width:34px"></i><i class="f10-ln" style="top:78px;width:51px"></i><i class="f10-hit"></i></div>
           <div class="f10-tray" id="f10-L-tray"><i class="f10-tray-lit f10-tray-neg" id="f10-L-traylit"></i></div>
           <svg class="f10-flow" viewBox="0 0 804 460">
-            <path class="f10-flow-ghost" d="M634 242 H684"/>
-            <path class="f10-flow-lit" id="f10-L-arrow" d="M634 242 H684" pathLength="100"/>
+            <path class="f10-flow-ghost" d="M646 242 H684"/>
+            <path class="f10-flow-lit" id="f10-L-arrow" d="M646 242 H684" pathLength="100"/>
             <path class="f10-flow-lit" id="f10-L-head" d="M675 233 L685 242 L675 251" pathLength="100"/>
           </svg>
           <div class="f10-ai" id="f10-L-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
@@ -133,7 +133,7 @@
           <div class="f10-beamwrap" id="f10-L-beamwrap"><i class="f10-beam" id="f10-L-beam"></i></div>
           <i id="f10-filterbar"></i>
         </div>
-          <div class="f10-ghost" id="f10-L-ghost" style="left:500px;top:190px"><span class="f10-lock"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></span></div>
+          <div class="f10-ghost" id="f10-L-ghost" style="left:550px;top:224px"><span class="f10-lock"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/><circle class="f10-lk-k" cx="16" cy="20.5" r="2.4"/><rect class="f10-lk-k" x="15" y="21" width="2" height="4.6" rx="1"/></svg></span></div>
           <div id="f10-residue"><span class="f10-res" id="f10-res-0"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/></svg><span>log</span></span><span class="f10-res" id="f10-res-1"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/></svg><span>จำนวนผล</span></span><span class="f10-res" id="f10-res-2"><svg class="f10-lk" viewBox="0 0 32 32" aria-hidden="true"><path class="f10-lk-sh" d="M10.5 14.5V10.5a5.5 5.5 0 0 1 11 0v4"/><rect class="f10-lk-b" x="6" y="14" width="20" height="15" rx="3"/></svg><span>สรุป</span></span></div>
         <div class="f10-label f10-label-neg" id="f10-L-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5"/></svg><span>ค้นทั้งคลัง แล้วค่อยกรอง</span></div>
       </div>
@@ -155,8 +155,8 @@
           <div class="f10-tile f10-tile-R" id="f10-R-t11" data-col="3" style="left:326px;top:308px"><i class="f10-band f10-band-img"></i><svg class="f10-kind" viewBox="0 0 14 14"><rect x="1.5" y="2.5" width="11" height="9" rx="1.2" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2"/><path d="M3 10l3-3.2 2.2 2.2 1.4-1.4L11.5 10" fill="none" stroke="rgba(30,43,250,0.6)" stroke-width="1.2" stroke-linejoin="round"/></svg><i class="f10-ln" style="top:36px;width:52px"></i><i class="f10-ln" style="top:50px;width:43px"></i><i class="f10-ln" style="top:64px;width:34px"></i><i class="f10-ln" style="top:78px;width:51px"></i><i class="f10-hit"></i></div>
           <div class="f10-tray" id="f10-R-tray"><i class="f10-tray-lit" id="f10-R-traylit"></i></div>
           <svg class="f10-flow" viewBox="0 0 804 460">
-            <path class="f10-flow-ghost" d="M634 242 H684"/>
-            <path class="f10-flow-lit" id="f10-R-arrow" d="M634 242 H684" pathLength="100"/>
+            <path class="f10-flow-ghost" d="M646 242 H684"/>
+            <path class="f10-flow-lit" id="f10-R-arrow" d="M646 242 H684" pathLength="100"/>
             <path class="f10-flow-lit" id="f10-R-head" d="M675 233 L685 242 L675 251" pathLength="100"/>
           </svg>
           <div class="f10-ai" id="f10-R-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
@@ -224,22 +224,27 @@
         tl.to(hit, { opacity: 0, duration: 0.4, ease: "power1.out" }, t + 0.25);
       });
 
-      // a restricted tile is lifted into the candidates tray (it reached the AI)
-      tl.to("#f10-L-t4", { x: 456, duration: 0.5, ease: "power2.inOut" }, 2.05);
-      tl.to("#f10-L-t4", { y: -40, scale: 1.08, duration: 0.24, ease: "power2.out" }, 2.05);
-      tl.to("#f10-L-t4", { y: 0, scale: 1, duration: 0.26, ease: "power2.in" }, 2.29);
-      tl.fromTo("#f10-L-slot", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.12);
-      tl.fromTo("#f10-L-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.3);
-      tl.fromTo("#f10-L-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 2.48);
-      tl.fromTo("#f10-L-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.12, ease: "power2.out" }, 2.64);
-      tl.fromTo("#f10-L-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" }, 2.68);
+      // a restricted tile lifts at 2.0 (its outline pulses 2px red) into the candidates tray (it reached the AI)
+      tl.fromTo("#f10-L-alarm", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 2.0);
+      tl.to("#f10-L-alarm", { opacity: 0.35, duration: 0.16, ease: "power2.inOut" }, 2.14);
+      tl.to("#f10-L-alarm", { opacity: 1, duration: 0.16, ease: "power2.inOut" }, 2.32);
+      tl.to("#f10-L-t4", { x: 506, duration: 0.5, ease: "power2.inOut" }, 2.0);
+      tl.to("#f10-L-t4", { y: -40, scale: 1.08, duration: 0.24, ease: "power2.out" }, 2.0);
+      tl.to("#f10-L-t4", { y: 34, scale: 1, duration: 0.26, ease: "power2.in" }, 2.24);
+      tl.fromTo("#f10-L-slot", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.07);
+      // the result box takes a 2px red border as the restricted tile enters it (2.5s)
+      tl.fromTo("#f10-L-traylit", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.25);
+      tl.fromTo("#f10-L-arrow", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 2.43);
+      tl.fromTo("#f10-L-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.12, ease: "power2.out" }, 2.59);
+      tl.fromTo("#f10-L-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" }, 2.63);
 
-      // post-filter bar sweeps the tray and strikes the tile out
-      tl.fromTo("#f10-filterbar", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 2.6);
-      tl.fromTo("#f10-filterbar", { y: 0 }, { y: 196, duration: 0.4, ease: "power1.inOut" }, 2.64);
-      tl.to("#f10-filterbar", { opacity: 0, duration: 0.3, ease: "power1.out" }, 3.1);
-      tl.fromTo("#f10-strike-path", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.17, ease: "power2.out" }, 2.78);
-      tl.to("#f10-L-t4", { opacity: 0, scale: 0.86, duration: 0.25, ease: "power2.in" }, 2.95);
+      // post-filter bar sweeps the tray and strikes the tile out; its dashed ghost + lock stay at 30%
+      tl.fromTo("#f10-filterbar", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, 2.55);
+      tl.fromTo("#f10-filterbar", { y: 0 }, { y: 196, duration: 0.4, ease: "power2.inOut" }, 2.59);
+      tl.to("#f10-filterbar", { opacity: 0, duration: 0.3, ease: "power2.out" }, 3.05);
+      tl.fromTo("#f10-strike-path", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.17, ease: "power2.out" }, 2.73);
+      tl.to("#f10-L-t4", { opacity: 0, scale: 0.86, duration: 0.25, ease: "power2.in" }, 2.9);
+      tl.fromTo("#f10-L-ghost", { opacity: 0 }, { opacity: 0.3, duration: 0.3, ease: "power2.out" }, 2.92);
 
       // ...but the residue stays behind (3.0s)
       ["#f10-res-0", "#f10-res-1", "#f10-res-2"].forEach(function (id, i) {
@@ -276,18 +281,21 @@
       tl.fromTo("#f10-R-head", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.1, ease: "power2.out" }, 6.22);
       tl.fromTo("#f10-R-ailit", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" }, 6.24);
 
-      // ===== Scene 4 (6.4-10.0): light depth-of-field on both panels; the rule lands, then hold =====
-      tl.fromTo("#f10-L-panel", { "--dof": "0px", opacity: 1 }, { "--dof": "2px", opacity: 0.62, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 6.4);
-      tl.fromTo("#f10-R-panel", { "--dof": "0px", opacity: 1 }, { "--dof": "1px", opacity: 0.88, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 6.4);
-      tl.to("#f10-divider", { opacity: 0.5, duration: 0.8, ease: "power2.inOut" }, 6.4);
+      // ===== Scene 4 (6.4-12.0): NO blur. Both panels settle to 0.92 (top edge rises 24px so they end at y ~688,
+      // 80px clear of the rule); the wrong path's documents + tray drop to 50% opacity only; its x label,
+      // ghost and residue chips (outside #f10-L-body) and the whole right panel stay at 100% and sharp =====
+      tl.fromTo(["#f10-L-panel", "#f10-R-panel"], { scale: 1, y: 0 }, { scale: 0.92, y: -24, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 6.4);
+      tl.fromTo("#f10-divider", { y: 0, scaleY: 1, opacity: 1 }, { y: -26.4, scaleY: 0.92, opacity: 0.5, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 6.4);
+      tl.fromTo("#f10-L-body", { opacity: 1 }, { opacity: 0.5, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 6.4);
 
-      tl.fromTo("#f10-r1a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 6.55);
-      tl.fromTo("#f10-r1b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 6.8);
-      tl.fromTo("#f10-r2a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 7.2);
-      tl.fromTo("#f10-r2b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 7.45);
+      // the rule: fully legible by 7.4s, then hold still
+      tl.fromTo("#f10-r1a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.4);
+      tl.fromTo("#f10-r1b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.55);
+      tl.fromTo("#f10-r2a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.8);
+      tl.fromTo("#f10-r2b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.95);
 
-      // hold still to the end of the 10s window
-      tl.set({}, {}, 10);
+      // hold still through the 12s window (+0.6s blur-crossfade)
+      tl.set({}, {}, 12.6);
 
       window.__timelines["10-prefilter"] = tl;
     })();

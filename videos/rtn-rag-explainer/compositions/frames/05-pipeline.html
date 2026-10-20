@@ -29,29 +29,34 @@
     .f05-seg{position:absolute;top:499px;height:2px;border-radius:1px;background:rgba(30,43,250,0.2);overflow:hidden;}
     .f05-seg-fill{position:absolute;left:0;top:0;width:100%;height:100%;background:#1e2bfa;transform-origin:0 50%;}
 
-    /* station highlight = the "camera" */
-    #f05-focus{position:absolute;left:-132px;top:413px;width:264px;height:174px;box-sizing:border-box;border-radius:22px;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.3);}
+    /* station highlight = the "camera": exactly the card's box, so a lit station shows one border */
+    #f05-focus{position:absolute;left:-131px;top:425px;width:262px;height:150px;box-sizing:border-box;border-radius:14px;background:rgba(30,43,250,0.06);border:2px solid rgba(30,43,250,0.5);}
 
-    /* six stations (card-tinted) */
-    .f05-card{position:absolute;top:425px;width:240px;height:150px;box-sizing:border-box;border-radius:14px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);}
+    /* six stations (card-tinted), 262 x 150 */
+    .f05-card{position:absolute;top:425px;width:262px;height:150px;box-sizing:border-box;border-radius:14px;background:rgba(30,43,250,0.04);border:1.5px solid rgba(30,43,250,0.2);}
 
-    /* station labels: Thai 600 30px over mono 22px */
-    .f05-lab{position:absolute;top:335px;width:340px;text-align:center;}
-    .f05-lab-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:30px;line-height:1.45;color:#111111;}
-    .f05-lab-en{display:block;white-space:nowrap;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:22px;line-height:1.45;color:#1e2bfa;letter-spacing:0.02em;}
+    /* per-station check (shared SVG icon), inset 12px inside the card's top-right corner */
+    .f05-ok{position:absolute;top:437px;width:28px;height:28px;border-radius:50%;background:rgba(5,150,105,0.14);color:#059669;display:flex;align-items:center;justify-content:center;transform-origin:50% 50%;}
+    .f05-ok svg{display:block;width:18px;height:18px;}
 
-    /* Clean station micro readout (discrete-text-sequence) */
-    #f05-micro{position:absolute;left:711.2px;top:528px;width:200px;height:38px;box-sizing:border-box;padding:0 16px;border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;white-space:nowrap;}
-    #f05-micro-txt{display:inline-block;min-width:168px;white-space:nowrap;color:#111111;}
+    /* station labels: Thai 600 28px over mono 500 28px (28px is the largest Thai size at which the longest name fits its card width) */
+    .f05-lab{position:absolute;top:328px;width:287.6px;text-align:center;}
+    .f05-lab-th{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:28px;line-height:1.45;color:#111111;}
+    .f05-lab-en{display:block;white-space:nowrap;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;color:#1e2bfa;letter-spacing:0.02em;}
+
+    /* Clean station micro readout (discrete-text-sequence); bottom 17px above the card edge */
+    #f05-micro{position:absolute;left:708.2px;top:520px;width:212px;height:38px;box-sizing:border-box;padding:0 14px;border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;white-space:nowrap;}
+    #f05-micro-txt{display:inline-block;white-space:nowrap;color:#111111;}
     #f05-micro-txt .f05-m-old{color:#111111;}
     #f05-micro-txt .f05-m-old.is-done{color:#6b6b6b;}
     #f05-micro-txt .f05-m-arr{color:#6b6b6b;}
     #f05-micro-txt .f05-m-new{color:#1e2bfa;}
 
-    /* index stack: four drawers (bar-track + cobalt 40% fill) */
-    .f05-drawer{position:absolute;left:1584px;width:240px;height:30px;border-radius:6px;background:rgba(30,43,250,0.08);overflow:hidden;}
-    .f05-dfill{position:absolute;left:0;top:0;width:100%;height:100%;background:rgba(30,43,250,0.4);transform-origin:0 50%;}
-    .f05-dlit{position:absolute;left:0;top:0;width:100%;height:100%;background:#1e2bfa;}
+    /* the index, inside the Index card: four rows = 8px square marker + bar */
+    .f05-row-track{position:absolute;height:8px;border-radius:4px;background:rgba(30,43,250,0.08);}
+    .f05-row-fill{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:4px;background:#8b8fe8;transform-origin:0 50%;}
+    .f05-mk{position:absolute;width:8px;height:8px;border-radius:1.5px;box-sizing:border-box;border:1.5px solid rgba(30,43,250,0.35);}
+    .f05-mk-on{position:absolute;width:8px;height:8px;border-radius:1.5px;background:#1e2bfa;}
 
     /* token + station imprints: positioned around a 0x0 anchor at the station centre */
     #f05-token,.f05-ghost{position:absolute;left:0;top:500px;width:0;height:0;}
@@ -60,14 +65,16 @@
     .f05-band{position:absolute;left:0;top:0;width:100%;height:5px;background:#111111;}
     .f05-fname{position:absolute;left:-38px;top:50px;width:76px;height:7px;border-radius:4px;background:rgba(17,17,17,0.14);overflow:hidden;}
     .f05-fname-fill{position:absolute;left:0;top:0;width:100%;height:100%;background:#1e2bfa;transform-origin:0 50%;}
-    .f05-check{position:absolute;left:23px;top:-69px;width:30px;height:30px;border-radius:50%;background:linear-gradient(rgba(5,150,105,0.12),rgba(5,150,105,0.12)),#fdfae7;display:flex;align-items:center;justify-content:center;transform-origin:50% 50%;}
-    .f05-check svg{display:block;width:16px;height:16px;}
     .f05-bar{position:absolute;border-radius:3px;background:rgba(17,17,17,0.2);transform-origin:0 50%;}
     .f05-bar.is-head{background:#1e2bfa;}
     .f05-bar-hl{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:3px;background:#1e2bfa;}
+    .f05-stroke{position:absolute;border-radius:1.5px;background:#8b8fe8;}
     .f05-speck{position:absolute;width:5px;height:5px;border-radius:1.5px;background:#9a9a9a;transform-origin:50% 50%;}
     .f05-chunk{position:absolute;top:-24px;width:36px;height:48px;box-sizing:border-box;border-radius:7px;border:2px solid #1e2bfa;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;transform-origin:50% 50%;}
     .f05-cl{position:absolute;left:6px;height:4px;border-radius:2px;background:rgba(17,17,17,0.2);}
+    /* Embed: the back of a chunk card = a short column of illustrative vector digits (texture, not data) */
+    .f05-vec{position:absolute;top:-24px;width:36px;height:48px;box-sizing:border-box;border-radius:7px;border:1.5px solid rgba(30,43,250,0.35);background:#fdfae7;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:9px;line-height:12px;color:#6b6b6b;transform-origin:50% 50%;}
+    .f05-vec span{display:block;white-space:nowrap;}
     .f05-dot{position:absolute;top:-10px;width:20px;height:20px;box-sizing:border-box;border-radius:50%;background:#1e2bfa;border:2px solid #fdfae7;transform-origin:50% 50%;}
   </style>
 
@@ -78,28 +85,25 @@
       <div id="f05-segs"></div>
       <div id="f05-focus"></div>
 
-      <div class="f05-card" id="f05-card-0" style="left:96px"></div>
-      <div class="f05-card" id="f05-card-1" style="left:393.6px"></div>
-      <div class="f05-card" id="f05-card-2" style="left:691.2px"></div>
-      <div class="f05-card" id="f05-card-3" style="left:988.8px"></div>
-      <div class="f05-card" id="f05-card-4" style="left:1286.4px"></div>
-      <div class="f05-card" id="f05-card-5" style="left:1584px"></div>
+      <div class="f05-card" id="f05-card-0" style="left:108px"></div>
+      <div class="f05-card" id="f05-card-1" style="left:395.6px"></div>
+      <div class="f05-card" id="f05-card-2" style="left:683.2px"></div>
+      <div class="f05-card" id="f05-card-3" style="left:970.8px"></div>
+      <div class="f05-card" id="f05-card-4" style="left:1258.4px"></div>
+      <div class="f05-card" id="f05-card-5" style="left:1546px"></div>
 
       <div id="f05-ghosts"></div>
+      <div id="f05-index"></div>
+      <div id="f05-oks"></div>
 
       <div id="f05-micro"><span id="f05-micro-txt"></span></div>
 
-      <div class="f05-lab" id="f05-lab-0" style="left:46px"><span class="f05-lab-th">รับเข้า</span><span class="f05-lab-en">Ingest</span></div>
-      <div class="f05-lab" id="f05-lab-1" style="left:343.6px"><span class="f05-lab-th">แยกส่วน</span><span class="f05-lab-en">Parse</span></div>
-      <div class="f05-lab" id="f05-lab-2" style="left:641.2px"><span class="f05-lab-th">ทำความสะอาด</span><span class="f05-lab-en">Clean</span></div>
-      <div class="f05-lab" id="f05-lab-3" style="left:938.8px"><span class="f05-lab-th">ตัดเป็นชิ้น</span><span class="f05-lab-en">Chunk</span></div>
-      <div class="f05-lab" id="f05-lab-4" style="left:1236.4px"><span class="f05-lab-th">แปลงเป็นความหมาย</span><span class="f05-lab-en">Embed</span></div>
-      <div class="f05-lab" id="f05-lab-5" style="left:1534px"><span class="f05-lab-th">ทำดัชนี</span><span class="f05-lab-en">Index</span></div>
-
-      <div class="f05-drawer" id="f05-drawer-0" style="top:660px"><div class="f05-dfill"></div><div class="f05-dlit"></div></div>
-      <div class="f05-drawer" id="f05-drawer-1" style="top:702px"><div class="f05-dfill"></div><div class="f05-dlit"></div></div>
-      <div class="f05-drawer" id="f05-drawer-2" style="top:744px"><div class="f05-dfill"></div><div class="f05-dlit"></div></div>
-      <div class="f05-drawer" id="f05-drawer-3" style="top:786px"><div class="f05-dfill"></div><div class="f05-dlit"></div></div>
+      <div class="f05-lab" id="f05-lab-0" style="left:95.2px"><span class="f05-lab-th">รับเข้า</span><span class="f05-lab-en">Ingest</span></div>
+      <div class="f05-lab" id="f05-lab-1" style="left:382.8px"><span class="f05-lab-th">แยกส่วน</span><span class="f05-lab-en">Parse</span></div>
+      <div class="f05-lab" id="f05-lab-2" style="left:670.4px"><span class="f05-lab-th">ทำความสะอาด</span><span class="f05-lab-en">Clean</span></div>
+      <div class="f05-lab" id="f05-lab-3" style="left:958px"><span class="f05-lab-th">ตัดเป็นชิ้น</span><span class="f05-lab-en">Chunk</span></div>
+      <div class="f05-lab" id="f05-lab-4" style="left:1245.6px"><span class="f05-lab-th">แปลงเป็นความหมาย</span><span class="f05-lab-en">Embed</span></div>
+      <div class="f05-lab" id="f05-lab-5" style="left:1533.2px"><span class="f05-lab-th">ทำดัชนี</span><span class="f05-lab-en">Index</span></div>
 
       <div id="f05-token"></div>
     </div>
@@ -117,22 +121,34 @@
       var focus = $("f05-focus");
       var ghostsHost = $("f05-ghosts");
       var segsHost = $("f05-segs");
+      var indexHost = $("f05-index");
+      var oksHost = $("f05-oks");
       var microTxt = $("f05-micro-txt");
 
       // ---- layout constants (world px) ----
+      // strip x 108..1808 so that, with the camera lean (max 15px), it always stays inside x 96..1824
       var CY = 500;
       var S = 1.2; // form scale inside token + imprints (.f05-form)
-      var CARD_L = [96, 393.6, 691.2, 988.8, 1286.4, 1584];
-      var CX = [216, 513.6, 811.2, 1108.8, 1406.4, 1704];
+      var W = 262, CARD_T = 425;
+      var CARD_L = [108, 395.6, 683.2, 970.8, 1258.4, 1546]; // gutters 25.6px
+      var CX = CARD_L.map(function (l) { return l + W / 2; });
       var CUE = [1.0, 1.8, 2.6, 3.6, 4.4, 5.2];
+      // camera: arrive at / leave each station (Embed keeps the token until 4.94 for its flip beat)
+      var ARR = [1.02, 1.82, 2.62, 3.62, 4.42, 5.24];
+      var DEP = [0.3, 1.32, 2.12, 3.12, 3.92, 4.94];
+      var CLEAN_UP = -6; // form-local lift of the cleaned lines (keeps them clear of the micro chip)
 
       // token-local geometry (origin = station centre). [left, top, w, h]
       var BARS = [[-26, -38, 36, 6], [-26, -22, 52, 5], [-26, -6, 46, 5], [-26, 10, 52, 5]];
       var PARSED = [[-36, -40, 44, 9], [-36, -16, 72, 5], [-36, -4, 64, 5], [-36, 8, 72, 5]];
       var JIT = [0, 9, -7, 5];
       var CHX = [-66, -22, 22, 66];
-      var EY = [-18, 10, -6, 16];
-      var DROP_Y = [675, 717, 759, 801].map(function (v) { return (v - CY) / S; }); // drawer centres, form-local
+      // illustrative vector values shown on the back of each chunk card (fixed, texture only)
+      var VEC = [["0.12", "-0.48", "0.91"], ["-0.33", "0.07", "0.64"], ["0.85", "-0.21", "0.39"], ["-0.76", "0.58", "-0.04"]];
+
+      // index rows inside the Index card (card-relative): marker at x 20, bar from x 36 to END
+      var ROW_CY = [34, 62, 90, 118];
+      var ROW_END = [186, 238, 212, 226]; // row 0 stops short of the check in the top-right corner
 
       // fixed seeded noise (deterministic function of index)
       function rnd(i) { var s = Math.sin(i * 91.7 + 3.1) * 43758.5453; return s - Math.floor(s); }
@@ -140,6 +156,7 @@
         return [(i % 2 === 0 ? -58 : 50) + rnd(i) * 8, -38 + i * 14 + rnd(i + 7) * 6];
       });
       function chunkBar(k) { return [CHX[k] - 10, -14, 20, k === 0 ? 6 : 4]; }
+      function stroke(r, dy) { return [r[0], r[1] + r[3] / 2 - 1.25 + dy, r[2], 2.5]; } // 3px line at the bar's centre
 
       function mk(parent, cls, css, html) {
         var d = document.createElement("div");
@@ -150,7 +167,7 @@
         return d;
       }
       function box(r) { return { left: r[0] + "px", top: r[1] + "px", width: r[2] + "px", height: r[3] + "px" }; }
-      var CHECK_SVG = '<svg viewBox="0 0 16 16"><path d="M3 8.6 L6.6 12 L13 4.6" fill="none" stroke="#059669" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var CHECK_SVG = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
       function addChunkCard(parent, k) {
         var c = mk(parent, "f05-chunk", { left: (CHX[k] - 18) + "px" });
@@ -164,44 +181,59 @@
       var leadIn = mk(segsHost, "f05-seg", { left: "-40px", width: (CARD_L[0] + 40) + "px" });
       segFills.push(mk(leadIn, "f05-seg-fill"));
       for (var s = 0; s < 5; s++) {
-        var sg = mk(segsHost, "f05-seg", { left: (CARD_L[s] + 240) + "px", width: (CARD_L[s + 1] - CARD_L[s] - 240) + "px" });
+        var sg = mk(segsHost, "f05-seg", { left: (CARD_L[s] + W) + "px", width: (CARD_L[s + 1] - CARD_L[s] - W) + "px" });
         segFills.push(mk(sg, "f05-seg-fill"));
       }
+
+      // ---- per-station checks (inset 12px from each card's top-right corner) ----
+      var oks = CARD_L.map(function (l) { return mk(oksHost, "f05-ok", { left: (l + W - 12 - 28) + "px" }, CHECK_SVG); });
+
+      // ---- the index, inside the Index card ----
+      var L5 = CARD_L[5];
+      var rows = ROW_CY.map(function (cy, i) {
+        var y = CARD_T + cy;
+        var track = mk(indexHost, "f05-row-track", { left: (L5 + 36) + "px", top: (y - 4) + "px", width: (ROW_END[i] - 36) + "px" });
+        var fill = mk(track, "f05-row-fill");
+        var mkOff = mk(indexHost, "f05-mk", { left: (L5 + 20) + "px", top: (y - 4) + "px" });
+        var mkOn = mk(indexHost, "f05-mk-on", { left: (L5 + 20) + "px", top: (y - 4) + "px" });
+        return { track: track, fill: fill, off: mkOff, on: mkOn, x: L5 + 24, y: y };
+      });
 
       // ---- station imprints (what each station left behind) ----
       var ghosts = [];
       var gforms = [];
       for (var g = 0; g < 5; g++) { ghosts.push(mk(ghostsHost, "f05-ghost", { left: CX[g] + "px" })); gforms.push(mk(ghosts[g], "f05-form")); }
-      (function (G) { // Ingest: checked file
+      (function (G) { // Ingest: the read file
         var t = mk(G, "f05-tile"); mk(t, "f05-band");
         BARS.forEach(function (b) { mk(G, "f05-bar", box(b)); });
         var f = mk(G, "f05-fname"); mk(f, "f05-fname-fill");
-        mk(G, "f05-check", null, CHECK_SVG);
       })(gforms[0]);
-      (function (G) { // Parse: heading/paragraph bars, ragged, with noise
-        PARSED.forEach(function (b, k) { mk(G, "f05-bar" + (k === 0 ? " is-head" : ""), box([b[0] + JIT[k], b[1], b[2], b[3]])); });
+      (function (G) { // Parse: heading/paragraph lines, ragged, with noise (accent-mid 3px strokes)
+        PARSED.forEach(function (b, k) { mk(G, "f05-stroke", box(stroke([b[0] + JIT[k], b[1], b[2], b[3]], 0))); });
         SPECK.forEach(function (p) { mk(G, "f05-speck", { left: p[0] + "px", top: p[1] + "px" }); });
       })(gforms[1]);
-      (function (G) { // Clean: aligned, no noise
-        PARSED.forEach(function (b, k) { mk(G, "f05-bar" + (k === 0 ? " is-head" : ""), box(b)); });
+      (function (G) { // Clean: aligned, no noise (accent-mid 3px strokes)
+        PARSED.forEach(function (b) { mk(G, "f05-stroke", box(stroke(b, CLEAN_UP))); });
       })(gforms[2]);
       (function (G) { // Chunk: four small cards
         for (var k = 0; k < 4; k++) addChunkCard(G, k);
         for (var j = 0; j < 4; j++) mk(G, "f05-bar" + (j === 0 ? " is-head" : ""), box(chunkBar(j)));
       })(gforms[3]);
       (function (G) { // Embed: four dots
-        for (var k = 0; k < 4; k++) mk(G, "f05-dot", { left: (CHX[k] - 10) + "px", top: (EY[k] - 10) + "px" });
+        for (var k = 0; k < 4; k++) mk(G, "f05-dot", { left: (CHX[k] - 10) + "px" });
       })(gforms[4]);
 
       // ---- the travelling token ----
       var tf = mk(token, "f05-form");
       var tile = mk(tf, "f05-tile"); mk(tile, "f05-band");
       var fname = mk(tf, "f05-fname"); var fnameFill = mk(fname, "f05-fname-fill");
-      var check = mk(tf, "f05-check", null, CHECK_SVG);
       var chunks = []; for (var c = 0; c < 4; c++) chunks.push(addChunkCard(tf, c));
       var bars = BARS.map(function (b) { return mk(tf, "f05-bar", box(b)); });
       var headHL = mk(bars[0], "f05-bar-hl");
       var specks = SPECK.map(function (p) { return mk(tf, "f05-speck", { left: p[0] + "px", top: p[1] + "px" }); });
+      var vecs = CHX.map(function (x, k) {
+        return mk(tf, "f05-vec", { left: (x - 18) + "px" }, VEC[k].map(function (v) { return "<span>" + v + "</span>"; }).join(""));
+      });
       var dots = CHX.map(function (x) { return mk(tf, "f05-dot", { left: (x - 10) + "px" }); });
 
       // bar transform that maps base box -> target box (transform-origin: left centre)
@@ -214,11 +246,11 @@
       var e3o = gsap.parseEase("power3.out");
       var e3io = gsap.parseEase("power3.inOut");
       function camX(t) {
-        if (t <= 0.3) return -60;
-        if (t < 1.02) return -60 + (CX[0] + 60) * e3o((t - 0.3) / 0.72);
+        if (t <= DEP[0]) return -60;
+        if (t < ARR[0]) return -60 + (CX[0] + 60) * e3o((t - DEP[0]) / (ARR[0] - DEP[0]));
         var x = CX[0];
         for (var k = 1; k < 6; k++) {
-          var a = CUE[k] - 0.48, b = CUE[k] + 0.02;
+          var a = DEP[k], b = ARR[k];
           if (t <= a) return x;
           if (t < b) return x + (CX[k] - x) * e3io((t - a) / (b - a));
           x = CX[k];
@@ -256,40 +288,40 @@
       tl.fromTo(segFills[0], { scaleX: 0 }, { scaleX: 1, duration: 0.2, ease: "none" }, 0.32);
       tl.fromTo(focus, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.8);
 
-      // ---- Scene 2 (1.0–6.0): one station per cue; lit stations stay lit ----
+      // ---- Scene 2 (1.0–6.0): one station per cue; lit stations stay lit; each gets its check ----
       function lightStation(k) {
         tl.to("#f05-card-" + k, { opacity: 1, duration: 0.3, ease: "power2.out" }, CUE[k] - 0.12);
         tl.fromTo("#f05-lab-" + k + " .f05-lab-th", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, CUE[k]);
         tl.fromTo("#f05-lab-" + k + " .f05-lab-en", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, CUE[k] + 0.08);
+        tl.fromTo(oks[k], { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, CUE[k] + 0.25);
       }
       function depart(k) { // token leaves station k toward k+1: line fills, station keeps an imprint
-        var dep = CUE[k + 1] - 0.48;
+        var dep = DEP[k + 1];
         tl.fromTo(segFills[k + 1], { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "none" }, dep + 0.12);
-        tl.fromTo(ghosts[k], { opacity: 0 }, { opacity: 0.38, duration: 0.35, ease: "power2.out" }, dep + (k === 4 ? 0.32 : 0.28));
+        tl.fromTo(ghosts[k], { opacity: 0 }, { opacity: (k === 1 || k === 2) ? 1 : 0.38, duration: 0.35, ease: "power2.out" }, dep + (k === 4 ? 0.32 : 0.28));
       }
       for (var k = 0; k < 6; k++) lightStation(k);
       for (var d = 0; d < 5; d++) depart(d);
 
-      // Ingest (1.0): the filename is read, then checked
+      // Ingest (1.0): the filename is read
       tl.fromTo(fnameFill, { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.inOut" }, 1.02);
-      tl.fromTo(check, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 1.2);
 
       // Parse (1.8): the file opens into heading / paragraph bars (ragged, with noise)
       tl.to(tile, { opacity: 0, scale: 1.1, duration: 0.3, ease: "power2.out" }, 1.8);
-      tl.to([fname, check], { opacity: 0, duration: 0.2, ease: "power1.out" }, 1.8);
+      tl.to(fname, { opacity: 0, duration: 0.2, ease: "power2.out" }, 1.8);
       bars.forEach(function (el, i) {
         var r = PARSED[i];
         tl.to(el, Object.assign(toBox(i, [r[0] + JIT[i], r[1], r[2], r[3]]), { duration: 0.42, ease: "power3.out" }), 1.82 + i * 0.035);
       });
-      tl.fromTo(headHL, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 1.86);
-      tl.fromTo(specks, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", stagger: 0.04 }, 1.98);
+      tl.fromTo(headHL, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 1.86);
+      tl.fromTo(specks, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.04 }, 1.98);
 
-      // Clean (2.6): noise removed, lines aligned; micro readout swaps in place (2.9)
+      // Clean (2.6): noise removed, lines aligned (and lifted clear of the chip); micro readout swaps in place (2.9)
       tl.to(specks, { opacity: 0, scale: 0, duration: 0.22, ease: "power2.in", stagger: 0.04 }, 2.62);
       bars.forEach(function (el, i) {
-        tl.to(el, { x: PARSED[i][0] - BARS[i][0], duration: 0.32, ease: "power3.inOut" }, 2.66 + i * 0.03);
+        tl.to(el, { x: PARSED[i][0] - BARS[i][0], y: toBox(i, PARSED[i]).y + CLEAN_UP, duration: 0.32, ease: "power3.inOut" }, 2.66 + i * 0.03);
       });
-      tl.fromTo("#f05-micro", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, 2.88);
+      tl.fromTo("#f05-micro", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, 2.88);
 
       // Chunk (3.6): four small cards split out, each takes one bar
       tl.fromTo(chunks,
@@ -299,23 +331,25 @@
         tl.to(el, Object.assign(toBox(i, chunkBar(i)), { duration: 0.42, ease: "power3.inOut" }), 3.62 + i * 0.04);
       });
 
-      // Embed (4.4): the cards become four dots at "meaning" positions
-      tl.to(chunks, { opacity: 0, scale: 0.3, duration: 0.3, ease: "power2.in", stagger: 0.04 }, 4.42);
-      tl.to(bars, { opacity: 0, duration: 0.15, ease: "power1.in", stagger: 0.04 }, 4.42);
-      tl.fromTo(dots, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(1.8)", stagger: 0.04 }, 4.48);
-      dots.forEach(function (el, i) {
-        tl.to(el, { y: EY[i], duration: 0.3, ease: "power2.inOut" }, 4.58 + i * 0.03);
-      });
+      // Embed (4.4–4.98): each card flips to a column of vector digits, which condenses into one dot
+      tl.to(bars, { opacity: 0, duration: 0.08, ease: "power2.in" }, 4.42);
+      tl.to(chunks, { scaleX: 0, duration: 0.1, ease: "power2.in", stagger: 0.02 }, 4.42);
+      tl.fromTo(vecs, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.1, ease: "power2.out", stagger: 0.02 }, 4.52);
+      tl.to(vecs, { opacity: 0, scaleX: 0.5, scaleY: 0.1, duration: 0.14, ease: "power3.in", stagger: 0.02 }, 4.72);
+      tl.fromTo(dots, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power3.out", stagger: 0.02 }, 4.78);
 
-      // Index (5.2): the dots drop downward
-      tl.to(dots, { y: 40, duration: 0.3, ease: "power2.in", stagger: 0.05 }, 5.24);
+      // Index (5.2): the dots ride into the Index card with the token (camera move 4.94–5.24)
 
-      // ---- Scene 3 (6.0–9.0): index stack fills; one dot per drawer; hold still from 7.2 ----
-      tl.fromTo(".f05-drawer", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out", stagger: 0.06 }, 6.0);
-      tl.fromTo(".f05-dfill", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out", stagger: 0.08 }, 6.05);
+      // ---- Scene 3 (6.0–9.0): the index inside the Index card; one dot settles into each row; hold from 7.0 ----
+      tl.fromTo(rows.map(function (r) { return r.track; }), { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out", stagger: 0.04 }, 6.0);
+      tl.fromTo(rows.map(function (r) { return r.off; }), { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out", stagger: 0.04 }, 6.0);
       dots.forEach(function (el, i) {
-        tl.to(el, { y: DROP_Y[i], duration: 0.3, ease: "power2.in" }, 6.4 + i * 0.12);
-        tl.fromTo("#f05-drawer-" + i + " .f05-dlit", { opacity: 0 }, { opacity: 0.15, duration: 0.14, ease: "power1.out" }, 6.7 + i * 0.12);
+        var r = rows[i];
+        var t0 = 6.08 + i * 0.1, land = t0 + 0.36;
+        tl.to(el, { x: (r.x - CX[5]) / S - CHX[i], y: (r.y - CY) / S, scale: 8 / (20 * S), duration: 0.36, ease: "power3.inOut" }, t0);
+        tl.to(el, { opacity: 0, duration: 0.08, ease: "power2.out" }, land);
+        tl.fromTo(r.on, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, land);
+        tl.fromTo(r.fill, { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "power3.out" }, land);
       });
 
       window.__timelines = window.__timelines || {};
