@@ -37,44 +37,63 @@
     #f06-qicon{display:block;flex:none}
     #f06-qline{display:block;flex:none;white-space:nowrap;font-weight:600;font-size:40px;line-height:1.45;color:#111111}
     .f06-qw{display:inline-block;position:relative}
-    #f06-qw-mean{margin-right:22px}
-    .f06-ul{position:absolute;left:0;right:0;bottom:4px;height:6px;border-radius:1px;background:#1e2bfa;transform-origin:0 50%}
-    #f06-ring{position:absolute;left:-12px;top:-8px;width:calc(100% + 24px);height:calc(100% + 16px);overflow:visible}
-    #f06-ring path{fill:none;stroke:#1e2bfa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    /* the ring is an overlay (no margin, no layout effect): the question flows exactly as in frame 08 */
+    #f06-qw-mean{isolation:isolate}
+    .f06-ul{position:absolute;left:0;right:0;bottom:4px;height:3px;border-radius:1px;background:#1e2bfa;transform-origin:0 50%}
+    #f06-ring{position:absolute;left:-6px;top:-8px;width:calc(100% + 9px);height:calc(100% + 16px);overflow:visible;z-index:-1;pointer-events:none}
+    #f06-ring path{fill:rgba(30,43,250,0.13);stroke:none} /* a highlight band behind the word, so no stroke crosses the next glyph */
 
     /* three lanes (x 790-1559), all inside the scope */
     .f06-lane{position:absolute;left:790px;width:769px;height:156px;box-sizing:border-box;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04)}
-    .f06-lab{position:absolute;left:24px;top:28px}
-    .f06-lab-row{display:flex;align-items:center;gap:12px;white-space:nowrap}
-    .f06-lab-name{display:block;font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap}
+    .f06-lab{position:absolute;left:20px;top:28px}
+    .f06-lab-row{display:flex;align-items:center;gap:10px;white-space:nowrap}
+    .f06-lab-name{display:block;font-weight:600;font-size:33px;line-height:1.45;color:#111111;white-space:nowrap}
     /* English mono chip token (frame.md component 8): 28px, 48px pill, padding 12px 16px */
-    .f06-chip{display:block;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
-    .f06-lab-sub{display:block;margin-top:4px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:32px;line-height:1.45;color:#6b6b6b;white-space:nowrap}
+    .f06-chip{display:flex;align-items:center;gap:10px;box-sizing:border-box;height:48px;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
+    /* chip legend: the same filled shape (and blue) as the tile corner markers */
+    .f06-chip.f06-chip-lg{padding-left:12px;gap:8px}
+    .f06-lg{display:block;flex:none;width:16px;height:16px;background:#1e2bfa}
+    .f06-lg-sq{border-radius:3px}
+    .f06-lg-ci{border-radius:50%}
+    .f06-lab-sub{display:block;margin-top:4px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:32px;line-height:1.45;color:#5F5B50;white-space:nowrap}
 
-    /* document tiles (component 3), 56 px wide, 16 px gaps, x 1260-1532 */
-    .f06-row{position:absolute;left:0;top:0;width:0;height:0}
-    .f06-tg{position:absolute;width:56px;height:73px}
-    .f06-tile{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:6px;border:1.5px solid rgba(30,43,250,0.2);background:#fdfae7;overflow:hidden}
+    /* document tiles (component 3), 64x88, 12 px gaps, x 1252-1544 per lane */
+    .f06-row{position:absolute;left:0;top:0;width:0;height:0;isolation:isolate}
+    .f06-tg{position:absolute;width:64px;height:88px}
+    .f06-tg.f06-solo{z-index:2}
+    .f06-tile{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:1.5px solid rgba(30,43,250,0.2);background:#fdfae7;overflow:hidden}
     .f06-tile svg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
-    .f06-hl{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:6px;border:2px solid #1e2bfa;opacity:0}
-    .f06-ring3{position:absolute;left:-5px;top:-5px;width:66px;height:83px;box-sizing:border-box;border-radius:9px;border:3px solid #1e2bfa;opacity:0}
-    .f06-dash{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:6px;border:2.5px dashed #6b6b6b;opacity:0}
+    .f06-hl{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:2px solid #1e2bfa;opacity:0}
+    .f06-ring3{position:absolute;left:-4px;top:-4px;width:72px;height:96px;box-sizing:border-box;border-radius:10px;border:4px solid #1e2bfa;opacity:0}
+    /* a missed slot: empty, 3 px dashed text-floor grey with a centred 28 px x-mark */
+    .f06-dash{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:3px dashed #6B675C;opacity:0}
+    .f06-dash svg{position:absolute;left:50%;top:50%;width:28px;height:28px;margin:-14px 0 0 -14px;overflow:visible}
+    .f06-dash path{fill:none;stroke:#6B675C;stroke-width:3;stroke-linecap:round}
     .f06-mk{position:absolute;box-sizing:border-box;width:20px;height:20px;right:-10px;top:-10px;border:2px solid #fdfae7;background:#1e2bfa}
     .f06-mk-sq{border-radius:4px}
     .f06-mk-ci{border-radius:50%}
     .f06-mk-near{background:#9a9a9a}
+    /* metadata strike across the other-unit column */
+    #f06-strikes{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
+    #f06-strikes path{fill:none;stroke:#6B675C;stroke-width:3;stroke-linecap:round}
 
-    /* metadata filter chips: the lane-3 sub-label row, light in place */
-    #f06-filters{display:flex;flex-direction:row;align-items:center;gap:12px}
+    /* metadata filter chips: the lane-3 sub-label row, light in place; the row ends at x 1437 so the tether
+       (a flex item) starts exactly at the unit chip's right end and stops under the column-3 tiles (x 1436) */
+    #f06-filters{display:flex;flex-direction:row;align-items:center;gap:12px;width:625.5px}
     .f06-fc{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:0 12px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);border:1.5px solid rgba(30,43,250,0.2);white-space:nowrap}
+    #f06-tether{display:block;position:relative;flex:1 1 0;min-width:0;height:2px;margin-left:-12px;background:#1e2bfa;transform-origin:0 50%;transform:scaleX(0)}
+    #f06-tether svg{position:absolute;right:0;top:0;width:2px;height:2px;overflow:visible}
+    #f06-tether path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:butt}
 
-    /* merge: result stack, 56 px cascade so every sheet's band, kind glyph and lane marker stay visible */
-    #f06-merge-label{position:absolute;left:1656px;top:364px;font-weight:600;font-size:38px;line-height:1.45;color:#111111;white-space:nowrap}
-    .f06-ghost{position:absolute;width:132px;height:172px;transform-origin:0 0;opacity:0}
-    .f06-ghost .f06-tile{border-radius:10px;border:2px solid #1e2bfa;background:#e6e7fb}
-    .f06-gmk{position:absolute;box-sizing:border-box;width:28px;height:28px;right:-14px;top:-14px;border:2.5px solid #fdfae7;background:#1e2bfa}
-    .f06-gmk.f06-mk-sq{border-radius:5px}
-    .f06-gmk-2{right:22px}
+    /* merge: a fan of eight sheets. Front (fully visible, lane markers kept): table, example document, scan;
+       five plain sheets behind the middle slot in 6 px steps up-right */
+    #f06-merge-label{position:absolute;left:1668px;top:244px;font-weight:600;font-size:38px;line-height:1.45;color:#111111;white-space:nowrap}
+    .f06-ghost{position:absolute;width:100px;height:138px;transform-origin:0 0;opacity:0}
+    .f06-ghost .f06-tile{border-radius:10px;border:2px solid rgba(30,43,250,0.55);background:#e6e7fb}
+    .f06-plain{position:absolute;width:100px;height:138px;box-sizing:border-box;border-radius:10px;border:1.5px solid rgba(30,43,250,0.55);background:#f4f2ea;opacity:0}
+    .f06-gmk{position:absolute;box-sizing:border-box;width:24px;height:24px;right:-12px;top:-12px;border:2.5px solid #fdfae7;background:#1e2bfa}
+    .f06-gmk.f06-mk-sq{border-radius:4px}
+    .f06-gmk-2{right:18px}
   </style>
 
   <div id="root" data-composition-id="06-hybrid" data-width="1920" data-height="1080" data-start="0" data-duration="12.5">
@@ -111,18 +130,18 @@
         <circle cx="14" cy="14" r="10" fill="none" stroke="#1e2bfa" stroke-width="3"/>
         <path d="M21.5 21.5 L31 31" fill="none" stroke="#1e2bfa" stroke-width="3" stroke-linecap="round"/>
       </svg>
-      <span id="f06-qline"><span class="f06-qw" id="f06-qw-mean">แนวทางปฏิบัติ<svg id="f06-ring" viewBox="0 0 262 74" preserveAspectRatio="none"><path id="f06-ring-p" d="M 131 1.5 H 225.5 A 35.5 35.5 0 0 1 225.5 72.5 H 36.5 A 35.5 35.5 0 0 1 36.5 1.5 Z"/></svg></span><span class="f06-qw">ปี</span> <span class="f06-qw" id="f06-qw-69">69<span class="f06-ul" id="f06-ul-69"></span></span> <span class="f06-qw">ของ</span> <span class="f06-qw" id="f06-qw-unit">ศซบ.<span class="f06-ul" id="f06-ul-unit"></span></span></span>
+      <span id="f06-qline"><span class="f06-qw" id="f06-qw-mean">แนวทางปฏิบัติ<svg id="f06-ring" viewBox="0 0 259.5 74" preserveAspectRatio="none" aria-hidden="true"><path id="f06-ring-p" d="M 129.75 1.5 H 234 A 24 24 0 0 1 258 25.5 V 48.5 A 24 24 0 0 1 234 72.5 H 25.5 A 24 24 0 0 1 1.5 48.5 V 25.5 A 24 24 0 0 1 25.5 1.5 Z"/></svg></span><span class="f06-qw">ปี</span> <span class="f06-qw" id="f06-qw-69">69<span class="f06-ul" id="f06-ul-69"></span></span> <span class="f06-qw">ของ</span> <span class="f06-qw" id="f06-qw-unit">ศซบ.<span class="f06-ul" id="f06-ul-unit"></span></span></span>
     </div>
 
     <div class="f06-lane" id="f06-lane-1" style="top:300px">
       <div class="f06-lab">
-        <div class="f06-lab-row"><span class="f06-lab-name">ค้นคำตรงตัว</span><span class="f06-chip">Keyword</span></div>
+        <div class="f06-lab-row"><span class="f06-lab-name">ค้นคำตรงตัว</span><span class="f06-chip f06-chip-lg"><span class="f06-lg f06-lg-sq"></span>Keyword</span></div>
         <span class="f06-lab-sub">ชื่อ · รหัส · คำเฉพาะ</span>
       </div>
     </div>
     <div class="f06-lane" id="f06-lane-2" style="top:470px">
       <div class="f06-lab">
-        <div class="f06-lab-row"><span class="f06-lab-name">ค้นตามความหมาย</span><span class="f06-chip">Vector</span></div>
+        <div class="f06-lab-row"><span class="f06-lab-name">ค้นตามความหมาย</span><span class="f06-chip f06-chip-lg"><span class="f06-lg f06-lg-ci"></span>Vector</span></div>
         <span class="f06-lab-sub">แนวทางปฏิบัติ ≈ นโยบาย</span>
       </div>
     </div>
@@ -130,37 +149,48 @@
       <div class="f06-lab">
         <div class="f06-lab-row"><span class="f06-lab-name">กรองตามป้าย</span><span class="f06-chip">Metadata</span></div>
         <!-- metadata filter: two chips in the sub-label row, lit in place -->
-        <div class="f06-lab-sub" id="f06-filters"><span class="f06-fc" id="f06-fc-year">ปี 2569</span><span class="f06-fc" id="f06-fc-unit">หน่วย สสท./ศซบ.</span></div>
+        <div class="f06-lab-sub" id="f06-filters"><span class="f06-fc" id="f06-fc-year">ปี 2569</span><span class="f06-fc" id="f06-fc-unit">หน่วย สสท./ศซบ.</span><span id="f06-tether"><svg viewBox="0 0 2 2" aria-hidden="true"><path id="f06-up-a" d="M 1 1 V -150.3"/><path id="f06-up-b" d="M 1 -238.3 V -320.3"/></svg></span></div>
       </div>
     </div>
 
     <!-- keyword lane: columns = the same four documents in every lane (1 example pdf, 2 table, 3 other-unit pdf, 4 scan) -->
     <div class="f06-row" id="f06-krow">
-      <div class="f06-tg" id="f06-k1" style="left:1260px;top:341px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-      <div class="f06-tg" id="f06-k2" style="left:1332px;top:341px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-sq"></div></div>
-      <div class="f06-tg" id="f06-k3" style="left:1404px;top:341px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
-      <div class="f06-tg" id="f06-k4" style="left:1476px;top:341px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-dash"></div></div>
+      <div class="f06-tg" id="f06-k1" style="left:1252px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+      <div class="f06-tg f06-solo" id="f06-k2" style="left:1328px;top:334px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-sq"></div></div>
+      <div class="f06-tg" id="f06-k3" style="left:1404px;top:334px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
+      <div class="f06-tg" id="f06-k4" style="left:1480px;top:334px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-dash"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M 3 3 L 25 25 M 25 3 L 3 25"/></svg></div></div>
     </div>
 
     <!-- vector lane -->
     <div class="f06-row" id="f06-vrow">
-      <div class="f06-tg" id="f06-v1" style="left:1260px;top:511px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
-      <div class="f06-tg" id="f06-v2" style="left:1332px;top:511px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-dash"></div></div>
-      <div class="f06-tg" id="f06-v3" style="left:1404px;top:511px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-mk f06-mk-ci f06-mk-near"></div></div>
-      <div class="f06-tg" id="f06-v4" style="left:1476px;top:511px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-ci"></div></div>
+      <div class="f06-tg" id="f06-v1" style="left:1252px;top:504px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
+      <div class="f06-tg" id="f06-v2" style="left:1328px;top:504px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-dash"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M 3 3 L 25 25 M 25 3 L 3 25"/></svg></div></div>
+      <div class="f06-tg" id="f06-v3" style="left:1404px;top:504px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div><div class="f06-mk f06-mk-ci f06-mk-near"></div></div>
+      <div class="f06-tg f06-solo" id="f06-v4" style="left:1480px;top:504px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-ci"></div></div>
     </div>
 
-    <!-- merge: result stack (DOM back -> front). Slots: back 1672,446 · mid 1664,502 · front 1656,558.
-         Doc 1 lands from both lanes at the back, the table (Keyword only) and the scan (Vector only) on top;
-         from 9.9 s the example document rises to the top and the others shift back one slot. -->
+    <!-- the metadata filter strikes the other-unit column (doc 3) in lanes 1 and 2 -->
+    <svg id="f06-strikes" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+      <path id="f06-sk3" d="M 1411 415 L 1461 341"/>
+      <path id="f06-sv3" d="M 1411 585 L 1461 511"/>
+    </svg>
+
+    <!-- merge: a fan of eight sheets, static from 9.9 s to the cut (no reorder). DOM back -> front:
+         five plain sheets stepping up-right behind the middle slot (1668,479); then the table (Keyword only, top
+         slot 1668,323), the scan (Vector only, bottom slot 1668,635) and the example document (both lanes, middle
+         slot, cobalt outline). -->
     <div id="f06-merge-label">รวมผล</div>
-    <div class="f06-ghost" id="f06-g-k1" style="left:1672px;top:446px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-sq"></div></div>
-    <div class="f06-ghost" id="f06-g-v1" style="left:1672px;top:446px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-ci f06-gmk-2"></div><div class="f06-gmk f06-mk-sq" id="f06-g-v1-sq"></div></div>
-    <div class="f06-ghost" id="f06-g-k2" style="left:1664px;top:502px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-gmk f06-mk-sq"></div></div>
-    <div class="f06-ghost" id="f06-g-v4" style="left:1656px;top:558px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-gmk f06-mk-ci"></div></div>
-    <div class="f06-ghost" id="f06-g-ex" style="left:1656px;top:558px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-ci f06-gmk-2"></div><div class="f06-gmk f06-mk-sq"></div></div>
+    <div class="f06-plain" style="left:1698px;top:449px"></div>
+    <div class="f06-plain" style="left:1692px;top:455px"></div>
+    <div class="f06-plain" style="left:1686px;top:461px"></div>
+    <div class="f06-plain" style="left:1680px;top:467px"></div>
+    <div class="f06-plain" style="left:1674px;top:473px"></div>
+    <div class="f06-ghost" id="f06-g-k2" style="left:1668px;top:323px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-gmk f06-mk-sq"></div></div>
+    <div class="f06-ghost" id="f06-g-v4" style="left:1668px;top:635px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-gmk f06-mk-ci"></div></div>
+    <div class="f06-ghost" id="f06-g-k1" style="left:1668px;top:479px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-sq"></div></div>
+    <div class="f06-ghost" id="f06-g-v1" style="left:1668px;top:479px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-gmk f06-mk-ci f06-gmk-2"></div><div class="f06-gmk f06-mk-sq" id="f06-g-v1-sq"></div></div>
     <svg id="f06-top" viewBox="0 0 1920 1080" width="1920" height="1080">
-      <rect id="f06-ex-outline" x="1656.75" y="558.75" width="130.5" height="170.5" rx="9.25" ry="9.25"/>
+      <rect id="f06-ex-outline" x="1669.25" y="480.25" width="97.5" height="135.5" rx="8.75" ry="8.75"/>
     </svg>
 
     <!-- scope label pill straddles the boundary's top-left edge -->
@@ -270,7 +300,7 @@
       /* Scene 3 (4.6-6.4): vector lane title/chip/sub + its unlit tiles; "แนวทางปฏิบัติ" circled (no hits yet) */
       laneReveal(lanes[1], 4.6);
       tl.fromTo(V, { opacity: 0, y: 12 }, { opacity: 0.55, y: 0, duration: 0.4, ease: P2, stagger: 0.07 }, 4.9);
-      draw($("#f06-ring-p"), 5.15, 0.45);
+      tl.fromTo($("#f06-ring-p"), { opacity: 0 }, { opacity: 1, duration: 0.45, ease: P2 }, 5.15);
 
       /* Scene 4 (6.4-8.4): metadata lane title/chip + its two filter chips (unlit) */
       laneReveal(lanes[2], 6.4);
@@ -292,51 +322,79 @@
       tl.fromTo($$(".f06-fc"), LIT_FROM, LIT_TO, HIT);                /* Metadata value-chip outlines */
       fade(K[3], HIT, 0.55, 0.3, 0.18);                              /* misses sit at 30% */
       fade(V[1], HIT, 0.55, 0.3, 0.18);
-      /* the metadata filter drops the off-target column (doc 3, other unit) in every lane */
-      fade(K[2], 7.35, 1, 0.3, 0.3);
-      fade(V[2], 7.35, 0.55, 0.3, 0.3);
 
-      /* 7.5-8.3: what one method alone misses. The table (Keyword only) and the scan (Vector only) pulse a
-         3px cobalt outline; their missed counterparts (Vector slot 2, Keyword slot 4) become empty dashed slots */
-      [K[1], V[3]].forEach(function (g) {
-        tl.fromTo(g.querySelector(".f06-ring3"), { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.35, ease: P3 }, 7.5);
-        tl.fromTo(g, { scale: 1 }, { scale: 1.1, duration: 0.18, ease: P2 }, 7.5);
-        tl.fromTo(g, { scale: 1.1 }, { scale: 1, duration: 0.35, ease: P3, immediateRender: false }, 7.7);
-      });
-      [K[3], V[1]].forEach(function (g) {
-        fade(g, 7.65, 0.3, 1, 0.3);
-        tl.fromTo(g.querySelector(".f06-tile"), { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2 }, 7.65);
-        tl.fromTo(g.querySelector(".f06-dash"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: P2 }, 7.65);
-      });
+      /* 7.0-7.6: the metadata filter acts. A 2px tether runs from the unit chip's right end along lane 3, up
+         the inside of the lane boxes to the column-3 tiles (doc 3, other unit); each is struck with a 3px grey
+         diagonal while it fades to 25%; the tether fades out at 7.6 */
+      var TETH = $("#f06-tether");
+      tl.fromTo(TETH, { scaleX: 0 }, { scaleX: 1, duration: 0.14, ease: P2 }, 7.0);
+      draw($("#f06-up-a"), 7.14, 0.1, 153);
+      draw($("#f06-up-b"), 7.24, 0.07, 82);
+      draw($("#f06-sv3"), 7.2, 0.25, 90);
+      fade(V[2], 7.2, 0.55, 0.25, 0.4);
+      draw($("#f06-sk3"), 7.3, 0.25, 90);
+      fade(K[2], 7.3, 1, 0.25, 0.3);
+      tl.fromTo(TETH, { opacity: 1 }, { opacity: 0, duration: 0.25, ease: P2, immediateRender: false }, 7.6);
 
-      /* Scene 5 (8.4-12.0): bracket self-draws; the found thumbnails fly into รวมผล at full opacity with their
-         lane markers (doc 1 from both lanes, doc 2 only from Keyword, doc 4 only from Vector); the table and
-         scan stay on top until 9.9; then the example document rises to the top and the lanes dim; hold */
-      draw($("#f06-brace-a"), 8.4, 0.6);
-      draw($("#f06-brace-b"), 8.4, 0.6);
-      tl.fromTo($("#f06-merge-label"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: P3 }, 8.4);
-      var S = 56 / 132;
+      /* 7.3-9.3: what one method alone misses. Every lane tile but the two unique hits sits at 30%.
+         7.3-8.3: the table (Keyword only) grows to 1.2x with a 4px ring; the slot below it in lane 2 turns into
+         an empty dashed slot and pulses; the underlines under "69" and the unit thicken 3 -> 6px.
+         8.3-9.3: the same for the scan (Vector only), the slot above it in lane 1 and the ring round the
+         meaning phrase */
+      var BEAT = 7.3;
+      fade(K[0], BEAT, 1, 0.3, 0.3);
+      fade(V[0], BEAT, 1, 0.3, 0.3);
+      function solo(g, at) {
+        var ring = g.querySelector(".f06-ring3");
+        tl.fromTo(g, { scale: 1 }, { scale: 1.2, duration: 0.35, ease: P3 }, at);
+        tl.fromTo(ring, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.35, ease: P3 }, at);
+        tl.fromTo(g, { scale: 1.2 }, { scale: 1, duration: 0.35, ease: P3, immediateRender: false }, at + 1.0);
+        tl.fromTo(ring, { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2, immediateRender: false }, at + 1.0);
+      }
+      function missed(g, at) {
+        fade(g, at, 0.3, 1, 0.25);
+        tl.fromTo(g.querySelector(".f06-tile"), { opacity: 1 }, { opacity: 0, duration: 0.25, ease: P2 }, at);
+        tl.fromTo(g.querySelector(".f06-dash"), { opacity: 0 }, { opacity: 1, duration: 0.25, ease: P2 }, at);
+        tl.fromTo(g, { scale: 1 }, { scale: 1.15, duration: 0.25, ease: P2 }, at);
+        tl.fromTo(g, { scale: 1.15 }, { scale: 1, duration: 0.4, ease: P3, immediateRender: false }, at + 0.3);
+      }
+      var ULS = [$("#f06-ul-69"), $("#f06-ul-unit")];
+      solo(K[1], BEAT);
+      missed(V[1], BEAT);
+      tl.fromTo(ULS, { height: 3 }, { height: 6, duration: 0.25, ease: P2 }, BEAT);
+      tl.fromTo(ULS, { height: 6 }, { height: 3, duration: 0.25, ease: P2, immediateRender: false }, BEAT + 1.0);
+      var RING = $("#f06-ring-p");
+      solo(V[3], BEAT + 1.0);
+      missed(K[3], BEAT + 1.0);
+      tl.fromTo(RING, { fill: "rgba(30,43,250,0.13)" }, { fill: "rgba(30,43,250,0.30)", duration: 0.25, ease: P2 }, BEAT + 1.0);
+      tl.fromTo(RING, { fill: "rgba(30,43,250,0.30)" }, { fill: "rgba(30,43,250,0.13)", duration: 0.25, ease: P2, immediateRender: false }, BEAT + 2.0);
+
+      /* Scene 5 (9.3-12.0): the bracket self-draws; the merged label and a fan of eight sheets arrive at 9.4:
+         the found thumbnails fly in at full opacity with their lane markers (doc 1 from both lanes into the
+         middle, the table only from Keyword to the top, the scan only from Vector to the bottom) and five plain
+         sheets settle behind. The lane hits drop to 50% as their copies leave. Static from 9.9 to the cut. */
+      draw($("#f06-brace-a"), 9.3, 0.45);
+      draw($("#f06-brace-b"), 9.3, 0.45);
+      tl.fromTo($("#f06-merge-label"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 9.4);
+      tl.fromTo($$(".f06-plain"), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.38, ease: P3, stagger: 0.03 }, 9.4);
+      var S = 64 / 100;
       [
-        ["#f06-g-k1", 1260, 341, 1672, 446, 8.40],
-        ["#f06-g-k2", 1332, 341, 1664, 502, 8.40],
-        ["#f06-g-v1", 1260, 511, 1672, 446, 8.44],
-        ["#f06-g-v4", 1476, 511, 1656, 558, 8.44]
+        ["#f06-g-k2", 1328, 334, 1668, 323, 9.40],
+        ["#f06-g-k1", 1252, 334, 1668, 479, 9.43],
+        ["#f06-g-v1", 1252, 504, 1668, 479, 9.43],
+        ["#f06-g-v4", 1480, 504, 1668, 635, 9.46]
       ].forEach(function (g) {
         var el = $(g[0]);
-        tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.5, ease: "expo.out" }, g[5]);
+        tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.44, ease: "expo.out" }, g[5]);
         tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: P2 }, g[5]);
       });
-      /* doc 1 was found by both lanes: once both copies have landed it carries both markers */
-      tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: P3 }, 8.7);
-
-      /* 9.9: the example document settles on top (continuity with frame 07); table and scan shift back one slot */
-      tl.fromTo($("#f06-g-k2"), { x: 0, y: 0 }, { x: 8, y: -56, duration: 0.45, ease: IO3, immediateRender: false }, 9.9);
-      tl.fromTo($("#f06-g-v4"), { x: 0, y: 0 }, { x: 8, y: -56, duration: 0.45, ease: IO3, immediateRender: false }, 9.93);
-      tl.fromTo([$("#f06-g-k1"), $("#f06-g-v1")], { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2, immediateRender: false }, 9.95);
-      tl.fromTo($("#f06-g-ex"), { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 9.98);
-      draw($("#f06-ex-outline"), 10.2, 0.3);
-      /* lanes dim only after 9.9 */
-      tl.fromTo([$("#f06-krow"), $("#f06-vrow")], { opacity: 1 }, { opacity: 0.4, duration: 0.4, ease: P2 }, 9.95);
+      /* doc 1 was found by both lanes: once both copies have landed it carries both markers + its cobalt outline */
+      tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: P3 }, 9.7);
+      draw($("#f06-ex-outline"), 9.62, 0.28);
+      fade(K[0], 9.45, 0.3, 0.5, 0.4);
+      fade(V[0], 9.45, 0.3, 0.5, 0.4);
+      fade(K[1], 9.45, 1, 0.5, 0.4);
+      fade(V[3], 9.45, 1, 0.5, 0.4);
 
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;
