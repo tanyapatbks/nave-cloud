@@ -26,15 +26,18 @@
     /* permission scope (component 4, same as frame 09) + wires: question -> lanes connectors + the merge bracket */
     #f06-scope,#f06-wires,#f06-top{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:visible}
     .f06-mask-path{fill:none;stroke:#ffffff;stroke-width:14;stroke-linecap:butt}
-    #f06-scope-pill{position:absolute;left:824px;top:279px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:6px 24px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
+    /* +4 px top padding (10/6) with the pill centre kept at y 308.2 (the outline's top edge): top 279 -> 277, so
+       the stacked upper marks of 'สิทธิ์' clear the pill's top edge */
+    #f06-scope-pill{position:absolute;left:824px;top:277px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:32px;line-height:1.45;padding:10px 24px 6px;border-radius:100px;background:#1e2bfa;color:#fdfae7;white-space:nowrap}
     #f06-wires path,#f06-top rect{fill:none;stroke:#1e2bfa;stroke-linecap:round;stroke-linejoin:round}
     #f06-wires .f06-wire{stroke-width:3}
     #f06-wires .f06-pulse{stroke-width:8}
     #f06-wires .f06-brace{stroke-width:4}
     #f06-top rect{stroke-width:2.5}
 
-    /* question card (component 5, compact: search glyph + question) */
-    #f06-q{position:absolute;left:96px;top:368px;width:648px;box-sizing:border-box;display:flex;align-items:center;gap:22px;padding:28px 24px;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
+    /* question card (component 5, compact: search glyph + question), centred on the Vector lane (y 538-655,
+       centre 596) so the bracket to the three lanes is symmetric (+/-170 px) */
+    #f06-q{position:absolute;left:96px;top:538px;width:648px;box-sizing:border-box;display:flex;align-items:center;gap:22px;padding:28px 24px;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7}
     #f06-qicon{display:block;flex:none}
     #f06-qline{display:block;flex:none;white-space:nowrap;font-weight:600;font-size:40px;line-height:1.45;color:#111111}
     .f06-qw{display:inline-block;position:relative}
@@ -43,9 +46,9 @@
     .f06-ul{position:absolute;left:0;right:0;bottom:4px;height:3px;border-radius:1px;background:#1e2bfa;transform-origin:0 50%}
     /* a highlight band behind the word (no stroke crosses the next glyph), sized from the word's measured ink
        box (span starts at x 177.5; ink of 'แ' starts at x 180, ink of 'ติ' ends at x 425, 'ปี' starts at x 427):
-       left edge x 176 (4 px before 'แ'), right edge x 426.5 (past 'ติ', before 'ปี'); radius 10 px; the ink
-       (y 404-449) sits entirely in the straight part, clear of the corner arcs */
-    #f06-ring{display:block;position:absolute;left:-1.5px;top:-8px;width:250.5px;height:calc(100% + 16px);border-radius:10px;background:rgba(30,43,250,0.13);z-index:-1;pointer-events:none}
+       left edge x 172 (8 px before 'แ'), right edge x 426.5 (past 'ติ', before 'ปี'); 4 px above/below the
+       58 px line box; radius 8 px */
+    #f06-ring{display:block;position:absolute;left:-5.5px;top:-4px;width:254.5px;height:calc(100% + 8px);border-radius:8px;background:rgba(30,43,250,0.13);z-index:-1;pointer-events:none}
 
     /* three lanes (x 790-1559), all inside the scope */
     .f06-lane{position:absolute;left:790px;width:769px;height:156px;box-sizing:border-box;border-radius:14px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.04)}
@@ -72,10 +75,12 @@
     .f06-tile svg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
     .f06-hl{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:2px solid #1e2bfa;opacity:0}
     .f06-ring3{position:absolute;left:-4px;top:-4px;width:72px;height:96px;box-sizing:border-box;border-radius:10px;border:4px solid #1e2bfa;opacity:0}
-    /* a missed slot: empty, 3 px dashed text-floor grey with a centred 28 px x-mark */
+    /* a missed slot: NO x-mark. A 3 px dashed text-floor grey outline at 40% (flashes to 100% as the other
+       lane's copy of that document leaves for the merge) holding a 25% ghost of the icon this lane missed
+       (table grid in the Vector slot, scan frame in the Keyword slot); the grey slash stays the only struck mark */
     .f06-dash{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:7px;border:3px dashed #6B675C;opacity:0}
-    .f06-dash svg{position:absolute;left:50%;top:50%;width:28px;height:28px;margin:-14px 0 0 -14px;overflow:visible}
-    .f06-dash path{fill:none;stroke:#6B675C;stroke-width:3;stroke-linecap:round}
+    .f06-gh{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;opacity:0}
+    .f06-gh svg{display:block;width:40px;height:40px;overflow:visible}
     .f06-mk{position:absolute;box-sizing:border-box;width:24px;height:24px;right:-12px;top:-12px;border:2px solid #fdfae7;background:#1e2bfa}
     .f06-mk-sq{border-radius:4px}
     .f06-mk-ci{border-radius:50%}
@@ -105,7 +110,7 @@
   </style>
 
   <div id="root" data-composition-id="06-hybrid" data-width="1920" data-height="1080" data-start="0" data-duration="16">
-    <div id="f06-ground" class="clip" data-start="0" data-duration="13.5" data-track-index="0"></div>
+    <div id="f06-ground" class="clip" data-start="0" data-duration="16" data-track-index="0"></div>
 
     <!-- permission scope: drawn around all three lanes BEFORE any lane box or hit appears -->
     <svg id="f06-scope" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
@@ -120,13 +125,15 @@
     </svg>
 
     <svg id="f06-wires" viewBox="0 0 1920 1080" width="1920" height="1080">
-      <path id="f06-p1" class="f06-wire" d="M 744 426 H 790"/>
-      <path id="f06-p2" class="f06-wire" d="M 760 426 V 584 Q 760 596 772 596 H 790"/>
-      <path id="f06-p3" class="f06-wire" d="M 760 584 V 754 Q 760 766 772 766 H 790"/>
-      <!-- one pulse from the question card along all three connectors (6.8 s) -->
-      <path id="f06-q1" class="f06-pulse" d="M 744 426 H 790"/>
-      <path id="f06-q2" class="f06-pulse" d="M 744 426 H 760 V 584 Q 760 596 772 596 H 790"/>
-      <path id="f06-q3" class="f06-pulse" d="M 744 426 H 760 V 754 Q 760 766 772 766 H 790"/>
+      <!-- symmetric bracket from the card's right edge (744, 596: the Vector lane's centre) to the lane centres
+           y 426 / 596 / 766 (+/-170 px) -->
+      <path id="f06-p1" class="f06-wire" d="M 760 596 V 438 Q 760 426 772 426 H 790"/>
+      <path id="f06-p2" class="f06-wire" d="M 744 596 H 790"/>
+      <path id="f06-p3" class="f06-wire" d="M 760 596 V 754 Q 760 766 772 766 H 790"/>
+      <!-- one pulse from the question card along all three connectors (8.8 s) -->
+      <path id="f06-q1" class="f06-pulse" d="M 744 596 H 760 V 438 Q 760 426 772 426 H 790"/>
+      <path id="f06-q2" class="f06-pulse" d="M 744 596 H 790"/>
+      <path id="f06-q3" class="f06-pulse" d="M 744 596 H 760 V 754 Q 760 766 772 766 H 790"/>
       <path id="f06-brace-a" class="f06-brace" d="M 1596 350 C 1610 350 1618 356 1618 370 L 1618 574 C 1618 588 1626 596 1640 596"/>
       <path id="f06-brace-b" class="f06-brace" d="M 1596 842 C 1610 842 1618 836 1618 822 L 1618 618 C 1618 604 1626 596 1640 596"/>
     </svg>
@@ -162,7 +169,7 @@
     </div>
 
     <!-- merge fan: five plain sheets, painted BEHIND the lane tiles so they can slide out from behind the shared
-         column-1 hits (10.0-10.4) into the fan. Rest positions: middle slot (1668,527) + k*(6,6), k = 5..1 (back -> front) -->
+         column-1 hits (12.6-13.2) into the fan. Rest positions: middle slot (1668,527) + k*(6,6), k = 5..1 (back -> front) -->
     <div class="f06-plain" id="f06-pl-5" style="left:1698px;top:557px"></div>
     <div class="f06-plain" id="f06-pl-4" style="left:1692px;top:551px"></div>
     <div class="f06-plain" id="f06-pl-3" style="left:1686px;top:545px"></div>
@@ -175,13 +182,13 @@
       <div class="f06-tg" id="f06-k1" style="left:1252px;top:382px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-sq"></div></div>
       <div class="f06-tg f06-solo" id="f06-k2" style="left:1328px;top:382px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-sq"></div></div>
       <div class="f06-tg" id="f06-k3" style="left:1404px;top:382px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div></div>
-      <div class="f06-tg" id="f06-k4" style="left:1480px;top:382px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-dash"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M 3 3 L 25 25 M 25 3 L 3 25"/></svg></div></div>
+      <div class="f06-tg" id="f06-k4" style="left:1480px;top:382px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-dash"></div><div class="f06-gh" data-kind="scan"></div></div>
     </div>
 
     <!-- vector lane -->
     <div class="f06-row" id="f06-vrow">
       <div class="f06-tg" id="f06-v1" style="left:1252px;top:552px"><div class="f06-tile" data-kind="pdf" data-bars="0"></div><div class="f06-hl"></div><div class="f06-mk f06-mk-ci"></div></div>
-      <div class="f06-tg" id="f06-v2" style="left:1328px;top:552px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-dash"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M 3 3 L 25 25 M 25 3 L 3 25"/></svg></div></div>
+      <div class="f06-tg" id="f06-v2" style="left:1328px;top:552px"><div class="f06-tile" data-kind="table" data-bars="1"></div><div class="f06-dash"></div><div class="f06-gh" data-kind="table"></div></div>
       <div class="f06-tg" id="f06-v3" style="left:1404px;top:552px"><div class="f06-tile" data-kind="pdf" data-bars="2"></div></div>
       <div class="f06-tg f06-solo" id="f06-v4" style="left:1480px;top:552px"><div class="f06-tile" data-kind="scan" data-bars="3"></div><div class="f06-hl"></div><div class="f06-ring3"></div><div class="f06-mk f06-mk-ci"></div></div>
     </div>
@@ -193,7 +200,7 @@
       <path id="f06-sv3" d="M 1411 633 L 1461 559"/>
     </svg>
 
-    <!-- merge: a fan of eight sheets, static from 10.9 s to the cut (no reorder). The five plain sheets (above,
+    <!-- merge: a fan of eight sheets, static from 13.5 s to the cut (no reorder). The five plain sheets (above,
          behind the lane rows) step down-right behind the middle slot (1668,527); then the table (Keyword only, top
          slot 1668,353: 36 px above the middle), the scan (Vector only, bottom slot 1668,731: 36 px below the
          fan's lowest sheet) and the example document (both lanes, middle slot, cobalt outline). -->
@@ -236,6 +243,10 @@
       }
       $$(".f06-tile").forEach(function (t) {
         t.innerHTML = tileSVG(t.getAttribute("data-kind"), BARS[+t.getAttribute("data-bars")]);
+      });
+      /* missed-slot ghosts: the same kind glyph, centred (glyph box x 16-42, y 21-51 -> viewBox centre 29,36) */
+      $$(".f06-gh").forEach(function (g) {
+        g.innerHTML = '<svg viewBox="9 16 40 40" aria-hidden="true">' + GLYPH[g.getAttribute("data-kind")] + "</svg>";
       });
 
       var tl = gsap.timeline({ paused: true });

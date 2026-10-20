@@ -55,40 +55,41 @@
     .f11-badge{position:absolute;left:14px;bottom:12px;display:flex;gap:4px;transform-origin:left center}
     .f11-badge i{display:block;width:8px;height:8px;border-radius:50%;background:#1e2bfa}
 
-    /* ---- title copy (round 5 requester rewrite): five centred rows, each authored line its own nowrap block ---- */
+    /* ---- title copy (round 5 requester rewrite): five centred rows, each authored line its own nowrap block ----
+       round 7: line 1 drops 56 -> 44px so the payoff leads; the whole stack moves down 52px so the block
+       (ink y ~284-799) centres in the dashed card (y 189-891, centre 540) */
     .f11-line{position:absolute;left:0;right:0;display:block;white-space:nowrap;text-align:center;letter-spacing:0}
     .f11-ph{display:inline-block;white-space:nowrap}
-    #f11-l1{top:222px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:56px;line-height:1.45;color:#111111}
+    #f11-l1{top:274px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:44px;line-height:1.45;color:#111111}
     .f11-cb{color:#1e2bfa}
     #f11-l2,#f11-l3a,#f11-l3b,#f11-l3c{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:44px;line-height:1.45;color:#3a3a3a}
-    #f11-l2{top:316px}
+    #f11-l2{top:368px}
     /* de-emphasised in a darker grey at the same weight, never struck through */
     #f11-ai{color:#5F5B57}
-    #f11-l3a{top:388px}
-    #f11-l3b{top:452px}
-    #f11-l3c{top:516px}
+    #f11-l3a{top:440px}
+    #f11-l3b{top:504px}
+    #f11-l3c{top:568px}
     .f11-em{font-weight:700;color:#1e2bfa}
 
-    /* ---- payoff (round 5): three near-black English words with cobalt dots between, one flex row centred on
-       x 960; a small Thai chip (accent-light, cobalt, 28px) centred under each word.
-       Size: 48px is the largest that keeps >= 60px clear of both outer tile columns (screen x 284-397 and
-       1522-1636): the words measure 18.6em together (1192px at 64px); at 48px the row (words + two 46px dot gaps)
-       measures ~997px, spanning x ~461-1458 (~63px clear each side). 64-72px cannot fit that band on one row. ---- */
-    #f11-pay{position:absolute;left:0;top:600px;width:1920px;display:flex;justify-content:center;align-items:flex-start}
+    /* ---- payoff: three near-black English words with cobalt dots between, one flex row centred on x 960;
+       a small Thai chip (accent-light, cobalt) centred under each word by its column.
+       round 7: 64px (larger than line 1's 44px, so size leads the eye); the row (words + two 52px dot gaps)
+       measures ~1320px, x ~300-1620, >= 30px inside the dashed card interior (x 262-1658). Top 600 -> 652 (+52). ---- */
+    #f11-pay{position:absolute;left:0;top:652px;width:1920px;display:flex;justify-content:center;align-items:flex-start}
     .f11-col{flex:none;display:flex;flex-direction:column;align-items:center}
-    .f11-word{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:58px;line-height:1.45;letter-spacing:0;color:#111111}
+    .f11-word{display:block;white-space:nowrap;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:700;font-size:64px;line-height:1.45;letter-spacing:0;color:#111111}
     /* round 6: chip text 32px, chip 50px tall (1.6 + 46.4 line box + 2), still centred under its word by the column */
     .f11-chip{display:block;margin-top:4px;height:50px;box-sizing:border-box;padding:1.6px 22px 2px;border-radius:100px;background:linear-gradient(rgba(30,43,250,0.08),rgba(30,43,250,0.08)),#fdfae7;color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:32px;line-height:1.45;letter-spacing:0;white-space:nowrap}
-    /* dots centred on the words' cap-height midpoint (y ~634); 17px side margins keep the row >= 60px off the columns */
-    .f11-dot{flex:none;display:block;width:12px;height:12px;margin:40px 20px 0;border-radius:50%;background:#1e2bfa}
+    /* dots centred on the words' x-height midpoint (margin scaled with the 64px words) */
+    .f11-dot{flex:none;display:block;width:12px;height:12px;margin:44px 20px 0;border-radius:50%;background:#1e2bfa}
   </style>
 
-  <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080" data-duration="17">
+  <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080" data-duration="16">
     <!-- track 0: cream ground -->
-    <div id="f11-ground" class="clip" data-start="0" data-duration="17" data-track-index="0"></div>
+    <div id="f11-ground" class="clip" data-start="0" data-duration="16" data-track-index="0"></div>
 
     <!-- track 1: archive lattice, dimmed ~40% (background callback) -->
-    <div id="f11-lattice" class="clip" data-start="0" data-duration="17" data-track-index="1">
+    <div id="f11-lattice" class="clip" data-start="0" data-duration="16" data-track-index="1">
       <div id="f11-drift">
         <svg id="f11-scope" viewBox="0 0 1920 1080" aria-hidden="true">
           <defs>
@@ -144,20 +145,25 @@
     </div>
 
     <!-- track 2: cream backing plate behind the title block (keeps every line off the tile lines) -->
-    <div id="f11-backing" class="clip" data-start="0" data-duration="17" data-track-index="2"><div id="f11-plate"></div></div>
+    <div id="f11-backing" class="clip" data-start="0" data-duration="16" data-track-index="2"><div id="f11-plate"></div></div>
 
-    <!-- track 3: faint concentric closing rings (atmosphere) -->
-    <div id="f11-rings" class="clip" data-start="0" data-duration="17" data-track-index="3">
+    <!-- track 3: faint concentric closing rings (atmosphere). Round 7: centre moved down 52px (490 -> 542) with the
+         text stack; the outer ring (r 388) would now reach y 930, so the rings are clipped to the dashed card's
+         interior (same rect as the veil) and nothing crosses the card's bottom edge or the 896px keep-out -->
+    <div id="f11-rings" class="clip" data-start="0" data-duration="16" data-track-index="3">
       <svg viewBox="0 0 1920 1080" aria-hidden="true">
-        <circle cx="960" cy="490" r="150" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.11"/>
-        <circle cx="960" cy="490" r="230" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.09"/>
-        <circle cx="960" cy="490" r="310" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.07"/>
-        <circle cx="960" cy="490" r="388" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.05"/>
+        <defs><clipPath id="f11-rings-clip"><rect x="262" y="191" width="1396" height="697" rx="26" ry="26"/></clipPath></defs>
+        <g clip-path="url(#f11-rings-clip)">
+          <circle cx="960" cy="542" r="150" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.11"/>
+          <circle cx="960" cy="542" r="230" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.09"/>
+          <circle cx="960" cy="542" r="310" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.07"/>
+          <circle cx="960" cy="542" r="388" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.05"/>
+        </g>
       </svg>
     </div>
 
     <!-- track 4: the closing title (round 5 requester rewrite) -->
-    <div id="f11-stage" class="clip" data-start="0" data-duration="17" data-track-index="4">
+    <div id="f11-stage" class="clip" data-start="0" data-duration="16" data-track-index="4">
       <div id="f11-l1" class="f11-line"><span class="f11-ph">การจะ</span><span class="f11-ph">เปลี่ยนผ่าน</span><span class="f11-ph">ไปสู่</span> <span class="f11-ph f11-cb">Digital Navy</span></div>
       <div id="f11-l2" class="f11-line"><span class="f11-ph">ส่วนที่ยากที่สุด</span><span class="f11-ph">ไม่ใช่</span> <span class="f11-ph" id="f11-ai">AI RAG EMBEDDING</span></div>
       <div id="f11-l3a" class="f11-line"><span class="f11-ph">แต่คือการ</span> <span class="f11-ph f11-em">เชื่อมโยง</span> <span class="f11-ph">และ</span> <span class="f11-ph f11-em">จัดการ</span></div>
@@ -193,7 +199,7 @@
       function untidyY(i) { return sgn(i, 5) * (2 + 5 * hash(i, 6)); }
 
       // Scene 1 (0.0-2.4s): the archive wall fades in place, untidy and untagged, inside the 10->11
-      // blur-crossfade (local 0 = global 107.5 s); the scope outline self-draws around it.
+      // blur-crossfade (local 0 = global 108.5 s); the scope outline self-draws around it.
       tl.fromTo("#f11-grid", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
       tl.fromTo("#f11-scope-reveal", { strokeDashoffset: 4160 }, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 0.95);
       // Line 1 per phrase from 0.4s ("Digital Navy" in cobalt).
@@ -217,7 +223,7 @@
 
       // As "Reliable" lands (9.6-10.4s) the wall settles, behind the veil, into the aligned grid
       // (one smooth move, rippling out from the centre) and the tiles gain their 4-dot tag badges. No text moves.
-      // Round 6: the payoff band (x 340-1580, y 600-760) stays clear of tile marks: the row-3 badges (screen
+      // Round 6 (unchanged in round 7; the payoff row now spans y ~652-800): the payoff band stays clear of tile marks: the row-3 badges (screen
       // y ~681-688, between the payoff baseline and the chip tops) stay hidden, and from 9.6s the tile borders of
       // rows 3-4 and the row-4 top kind bands (y ~719-722) drop to 5% of their opacity, to the end.
       tl.fromTo("#f11-grid .f11-tile", { rotation: untidyRot, x: untidyX, y: untidyY }, { rotation: 0, x: 0, y: 0, duration: 0.6, ease: "power3.inOut", stagger: { amount: 0.2, grid: [4, 10], from: "center" } }, 9.6);
@@ -225,8 +231,8 @@
       tl.fromTo("#f11-grid .f11-tile:nth-child(n+21)", { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,0.01)", duration: 0.6, ease: "power2.out" }, 9.6);
       tl.fromTo("#f11-grid .f11-tile:nth-child(n+31) .f11-band", { opacity: 1 }, { opacity: 0.05, duration: 0.6, ease: "power2.out" }, 9.6);
 
-      // Scene 5 (11.1-17.0s): still hold; the film ends on this card (no fade-out).
-      tl.set({}, {}, 17);
+      // Scene 5 (11.1-16.0s): still hold; the film ends on this card (no fade-out).
+      tl.set({}, {}, 16);
 
       window.__timelines["11-close"] = tl;
     })();

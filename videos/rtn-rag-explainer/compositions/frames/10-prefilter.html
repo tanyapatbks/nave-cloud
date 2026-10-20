@@ -99,10 +99,18 @@
     .f10-beam{position:absolute;left:0;top:0;width:70px;height:100%;background:linear-gradient(90deg,rgba(30,43,250,0) 0%,rgba(30,43,250,0.10) 55%,rgba(30,43,250,0.28) 95%,#1e2bfa 95%,#1e2bfa 100%);opacity:0}
 
     /* post-filter: filter bar + residue chips (negative, chip-sized only) */
-    #f10-filterbar{position:absolute;left:424px;top:131px;width:250px;height:6px;border-radius:3px;background:#111111;z-index:8;opacity:0}
+    /* the transient filter bar: the box outline's red (#b42318), 4px on screen (4.35 local), clipped to the box
+       interior (inside the 2px red border: local x 434-664, y 140-344 = screen x ~528-739) so it never overshoots */
+    #f10-filterclip{position:absolute;left:434px;top:140px;width:230px;height:204px;border-radius:10px;overflow:hidden;z-index:8;pointer-events:none}
+    #f10-filterbar{position:absolute;left:0;top:-9px;width:100%;height:4.35px;background:#b42318;opacity:0}
     /* 19px local padding = 17px on screen (>= 16px clear of the red border) */
     #f10-residue{position:absolute;left:432px;top:138px;width:234px;height:208px;box-sizing:border-box;padding:19px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;z-index:7;pointer-events:none}
-    .f10-res{display:flex;align-items:center;gap:9px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 12px 2px 8px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap;transform-origin:100% 50%}
+    /* chips scale about their centre: they spawn stacked at the struck doc's last centre and deal out to their slots
+       (stack order: the first to leave on top) */
+    .f10-res{position:relative;display:flex;align-items:center;gap:9px;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:31px;line-height:1.45;padding:2px 12px 2px 8px;border-radius:100px;color:#b42318;background:#fde7e3;white-space:nowrap;transform-origin:50% 50%}
+    #f10-res-0{z-index:3}
+    #f10-res-1{z-index:2}
+    #f10-res-2{z-index:1}
     /* OPEN padlock (shackle raised and offset): the trace got out */
     .f10-res .f10-lk-open{display:block;width:26px;height:26px;flex:none;overflow:visible}
 
@@ -119,9 +127,9 @@
   </style>
 
   <div id="root" data-composition-id="10-prefilter" data-width="1920" data-height="1080" data-duration="12.1">
-    <div id="f10-ground" class="clip" data-start="0" data-duration="12.6" data-track-index="0"></div>
+    <div id="f10-ground" class="clip" data-start="0" data-duration="12.1" data-track-index="0"></div>
 
-    <div id="f10-stage" class="clip" data-start="0" data-duration="12.6" data-track-index="1">
+    <div id="f10-stage" class="clip" data-start="0" data-duration="12.1" data-track-index="1">
 
       <div id="f10-h2"><span class="f10-line"><span class="f10-ph" id="f10-h-a">กำหนดขอบเขตก่อน</span> <span class="f10-ph" id="f10-h-b">แล้วค่อยค้น</span></span></div>
 
@@ -148,7 +156,7 @@
           <div class="f10-ai" id="f10-L-ai"><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
           <div class="f10-ai f10-ai-lit" id="f10-L-ailit"><i class="f10-ai-ring"></i><svg viewBox="0 0 24 24"><path d="M11 3c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></svg></div>
           <div class="f10-beamwrap" id="f10-L-beamwrap"><i class="f10-beam" id="f10-L-beam"></i></div>
-          <i id="f10-filterbar"></i>
+          <i id="f10-filterclip"><i id="f10-filterbar"></i></i>
         </div>
           <svg class="f10-trails" viewBox="0 0 804 460" aria-hidden="true">
             <!-- comb (local px; collector x 681 = screen ~754). Each tooth starts 0.4px inside its pill's right end (pill
@@ -232,7 +240,10 @@
 
       // panels land at their FINAL layout (scale 0.92 about the top edge, y 0: 24px lower than draft 5) and never resize afterwards
       tl.fromTo("#f10-L-panel", { x: -240, y: 0, scale: 0.846, opacity: 0 }, { x: 0, y: 0, scale: 0.92, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.1);
-      tl.fromTo("#f10-R-panel", { x: 240, y: 0, scale: 0.846, opacity: 0 }, { x: 0, y: 0, scale: 0.92, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.28);
+      // the right panel (grid, locks, empty result slot, AI node) arrives at 35% and holds there 0.5-5.3 while the
+      // left panel tells the leak; it rises to 100% with its label (5.3-5.6), before its scope draws (5.7)
+      tl.fromTo("#f10-R-panel", { x: 240, y: 0, scale: 0.846 }, { x: 0, y: 0, scale: 0.92, duration: 0.85, ease: "power3.out" }, 0.28);
+      tl.fromTo("#f10-R-panel", { opacity: 0 }, { opacity: 0.35, duration: 0.22, ease: "power2.out" }, 0.28);
       tl.fromTo("#f10-divider", { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power2.out" }, 0.3);
 
       q(".f10-tile-L").forEach(function (el, i) {
@@ -279,12 +290,18 @@
       tl.fromTo("#f10-L-t4", { x: 465, y: 0, scale: 1, opacity: 1 }, { x: 576, y: -157.75, scale: 0.72, opacity: 0, duration: 0.22, ease: "power2.inOut", immediateRender: false }, 3.28);
       tl.fromTo("#f10-L-ghost", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 3.3);
 
-      // hold 3.5-3.8; residue chips 3.8 / 4.2 / 4.6; the comb: the collector streams down out of the lock box (3.5;
-      // the arrow into the AI is already drawn at 2.5), then each chip's trail runs right from its pill end into the
-      // collector as the chip lands. The dashes hold still once drawn (no crawl): the only thing that travels the
-      // route is the single leak dot (4.7-5.2)
-      [["#f10-res-0", 3.8], ["#f10-res-1", 4.2], ["#f10-res-2", 4.6]].forEach(function (r) {
-        tl.fromTo(r[0], { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "power3.out" }, r[1]);
+      // the residue comes OUT of the struck doc: as it leaves the box for the lock box (3.28-3.5) the three chips
+      // spawn stacked at its last centre (local 549,242 = screen ~633,519) at scale 0.6, then deal out to their
+      // slots scaling 0.6 -> 1, landing at 3.8 / 4.2 / 4.6 (the middle chip's slot is at the doc's height, so it
+      // grows almost in place; the last slides out from under it). Offsets = doc centre - chip centre, from the
+      // measured pill ends (screen x 635 / 711 / 644 -> local right 550.9 / 633.5 / 560.7, left 451; rows y
+      // 181.5 / 242 / 302.5). Then the comb: the collector streams down out of the lock box (3.5; the arrow into the
+      // AI is already drawn at 2.5), and each chip's trail runs right from its pill end into the collector as the
+      // chip lands. The dashes hold still once drawn (no crawl): the only thing that travels the route is the
+      // single leak dot (4.7-5.2)
+      [["#f10-res-0", 48.04, 60.5, 3.8], ["#f10-res-1", 6.75, 0, 4.2], ["#f10-res-2", 43.15, -60.5, 4.6]].forEach(function (r) {
+        tl.fromTo(r[0], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 3.3);
+        tl.fromTo(r[0], { x: r[1], y: r[2], scale: 0.6 }, { x: 0, y: 0, scale: 1, duration: 0.42, ease: "power3.out", autoRound: false }, r[3] - 0.42);
       });
       // trails: one finite run of 10/6 dashes (screen px) followed by a long gap. The run is fitted to the path
       // (k+1 dashes, k gaps, scaled by <= ~5%) so it starts and ends on a full dash. Reveal = the run streams out of
@@ -321,6 +338,7 @@
       tl.fromTo("#f10-L-leakdot", { opacity: 1 }, { opacity: 0, duration: 0.06, ease: "power2.in", immediateRender: false }, 5.14);
 
       // ===== Scene 3 (5.3-7.4): RIGHT - scope first, then search inside it (residue holds alone 3.8-5.3) =====
+      tl.fromTo("#f10-R-panel", { opacity: 0.35 }, { opacity: 1, duration: 0.3, ease: "power2.inOut", immediateRender: false }, 5.3);
       tl.fromTo("#f10-R-label", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 5.3);
       tl.fromTo("#f10-scope-draw", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 5.7);
       q("#f10-R-t0, #f10-R-t4, #f10-R-t8").forEach(function (el) {
@@ -358,14 +376,14 @@
         tl.fromTo(el, { opacity: 1 }, { opacity: 0.6, duration: 0.4, ease: "power2.inOut", immediateRender: false }, 7.1);
       });
 
-      // the rule: line 1 at 7.6, line 2 at 8.1; fully legible by 8.46 (3.54s before the 12.0s exit), then hold still
+      // the rule: line 1 at 7.6, line 2 at 8.1; fully legible by 8.46 (3.04s before the 11.5s exit), then hold still
       tl.fromTo("#f10-r1a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 7.6);
       tl.fromTo("#f10-r1b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 7.72);
       tl.fromTo("#f10-r2a", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 8.1);
       tl.fromTo("#f10-r2b", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 8.16);
 
-      // hold still through the 12s window (+0.6s blur-crossfade)
-      tl.set({}, {}, 12.6);
+      // hold still through the 11.5s window (+0.6s blur-crossfade)
+      tl.set({}, {}, 12.1);
 
       window.__timelines["10-prefilter"] = tl;
     })();
