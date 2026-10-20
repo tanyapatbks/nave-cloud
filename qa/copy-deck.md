@@ -6,7 +6,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 
 ## Frame 01 — จากวันนั้น จนวันนี้ และคำถามเดียว  ·  0.0–12.0 s
-- on-screen copy (local cue times): "จากวันนั้น..." (0.3s) · year "2449" (0.3s) rolling year by year to "2569" (0.8–3.6s) · "จนวันนี้..." replaces "จากวันนั้น..." (3.9s) · era line "ยุคสมัยที่เปลี่ยนผ่าน ข้อมูลต่างๆมากมาย" + "ถูกจัดเก็บในหลากหลายรูปแบบ" (4.8s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (5.6s, staggered) · headline "แล้ววันนี้..." (7.8s) + "หากเราจะเริ่มจัดทำ RAG" + "ให้กับ ทร.ได้อย่างไร" (8.4s) · tracker "1 จัดการ" "2 ค้นหา" "3 สิทธิการเข้าถึง" (10.8s)
+- on-screen copy (local cue times): "จากวันนั้น..." (0.3s) · year "2449" (0.3s) rolling year by year to "2569" (0.8–3.6s) · "จนวันนี้..." replaces "จากวันนั้น..." (3.9s) · era line "ยุคสมัยที่เปลี่ยนผ่าน ข้อมูลต่างๆมากมาย" + "ถูกจัดเก็บในหลากหลายรูปแบบ" (4.4s) · chips "PDF" "ภาพสแกน" "รูปภาพ" "แผนภูมิ" "ตาราง" (5.6s, staggered) · headline "แล้ววันนี้..." (8.2s) + "หากเราจะเริ่มจัดทำ RAG" + "ให้กับ ทร.ได้อย่างไร" (8.8s) · tracker "1 จัดการ" "2 ค้นหา" "3 สิทธิการเข้าถึง" (11.0s)
 - must teach: From 2449 until today the Navy's data has been stored in many forms; the question is how to begin building RAG for the RTN now.
 
 ## Frame 02 — ทำให้ AI อ่านเอกสารได้  ·  12.0–23.0 s
@@ -55,7 +55,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 - must teach: Never search the whole archive and filter afterwards; apply the permission scope first.
 
 ## Frame 11 — สู่ Digital Navy  ·  105.0–119.0 s
-- on-screen copy (local cue times): line 1 "การจะเปลี่ยนผ่านไปสู่ Digital Navy" (0.4s) · line 2 "ส่วนที่ยากที่สุดไม่ใช่ AI RAG EMBEDDING" (2.2s) · line 3 "แต่คือการ เชื่อมโยง และ จัดการ" + "ข้อมูลของทร.ทั้งหมด อย่างเป็นระบบ" + "ให้กลายเป็นชุดข้อมูลที่" (4.4s) · payoff "Reliable" (7.0s) "Searchable" (7.4s) "Permission-aware" (7.8s) · chips under them "เชื่อถือได้" "ค้นหาได้" "แบ่งตามสิทธิการเข้าถึงข้อมูลได้" (8.2s)
+- on-screen copy (local cue times): line 1 "การจะเปลี่ยนผ่านไปสู่ Digital Navy" (0.4s) · line 2 "ส่วนที่ยากที่สุดไม่ใช่ AI RAG EMBEDDING" (2.0s) · line 3 "แต่คือการ เชื่อมโยง และ จัดการ" (3.6s) + "ข้อมูลของทร.ทั้งหมด อย่างเป็นระบบ" (4.6s) + "ให้กลายเป็นชุดข้อมูลที่" (5.6s) · payoff "Reliable" (8.0s) "Searchable" (8.4s) "Permission-aware" (8.8s) · chips under them "เชื่อถือได้" "ค้นหาได้" "แบ่งตามสิทธิการเข้าถึงข้อมูลได้" (9.2s)
 - must teach: To become a Digital Navy, the hardest part is not AI/RAG/embeddings but connecting and managing all RTN data systematically into a reliable, searchable, permission-aware dataset.
 
 ## Brief points that must all be present and correct
