@@ -49,7 +49,7 @@
     .f07-lkc .f07-shk{fill:none;stroke:#3F3C35;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;}
     .f07-lkc .f07-body{fill:#fdfae7;stroke:#3F3C35;stroke-width:3.5;}
     .f07-lkc .f07-hole{fill:#3F3C35;}
-    .f07-crack{fill:none;stroke:#9B2D27;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;}
+    .f07-crack{fill:none;stroke:#9B2D27;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round;}
     /* planned post-quantum lock: dashed cobalt outline + 3x3 lattice */
     .f07-lkq .f07-qshk{fill:none;stroke:#1e2bfa;stroke-width:5;stroke-linecap:round;stroke-dasharray:9 6.5;}
     .f07-lkq .f07-qbody{fill:#E8E7EC;stroke:#1e2bfa;stroke-width:3;stroke-dasharray:10 6;}
@@ -170,7 +170,7 @@
           <rect class="f07-body" id="f07-ca-body" x="24" y="90" width="84" height="62" rx="10"/>
           <circle class="f07-hole" cx="66" cy="114" r="7"/>
           <rect class="f07-hole" x="63" y="116" width="6" height="17" rx="3"/>
-          <path class="f07-crack" id="f07-crack" d="M27 105 L43 117 L54 108 L67 131 L79 121 L105 141"/>
+          <path class="f07-crack" id="f07-crack" d="M77 90 L66 103 L78 114 L63 127 L74 139 L67 152"/>
         </svg>
       </div>
 
@@ -287,7 +287,7 @@
       tl.fromTo(crack, { strokeDashoffset: clen + 6 }, { strokeDashoffset: 0, duration: 0.28, ease: "power2.out" }, 4.82);
       var shk = $("#f07-ca-shk");
       gsap.set(shk, { svgOrigin: "40 92" });
-      tl.fromTo(shk, { y: 0, rotation: 0 }, { y: -8, rotation: -28, duration: 0.3, ease: E3 }, 4.92);
+      tl.fromTo(shk, { y: 0, rotation: 0 }, { y: -3, rotation: -22, duration: 0.3, ease: E3 }, 4.92);
 
       /* 5.5-6.3: the outsider walks back to the packet (the cracked copy stays at full contrast) */
       tl.fromTo(gh, { x: GX }, { x: 0, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 5.5);

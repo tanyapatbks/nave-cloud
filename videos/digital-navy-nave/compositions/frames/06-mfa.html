@@ -197,7 +197,7 @@
          (min-width:max-content guards the estimate), then grows to FULL so its glyph end docks */
       var FULL = 806;            /* x 320 -> 1126: the glyph end centred in the 80px slot at x 1046 */
       var W1 = 276, W2 = 548, W3 = 468;
-      var OPEN_L = 16, OPEN_R = 144; /* upper leaves part to a 160px gap; the left leaf (slots) barely moves */
+      var OPEN_L = 18, OPEN_R = 136; /* upper leaves part to a 154px gap (a 14px sliver of the right leaf stays in the frame); the left leaf (slots) barely moves */
 
       var tl = gsap.timeline({ paused: true });
 
@@ -242,7 +242,7 @@
       tl.fromTo($("#f06-holeU"), { fill: "#1e2bfa" }, { fill: "#0B6A45", duration: 0.25, ease: "power2.out" }, 3.6);
       tl.fromTo($("#f06-ringU"), { stroke: "rgba(30,43,250,0.28)" }, { stroke: "rgba(11,106,69,0.45)", duration: 0.25, ease: "power2.out" }, 3.6);
 
-      /* 3.7-4.2: the leaves part to a 160px gap showing the cream ground; the right leaf slides
+      /* 3.7-4.2: the leaves part to a 154px gap showing the cream ground; the right leaf slides
          into the wall, the left leaf (with the docked slots above it) barely moves; the open lock rides the left leaf */
       tl.fromTo($("#f06-leafUL"), { x: 0 }, { x: -OPEN_L, duration: 0.5, ease: "power3.inOut" }, 3.7);
       tl.fromTo($("#f06-lockU"), { x: 0 }, { x: -OPEN_L, duration: 0.5, ease: "power3.inOut" }, 3.7);
