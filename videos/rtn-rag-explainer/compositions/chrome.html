@@ -11,7 +11,7 @@
     #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;pointer-events:none}
     #ch-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px}
     #ch-track{position:absolute;left:0;top:0;height:60px;display:flex;gap:12px;align-items:center}
-    .ch-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:rgba(30,43,250,0);white-space:nowrap}
+    .ch-pill{font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;padding:6px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b675c;background:rgba(30,43,250,0);white-space:nowrap}
     .ch-n{font-weight:700;margin-right:10px}
     .ch-term{position:absolute;right:0;top:0;height:60px;display:flex;align-items:center;opacity:0}
     .ch-term span{font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:24px;padding:12px 16px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
@@ -44,7 +44,7 @@
       var starts = { "02": 0, "03": 11, "04": 23, "05": 32, "06": 41, "07": 53, "08": 61, "09": 70, "10": 80 };
       var END = 92; /* frame 11 starts: the chrome leaves with the blur-crossfade */
 
-      var UPCOMING = { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0.2)", color: "#6b6b6b" };
+      var UPCOMING = { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0.2)", color: "#6b675c" };
       var CURRENT = { backgroundColor: "rgba(30,43,250,1)", borderColor: "rgba(30,43,250,1)", color: "#fdfae7" };
       var DONE = { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.08)", color: "#1e2bfa" };
       /* immediateRender:false — a pill has two state tweens, and an eagerly rendered later
