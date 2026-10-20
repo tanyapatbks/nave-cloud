@@ -9,6 +9,7 @@
     #f05-hdr{position:absolute;left:96px;right:96px;top:56px;height:60px;display:flex;justify-content:space-between;align-items:center}
     #f05-hdr .f05-track{display:flex;gap:12px}
     #f05-hdr .f05-pill{font-family:"IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);color:#6b6b6b;background:transparent;white-space:nowrap}
+    #f05-hdr .f05-n{font-weight:700;margin-right:10px}
     #f05-hdr .f05-pill.is-current{background:#1e2bfa;border-color:#1e2bfa;color:#fdfae7}
     #f05-hdr .f05-pill.is-done{background:rgba(30,43,250,0.08);border-color:rgba(30,43,250,0.08);color:#1e2bfa}
     #f05-hdr .f05-term{font-family:"IBM Plex Mono","IBM Plex Sans Thai";font-weight:500;font-size:24px;line-height:1.45;padding:8px 22px;border-radius:100px;color:#1e2bfa;background:rgba(30,43,250,0.08);white-space:nowrap}
@@ -21,7 +22,7 @@
     #f05-h2 .f05-ph{display:inline-block;}
 
     /* the world: everything on the station strip (the subtle camera lock lives here) */
-    #f05-world{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:50% 50%;will-change:transform;}
+    #f05-world{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:50% 50%;}
 
     /* connector line: base + progress fill per segment */
     .f05-seg{position:absolute;top:499px;height:2px;border-radius:1px;background:rgba(30,43,250,0.2);overflow:hidden;}
@@ -103,7 +104,7 @@
     </div>
 
     <div id="f05-hdr">
-      <div class="f05-track"><span class="f05-pill is-current">① อ่านได้</span><span class="f05-pill">② ค้นเจอ</span><span class="f05-pill">③ ตามสิทธิ์</span></div>
+      <div class="f05-track"><span class="f05-pill is-current"><b class="f05-n">1</b>อ่านได้</span><span class="f05-pill"><b class="f05-n">2</b>ค้นเจอ</span><span class="f05-pill"><b class="f05-n">3</b>ตามสิทธิ์</span></div>
       <span class="f05-term">Ingest → Index</span>
     </div>
 

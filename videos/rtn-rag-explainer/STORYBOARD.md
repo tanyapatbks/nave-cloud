@@ -162,7 +162,7 @@ Scene 3 (6.0–9.0s): below the Index station at y≈720, an index stack (four s
 - term: Hybrid Search
 - focal: the question card, then the merge
 - roles: header/tracker = supporting (① done, ② current) · question card = foreground subject · three lanes = foreground subject · result markers (squares / circles / filter chips) = supporting · merge bracket = foreground subject (Scene 4)
-- onscreen: headline "ค้นหา 3 ทางพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.4s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.0s) · lane "กรองตามป้าย" chip "Metadata" sub "ปี · หน่วยงาน · สิทธิ์" (5.6s) · merge label "รวมผล" (7.4s)
+- onscreen: headline "ค้นหา 3 ทางพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.4s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.0s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." "ขอบเขตสิทธิ์" (5.6s) · merge label "รวมผล" (7.4s)
 
 narrativeRole: Explains why vector search alone is not enough: exact names/IDs, meaning, and filters each catch what the others miss.
 keyMessage: Hybrid search combines keyword, vector and metadata filters; together they find what one method alone misses.
