@@ -31,9 +31,9 @@
     .f03-col{flex:none;display:flex;flex-direction:column;align-items:center;}
     .f03-slot{position:relative;}
     .f03-ghost{position:absolute;left:0;top:0;right:0;bottom:0;box-sizing:border-box;border-radius:100px;border:1.5px dashed rgba(30,43,250,0.35);}
-    .f03-tok{position:relative;box-sizing:border-box;height:84px;padding:0 18px;display:flex;align-items:center;justify-content:center;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.15);color:#1e2bfa;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:46px;line-height:1.45;white-space:nowrap;}
+    .f03-tok{position:relative;box-sizing:border-box;height:84px;padding:0 20px;display:flex;align-items:center;justify-content:center;border-radius:100px;border:1.5px solid rgba(30,43,250,0.2);background:rgba(30,43,250,0.15);color:#1e2bfa;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:46px;line-height:1.45;font-variant-numeric:tabular-nums;white-space:nowrap;}
     .f03-dg{display:inline-block;}
-    .f03-sep{flex:none;width:44px;height:84px;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:46px;line-height:1.45;color:#6b6b6b;}
+    .f03-sep{flex:none;width:44px;height:84px;display:flex;align-items:center;justify-content:center;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:46px;line-height:1.45;color:#6b6b6b;}
     .f03-gap{flex:none;width:8px;height:84px;}
     .f03-tick{display:block;width:4px;height:40px;overflow:visible;}
     .f03-tick path{fill:none;stroke:#1e2bfa;stroke-width:2;stroke-linecap:butt;}
@@ -47,7 +47,9 @@
 
     /* bridge line — split-highlight */
     #f03-bridge{position:absolute;left:0;top:744px;width:1920px;display:flex;justify-content:center;}
-    #f03-hl{box-sizing:border-box;padding:20px 36px 20px 32px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:36px;line-height:1.45;white-space:nowrap;}
+    #f03-hl{box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:20px 36px 20px 30px;border-left:4px solid #1e2bfa;border-radius:12px;background:rgba(30,43,250,0.08);font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-size:36px;line-height:1.45;white-space:nowrap;}
+    #f03-led{flex:none;display:block;width:28px;height:28px;fill:none;stroke:#1e2bfa;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+    #f03-bt{display:block;white-space:nowrap;}
     #f03-b1{display:inline-block;font-weight:500;color:#111111;}
     #f03-b2{display:inline-block;font-weight:600;color:#1e2bfa;}
   </style>
@@ -129,7 +131,15 @@
       </div>
 
       <div id="f03-bridge">
-        <div id="f03-hl"><span id="f03-b1">สิทธิ์จริง</span> <span id="f03-b2">อยู่ในทะเบียนเอกสาร</span></div>
+        <div id="f03-hl">
+          <!-- registry ledger (book) glyph: same drawing as frame 09's ACL ledger card -->
+          <svg id="f03-led" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            <path d="M9 7h7M9 11h5"/>
+          </svg>
+          <span id="f03-bt"><span id="f03-b1">สิทธิ์จริง</span> <span id="f03-b2">อยู่ในทะเบียนเอกสาร</span></span>
+        </div>
       </div>
     </div>
   </div>
@@ -158,14 +168,14 @@
         { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.18 }, 0.3);
       tl.fromTo($$("#f03-strip .f03-ghost"),
         { opacity: 0 },
-        { opacity: 1, duration: 0.5, ease: "power1.out", stagger: 0.05 }, 0.35);
+        { opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.05 }, 0.35);
       tl.fromTo($$("#f03-strip .f03-sep"),
         { opacity: 0 },
-        { opacity: 0.3, duration: 0.5, ease: "power1.out", stagger: 0.05 }, 0.4);
+        { opacity: 0.3, duration: 0.5, ease: "power2.out", stagger: 0.05 }, 0.4);
 
-      // ── Scene 2 (1.4–7.4s): tokens snap into their slots on cue (dynamic-content-sequencing) ──
+      // ── Scene 2 (1.4–7.2s): tokens snap into their slots on cue (dynamic-content-sequencing) ──
       // Content array → flat TIMELINE of absolute windows, computed once at build.
-      var SCENE3 = 7.4;
+      var SCENE3 = 7.2;
       var CONTENT = [
         { n: 1, at: 1.4, move: "drop" },
         { n: 2, at: 2.4, move: "slide" },
@@ -186,8 +196,8 @@
         var sep = $("#f03-s" + e.n);
         var t = e.start;
 
-        if (sep) tl.to(sep, { opacity: 1, duration: 0.25, ease: "power1.out" }, t - 0.05);
-        tl.to(ghost, { opacity: 0, duration: 0.3, ease: "power1.out" }, t + 0.1);
+        if (sep) tl.to(sep, { opacity: 1, duration: 0.25, ease: "power2.out" }, t - 0.05);
+        tl.to(ghost, { opacity: 0, duration: 0.3, ease: "power2.out" }, t + 0.1);
 
         // each beat its own move (kinetic-type-beats, in-place line build)
         if (e.move === "drop") {
@@ -195,10 +205,10 @@
         } else if (e.move === "slide") {
           tl.fromTo(tok, { opacity: 0, x: 48 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, t);
         } else if (e.move === "type") {
-          tl.fromTo(tok, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, t);
+          tl.fromTo(tok, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, t);
           tl.fromTo(tok.querySelectorAll(".f03-dg"), { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none", stagger: 0.035 }, t + 0.06);
         } else if (e.move === "pop") {
-          tl.fromTo(tok, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)" }, t);
+          tl.fromTo(tok, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, t);
         } else if (e.move === "rise") {
           tl.fromTo(tok, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, t);
         } else if (e.move === "wipe") {
@@ -206,11 +216,11 @@
             { clipPath: "inset(0% 100% 0% 0% round 100px)" },
             { clipPath: "inset(0% 0% 0% 0% round 100px)", duration: 0.5, ease: "power2.inOut" }, t);
         } else if (e.move === "snap") {
-          tl.fromTo(tok, { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(2.2)" }, t);
+          tl.fromTo(tok, { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, t);
         }
 
         // the arriving token is the active (cobalt) one; it relaxes to ink when its window ends
-        tl.to(tok, { backgroundColor: PILL_REST, color: INK, duration: 0.35, ease: "power1.out" }, e.end);
+        tl.to(tok, { backgroundColor: PILL_REST, color: INK, duration: 0.35, ease: "power2.out" }, e.end);
 
         // tick draws down to the label (svg-path-draw), then the two label lines rise in
         var tick = col.querySelector(".f03-tick path");
@@ -224,7 +234,7 @@
         }
       });
 
-      // ── Scene 3 (7.4–8.6s): the example-document glyph draws at the strip's left end; hold ──
+      // ── Scene 3 (7.2–7.6s): the example-document glyph draws at the strip's left end ──
       var outline = $("#f03-doc-outline");
       var olen = measure(outline, 280);
       outline.style.strokeDasharray = olen + " " + olen;
@@ -232,15 +242,13 @@
       tl.fromTo(outline, { strokeDashoffset: olen }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, SCENE3);
       tl.fromTo($$("#f03-doc .f03-doc-in"),
         { opacity: 0 },
-        { opacity: 1, duration: 0.35, ease: "power1.out", stagger: 0.06 }, SCENE3 + 0.35);
+        { opacity: 1, duration: 0.35, ease: "power2.out", stagger: 0.06 }, SCENE3 + 0.35);
 
-      // ── Scene 4 (8.6–12.0s): bridge line per phrase inside the split-highlight; hold still ──
-      var B = 8.6;
-      tl.fromTo($("#f03-hl"),
-        { clipPath: "inset(0% 100% 0% 0% round 12px)" },
-        { clipPath: "inset(0% 0% 0% 0% round 12px)", duration: 0.5, ease: "power3.out" }, B);
-      tl.fromTo($("#f03-b1"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, B + 0.15);
-      tl.fromTo($("#f03-b2"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B + 0.7);
+      // ── Scene 4 (7.6–12.0s): the bridge block, its ledger icon and first phrase fade in together
+      //    (never an empty box); the second phrase follows; hold still ──
+      var B = 7.6;
+      tl.fromTo($("#f03-hl"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B);
+      tl.fromTo($("#f03-b2"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, B + 0.55);
 
       tl.set({}, {}, 12);
 
