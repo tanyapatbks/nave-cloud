@@ -63,7 +63,8 @@
     .f04-q{display:block;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:600;font-size:34px;line-height:1.45;color:#111111;white-space:nowrap;}
     /* question · term separator: 8px dot in the text-floor token #6B675C; 10px column (round 5: sep x≈796-806, terms from x≈822) */
     .f04-sep{display:block;width:8px;height:8px;margin:0 1px;border-radius:50%;background:#6B675C;}
-    .f04-t{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#1e2bfa;white-space:nowrap;}
+    /* round 6: terms enter in a muted cobalt (#535ecc, 4.9:1 on the card) and brighten to full #1e2bfa while their dot flies */
+    .f04-t{display:block;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:30px;line-height:1.45;color:#535ecc;white-space:nowrap;}
 
     /* tree-node pills (section headings of the same document) */
     /* round 4: 72px tall (grown downward from top 280) and 252px wide (grown outward, inner edges and the
@@ -260,7 +261,7 @@
       });
       tl.fromTo("#f04-chip-chunk", { opacity: 0, y: 10, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 1.45);
 
-      // ---- Scene 3 (2.2–6.8s): tag card, rows on cue (2.4 / 3.0 / 3.6 / 4.2), still hold 4.6–5.3, then the inheritance ----
+      // ---- Scene 3 (2.2–6.9s): tag card, rows on cue (2.4 / 3.0 / 3.6 / 4.2), still hold 4.6–5.0, then the inheritance ----
       tl.fromTo("#f04-tag", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 2.2);
       var ROW_AT = [2.4, 3.0, 3.6, 4.2];
       // each row fully settles 0.4s after its cue, so the last row is still by 4.6s
@@ -270,14 +271,15 @@
         tl.fromTo(row.querySelector(".f04-q"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, at + 0.04);
         tl.fromTo([row.querySelector(".f04-sep"), row.querySelector(".f04-t")], { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.28, ease: "power3.out" }, at + 0.12);
       });
-      // 4.6–5.3s: still hold (the fourth row is read; nothing moves).
-      // 5.3–6.05s: one at a time, top to bottom (0.15s apart, 0.30s flight), each row bullet emits its dot;
-      // the four dots travel into the document's mini badge, which is how the 4-dot badge gets its meaning.
-      // The last dot still lands at 6.05s, when the first copy leaves the doc badge.
+      // 4.6–5.0s: still hold (the fourth row is read; nothing moves).
+      // round 6: 5.0–6.2s: strictly one at a time, top to bottom (0.3s apart, 0.30s flight, no overlap), each row
+      // bullet emits its dot and that row's English term brightens to full cobalt during the flight; the four dots
+      // travel into the document's mini badge, which is how the 4-dot badge gets its meaning.
+      // The last dot lands at 6.2s; the full badge holds to 6.3s, when the first copy leaves the doc badge.
       // Row bullet centres (stage px): x 439 (round 5: card left 396 + 4 border + 32 padding + 7); y 503.15 / 574.45 / 645.75 / 717.05 (tag card grid, fixed line boxes).
       // Doc badge dot centres: x 239.5 / 263.5 / 287.5 / 311.5, y 748.5 (badge x 215.5-335.5, y 730.5-766.5).
       var ROW_Y = [503.15, 574.45, 645.75, 717.05];
-      var EMIT_AT = [5.3, 5.45, 5.6, 5.75];
+      var EMIT_AT = [5.0, 5.3, 5.6, 5.9];
       var FLY = 0.3;
       var docBadge = $("#f04-doc-bs .f04-badge");
       var docDots = Array.prototype.slice.call(docBadge.querySelectorAll("span"));
@@ -291,19 +293,23 @@
         // a scale pulse 1.0 -> 1.4 -> 1.0 over 0.3s (later tweens on the bullet's scale: immediateRender false)
         tl.fromTo(bullet, { scale: 1 }, { scale: 1.4, duration: 0.15, ease: "power2.out", immediateRender: false }, at);
         tl.fromTo(bullet, { scale: 1.4 }, { scale: 1, duration: 0.15, ease: "power2.inOut", immediateRender: false }, at + 0.15);
+        // round 6: the row's English term brightens muted -> full cobalt while its dot is in flight (and stays full)
+        tl.fromTo($("#f04-r" + (i + 1) + " .f04-t"), { color: "#535ecc" }, { color: "#1e2bfa", duration: FLY, ease: "power2.out" }, at);
       });
-      // the doc badge body forms as the dots land (dashed slot -> filled pill), complete when the last dot lands at 6.05s
-      tl.fromTo(docBadge, { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)", duration: 0.45, ease: "power2.out" }, 5.6);
-      tl.fromTo("#f04-doc-bs .f04-slot", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power2.out" }, 5.6);
+      // the doc badge body forms as the dots land (dashed slot -> filled pill): from the first landing (5.3s),
+      // complete when the last dot lands at 6.2s; the full badge then holds still to 6.3s
+      tl.fromTo(docBadge, { backgroundColor: "rgba(30,43,250,0)", borderColor: "rgba(30,43,250,0)" }, { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)", duration: 0.9, ease: "power2.inOut" }, 5.3);
+      tl.fromTo("#f04-doc-bs .f04-slot", { opacity: 1 }, { opacity: 0, duration: 0.45, ease: "power2.inOut" }, 5.75);
 
       // the trunk the copies ride: out of the doc's bottom edge, under the tag card, up the badge column
-      // (under the chunk cards, so it reads only in the gaps between them)
-      draw($("#f04-link"), 5.62, 0.4);
-      draw($("#f04-sp3"), 5.96, 0.12);
-      draw($("#f04-sp2"), 6.0, 0.12);
-      draw($("#f04-sp1"), 6.04, 0.12);
+      // (under the chunk cards, so it reads only in the gaps between them). Starts once the badge is full (6.2s)
+      // and always stays ahead of the first copy.
+      draw($("#f04-link"), 6.2, 0.3);
+      draw($("#f04-sp3"), 6.42, 0.12);
+      draw($("#f04-sp2"), 6.46, 0.12);
+      draw($("#f04-sp1"), 6.5, 0.12);
 
-      // 6.05–6.8s: a copy of the doc's badge travels the trunk to each chunk (0.35s each, 0.13s stagger).
+      // round 6: 6.3–6.9s: a copy of the doc's badge travels the trunk to each chunk (0.36s each, 0.08s stagger).
       // Path of the copy's top-left: doc badge (215.5, 730.5) -> down to the y 860 run (top 842) -> right to the
       // badge column (x 1576.5) -> up to the chunk's slot. One power2.inOut over the whole path, split into
       // three tweens at their arc-length fractions so the speed stays continuous through the corners.
@@ -312,8 +318,8 @@
       var part = function (t0, t1, f0, f1) { return function (u) { return (E2(t0 + u * (t1 - t0)) - f0) / (f1 - f0); }; };
       var CP_X0 = 215.5, CP_Y0 = 730.5, RUN_Y = 842, SLOT_X = 1576.5;
       var SLOT_Y = [464, 562, 674, 772];
-      var COPY_AT = [6.05, 6.18, 6.31, 6.45];
-      var TRAVEL = 0.35;
+      var COPY_AT = [6.3, 6.38, 6.46, 6.54];
+      var TRAVEL = 0.36;
       chunks.forEach(function (el, i) {
         var cp = $("#f04-cp" + (i + 1));
         var at = COPY_AT[i];
@@ -328,7 +334,7 @@
         tl.fromTo(el.querySelector(".f04-slot"), { opacity: 1 }, { opacity: 0, duration: 0.16, ease: "power2.out" }, land - 0.04);
         tl.fromTo(el.querySelector(".f04-lit"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, land - 0.04);
       });
-      // the last chunk badge lands at 6.8s: the trunk has done its job and fades out (6.8–7.2s)
+      // the last chunk badge lands at 6.9s: the trunk has done its job and fades out (6.9–7.3s)
       tl.fromTo("#f04-trunk", { opacity: 1 }, { opacity: 0, duration: 0.4, ease: "power2.out" }, COPY_AT[3] + TRAVEL);
 
       // ---- Scene 4 (6.6–9.0s): tree nodes attach, receive the same badge; "สารบัญ" over "Tree Nodes" at 7.0s; hold from 7.4s ----

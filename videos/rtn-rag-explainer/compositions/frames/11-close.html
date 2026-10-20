@@ -18,9 +18,10 @@
     #f11-ground{position:absolute;inset:0;background:#fdfae7}
     #f11-lattice{position:absolute;inset:0;opacity:0.4}
     #f11-backing{position:absolute;inset:0}
-    /* round 5: plate grown to hold the five text rows + payoff chips (y 208-750, ~29px clear above line 1's tone
-       marks and below the chips), still inside the scope frame and covering only the inner tile columns (x 401-1519) */
-    #f11-plate{position:absolute;left:276px;top:208px;width:1368px;height:582px; /* spans the whole lattice inside the dashed frame, so no column is cut */ border-radius:24px;background:rgba(253,248,230,0.92)}
+    /* round 6: the cream veil is ONE uniform layer over the dashed frame's whole interior (frame stroke inner edge
+       x 261.5-1658.5, y 190.5-889.5, inner radius 26.5): x 262-1658, y 191-888, radius 26 on the frame's corner
+       centres, so every tile (screen x 284-1636, y 213-867) sits under the same veil with no internal edge */
+    #f11-plate{position:absolute;left:262px;top:191px;width:1396px;height:697px;border-radius:26px;background:rgba(253,248,230,0.92)}
     #f11-rings{position:absolute;inset:0}
     #f11-rings svg{position:absolute;left:0;top:0;width:1920px;height:1080px}
     #f11-stage{position:absolute;inset:0}
@@ -81,12 +82,12 @@
     .f11-dot{flex:none;display:block;width:12px;height:12px;margin:40px 20px 0;border-radius:50%;background:#1e2bfa}
   </style>
 
-  <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080" data-duration="14">
+  <div id="root" data-composition-id="11-close" data-width="1920" data-height="1080" data-duration="17">
     <!-- track 0: cream ground -->
-    <div id="f11-ground" class="clip" data-start="0" data-duration="14" data-track-index="0"></div>
+    <div id="f11-ground" class="clip" data-start="0" data-duration="17" data-track-index="0"></div>
 
     <!-- track 1: archive lattice, dimmed ~40% (background callback) -->
-    <div id="f11-lattice" class="clip" data-start="0" data-duration="14" data-track-index="1">
+    <div id="f11-lattice" class="clip" data-start="0" data-duration="17" data-track-index="1">
       <div id="f11-drift">
         <svg id="f11-scope" viewBox="0 0 1920 1080" aria-hidden="true">
           <defs>
@@ -142,10 +143,10 @@
     </div>
 
     <!-- track 2: cream backing plate behind the title block (keeps every line off the tile lines) -->
-    <div id="f11-backing" class="clip" data-start="0" data-duration="14" data-track-index="2"><div id="f11-plate"></div></div>
+    <div id="f11-backing" class="clip" data-start="0" data-duration="17" data-track-index="2"><div id="f11-plate"></div></div>
 
     <!-- track 3: faint concentric closing rings (atmosphere) -->
-    <div id="f11-rings" class="clip" data-start="0" data-duration="14" data-track-index="3">
+    <div id="f11-rings" class="clip" data-start="0" data-duration="17" data-track-index="3">
       <svg viewBox="0 0 1920 1080" aria-hidden="true">
         <circle cx="960" cy="490" r="150" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.11"/>
         <circle cx="960" cy="490" r="230" fill="none" stroke="#1e2bfa" stroke-width="1.5" stroke-opacity="0.09"/>
@@ -155,7 +156,7 @@
     </div>
 
     <!-- track 4: the closing title (round 5 requester rewrite) -->
-    <div id="f11-stage" class="clip" data-start="0" data-duration="14" data-track-index="4">
+    <div id="f11-stage" class="clip" data-start="0" data-duration="17" data-track-index="4">
       <div id="f11-l1" class="f11-line"><span class="f11-ph">การจะ</span><span class="f11-ph">เปลี่ยนผ่าน</span><span class="f11-ph">ไปสู่</span> <span class="f11-ph f11-cb">Digital Navy</span></div>
       <div id="f11-l2" class="f11-line"><span class="f11-ph">ส่วนที่ยากที่สุด</span><span class="f11-ph">ไม่ใช่</span> <span class="f11-ph" id="f11-ai">AI RAG EMBEDDING</span></div>
       <div id="f11-l3a" class="f11-line"><span class="f11-ph">แต่คือการ</span> <span class="f11-ph f11-em">เชื่อมโยง</span> <span class="f11-ph">และ</span> <span class="f11-ph f11-em">จัดการ</span></div>

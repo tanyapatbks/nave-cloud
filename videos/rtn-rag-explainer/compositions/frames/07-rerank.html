@@ -213,6 +213,8 @@
       tl.fromTo("#f07-cutline", { strokeDashoffset: 692 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 3.2);
       tl.fromTo("#f07-top3", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 3.2);
       tl.fromTo(winners.slice(1).map(function (idx) { return rows[idx].querySelector(".f07-sel"); }), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 3.2);
+      // rank 1's title bar joins the group's grey at the same moment, so the doc icon is its only marker
+      tl.fromTo(".f07-exrow .f07-title", { backgroundColor: "rgba(30,43,250,0.35)" }, { backgroundColor: "rgba(154,154,154,0.55)", duration: 0.3, ease: "power2.out" }, 3.2);
 
       // ---- Scene 4 (3.6-8.0): top three stay filled in place; arrow -> card -> LLM chip (4.0) -> answer (4.4) -> citation (4.9) ----
       tl.fromTo("#f07-arrline", { strokeDashoffset: 35 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, 3.6);
