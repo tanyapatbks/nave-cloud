@@ -299,9 +299,14 @@
       // AI is already drawn at 2.5), and each chip's trail runs right from its pill end into the collector as the
       // chip lands. The dashes hold still once drawn (no crawl): the only thing that travels the route is the
       // single leak dot (4.7-5.2)
-      [["#f10-res-0", 48.04, 60.5, 3.8], ["#f10-res-1", 6.75, 0, 4.2], ["#f10-res-2", 43.15, -60.5, 4.6]].forEach(function (r) {
-        tl.fromTo(r[0], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, 3.3);
-        tl.fromTo(r[0], { x: r[1], y: r[2], scale: 0.6 }, { x: 0, y: 0, scale: 1, duration: 0.42, ease: "power3.out", autoRound: false }, r[3] - 0.42);
+      // [id, spawn dx, spawn dy, appear, travel start, land]: the first chip appears on the doc as it starts to leave
+      // and sets off at once; the second appears a beat later (3.4, as the doc fades); the third appears (3.52) only
+      // once the second is opaque, fully hidden under it (same height, narrower), so no frame shows overlapping words
+      [["#f10-res-0", 48.05, 60.5, 3.3, 3.34, 3.8],
+       ["#f10-res-1", 6.75, 0, 3.4, 3.78, 4.2],
+       ["#f10-res-2", 43.15, -60.5, 3.52, 4.18, 4.6]].forEach(function (r) {
+        tl.fromTo(r[0], { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.out" }, r[3]);
+        tl.fromTo(r[0], { x: r[1], y: r[2], scale: 0.6 }, { x: 0, y: 0, scale: 1, duration: r[5] - r[4], ease: "power3.out", autoRound: false }, r[4]);
       });
       // trails: one finite run of 10/6 dashes (screen px) followed by a long gap. The run is fitted to the path
       // (k+1 dashes, k gaps, scaled by <= ~5%) so it starts and ends on a full dash. Reveal = the run streams out of

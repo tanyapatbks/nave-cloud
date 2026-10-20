@@ -276,7 +276,7 @@
         el.style.strokeDasharray = SEG + " " + (L + SEG + 2000);
         tl.fromTo(el, { strokeDashoffset: SEG + 8 }, { strokeDashoffset: -(L + 8), duration: dur, ease: IO }, at);
       }
-      /* sub = optional {at, dur, y} override for the sub row (the Metadata lane's filter-chip row lands by 6.8) */
+      /* sub = optional {at, dur, y} override for the sub row (the Metadata lane's filter-chip row lands by 8.4) */
       function laneReveal(lane, at, sub) {
         sub = sub || { at: at + 0.2, dur: 0.45, y: 10 };
         tl.fromTo(lane, { opacity: 0.45 }, { opacity: 1, duration: 0.35, ease: P2, immediateRender: false }, at);
@@ -313,135 +313,146 @@
       tl.fromTo($("#f06-scope-pill"), { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: P3 }, 1.6);
       tl.fromTo($("#f06-scope-fill"), { opacity: 0 }, { opacity: 1, duration: 0.4, ease: P2 }, 2.0);
       tl.fromTo(lanes, { opacity: 0, y: 12 }, { opacity: 0.45, y: 0, duration: 0.3, ease: P2, stagger: 0.05 }, 2.0);
-      draw($("#f06-p1"), 2.15, 0.25, 46);
-      draw($("#f06-p2"), 2.3, 0.35, 200);
+      /* the symmetric bracket from the card (centred on the Vector lane): the short middle arm first, then the
+         two arms up to Keyword and down to Metadata (+/-170 px) */
+      draw($("#f06-p2"), 2.15, 0.25, 46);
+      draw($("#f06-p1"), 2.3, 0.35, 200);
       draw($("#f06-p3"), 2.3, 0.35, 200);
 
-      /* Scene 2 (2.8-4.6): keyword lane title/chip/sub + its four unlit tiles; "ศซบ." + "69" underlined (no hits yet) */
+      /* Scene 2 (2.8-5.4): keyword lane title/chip/sub + its four unlit tiles; "ศซบ." + "69" underlined (no hits yet) */
       laneReveal(lanes[0], 2.8);
       tl.fromTo(K, { opacity: 0, y: 12 }, { opacity: 0.55, y: 0, duration: 0.4, ease: P2, stagger: 0.07 }, 3.1);
       tl.fromTo($("#f06-ul-unit"), { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: P2 }, 3.4);
       tl.fromTo($("#f06-ul-69"), { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: P2 }, 3.5);
 
-      /* Scene 3 (4.6-6.4): vector lane title/chip/sub + its unlit tiles; "แนวทางปฏิบัติ" circled (no hits yet) */
-      laneReveal(lanes[1], 4.6);
-      tl.fromTo(V, { opacity: 0, y: 12 }, { opacity: 0.55, y: 0, duration: 0.4, ease: P2, stagger: 0.07 }, 4.9);
-      tl.fromTo($("#f06-ring"), { opacity: 0 }, { opacity: 1, duration: 0.45, ease: P2 }, 5.15);
+      /* Scene 3 (5.4-8.0): vector lane title/chip/sub + its unlit tiles; "แนวทางปฏิบัติ" highlighted (no hits yet) */
+      laneReveal(lanes[1], 5.4);
+      tl.fromTo(V, { opacity: 0, y: 12 }, { opacity: 0.55, y: 0, duration: 0.4, ease: P2, stagger: 0.07 }, 5.7);
+      tl.fromTo($("#f06-ring"), { opacity: 0 }, { opacity: 1, duration: 0.45, ease: P2 }, 5.95);
 
-      /* Scene 4, one group at a time after the Metadata cue (6.4):
-         (a) 6.4-6.8  the lane title/chip and BOTH filter chips land fully opaque, outlines lit
-         (b) 7.4-7.9  the unit filter acts first: a 3 px neutral-grey connector runs from the unit chip's
-                      right end across to the column-3 x (1436) and up to the Vector and Keyword column-3 tiles
-                      (doc 3, other unit), which get a 6 px grey diagonal while still unmarked (-> 35%);
-                      the chip pulses 1 -> 1.08 -> 1; the connector stays to the end
-         (c) 8.1 / 8.4 the remaining hits light (Keyword cols 1-2 squares, then Vector cols 1 and 4 circles)
-         (d) 8.9-9.5  the keyword-only table + the Vector col-2 dashed slot
-         (e) 9.5-10.1 the vector-only scan + the Keyword col-4 dashed slot */
-      laneReveal(lanes[2], 6.4, { at: 6.45, dur: 0.35, y: 0 });
+      /* Scene 4, one group at a time after the Metadata cue (8.0):
+         (a) 8.0-8.4    the lane title/chip and BOTH filter chips land fully opaque, outlines lit
+         (a') 8.8       one pulse from the question card along all three connectors
+         (b) 9.4-9.8    the unit filter acts first: a 3 px neutral-grey connector runs from the unit chip's
+                        right end across to the column-3 x (1436) and up past the Vector to the Keyword column-3
+                        tile (doc 3, other unit); BOTH tiles get their 6 px grey diagonal together while still
+                        unmarked (-> 35%); the chip pulses 1 -> 1.08 -> 1; the connector stays to the end
+         (c) 10.2 / 10.6 the remaining hits light (Keyword cols 1-2 squares, then Vector cols 1 and 4 circles)
+         (d) 11.2       the keyword-only table + the Vector col-2 missed slot
+         (e) 11.6       the vector-only scan + the Keyword col-4 missed slot */
+      laneReveal(lanes[2], 8.0, { at: 8.05, dur: 0.35, y: 0 });
       var FC = $$(".f06-fc");
-      tl.fromTo(FC, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.28, ease: P3, stagger: 0.07 }, 6.45);
+      tl.fromTo(FC, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.28, ease: P3, stagger: 0.07 }, 8.05);
       var LIT_FROM = { backgroundColor: "rgba(30,43,250,0.08)", borderColor: "rgba(30,43,250,0.2)" };
       var LIT_TO = { backgroundColor: "rgba(30,43,250,0.15)", borderColor: "rgba(30,43,250,1)", duration: 0.18, ease: P2 };
-      tl.fromTo(FC, LIT_FROM, LIT_TO, 6.62);                          /* filter-chip outlines lit by 6.8 */
+      tl.fromTo(FC, LIT_FROM, LIT_TO, 8.22);                          /* filter-chip outlines lit by 8.4 */
 
-      /* 6.8: ONE pulse from the question card along all three connectors: the query reaches every lane */
+      /* 8.8: ONE pulse from the question card along all three connectors: the query reaches every lane */
       var QCARD = $("#f06-q");
-      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,1)", duration: 0.1, ease: P2 }, 6.72);
-      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,1)" }, { borderColor: "rgba(30,43,250,0.2)", duration: 0.35, ease: P2, immediateRender: false }, 6.95);
-      pulse($("#f06-q1"), 6.8, 0.18, 46);
-      pulse($("#f06-q2"), 6.8, 0.18, 211);
-      pulse($("#f06-q3"), 6.8, 0.18, 381);
+      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,0.2)" }, { borderColor: "rgba(30,43,250,1)", duration: 0.1, ease: P2 }, 8.72);
+      tl.fromTo(QCARD, { borderColor: "rgba(30,43,250,1)" }, { borderColor: "rgba(30,43,250,0.2)", duration: 0.35, ease: P2, immediateRender: false }, 8.95);
+      pulse($("#f06-q1"), 8.8, 0.18, 211);
+      pulse($("#f06-q2"), 8.8, 0.18, 46);
+      pulse($("#f06-q3"), 8.8, 0.18, 211);
 
-      /* (b) 7.4-7.9 the metadata filter strikes the other-unit column BEFORE any hit (1.0 s after the
-         Metadata lane lands): grey connector + 6 px grey diagonals, column-3 tiles to 35% */
+      /* (b) 9.4-9.8 the metadata filter strikes the other-unit column BEFORE any hit: grey connector, then
+         both 6 px grey diagonals drawn together (9.62-9.8), both column-3 tiles to 35% */
       var TETH = $("#f06-tether"), FCU = $("#f06-fc-unit");
-      tl.fromTo(FCU, { scale: 1 }, { scale: 1.08, duration: 0.2, ease: P2 }, 7.4);
-      tl.fromTo(FCU, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: IO, immediateRender: false }, 7.6);
-      tl.fromTo(TETH, { scaleX: 0 }, { scaleX: 1, duration: 0.18, ease: P2 }, 7.4);
-      draw($("#f06-up-a"), 7.56, 0.09, 153);
-      draw($("#f06-sv3"), 7.62, 0.16, 90);
-      fade(V[2], 7.62, 0.55, 0.35, 0.22);
-      draw($("#f06-up-b"), 7.68, 0.06, 82);
-      draw($("#f06-sk3"), 7.74, 0.16, 90);
-      fade(K[2], 7.74, 0.55, 0.35, 0.2);
+      tl.fromTo(FCU, { scale: 1 }, { scale: 1.08, duration: 0.2, ease: P2 }, 9.4);
+      tl.fromTo(FCU, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: IO, immediateRender: false }, 9.6);
+      tl.fromTo(TETH, { scaleX: 0 }, { scaleX: 1, duration: 0.14, ease: P2 }, 9.4);
+      draw($("#f06-up-a"), 9.52, 0.06, 153);
+      draw($("#f06-up-b"), 9.58, 0.05, 82);
+      draw($("#f06-sv3"), 9.62, 0.18, 90);
+      draw($("#f06-sk3"), 9.62, 0.18, 90);
+      fade(V[2], 9.62, 0.55, 0.35, 0.18);
+      fade(K[2], 9.62, 0.55, 0.35, 0.18);
 
-      /* (c) 8.1 the Keyword hits light, 8.4 the Vector hits (within 0.3 s: "together"); the misses sit at 30% */
-      [K[0], K[1]].forEach(function (g) { hit(g, 8.1); });
-      fade(K[3], 8.1, 0.55, 0.3, 0.25);
-      [V[0], V[3]].forEach(function (g) { hit(g, 8.4); });
-      fade(V[1], 8.4, 0.55, 0.3, 0.25);
+      /* (c) 10.2 the Keyword hits light, 10.6 the Vector hits; the misses sit at 30% */
+      [K[0], K[1]].forEach(function (g) { hit(g, 10.2); });
+      fade(K[3], 10.2, 0.55, 0.3, 0.25);
+      [V[0], V[3]].forEach(function (g) { hit(g, 10.6); });
+      fade(V[1], 10.6, 0.55, 0.3, 0.25);
 
       /* (d)/(e) what one method alone misses: the unique hit grows to 1.2x with a 4px ring while the slot
-         opposite turns into an empty dashed slot and pulses; the matching question-card mark thickens.
-         The shared column-1 hits stay lit (the fan sheets slide out from behind them at 10.0). */
-      var SOLO = 0.6;
+         opposite becomes a missed slot (40% dashed outline + 25% ghost of the missed icon, no x-mark) and
+         pulses; the matching question-card mark thickens. Hand-off: each solo releases as the next starts.
+         The shared column-1 hits stay lit (the fan sheets slide out from behind them at 12.6). */
+      var SOLO = 0.4;
       function solo(g, at) {
         var ring = g.querySelector(".f06-ring3");
         tl.fromTo(g, { scale: 1 }, { scale: 1.2, duration: 0.3, ease: P3 }, at);
         tl.fromTo(ring, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.3, ease: P3 }, at);
-        tl.fromTo(g, { scale: 1.2 }, { scale: 1, duration: 0.3, ease: P3, immediateRender: false }, at + SOLO - 0.3);
-        tl.fromTo(ring, { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2, immediateRender: false }, at + SOLO - 0.3);
+        tl.fromTo(g, { scale: 1.2 }, { scale: 1, duration: 0.3, ease: P3, immediateRender: false }, at + SOLO);
+        tl.fromTo(ring, { opacity: 1 }, { opacity: 0, duration: 0.3, ease: P2, immediateRender: false }, at + SOLO);
       }
       function missed(g, at) {
         fade(g, at, 0.3, 1, 0.25);
         tl.fromTo(g.querySelector(".f06-tile"), { opacity: 1 }, { opacity: 0, duration: 0.25, ease: P2 }, at);
-        tl.fromTo(g.querySelector(".f06-dash"), { opacity: 0 }, { opacity: 1, duration: 0.25, ease: P2 }, at);
+        tl.fromTo(g.querySelector(".f06-dash"), { opacity: 0 }, { opacity: 0.4, duration: 0.25, ease: P2 }, at);
+        tl.fromTo(g.querySelector(".f06-gh"), { opacity: 0 }, { opacity: 0.25, duration: 0.25, ease: P2 }, at);
         tl.fromTo(g, { scale: 1 }, { scale: 1.15, duration: 0.25, ease: P2 }, at);
         tl.fromTo(g, { scale: 1.15 }, { scale: 1, duration: 0.4, ease: P3, immediateRender: false }, at + 0.3);
       }
+      /* as the other lane's copy of that document leaves for the merge, the missed slot's outline flashes
+         40% -> 100% -> 40% over 0.3 s (the ghost icon stays at 25%) */
+      function flash(g, at) {
+        var d = g.querySelector(".f06-dash");
+        tl.fromTo(d, { opacity: 0.4 }, { opacity: 1, duration: 0.08, ease: P2, immediateRender: false }, at);
+        tl.fromTo(d, { opacity: 1 }, { opacity: 0.4, duration: 0.14, ease: P2, immediateRender: false }, at + 0.16);
+      }
       var ULS = [$("#f06-ul-69"), $("#f06-ul-unit")];
       var RING = $("#f06-ring");
-      var D_AT = 8.9, E_AT = 9.5;
+      var D_AT = 11.2, E_AT = 11.6;
       solo(K[1], D_AT);
       missed(V[1], D_AT);
       tl.fromTo(ULS, { height: 3 }, { height: 6, duration: 0.25, ease: P2 }, D_AT);
-      tl.fromTo(ULS, { height: 6 }, { height: 3, duration: 0.25, ease: P2, immediateRender: false }, D_AT + SOLO - 0.25);
+      tl.fromTo(ULS, { height: 6 }, { height: 3, duration: 0.25, ease: P2, immediateRender: false }, D_AT + SOLO);
       solo(V[3], E_AT);
       missed(K[3], E_AT);
       tl.fromTo(RING, { backgroundColor: "rgba(30,43,250,0.13)" }, { backgroundColor: "rgba(30,43,250,0.30)", duration: 0.25, ease: P2 }, E_AT);
-      tl.fromTo(RING, { backgroundColor: "rgba(30,43,250,0.30)" }, { backgroundColor: "rgba(30,43,250,0.13)", duration: 0.25, ease: P2, immediateRender: false }, E_AT + SOLO - 0.25);
+      tl.fromTo(RING, { backgroundColor: "rgba(30,43,250,0.30)" }, { backgroundColor: "rgba(30,43,250,0.13)", duration: 0.25, ease: P2, immediateRender: false }, E_AT + SOLO);
 
-      /* 10.0-10.4 (card flight): the five plain sheets slide out from behind the shared column-1 hits of both
-         lanes (they are painted behind the lane tiles, hidden under the lit column-1 tiles until they move) into
-         the fan, while the found thumbnails fly in front of them */
-      var S = 64 / 100;
+      /* Scene 5 (12.5-13.5): the bracket self-draws; at 12.6 each รวมผล card flies from the lane tile that
+         found it, at full opacity with its lane marker, on a power2.inOut path the eye can follow: the table
+         from Keyword col 2 to the top slot, doc 1 from BOTH lanes' col 1 into the middle (the five plain sheets
+         slide out from behind the same col-1 hits; they are painted behind the lane tiles), the scan from
+         Vector col 4 to the bottom slot. As the table / scan leave, the slot that missed it in the other lane
+         flashes. The lane hits drop to 50% as their copies leave. Merge label at 13.0; settled by 13.5; still to the cut. */
+      var S = 64 / 100, FLY = 0.55, FE = "power2.inOut";
+      draw($("#f06-brace-a"), 12.5, 0.45);
+      draw($("#f06-brace-b"), 12.5, 0.45);
       [
-        ["#f06-pl-5", 1252, 382, 1698, 557, 10.00],
-        ["#f06-pl-4", 1252, 552, 1692, 551, 10.02],
-        ["#f06-pl-3", 1252, 382, 1686, 545, 10.04],
-        ["#f06-pl-2", 1252, 552, 1680, 539, 10.06],
-        ["#f06-pl-1", 1252, 382, 1674, 533, 10.08]
+        ["#f06-pl-5", 1252, 382, 1698, 557, 12.65],
+        ["#f06-pl-4", 1252, 552, 1692, 551, 12.67],
+        ["#f06-pl-3", 1252, 382, 1686, 545, 12.69],
+        ["#f06-pl-2", 1252, 552, 1680, 539, 12.71],
+        ["#f06-pl-1", 1252, 382, 1674, 533, 12.73]
       ].forEach(function (p) {
         var el = $(p[0]);
         tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: P2 }, p[5]);
-        tl.fromTo(el, { x: p[1] - p[3], y: p[2] - p[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.32, ease: IO }, p[5]);
+        tl.fromTo(el, { x: p[1] - p[3], y: p[2] - p[4], scale: S }, { x: 0, y: 0, scale: 1, duration: FLY, ease: FE }, p[5]);
       });
-
-      /* Scene 5 (9.9-13.0): the bracket self-draws; at 10.0 the found thumbnails fly in at full opacity with
-         their lane markers (doc 1 from both lanes into the middle, the table only from Keyword to the top, the
-         scan only from Vector to the bottom), in front of the fan; the merged label arrives at 10.4. The lane
-         hits drop to 50% as their copies leave. Settled by 10.9; static to the cut. */
-      draw($("#f06-brace-a"), 9.9, 0.45);
-      draw($("#f06-brace-b"), 9.9, 0.45);
-      tl.fromTo($("#f06-merge-label"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 10.4);
       [
-        ["#f06-g-k2", 1328, 382, 1668, 353, 10.00],
-        ["#f06-g-k1", 1252, 382, 1668, 527, 10.03],
-        ["#f06-g-v1", 1252, 552, 1668, 527, 10.03],
-        ["#f06-g-v4", 1480, 552, 1668, 731, 10.06]
+        ["#f06-g-k2", 1328, 382, 1668, 353, 12.60],
+        ["#f06-g-k1", 1252, 382, 1668, 527, 12.65],
+        ["#f06-g-v1", 1252, 552, 1668, 527, 12.65],
+        ["#f06-g-v4", 1480, 552, 1668, 731, 12.70]
       ].forEach(function (g) {
         var el = $(g[0]);
-        tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: 0.44, ease: "expo.out" }, g[5]);
+        tl.fromTo(el, { x: g[1] - g[3], y: g[2] - g[4], scale: S }, { x: 0, y: 0, scale: 1, duration: FLY, ease: FE }, g[5]);
         tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: P2 }, g[5]);
       });
+      flash(V[1], 12.60);                                   /* the table leaves Keyword: Vector missed it */
+      flash(K[3], 12.70);                                   /* the scan leaves Vector: Keyword missed it */
+      tl.fromTo($("#f06-merge-label"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: P3 }, 13.0);
       /* doc 1 was found by both lanes: once both copies have landed it carries both markers + its cobalt outline */
-      tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: P3 }, 10.3);
-      draw($("#f06-ex-outline"), 10.22, 0.28);
-      fade(K[0], 10.05, 1, 0.5, 0.4);
-      fade(V[0], 10.05, 1, 0.5, 0.4);
-      fade(K[1], 10.05, 1, 0.5, 0.4);
-      fade(V[3], 10.05, 1, 0.5, 0.4);
-
+      tl.fromTo($("#f06-g-v1-sq"), { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: P3 }, 13.22);
+      draw($("#f06-ex-outline"), 13.2, 0.25);
+      fade(K[0], 12.65, 1, 0.5, 0.4);
+      fade(V[0], 12.65, 1, 0.5, 0.4);
+      fade(K[1], 12.6, 1, 0.5, 0.4);
+      fade(V[3], 12.7, 1, 0.5, 0.4);
       window.__timelines = window.__timelines || {};
       window.__timelines[COMP] = tl;
     })();
