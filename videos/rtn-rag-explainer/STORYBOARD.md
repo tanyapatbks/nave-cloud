@@ -51,6 +51,8 @@ Round-2 revisions (critic round 2): the material chip row ends clear of the docu
 
 Round-3 revisions: the tracker uses the persistent chrome's exact geometry and inactive colour (#6B6B6B), pills staggered 8.0 / 8.15 / 8.3s, all settled by 8.6s; definition chip and media row 16px lower.
 
+Round-4 revisions: the media chip row appears at its final position (no drop); only 120+ and its subtitle shrink (3.9–4.5s); wall dims 4.3–4.6s; tracker pills at 8.0 / 8.1 / 8.2s (0.25s fades), settled by 8.45s.
+
 ## Frame 2 — ทำให้ AI อ่านเอกสารได้
 
 - scene: Three lanes — PDF, scans/images, charts/tables — each input transforms into machine-readable output
@@ -110,6 +112,8 @@ Round-2 revisions: when the bridge enters (7.6s) the token row and labels fade t
 
 Round-3 revisions: token text never dims (#3A3832); labels #3F3C35, sub-labels #5F5B50 ≥ 30px; at 8.5s only the token pills' fill and border fade to 60%; the floating icon is replaced by a 2px dashed connector from the filename row down to the bridge with an 80px ink circle holding a 52px padlock struck through (ink #3F3C35, not red — red is reserved for 08/10), popping in with the bridge at 7.6s.
 
+Round-4 revisions: the filename row (and its labels) is centred on x 960 and the whole group moves up ~120px (tokens from y≈320, bridge ending ≤ y 750); a thin bracket spans the whole row under the labels, and the dashed connector to the struck padlock drops from the bracket's centre (the name as a whole carries no permission).
+
 ## Frame 4 — ทุกชิ้นติดป้ายเดิม
 
 - scene: The example document splits into chunks and tree nodes; one metadata tag is stamped onto every piece
@@ -139,6 +143,8 @@ Round-2 revisions: tag rows on 2.4 / 3.0 / 3.6 / 4.2s; at 4.9–5.9 the four bul
 
 Round-3 revisions: the inheritance trunk sits behind the chunk cards and fades out once the last badge lands; a still hold 4.6–5.3s before the label travel (5.3–6.8s); badge dots 18px with 6px gaps (pill ≈120×36), the new canonical badge.
 
+Round-4 revisions: tag rows stay at full opacity while their dots leave (each bullet pulses instead); each tree-node pill shows a tiny two-level contents list (one heading bar, two indented sub-bars); 'สารบัญ' is a 28px medium caption in #5B574B, not a second headline.
+
 ## Frame 5 — จากไฟล์ สู่ดัชนีที่ค้นได้
 
 - scene: The example document rides a six-station line; each station visibly changes it; it ends in the index
@@ -167,6 +173,8 @@ Scene 3 (6.0–9.0s): the index lives INSIDE the Index card: four short rows wit
 Round-2 revisions: Embed's output is a small 2-cluster point scatter on faint axes (meaning as position), never four dots in a row (that shape is the governance badge); cards are 220px tall with glyphs scaled ~1.5×; station checks are solid success badges (white check on #0B6A45).
 
 Round-3 revisions: Embed glyph is 18–24 points in three tinted clusters (~180×130px) drifting into place from 4.4s; Index lights at 5.6s; Parse marker squares sit at the line starts only; the connector runs card to card.
+
+Round-4 revisions: the four-dot badge rides on each chunk tile (at 3.6s) and on each Index row (at 5.6s), so the labels visibly survive into the index.
 
 ## Frame 6 — ค้นหา 3 ทางพร้อมกัน
 
@@ -198,6 +206,8 @@ Round-2 revisions: lane boxes appear only after the scope boundary closes (2.0�
 
 Round-3 revisions: a filled square legend inside the Keyword chip and a filled circle inside the Vector chip (same blue as the tile markers); tiles 64×88; missed slots 3px dashed #6B675C with a centred 28px ×; the 'what one method misses' beat runs 7.3–9.3s (others dim to 30%; table-only hit then scan-only hit each scale 1.2× with a ring pulse, the dashed slot opposite pulses, and the matching question-card underline / ellipse thickens); at 7.0s a line from the unit filter chip strikes the other-unit column; รวมผล 9.4s as a fan of eight sheets (the three marked hits in front, fully visible, the example document in the middle with its cobalt outline) — no reorder; the ellipse around แนวทางปฏิบัติ is an overlay so the question text reads exactly as in 08.
 
+Round-4 revisions: after the Metadata chips land (6.4–6.8s), the unit filter's connector strikes the other-unit column FIRST, while those tiles are still grey and unmarked (6.9–7.3s, connector kept at 60% to the end); then the remaining hits light together in both lanes (7.4–7.7s); then the keyword-only table + its missed slot (7.8–8.5s); then the vector-only scan + its missed slot (8.6–9.3s); one struck style in both lanes; the eight-sheet fan sits without overlaps and its five plain sheets slide out from behind the shared column-1 hits (9.0–9.4s).
+
 ## Frame 7 — คัดตัวจริง ก่อนส่งให้ AI ตอบ
 
 - scene: A scoreboard of candidates is re-ranked; a cut line keeps the top three; only they reach the AI, which answers with a citation
@@ -226,6 +236,8 @@ Scene 4 (3.0–8.0s): the top three rows STAY filled in place above the line (so
 Round-2 revisions: the eight rows are dealt from one pile (the merged results) at 0.4–1.0s; the re-sort runs 1.0–3.0s, winners moving first one at a time, lifted above the others so rows never overlap; cut line + "Top 3" 3.2s, LLM chip 4.0s, answer 4.4s, citation 4.9s; when the citation lands, row 1's outline and the citation chip pulse together. LLM chip and citation use the 28px mono chip token.
 
 Round-3 revisions: the re-sort holds the scored-but-unsorted list still until 1.0s, then sorts 1.0–3.0s (power2.inOut, 0.06s stagger in final-rank order): rows moving up travel on a +40px x track above the others with a soft shadow and return over the last 0.3s; rows moving down stay at x 0 at 60% opacity; no two rows overlap on the same track; the LLM chip uses the same ✦ spark as the answer line and frame 10's AI node.
+
+Round-4 revisions: rows and bars fully drawn by 0.5s and held completely still to 1.4s; re-sort 1.4–3.1s in four non-overlapping moves (winners slide right onto a clear track, losers close up and dim, winners rise on the right track, winners slide back into slots 1–3); at 3.2s rows 2–3 get a 50% cut-line-blue border so the Top 3 read as one group.
 
 ## Frame 8 — คำถามเดียวกัน คำตอบตามสิทธิ์
 
@@ -256,6 +268,8 @@ Scene 4 (5.0–9.0s): right result card fills in empty: no tile, no greyed place
 Round-2 revisions: card entrances finish flat by 1.1s; the found result is a solid success badge (#0B6A45, white text and check, 34px Thai); at 5.8s the found badge pulses, at 6.4s the denied lock + chip pulse and a 2px underline draws under the denied line.
 
 Round-3 revisions: the denied result is a neutral pill the height of the green badge (fill #E4E2DA, 2px #8A867A border, #2A2925 text, 600) with a 'no result' magnifier glyph, no underline; the left result group is centred in its well.
+
+Round-4 revisions: all four pills 6px taller with text 3px lower (stacked Thai marks clear the top border); the green badge and the neutral pill stay equal height.
 
 ## Frame 9 — สิทธิ์จริงมาจากตัวตน + ทะเบียนเอกสาร
 
@@ -316,6 +330,8 @@ Round-2 revisions: panels laid out at their final size from 0s (only the wrong p
 
 Round-3 revisions: the residue holds alone 0.8s longer (right label 5.3s, scope 5.7, scan 6.2, result 6.7, left dim 7.1, rule 7.6 / 8.1); during 4.5–5.3s the dotted trails crawl from the locked source to each chip and on to the AI; trails 3px, 4/6 dashes, full opacity; the locked source slot ≈64×80 with a 28px padlock; 8px between each open padlock and its word.
 
+Round-4 revisions: the locked source box sits fully above the residue box; trails run as a comb into one collector just outside the box, then one dotted red arrow into the left AI node, which stays lit blue with a red ring to the end (only the left document grid dims); the left label is inset like the right one; the rule sits 48px higher (line 2 ends by y≈837).
+
 ## Frame 11 — ส่วนที่ยากที่สุด
 
 - scene: The brief's closing line; the messy archive wall from frame 1 settles into an ordered, labelled lattice inside the permission scope
@@ -344,3 +360,5 @@ Scene 4 (6.2–10.0s): hold still (final card ≥ 3.8s; the last frame may settl
 Round-2 revisions: "Embedding" in #5F5B57 (still lighter than the line, never struck); tiles behind the text block ≤ 25% opacity; payoff words on fixed column centres x 560 / 960 / 1360 with the dots between, chips a fixed 330px wide, centred under each word. The film ends on this card (no fade-out): a briefing presenter can pause on it.
 
 Round-3 revisions: both payoff gaps 160px with 'ค้นหาได้' centred at 960 (dots at ≈755 / 1165, chips centred under their words); the archive wall fades in place during the crossfade instead of flying in under line 1; a 48px grey copy of frame 05's Embed point-scatter glyph sits 16px left of 'Embedding' (callback), fading in with line 1.
+
+Round-4 revisions: the payoff group (words, dots, chips) is centred on x 960 with ~60px clear of both tile columns, which fade to ~25% behind it; the Embed glyph is frame 05's three-colour scatter (~80×56px); the background tiles start untidy (small rotations and offsets, no tag dots) and settle into the aligned, tagged grid as 'เชื่อถือได้' lands (4.6–5.4s), behind the backing plate.
