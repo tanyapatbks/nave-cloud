@@ -353,7 +353,7 @@ Font files live in `assets/fonts/` (Chulabhorn Likit via `scripts/fetch-fonts.sh
 ### Colour semantics for this film (single accent kept)
 
 - **Cobalt `#1e2bfa`** = the active thing: the question, the AI's search reach, and the **permission scope** (what this person may see). Never a headline colour.
-- **Greys** = everything outside the scope / not yet relevant (`text-light` tiles at 35–45% opacity).
+- **Greys** = everything outside the scope / not yet relevant (`text-light` tiles at 35–45% opacity). **Text floor:** no text lighter than `text-floor #6B675C` (5.3:1 on cream); secondary text `#5F5B50` (6.4:1). Opacity dims on de-emphasised panels are allowed only while their text stays ≥ 4.5:1.
 - **`positive #059669`** = allowed / found (✓ chips, inline only). For legibility at projection distance use **`success-ink #08573A`** for success text on a light tint and **`success-solid #0B6A45`** (white text / icon) for found badges and station checks; `#059669` alone is too light (≈3:1). **`negative #dc2626`** = denied / leak (✗ chips, the post-filter "residue" marks) — **only** in frames 08 and 10. No fills larger than a chip.
 
 ### Shared components (copy exactly; replace `XX` with your frame_id prefix)

@@ -31,7 +31,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 ## Frame 06 — ค้นหา 3 ทางพร้อมกัน  ·  50.0–62.0 s
 - term chip: Hybrid Search
-- on-screen copy (local cue times): headline "ค้นหา 3 ทางพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (8.4s)
+- on-screen copy (local cue times): headline "ค้นหา 3 ทางพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (9.4s)
 - must teach: Hybrid search combines keyword, vector and metadata filters; together they find what one method alone misses.
 
 ## Frame 07 — คัดตัวจริง ก่อนส่งให้ AI ตอบ  ·  62.0–70.0 s
@@ -51,7 +51,7 @@ Global times are in the assembled video (transitions overlap neighbouring frames
 
 ## Frame 10 — กำหนดขอบเขตก่อน แล้วค่อยค้น  ·  89.0–101.0 s
 - term chip: Pre-filter
-- on-screen copy (local cue times): headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.8s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (4.6s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" (6.8s) + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (7.3s)
+- on-screen copy (local cue times): headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.8s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (5.3s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" (7.6s) + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (8.1s)
 - must teach: Never search the whole archive and filter afterwards; apply the permission scope first.
 
 ## Frame 11 — ส่วนที่ยากที่สุด  ·  101.0–111.0 s

@@ -49,6 +49,8 @@ Scene 4 (7.3–9.0s): the chapter tracker (frame.md component 1) assembles in th
 
 Round-2 revisions (critic round 2): the material chip row ends clear of the document wall; tracker at 8.0s; a 2px cobalt connector draws from the RAG underline down to the definition chip at 6.0s.
 
+Round-3 revisions: the tracker uses the persistent chrome's exact geometry and inactive colour (#6B6B6B), pills staggered 8.0 / 8.15 / 8.3s, all settled by 8.6s; definition chip and media row 16px lower.
+
 ## Frame 2 — ทำให้ AI อ่านเอกสารได้
 
 - scene: Three lanes — PDF, scans/images, charts/tables — each input transforms into machine-readable output
@@ -106,6 +108,8 @@ Scene 4 (7.6–12.0s): the bridge block and its first phrase fade in together at
 
 Round-2 revisions: when the bridge enters (7.6s) the token row and labels fade to 55%; a 36px grey slashed-padlock icon sits between the label row and the bridge (the name carries no permission); the bridge's registry icon pulses once.
 
+Round-3 revisions: token text never dims (#3A3832); labels #3F3C35, sub-labels #5F5B50 ≥ 30px; at 8.5s only the token pills' fill and border fade to 60%; the floating icon is replaced by a 2px dashed connector from the filename row down to the bridge with an 80px ink circle holding a 52px padlock struck through (ink #3F3C35, not red — red is reserved for 08/10), popping in with the bridge at 7.6s.
+
 ## Frame 4 — ทุกชิ้นติดป้ายเดิม
 
 - scene: The example document splits into chunks and tree nodes; one metadata tag is stamped onto every piece
@@ -132,6 +136,8 @@ Scene 3 (2.8–6.0s): the metadata tag card (frame.md component 7) appears to th
 Scene 4 (6.6–9.0s): two tree-node pills (section headings of the same document) attach above the chunk column with thin connector lines (`svg-path-draw`), and each receives the same mini badge. The chip "Tree Nodes" (7.0s) is a label, not a third node: it sits above the gap between the two pills with 1px leaders down to each pill, the way "Chunk" labels the chunk column. Hold still (held read) from 7.4s.
 
 Round-2 revisions: tag rows on 2.4 / 3.0 / 3.6 / 4.2s; at 4.9–5.9 the four bullets fly one at a time into the document badge; at 5.9–6.7 a copy of the badge travels along the connector to each chunk (staggered); the tree-node label is "สารบัญ" stacked over the "Tree Nodes" chip; the question · term separators are 8px #6b6b6b dots.
+
+Round-3 revisions: the inheritance trunk sits behind the chunk cards and fades out once the last badge lands; a still hold 4.6–5.3s before the label travel (5.3–6.8s); badge dots 18px with 6px gaps (pill ≈120×36), the new canonical badge.
 
 ## Frame 5 — จากไฟล์ สู่ดัชนีที่ค้นได้
 
@@ -160,6 +166,8 @@ Scene 3 (6.0–9.0s): the index lives INSIDE the Index card: four short rows wit
 
 Round-2 revisions: Embed's output is a small 2-cluster point scatter on faint axes (meaning as position), never four dots in a row (that shape is the governance badge); cards are 220px tall with glyphs scaled ~1.5×; station checks are solid success badges (white check on #0B6A45).
 
+Round-3 revisions: Embed glyph is 18–24 points in three tinted clusters (~180×130px) drifting into place from 4.4s; Index lights at 5.6s; Parse marker squares sit at the line starts only; the connector runs card to card.
+
 ## Frame 6 — ค้นหา 3 ทางพร้อมกัน
 
 - scene: One question runs through three searches at once; each catches different pieces; their results merge
@@ -175,7 +183,7 @@ Round-2 revisions: Embed's output is a small 2-cluster point scatter on faint ax
 - term: Hybrid Search
 - focal: the question card, then the merge
 - roles: question card = foreground subject · permission scope boundary = foreground subject (Scene 1) · three lanes = foreground subject · result markers (squares / circles / filter chips) = supporting · merge bracket + stack = foreground subject (Scene 5)
-- onscreen: headline "ค้นหา 3 ทางพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (8.4s)
+- onscreen: headline "ค้นหา 3 ทางพร้อมกัน" (0.3s) · question card "แนวทางปฏิบัติปี 69 ของ ศซบ." (1.0s) · scope chip on the boundary "ขอบเขตสิทธิ์" (1.6s) · lane "ค้นคำตรงตัว" chip "Keyword" sub "ชื่อ · รหัส · คำเฉพาะ" (2.8s) · lane "ค้นตามความหมาย" chip "Vector" sub "แนวทางปฏิบัติ ≈ นโยบาย" (4.6s) · lane "กรองตามป้าย" chip "Metadata" filter chips "ปี 2569" "หน่วย สสท./ศซบ." (6.4s) · merge label "รวมผล" (9.4s)
 
 narrativeRole: Explains why vector search alone is not enough: exact names/IDs, meaning, and filters each catch what the others miss.
 keyMessage: Hybrid search combines keyword, vector and metadata filters; together they find what one method alone misses.
@@ -187,6 +195,8 @@ Scene 4 (6.4–8.4s): metadata lane reveals; its two filter chips "ปี 2569" 
 Scene 5 (8.4–12.0s): a cobalt bracket self-draws across the right ends of all three lanes (`svg-path-draw`); each lane's hit cards slide into one short result stack (0.5s, 0.08s stagger), so doc 2 (table) visibly arrives only from Keyword and doc 4 (scan) only from Vector; the example document lands on top with its cobalt outline; label "รวมผล". Settled by 9.3s; hold still to the end.
 
 Round-2 revisions: lane boxes appear only after the scope boundary closes (2.0–2.4s); each lane's title, chip and sub reveal on its cue with no hits yet; at 7.0s one pulse runs from the question along all three connectors and all three lanes light their hits within 0.3s ("พร้อมกัน"); at 7.5–8.3 the table found only by Keyword and the scan found only by Vector pulse, with their missed counterparts drawn as empty dashed outlines; at 8.4 the found thumbnails fly into รวมผล at full opacity keeping their lane markers, the table and scan sheets on top for ≥1.5s; lanes dim only after 9.9s. Lane chips Keyword / Vector / Metadata use the 28px mono chip token.
+
+Round-3 revisions: a filled square legend inside the Keyword chip and a filled circle inside the Vector chip (same blue as the tile markers); tiles 64×88; missed slots 3px dashed #6B675C with a centred 28px ×; the 'what one method misses' beat runs 7.3–9.3s (others dim to 30%; table-only hit then scan-only hit each scale 1.2× with a ring pulse, the dashed slot opposite pulses, and the matching question-card underline / ellipse thickens); at 7.0s a line from the unit filter chip strikes the other-unit column; รวมผล 9.4s as a fan of eight sheets (the three marked hits in front, fully visible, the example document in the middle with its cobalt outline) — no reorder; the ellipse around แนวทางปฏิบัติ is an overlay so the question text reads exactly as in 08.
 
 ## Frame 7 — คัดตัวจริง ก่อนส่งให้ AI ตอบ
 
@@ -214,6 +224,8 @@ Scene 3 (2.2–3.0s): rows 4–8 first shift down by one gap height (0.25s), the
 Scene 4 (3.0–8.0s): the top three rows STAY filled in place above the line (solid card, full opacity, cobalt bars — never replaced by empty slots). A 2px cobalt arrow draws from the "Top 3" pill to the answer card on the right half (x≈962–1824, y≈421–748), which appears at 3.2s; the chip "LLM / ระบบอื่น" (28px) lands fully inside the card's top-left at 3.4s; the line "คำตอบ พร้อมแหล่งอ้างอิง" reveals at 3.8s, then the citation chip at 4.3s. Hold still from 4.6s.
 
 Round-2 revisions: the eight rows are dealt from one pile (the merged results) at 0.4–1.0s; the re-sort runs 1.0–3.0s, winners moving first one at a time, lifted above the others so rows never overlap; cut line + "Top 3" 3.2s, LLM chip 4.0s, answer 4.4s, citation 4.9s; when the citation lands, row 1's outline and the citation chip pulse together. LLM chip and citation use the 28px mono chip token.
+
+Round-3 revisions: the re-sort holds the scored-but-unsorted list still until 1.0s, then sorts 1.0–3.0s (power2.inOut, 0.06s stagger in final-rank order): rows moving up travel on a +40px x track above the others with a soft shadow and return over the last 0.3s; rows moving down stay at x 0 at 60% opacity; no two rows overlap on the same track; the LLM chip uses the same ✦ spark as the answer line and frame 10's AI node.
 
 ## Frame 8 — คำถามเดียวกัน คำตอบตามสิทธิ์
 
@@ -243,6 +255,8 @@ Scene 4 (5.0–9.0s): right result card fills in empty: no tile, no greyed place
 
 Round-2 revisions: card entrances finish flat by 1.1s; the found result is a solid success badge (#0B6A45, white text and check, 34px Thai); at 5.8s the found badge pulses, at 6.4s the denied lock + chip pulse and a 2px underline draws under the denied line.
 
+Round-3 revisions: the denied result is a neutral pill the height of the green badge (fill #E4E2DA, 2px #8A867A border, #2A2925 text, 600) with a 'no result' magnifier glyph, no underline; the left result group is centred in its well.
+
 ## Frame 9 — สิทธิ์จริงมาจากตัวตน + ทะเบียนเอกสาร
 
 - scene: An identity badge and the document registry combine into one permission scope that wraps docs, chunks, tree nodes and agent tools
@@ -270,6 +284,8 @@ Scene 4 (7.4–10.0s): hold still (held read).
 
 Round-2 revisions: 'Identity' and 'ACL' each draw a 3px cobalt underline under 'ตัวตน' / 'ทะเบียนเอกสาร' in headline line 2 as they appear; the identity avatar is the frame-08 avatar (ring in cobalt).
 
+Round-3 revisions: the 'Identity' and 'ACL' chips get the same 3px underline as their headline words, drawn in sync, and each word + chip pair pulses together on landing; badges use the new 120×36 canonical badge.
+
 ## Frame 10 — กำหนดขอบเขตก่อน แล้วค่อยค้น
 
 - scene: Split screen — searching everything then filtering leaves residue; scoping first never touches what is off-limits
@@ -285,7 +301,7 @@ Round-2 revisions: 'Identity' and 'ACL' each draw a 3px cobalt underline under '
 - term: Pre-filter
 - focal: the right panel's untouched restricted tiles
 - roles: left panel (wrong way) = foreground subject · right panel (right way) = foreground subject · search beam = supporting · residue marks = supporting · rule line = foreground subject (Scene 4)
-- onscreen: headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.8s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (4.6s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" (6.8s) + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (7.3s)
+- onscreen: headline "กำหนดขอบเขตก่อน แล้วค่อยค้น" (0.3s) · left label "× ค้นทั้งคลัง แล้วค่อยกรอง" (1.0s) · residue chips "log" "จำนวนผล" "สรุป" (3.8s) · right label "✓ ขอบเขตก่อน แล้วค่อยค้น" (5.3s) · rule "ถ้ากำลังพลเปิดเอกสารไม่ได้" (7.6s) + "RAG ก็ต้องดึงเอกสารนั้นไม่ได้" (8.1s)
 
 narrativeRole: The climax — shows why filtering after the search is unsafe and why the scope must be applied before searching.
 keyMessage: Never search the whole archive and filter afterwards; apply the permission scope first.
@@ -297,6 +313,8 @@ Scene 3 (4.2–6.4s): right panel — label "✓ ขอบเขตก่อน 
 Scene 4 (6.4–12.0s): no blur on either panel. Both panels scale to 0.92 about their top edge (ending at y ≤ 690); the wrong panel's documents and tray drop to 50% opacity while its "×" label and residue chips stay at full opacity; the right panel, its label and its dashed scope stay at 100% and sharp. The rule reveals centred at y 780–890 (≥ 80px clear above it) in two authored lines, Chulabhorn Likit Text 600 44px, "ไม่ได้" in cobalt weight in both lines. Hold still from 7.4s.
 
 Round-2 revisions: panels laid out at their final size from 0s (only the wrong panel's dim animates, 6.4–6.8s); wrong path re-timed: sweep 1.2–2.0, locked doc into the box 2.0–2.6, filter bar + ghost 3.0–3.5, residue chips 3.8 / 4.1 / 4.4 each with an OPEN red padlock and a red dotted trail from the ghost, last trail continuing into the AI node; ghost is a small dashed locked tile on the box's top-right corner touching no chip; right label 4.6, scope 4.8–5.3, scoped search 5.3–6.4, rule 6.8 / 7.3. The ✓ label text uses success-ink #08573A.
+
+Round-3 revisions: the residue holds alone 0.8s longer (right label 5.3s, scope 5.7, scan 6.2, result 6.7, left dim 7.1, rule 7.6 / 8.1); during 4.5–5.3s the dotted trails crawl from the locked source to each chip and on to the AI; trails 3px, 4/6 dashes, full opacity; the locked source slot ≈64×80 with a 28px padlock; 8px between each open padlock and its word.
 
 ## Frame 11 — ส่วนที่ยากที่สุด
 
@@ -324,3 +342,5 @@ Scene 3 (4.6–6.2s): the three payoff words slide up one by one into a centred 
 Scene 4 (6.2–10.0s): hold still (final card ≥ 3.8s; the last frame may settle). No exit before the end.
 
 Round-2 revisions: "Embedding" in #5F5B57 (still lighter than the line, never struck); tiles behind the text block ≤ 25% opacity; payoff words on fixed column centres x 560 / 960 / 1360 with the dots between, chips a fixed 330px wide, centred under each word. The film ends on this card (no fade-out): a briefing presenter can pause on it.
+
+Round-3 revisions: both payoff gaps 160px with 'ค้นหาได้' centred at 960 (dots at ≈755 / 1165, chips centred under their words); the archive wall fades in place during the crossfade instead of flying in under line 1; a 48px grey copy of frame 05's Embed point-scatter glyph sits 16px left of 'Embedding' (callback), fading in with line 1.
