@@ -18,10 +18,10 @@ frames="01-hook 0 9
 11-close 97 10"
 while read -r id s d; do
   n=$(( d * 2 )); rows=$(( (n + 5) / 6 ))
-  ffmpeg -hide_banner -loglevel error -y -ss "$s" -t "$d" -i "$mp4" \
+  ffmpeg -nostdin -hide_banner -loglevel error -y -ss "$s" -t "$d" -i "$mp4" \
     -vf "fps=2,scale=480:-1,drawtext=text='%{eif\:t+$s\:d}.%{eif\:mod((t+$s)*10\,10)\:d}s':x=8:y=8:fontsize=20:fontcolor=white:box=1:boxcolor=0x000000AA,tile=6x${rows}:padding=4:color=0x222222" \
     -frames:v 1 "$out/strip-$id.png"
   settle=$(python3 -I -c "print(round($s + $d - 0.6, 2))")
-  ffmpeg -hide_banner -loglevel error -y -ss "$settle" -i "$mp4" -frames:v 1 "$out/still-$id.png"
+  ffmpeg -nostdin -hide_banner -loglevel error -y -ss "$settle" -i "$mp4" -frames:v 1 "$out/still-$id.png"
 done <<< "$frames"
 ls "$out" | wc -l
