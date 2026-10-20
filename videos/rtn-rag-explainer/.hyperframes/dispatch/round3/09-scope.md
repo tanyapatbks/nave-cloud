@@ -19,3 +19,4 @@ Evidence (draft 3): strip-09-scope.png (zoomed): at 80.5 s only 'ตัวตน
 ## Orchestrator notes (take precedence where they conflict)
 
 - Frame 04's fixer is enlarging the canonical badge to 18px dots / 6px gaps / ≈120×36 pill. Use exactly that for your four object badges (re-check compositions/frames/04-tags.html at the end of your work and match it).
+- Frame 04 is finished. The canonical 4-dot badge is now: pill 120×36px, box-sizing border-box, radius 100px; border 1.5px solid rgba(30,43,250,0.2); fill rgba(30,43,250,0.08); four #1e2bfa dots 18px with 6px gaps, centred (13.5px inside the border each side). Use exactly this for your four object badges.

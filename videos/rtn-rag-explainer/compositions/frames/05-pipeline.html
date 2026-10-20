@@ -18,7 +18,8 @@
     #f05-h2 .f05-line{display:block;white-space:nowrap}
   </style>
   <style>
-    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";}
+    /* text tokens: --f05-ink-floor = lightest text allowed (5.3:1 on cream), --f05-ink-2 = secondary (6.4:1; ≥5.2:1 on the tinted chip) */
+    #root{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;font-family:"Chulabhorn Likit Text","IBM Plex Sans Thai";--f05-ink-floor:#6B675C;--f05-ink-2:#5F5B50;}
     #f05-bg{position:absolute;left:0;top:0;width:1920px;height:1080px;background:#fdfae7;}
     #f05-h2 .f05-ph{display:inline-block;}
 
@@ -49,8 +50,8 @@
     #f05-micro{position:absolute;left:704.2px;top:532px;width:220px;height:48px;box-sizing:border-box;padding:0 16px;border-radius:100px;background:rgba(30,43,250,0.08);display:flex;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:500;font-size:28px;line-height:1.45;white-space:nowrap;}
     #f05-micro-txt{display:inline-block;white-space:nowrap;color:#111111;}
     #f05-micro-txt .f05-m-old{color:#111111;}
-    #f05-micro-txt .f05-m-old.is-done{color:#6b6b6b;}
-    #f05-micro-txt .f05-m-arr{color:#6b6b6b;}
+    #f05-micro-txt .f05-m-old.is-done{color:var(--f05-ink-2);}
+    #f05-micro-txt .f05-m-arr{color:var(--f05-ink-2);}
     #f05-micro-txt .f05-m-new{color:#1e2bfa;}
 
     /* the index, inside the Index card: four rows = 12px square marker + bar */
@@ -70,16 +71,18 @@
     .f05-bar.is-head{background:#1e2bfa;}
     .f05-bar-hl{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:3px;background:#1e2bfa;}
     .f05-stroke{position:absolute;border-radius:1.5px;background:#8b8fe8;}
-    .f05-speck{position:absolute;width:5px;height:5px;border-radius:1.5px;background:#9a9a9a;transform-origin:50% 50%;}
+    /* Parse line markers: a small square 8px (frame px) left of the start of the line it tags */
+    .f05-mark{position:absolute;width:5px;height:5px;border-radius:1.5px;background:#9a9a9a;transform-origin:50% 50%;}
     .f05-chunk{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid #1e2bfa;background:linear-gradient(rgba(30,43,250,0.04),rgba(30,43,250,0.04)),#fdfae7;transform-origin:50% 50%;}
     .f05-cl{position:absolute;left:5px;height:4px;border-radius:2px;background:rgba(17,17,17,0.2);}
     /* Embed: the back of a chunk card = a short column of illustrative vector digits (texture, not data) */
-    .f05-vec{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid rgba(30,43,250,0.35);background:#fdfae7;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:8.5px;line-height:12px;color:#6b6b6b;transform-origin:50% 50%;}
+    .f05-vec{position:absolute;top:-24px;width:26px;height:48px;box-sizing:border-box;border-radius:6px;border:1.5px solid rgba(30,43,250,0.35);background:#fdfae7;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:"IBM Plex Mono","Chulabhorn Likit Text","IBM Plex Sans Thai";font-weight:400;font-size:8.5px;line-height:12px;color:var(--f05-ink-floor);transform-origin:50% 50%;}
     .f05-vec span{display:block;white-space:nowrap;}
-    /* Embed output = meaning as position: a 7-point scatter (clusters of 3 + 4) on a faint 120x80 L of axes (unscaled px) */
+    /* Embed output = meaning as position: 21 points of 12px in three tinted clusters (~172x128) on a faint 196x140 L of axes (unscaled px) */
     .f05-ax{position:absolute;background:rgba(17,17,17,0.25);}
-    .f05-pt{position:absolute;width:10px;height:10px;border-radius:50%;background:#1e2bfa;transform-origin:50% 50%;}
-    .f05-pt.is-imp{background:#7B7FE0;}
+    .f05-pt{position:absolute;width:12px;height:12px;border-radius:50%;background:#1e2bfa;transform-origin:50% 50%;}
+    .f05-pt.is-a{background:#9a9a9a;}
+    .f05-pt.is-b{background:#8b8fe8;}
   </style>
 
   <div id="root" data-composition-id="05-pipeline" data-width="1920" data-height="1080" data-start="0" data-duration="9.5">
@@ -138,10 +141,11 @@
       var OK_D = 34; // check badge diameter
       var CARD_L = [108, 395.6, 683.2, 970.8, 1258.4, 1546]; // gutters 25.6px
       var CX = CARD_L.map(function (l) { return l + W / 2; });
-      var CUE = [1.0, 1.8, 2.6, 3.6, 4.4, 5.2];
-      // camera: arrive at / leave each station (Embed keeps the token until 4.98 for its flip + scatter beat)
-      var ARR = [1.02, 1.82, 2.62, 3.62, 4.42, 5.26];
-      var DEP = [0.3, 1.32, 2.12, 3.12, 3.92, 4.98];
+      var CUE = [1.0, 1.8, 2.6, 3.6, 4.4, 5.6];
+      // camera: arrive at / leave each station (Embed keeps the token until 5.3: flip + 0.8s cluster drift, settled by 5.2)
+      var ARR = [1.02, 1.82, 2.62, 3.62, 4.42, 5.6];
+      var DEP = [0.3, 1.32, 2.12, 3.12, 3.92, 5.3];
+      var START_X = -150; // token waits fully off-frame (left) before sliding into Ingest
       var CLEAN_UP = -6; // form-local lift of the cleaned lines (keeps them clear of the micro chip)
 
       // token-local geometry (form units, origin = station centre). [left, top, w, h]
@@ -152,11 +156,16 @@
       // illustrative vector values shown on the back of each chunk card (fixed, texture only)
       var VEC = [["0.1", "-0.5", "0.9"], ["-0.3", "0.1", "0.6"], ["0.8", "-0.2", "0.4"], ["-0.7", "0.6", "-0.1"]];
 
-      // Embed scatter (unscaled px, origin = card centre): faint L of axes 120x80 centred in the card,
-      // cluster A = 3 other points, cluster B = the example's 4 chunks (sorted top to bottom = index row order)
-      var AX_W = 120, AX_H = 80;
-      var PT_A = [[-38, 20], [-26, 28], [-22, 12]];
-      var PT_B = [[28, -26], [14, -18], [40, -14], [24, -8]];
+      // Embed scatter (unscaled px, origin = card centre): faint L of axes 196x140 centred in the card;
+      // three tinted clusters of 7 points (12px, centres >= 17px apart) spanning ~172x128:
+      // A = grey (lower left), B = accent-mid (top), C = cobalt (right, the example's neighbourhood).
+      // TOK = the example's 4 chunk points inside cluster C (sorted top to bottom = index row order);
+      // C_REST = the other 3 cobalt points. Top-right stays clear of the check badge.
+      var AX_W = 196, AX_H = 140, PT = 12;
+      var PT_A = [[-46, 18], [-64, 12], [-81, 21], [-55, 34], [-73, 38], [-38, 44], [-66, 54]];
+      var PT_B = [[6, -54], [12, -36], [3, -19], [-10, -45], [-14, -27], [-20, -62], [-30, -34]];
+      var C_REST = [[44, 2], [79, 5], [36, 28]];
+      var TOK = [[62, -4], [53, 18], [71, 22], [64, 38]];
 
       // index rows inside the Index card (card-relative px): 12px marker at x 24..36, bar from x 48 to END
       var ROW_CY = [54, 92, 130, 168];
@@ -165,8 +174,21 @@
 
       // fixed seeded noise (deterministic function of index)
       function rnd(i) { var s = Math.sin(i * 91.7 + 3.1) * 43758.5453; return s - Math.floor(s); }
-      var SPECK = [0, 1, 2, 3].map(function (i) {
-        return [(i % 2 === 0 ? -58 : 50) + rnd(i) * 8, -38 + i * 14 + rnd(i + 7) * 6];
+      // Parse markers: one 5-unit (9px) square per tagged line (heading + third line), its right edge
+      // 8 frame px left of that line's ragged start, vertically centred on the line. No right-side squares.
+      var MARK_SZ = 5, MARK_GAP = 8 / S;
+      var MARK = [0, 2].map(function (k) {
+        var r = PARSED[k];
+        return [r[0] + JIT[k] - MARK_GAP - MARK_SZ, r[1] + r[3] / 2 - MARK_SZ / 2];
+      });
+      // Embed drift: each non-token point starts at a seeded spot inside the axes and drifts into its cluster
+      var CLOUD = PT_A.map(function (p) { return { p: p, cls: "is-a" }; })
+        .concat(PT_B.map(function (p) { return { p: p, cls: "is-b" }; }))
+        .concat(C_REST.map(function (p) { return { p: p, cls: "" }; }));
+      CLOUD.forEach(function (c, j) {
+        c.sx = -84 + rnd(j * 3 + 11) * 168; // start (card-centre px)
+        c.sy = -58 + rnd(j * 3 + 12) * 116;
+        c.d = rnd(j * 3 + 13) * 0.08;       // start delay, so the 0.72s drifts all settle by 5.2
       });
       function chunkBar(k) { return [CHX[k] - 9, -14, 18, k === 0 ? 6 : 4]; }
       function stroke(r, dy) { return [r[0], r[1] + r[3] / 2 - 1.25 + dy, r[2], 2.5]; } // line at the bar's centre
@@ -180,7 +202,7 @@
         return d;
       }
       function box(r) { return { left: r[0] + "px", top: r[1] + "px", width: r[2] + "px", height: r[3] + "px" }; }
-      function pt(parent, p, cls) { return mk(parent, "f05-pt" + (cls ? " " + cls : ""), { left: (p[0] - 5) + "px", top: (p[1] - 5) + "px" }); }
+      function pt(parent, p, cls) { return mk(parent, "f05-pt" + (cls ? " " + cls : ""), { left: (p[0] - PT / 2) + "px", top: (p[1] - PT / 2) + "px" }); }
       var CHECK_SVG = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
       function addChunkCard(parent, k) {
@@ -190,10 +212,8 @@
         return c;
       }
 
-      // ---- connector line segments ----
+      // ---- connector line segments: card to card only (segFills[k] = gap between station k and k+1) ----
       var segFills = [];
-      var leadIn = mk(segsHost, "f05-seg", { left: "-40px", width: (CARD_L[0] + 40) + "px" });
-      segFills.push(mk(leadIn, "f05-seg-fill"));
       for (var s = 0; s < 5; s++) {
         var sg = mk(segsHost, "f05-seg", { left: (CARD_L[s] + W) + "px", width: (CARD_L[s + 1] - CARD_L[s] - W) + "px" });
         segFills.push(mk(sg, "f05-seg-fill"));
@@ -222,9 +242,9 @@
         BARS.forEach(function (b) { mk(G, "f05-bar", box(b)); });
         var f = mk(G, "f05-fname"); mk(f, "f05-fname-fill");
       })(gforms[0]);
-      (function (G) { // Parse: heading/paragraph lines, ragged, with noise (accent-mid strokes)
+      (function (G) { // Parse: heading/paragraph lines, ragged, with line markers at their starts (accent-mid strokes)
         PARSED.forEach(function (b, k) { mk(G, "f05-stroke", box(stroke([b[0] + JIT[k], b[1], b[2], b[3]], 0))); });
-        SPECK.forEach(function (p) { mk(G, "f05-speck", { left: p[0] + "px", top: p[1] + "px" }); });
+        MARK.forEach(function (p) { mk(G, "f05-mark", { left: p[0] + "px", top: p[1] + "px" }); });
       })(gforms[1]);
       (function (G) { // Clean: aligned, no noise (accent-mid strokes)
         PARSED.forEach(function (b) { mk(G, "f05-stroke", box(stroke(b, CLEAN_UP))); });
@@ -233,12 +253,13 @@
         for (var k = 0; k < 4; k++) addChunkCard(G, k);
         for (var j = 0; j < 4; j++) mk(G, "f05-bar" + (j === 0 ? " is-head" : ""), box(chunkBar(j)));
       })(gforms[3]);
-      // Embed: faint axes + 7-point scatter (unscaled, on the ghost anchor itself, not its scaled form)
+      // Embed: faint axes + three-cluster scatter (unscaled, on the ghost anchor itself, not its scaled form)
       var G4 = ghosts[4];
       var axV = mk(G4, "f05-ax", { left: (-AX_W / 2) + "px", top: (-AX_H / 2) + "px", width: "1px", height: (AX_H + 1) + "px", transformOrigin: "50% 100%" });
       var axH = mk(G4, "f05-ax", { left: (-AX_W / 2) + "px", top: (AX_H / 2) + "px", width: AX_W + "px", height: "1px", transformOrigin: "0 50%" });
-      var impA = PT_A.map(function (p) { return pt(G4, p, "is-imp"); });
-      var impB = PT_B.map(function (p) { return pt(G4, p, "is-imp"); });
+      var cloud = CLOUD.map(function (c) { return pt(G4, c.p, c.cls); });
+      // imprints of the example's 4 points: they stay in cluster C when the token carries its points on
+      var impB = TOK.map(function (p) { return pt(G4, p); });
 
       // ---- the travelling token ----
       var tf = mk(token, "f05-form");
@@ -247,12 +268,12 @@
       var chunks = []; for (var c = 0; c < 4; c++) chunks.push(addChunkCard(tf, c));
       var bars = BARS.map(function (b) { return mk(tf, "f05-bar", box(b)); });
       var headHL = mk(bars[0], "f05-bar-hl");
-      var specks = SPECK.map(function (p) { return mk(tf, "f05-speck", { left: p[0] + "px", top: p[1] + "px" }); });
+      var marks = MARK.map(function (p) { return mk(tf, "f05-mark", { left: p[0] + "px", top: p[1] + "px" }); });
       var vecs = CHX.map(function (x, k) {
         return mk(tf, "f05-vec", { left: (x - 13) + "px" }, VEC[k].map(function (v) { return "<span>" + v + "</span>"; }).join(""));
       });
-      // the example's four chunk points (cobalt, unscaled px) sit at the cluster-B positions of the scatter
-      var dots = PT_B.map(function (p) { return pt(token, p); });
+      // the example's four chunk points (cobalt, unscaled px) settle at the TOK positions inside cluster C
+      var dots = TOK.map(function (p) { return pt(token, p); });
 
       // bar transform that maps base box -> target box (transform-origin: left centre)
       function toBox(k, r) {
@@ -264,8 +285,8 @@
       var e3o = gsap.parseEase("power3.out");
       var e3io = gsap.parseEase("power3.inOut");
       function camX(t) {
-        if (t <= DEP[0]) return -60;
-        if (t < ARR[0]) return -60 + (CX[0] + 60) * e3o((t - DEP[0]) / (ARR[0] - DEP[0]));
+        if (t <= DEP[0]) return START_X;
+        if (t < ARR[0]) return START_X + (CX[0] - START_X) * e3o((t - DEP[0]) / (ARR[0] - DEP[0]));
         var x = CX[0];
         for (var k = 1; k < 6; k++) {
           var a = DEP[k], b = ARR[k];
@@ -302,8 +323,6 @@
       tl.fromTo("#f05-h2 .f05-ph", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out", stagger: 0.16 }, 0.3);
       tl.fromTo(".f05-card", { opacity: 0 }, { opacity: 0.35, duration: 0.4, ease: "power2.out", stagger: 0.05 }, 0.05);
       tl.fromTo(".f05-seg", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out", stagger: 0.04 }, 0.05);
-      // lead-in line fills as the token slides in from the left
-      tl.fromTo(segFills[0], { scaleX: 0 }, { scaleX: 1, duration: 0.2, ease: "none" }, 0.32);
       tl.fromTo(focus, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.8);
 
       // ---- Scene 2 (1.0–6.0): one station per cue; lit stations stay lit; each gets its check ----
@@ -315,7 +334,7 @@
       }
       function depart(k) { // token leaves station k toward k+1: line fills, station keeps an imprint
         var dep = DEP[k + 1];
-        tl.fromTo(segFills[k + 1], { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "none" }, dep + 0.12);
+        tl.fromTo(segFills[k], { scaleX: 0 }, { scaleX: 1, duration: 0.26, ease: "none" }, dep + 0.12);
         if (k === 4) { // Embed: the example's four points stay behind in the scatter as the token leaves
           tl.fromTo(impB, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out", stagger: 0.03 }, dep + 0.14);
           return;
@@ -328,7 +347,7 @@
       // Ingest (1.0): the filename is read
       tl.fromTo(fnameFill, { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.inOut" }, 1.02);
 
-      // Parse (1.8): the file opens into heading / paragraph bars (ragged, with noise)
+      // Parse (1.8): the file opens into heading / paragraph bars (ragged); markers tag two line starts
       tl.to(tile, { opacity: 0, scale: 1.1, duration: 0.3, ease: "power2.out" }, 1.8);
       tl.to(fname, { opacity: 0, duration: 0.2, ease: "power2.out" }, 1.8);
       bars.forEach(function (el, i) {
@@ -336,10 +355,10 @@
         tl.to(el, Object.assign(toBox(i, [r[0] + JIT[i], r[1], r[2], r[3]]), { duration: 0.42, ease: "power3.out" }), 1.82 + i * 0.035);
       });
       tl.fromTo(headHL, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 1.86);
-      tl.fromTo(specks, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.04 }, 1.98);
+      tl.fromTo(marks, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power3.out", stagger: 0.04 }, 1.98);
 
-      // Clean (2.6): noise removed, lines aligned (and lifted clear of the chip); micro readout swaps in place (2.9)
-      tl.to(specks, { opacity: 0, scale: 0, duration: 0.22, ease: "power2.in", stagger: 0.04 }, 2.62);
+      // Clean (2.6): markers removed, lines aligned (and lifted clear of the chip); micro readout swaps in place (2.9)
+      tl.to(marks, { opacity: 0, scale: 0, duration: 0.22, ease: "power2.in", stagger: 0.04 }, 2.62);
       bars.forEach(function (el, i) {
         tl.to(el, { x: PARSED[i][0] - BARS[i][0], y: toBox(i, PARSED[i]).y + CLEAN_UP, duration: 0.32, ease: "power3.inOut" }, 2.66 + i * 0.03);
       });
