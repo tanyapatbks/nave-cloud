@@ -83,7 +83,9 @@ The frame-by-frame plan with exact copy and cue times is
    rendered MP4's review pack (`harness/review-pack.sh`) against `qa/copy-deck.md`
    (generated from the storyboard by `harness/make-copy-deck.mjs`); an adversarial synthesis
    verifies each finding; per-frame fixer agents apply ≤ 3 fixes per frame; loop until no
-   P0/P1 remains and every lens scores ≥ 8 (≤ 6 rounds).
+   P0/P1 remains and every lens scores ≥ 8 (planned ≤ 6 rounds; a 7th targeted round fixed
+   round 6's two frame-06 P1s, and the requester then called the round-7 render final — see
+   `reports/rtn-rag-explainer-final-qa.md`).
 5. Render MP4 (1080p30, H.264), probe with ffprobe, extract frames from the MP4 itself for a
    final look; an optional SFX version is synthesised locally (no third-party media).
 

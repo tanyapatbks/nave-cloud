@@ -1,0 +1,168 @@
+<title>RAG ตามสิทธิ์ ทร.</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap">
+<style>
+  /* Layout: one reading column; the film on top, then its chapters as a seekable index, then the rules it teaches. */
+  :root {
+    --bg: #fdfae7;        /* the film's cream ground */
+    --surface: #f4f1dc;
+    --ink: #15161f;
+    --muted: #5d5f6b;
+    --line: rgba(30, 43, 250, 0.18);
+    --accent: #1e2bfa;    /* the film's cobalt = "the active thing" */
+    --accent-soft: rgba(30, 43, 250, 0.08);
+    --on-accent: #fdfae7;
+    --font-body: "IBM Plex Sans Thai", "Noto Sans Thai", "Leelawadee UI", Tahoma, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12131c; --surface: #1b1d2a; --ink: #eceaf6; --muted: #a3a5b8;
+      --line: rgba(150, 160, 255, 0.22); --accent: #8f98ff; --accent-soft: rgba(143, 152, 255, 0.12); --on-accent: #12131c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12131c; --surface: #1b1d2a; --ink: #eceaf6; --muted: #a3a5b8;
+    --line: rgba(150, 160, 255, 0.22); --accent: #8f98ff; --accent-soft: rgba(143, 152, 255, 0.12); --on-accent: #12131c;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--font-body); font-size: 17px; line-height: 1.65;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 40px; }
+  header { display: grid; gap: 10px; }
+  .eyebrow { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.06em; color: var(--muted); }
+  h1 { font-size: clamp(28px, 4.2vw, 44px); line-height: 1.3; margin: 0; font-weight: 700; text-wrap: balance; }
+  .lede { margin: 0; max-width: 62ch; color: var(--muted); }
+
+  .player { display: grid; gap: 12px; }
+  video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; border-radius: 6px; border: 1px solid var(--line); }
+  .note { font-size: 14px; color: var(--muted); margin: 0; }
+
+  h2 { font-size: 22px; margin: 0 0 14px; font-weight: 700; text-wrap: balance; }
+  .chapters { display: grid; gap: 22px; }
+  .chapter-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0 0 8px; }
+  .step { font-weight: 700; font-size: 15px; padding: 2px 14px; border-radius: 100px; background: var(--accent); color: var(--on-accent); }
+  .step.plain { background: var(--accent-soft); color: var(--accent); }
+  .chapter-head span.sub { color: var(--muted); font-size: 15px; }
+  ol.frames { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .frame-btn {
+    width: 100%; text-align: left; display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 4px 14px; align-items: baseline;
+    font: inherit; color: inherit; background: transparent; border: 0; border-left: 3px solid transparent;
+    padding: 10px 12px; border-radius: 4px; cursor: pointer;
+  }
+  .frame-btn:hover { background: var(--accent-soft); }
+  .frame-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .frame-btn[aria-current="true"] { background: var(--accent-soft); border-left-color: var(--accent); }
+  .t { font-family: var(--font-mono); font-size: 14px; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .frame-title { font-weight: 500; min-width: 0; }
+  .frame-title .term { font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin-left: 8px; white-space: nowrap; }
+  .frame-btn .what { grid-column: 2; color: var(--muted); font-size: 15px; min-width: 0; }
+
+  .rules { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .rule { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+  .rule h3 { margin: 0; font-size: 17px; }
+  .rule p { margin: 0; color: var(--muted); font-size: 15px; }
+  code { font-family: var(--font-mono); font-size: 0.86em; color: var(--accent); overflow-wrap: anywhere; }
+  .rule.key { border-color: var(--accent); }
+  footer { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">MOTION EXPLAINER · 2:04 · 1920×1080 · ไม่มีเสียงบรรยาย</div>
+    <h1>จากปี 2449 จนวันนี้ จะเริ่มจัดทำ RAG ให้กับ ทร. ได้อย่างไร</h1>
+    <p class="lede">วิดีโออธิบาย 11 ฉาก ตามเอกสารหนึ่งฉบับและคำถามหนึ่งข้อผ่านทั้งระบบ ตั้งแต่จัดการเอกสารให้ AI อ่านได้ ค้นหาให้ตรง จนถึงคืนคำตอบตามสิทธิการเข้าถึงของผู้ถาม</p>
+  </header>
+
+  <section class="player" aria-label="วิดีโอ">
+    <video id="film" src="rtn-rag-explainer.mp4" controls playsinline preload="metadata"></video>
+    <p class="note">กดชื่อฉากด้านล่างเพื่อข้ามไปยังฉากนั้น ชื่อไฟล์ เลขประจำตัว และหน่วยในวิดีโอเป็นตัวอย่างจากโจทย์ ไม่ใช่ข้อมูลจริง</p>
+  </section>
+
+  <section aria-labelledby="ch-h">
+    <h2 id="ch-h">ฉากในวิดีโอ</h2>
+    <div class="chapters" id="chapters">
+      <div>
+        <div class="chapter-head"><span class="step plain">เปิดเรื่อง</span></div>
+        <ol class="frames">
+          <li><button class="frame-btn" data-t="0"><span class="t">0:00</span><span class="frame-title">จากวันนั้น จนวันนี้</span><span class="what">ปี 2449 ถึง 2569 ข้อมูลถูกจัดเก็บหลากหลายรูปแบบ: PDF ภาพสแกน รูปภาพ แผนภูมิ ตาราง แล้ววันนี้จะเริ่มจัดทำ RAG ให้กับ ทร. อย่างไร</span></button></li>
+        </ol>
+      </div>
+      <div>
+        <div class="chapter-head"><span class="step">1 จัดการ</span><span class="sub">ทำให้คลังพร้อมให้ค้น</span></div>
+        <ol class="frames">
+          <li><button class="frame-btn" data-t="14"><span class="t">0:14</span><span class="frame-title">ทำให้ AI อ่านเอกสารได้<span class="term">Ingestion</span></span><span class="what">PDF ดึงข้อความและโครงสร้าง · ภาพสแกนใช้ OCR + Vision Models · แผนภูมิและตารางดึงตัวเลขจริงกับความสัมพันธ์</span></button></li>
+          <li><button class="frame-btn" data-t="25"><span class="t">0:25</span><span class="frame-title">ทุกหน่วยตั้งชื่อไฟล์ด้วย Pattern เดียวกัน<span class="term">Metadata</span></span><span class="what">ชื่อไฟล์บอกหน่วย เจ้าของ ผู้นำเข้า เวอร์ชัน ปี และชื่อเอกสาร ส่วนสิทธิการเข้าถึงขึ้นอยู่กับเจ้าของเอกสาร</span></button></li>
+          <li><button class="frame-btn" data-t="37"><span class="t">0:37</span><span class="frame-title">แบ่งเอกสารออกเป็นชิ้น<span class="term">Data Governance</span></span><span class="what">ทุกชิ้นพกป้ายเดิม: หน่วยเจ้าของเอกสาร (SourceID), เอกสารฉบับไหน (Version), ชั้นความลับ (Classification), ใครสามารถเข้าถึงได้ (Access)</span></button></li>
+          <li><button class="frame-btn" data-t="47"><span class="t">0:47</span><span class="frame-title">จากไฟล์ สู่ดัชนีที่ค้นได้<span class="term">Ingest → Index</span></span><span class="what">Ingest → Parse → Clean → Chunk → Embed → Index</span></button></li>
+        </ol>
+      </div>
+      <div>
+        <div class="chapter-head"><span class="step">2 ค้นหา</span><span class="sub">หาให้ตรง แล้วคัดให้แคบ</span></div>
+        <ol class="frames">
+          <li><button class="frame-btn" data-t="56"><span class="t">0:56</span><span class="frame-title">ค้นหาแบบ Hybrid 3 รูปแบบพร้อมกัน<span class="term">Hybrid Search</span></span><span class="what">คำตรงตัว (ชื่อ รหัส คำเฉพาะ) + ความหมาย + ป้ายกำกับ ภายในขอบเขตสิทธิ์ แต่ละวิธีเจอสิ่งที่อีกวิธีพลาด</span></button></li>
+          <li><button class="frame-btn" data-t="72"><span class="t">1:12</span><span class="frame-title">คัดตัวจริง ก่อนส่งให้ AI ตอบ<span class="term">Reranker</span></span><span class="what">จัดลำดับใหม่ ส่งเฉพาะ Top 3 ให้ LLM หรือระบบอื่น คำตอบมีแหล่งอ้างอิง</span></button></li>
+        </ol>
+      </div>
+      <div>
+        <div class="chapter-head"><span class="step">3 สิทธิการเข้าถึง</span><span class="sub">ไม่มีสิทธิ์ ก็ไม่เจอ</span></div>
+        <ol class="frames">
+          <li><button class="frame-btn" data-t="79"><span class="t">1:19</span><span class="frame-title">คำถามเดียวกัน สิทธิการเข้าถึงไม่เท่ากัน<span class="term">Access Control</span></span><span class="what">คนที่มีสิทธิ์เจอเอกสาร คนที่ไม่มีสิทธิ์ไม่เจอแม้แต่ร่องรอย</span></button></li>
+          <li><button class="frame-btn" data-t="88"><span class="t">1:28</span><span class="frame-title">สิทธิ์จริงมาจากตัวตนผู้ใช้ + สิทธิการเข้าถึงเอกสาร<span class="term">Identity + ACL</span></span><span class="what">Access Control List (ACL) กำหนดขอบเขตสิทธิ์เดียวกันครอบเอกสาร ชิ้นข้อมูล สารบัญ และเครื่องมือของ AI</span></button></li>
+          <li><button class="frame-btn" data-t="98"><span class="t">1:38</span><span class="frame-title">กำหนดขอบเขตก่อน แล้วค่อยค้น<span class="term">Pre-filter</span></span><span class="what">ค้นทั้งคลังแล้วค่อยกรองทิ้งร่องรอยไว้ใน log จำนวนผล และสรุป จึงต้องกำหนดขอบเขตก่อนค้น</span></button></li>
+        </ol>
+      </div>
+      <div>
+        <div class="chapter-head"><span class="step plain">ปิดเรื่อง</span></div>
+        <ol class="frames">
+          <li><button class="frame-btn" data-t="109"><span class="t">1:49</span><span class="frame-title">การจะเปลี่ยนผ่านไปสู่ Digital Navy</span><span class="what">ส่วนที่ยากที่สุดไม่ใช่ AI RAG EMBEDDING แต่คือการเชื่อมโยงและจัดการข้อมูลของ ทร. ทั้งหมดอย่างเป็นระบบ ให้เป็นชุดข้อมูลที่ Reliable · Searchable · Permission-aware</span></button></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="rules-h">
+    <h2 id="rules-h">หลักที่วิดีโอสอน</h2>
+    <div class="rules">
+      <div class="rule"><h3>ตั้งชื่อไฟล์แบบเดียวกัน</h3><p><code>&lt;sub-unit&gt;_&lt;unit&gt;_&lt;owner-id&gt;_&lt;version-no&gt;_&lt;year&gt;_&lt;name&gt;.pdf</code><br>เช่น <code>ศซบ_สสท_2600000001_v02_2569_นโยบาย69.pdf</code></p></div>
+      <div class="rule"><h3>ทุกชิ้นพกป้ายกำกับ</h3><p>SourceID · Version · Classification · Access ติดไปกับทั้งเอกสารและทุกชิ้นข้อมูล</p></div>
+      <div class="rule"><h3>ไม่พึ่ง Vector อย่างเดียว</h3><p>Keyword สำหรับชื่อ รหัส คำเฉพาะ · Vector สำหรับความหมาย · Metadata filter สำหรับวันที่ หน่วย และสิทธิ์ แล้วใช้ Reranker คัดก่อนส่งให้ LLM</p></div>
+      <div class="rule key"><h3>สิทธิ์มาก่อนการค้น</h3><p>สิทธิ์จริงมาจาก Identity และ ACL ในทะเบียนเอกสาร ใช้ขอบเขตเดียวกันกับ Docs, Chunks, Tree Nodes และ Agent Tools ก่อนค้นเสมอ ห้ามค้นทั้งคลังแล้วค่อยกรองทีหลัง</p></div>
+    </div>
+  </section>
+
+  <footer>สร้างด้วย HyperFrames (HTML + GSAP) · ฟอนต์ในวิดีโอ: จุฬาภรณ์ลิขิต, IBM Plex Sans Thai / Mono</footer>
+</div>
+
+<script>
+  (function () {
+    var video = document.getElementById("film");
+    var buttons = Array.prototype.slice.call(document.querySelectorAll(".frame-btn"));
+    var starts = buttons.map(function (b) { return parseFloat(b.getAttribute("data-t")); });
+    buttons.forEach(function (b, i) {
+      b.addEventListener("click", function () {
+        video.currentTime = starts[i] + 0.05;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      });
+    });
+    function mark() {
+      var t = video.currentTime, cur = 0;
+      for (var i = 0; i < starts.length; i++) if (t >= starts[i]) cur = i;
+      buttons.forEach(function (b, i) { b.setAttribute("aria-current", i === cur ? "true" : "false"); });
+    }
+    video.addEventListener("timeupdate", mark);
+    video.addEventListener("seeked", mark);
+    mark();
+  })();
+</script>
